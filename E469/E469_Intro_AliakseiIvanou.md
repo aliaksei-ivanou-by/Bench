@@ -28,7 +28,7 @@ Hello, my name is Alex. I am a software engineer with more than fourteen years o
 
 My background is especially relevant to broadband triage because I am comfortable taking an unclear customer-reported symptom and driving it through the complete investigation process. I normally start by establishing the exact observed and expected behavior, collecting logs and configuration, and creating a reproducible scenario. I then reduce the problem to the responsible layer, such as application logic, a third-party SDK, SIP signaling, network reachability, an embedded Linux service, provisioning data, or device-specific behavior. Once the cause is understood, I either implement the correction myself or provide the evidence required by the owning engineer, and then validate the original scenario and related recovery cases.
 
-My most recent assignment was an embedded Linux-based SIP and VoIP communications platform for broadband-connected desk phones. The product included camera-enabled and audio-only devices and supported voice and video communication over IP networks. It handled device-to-device calls as well as calls to regular landline and mobile numbers through SIP and telephony infrastructure.
+My most recent project is an embedded Linux-based SIP and VoIP communications platform for broadband-connected desk phones. The product included camera-enabled and audio-only devices and supported voice and video communication over IP networks. It handled device-to-device calls as well as calls to regular landline and mobile numbers through SIP and telephony infrastructure.
 
 The main technical stack included C++17, Qt, Embedded Linux, Yocto, systemd, Linphone SDK, liblinphone, SIP, SDP, RTP, WebRTC, Qt Multimedia, mediasoup, libmediasoupclient, SNMP, DHCP, TFTP, and NXP i.MX hardware.
 
@@ -64,7 +64,7 @@ During my transition into commercial C++, I independently built a C++20 personal
 
 I also worked on industrial 3D reconstruction software. I developed a C++17 and Qt prototype that combined data from multiple 2D laser scanners into a common three-dimensional coordinate system. I used PCL for point-cloud processing and evaluated Open3D on recorded datasets. The application exposed intermediate stages so that an incorrect model could be traced to a specific sensor, transformation, or processing step.
 
-The first major stage of my career was more than seven years in satellite and UAV optical-imaging research and development. I primarily used MATLAB to develop satellite-frame stitching, radiometric correction, automatic resolution assessment, image sharpness analysis, adaptive quantization, and an onboard ADPCM-family compression algorithm. The compression solution reduced image volume by approximately three to four times while fitting a constrained onboard computation budget.
+The first major stage of my career was more than six years in satellite and UAV optical-imaging research and development. I primarily used MATLAB to develop satellite-frame stitching, radiometric correction, automatic resolution assessment, image sharpness analysis, adaptive quantization, and an onboard ADPCM-family compression algorithm. The compression solution reduced image volume by approximately three to four times while fitting a constrained onboard computation budget.
 
 For a UAV optical system, I developed debayering, image-format conversion, stabilization, and image-fusion modules. I also worked on IMU-to-camera calibration and frame-centre coordinate computation and operated the optical payload during more than thirty UAV test flights. This experience gave me a strong understanding of problems where software, sensor behavior, calibration, and physical operating conditions interact.
 
@@ -73,6 +73,7 @@ Across all these projects, the common theme is diagnosis across boundaries. I ha
 INTERVIEW BOUNDARIES
 
 • Broadband Triage Engineer is the target role; the formal employment title is C++ Software Engineer.
+• The submitted CV presents the latest project as April 2025 – present. The opening script deliberately avoids giving a conflicting end date.
 • Technical investigation ownership does not mean ownership of the support organization, customer WAN, or external PBX infrastructure.
 • Scala work was targeted API integration, and AWS work used existing infrastructure rather than administering or automating it.
 • Do not claim hands-on GStreamer, direct V4L2 API work, or full WebRTC server ownership.

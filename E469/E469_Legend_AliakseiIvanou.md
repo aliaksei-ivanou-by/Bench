@@ -27,18 +27,22 @@ PRIVATE CONSISTENCY NOTES
 • The library assignment ended in April 2024, not April 2025.
 • Home accounting was an independent project, not employment.
 • Fourteen-plus years refers to overall software-engineering and R&D experience.
+• The E469 skills matrix states seven years of C++. Do not replace it in this package with the six-year figure from E468 or the four-year figure from E474.
+• The submitted CV uses Software Engineer for every project. Keep that CV-facing label separate from the verified grade progression and explain responsibility through concrete scope.
+• When the submitted CV period and the verified project period differ, the two fields below must remain separate. Do not derive technology years from the altered CV periods.
+• The submitted CV mentions network traces, GStreamer, and V4L2. The Intro may discuss source-level diagnosis and higher-level media integration, but it must not expand those entries into packet-capture, GStreamer-pipeline, or direct V4L2 expertise.
 
 PROJECT 1. EMBEDDED BROADBAND-CONNECTED SIP/VOIP COMMUNICATIONS PLATFORM
 
 CV period: April 2025 – present
 Verified period: May 2025 – August 2026
 CV role: Software Engineer
-Verified role: C++ Software Engineer with third-level investigation responsibility and a separate internal technical-lead component
+Verified role: C++ Software Engineer, formal middle grade, with third-level investigation responsibility and a separate internal technical-lead component
 Project status: FACTUAL CORRECTION
 
 Short project summary
 
-My most recent assignment was an embedded Linux communications platform for broadband-connected SIP desk phones. The product family included both audio-only and camera-enabled devices. It supported voice and video calls between devices and calls to regular telephone numbers through SIP and telephony infrastructure. My main responsibilities were embedded C++ and Qt development and third-level investigation of escalated faults across the application, customized liblinphone, networking, provisioning, Linux services, and target hardware.
+My most recent project is an embedded Linux communications platform for broadband-connected SIP desk phones. The product family included both audio-only and camera-enabled devices. It supported voice and video calls between devices and calls to regular telephone numbers through SIP and telephony infrastructure. My main responsibilities were embedded C++ and Qt development and third-level investigation of escalated faults across the application, customized liblinphone, networking, provisioning, Linux services, and target hardware.
 
 Product context
 
@@ -198,11 +202,11 @@ The main constraint was compatibility. A locally clean redesign was not useful i
 
 My role
 
-I joined the project as a Junior C++ Software Engineer and was promoted to middle grade while remaining on the same assignment. I was one of three C developers with shared responsibility for the C89 backend.
+I worked as one of three C developers with shared responsibility for the C89 backend. My responsibilities grew over the assignment, but the spoken project answer should use the submitted Software Engineer label and explain scope through concrete work.
 
 My main tasks were implementing features, resolving defects, refactoring focused areas, tracing behavior across components, estimating work, participating in code review, working with QA and the Business Analyst, supporting onboarding, and presenting sprint demonstrations.
 
-I was not the formal senior lead or sole C owner. Java and Scala were secondary technologies that I used for specific cross-boundary tasks. Database migration, Java-platform migration, AWS administration, Jenkins administration, and product-roadmap ownership were outside my role.
+I was not the sole C owner. Java and Scala were secondary technologies that I used for specific cross-boundary tasks. Database migration, Java-platform migration, AWS administration, Jenkins administration, and product-roadmap ownership were outside my role.
 
 Cross-component investigation approach
 
@@ -291,7 +295,7 @@ Project status: FACTUAL CORRECTION
 
 Short project summary
 
-This was my first enterprise assignment after joining EPAM. I worked for three months on an established C++17 industrial data-processing application with JavaScript-facing workflows and MySQL-backed data. I implemented requested functionality, fixed defects, simplified legacy paths, and supported external QA validation.
+This was an earlier enterprise assignment on an established C++17 industrial data-processing application with JavaScript-facing workflows and MySQL-backed data. I implemented requested functionality, fixed defects, simplified legacy paths, and supported external QA validation.
 
 Product and team context
 
@@ -307,7 +311,7 @@ Over the assignment I delivered more than four user-requested features and fixed
 
 Legacy simplification
 
-I simplified complicated C++ implementation paths and removed obsolete components where they no longer contributed to supported behavior. The cleanup was deliberately limited to areas touched by the feature or defect so it could be reviewed and regression-tested within the short assignment.
+I simplified complicated C++ implementation paths and removed obsolete components where they no longer contributed to supported behavior. The cleanup was deliberately limited to areas touched by the feature or defect so it could be reviewed and regression-tested safely.
 
 Cross-layer correctness
 
@@ -315,7 +319,7 @@ Some tasks required changes on both the C++ and JavaScript sides. I treated them
 
 Role boundary
 
-I was a Junior C++ Software Engineer and one of five developers, not the core technical lead. I did not own cloud administration, database administration, industrial sensors, or QA management. Nginx, Microsoft SQL Server, and jQuery were technologies I encountered around the product rather than primary ownership areas.
+I was one of five developers and did not own cloud administration, database administration, industrial sensors, or QA management. Nginx, Microsoft SQL Server, and jQuery were technologies I encountered around the product rather than primary ownership areas.
 
 Project result and main lesson
 
@@ -550,7 +554,7 @@ Project status: FACTUAL CORRECTION
 
 Short project summary
 
-I spent more than seven years in the research department of an optoelectronic instrument organization, designing and verifying image-processing algorithms for Earth-observation payloads. My main environment was MATLAB. The work included frame stitching, radiometric correction, automated resolution assessment, adaptive quantization, ADPCM-family compression, calibration support, documentation, and participation in flight and in-orbit testing.
+I spent more than six years in the research department of an optoelectronic instrument organization, designing and verifying image-processing algorithms for Earth-observation payloads. My main environment was MATLAB. The work included frame stitching, radiometric correction, automated resolution assessment, adaptive quantization, ADPCM-family compression, calibration support, documentation, and participation in flight and in-orbit testing.
 
 Role and ownership
 
