@@ -6,7 +6,9 @@ Request ID: E469
 Candidate: Aliaksei Ivanou
 Target role: Broadband Triage Engineer
 CV source: E469 Aliaksei Ivanou (14+, C++).pdf
+Source request: E469_Request_AliakseiIvanou.md
 Source profile: E469_Profile_AliakseiIvanou.md
+Source analysis: E469_Request_Analysis_AliakseiIvanou.md
 Preparation language: English
 Document status: Interview-ready
 
@@ -83,7 +85,7 @@ This approach was important because the visible symptom often did not identify t
 
 Source-level SIP and liblinphone debugging
 
-I debugged SIP registration, connection, and recovery behavior through the Qt application and the customized Linphone SDK. I examined account and proxy configuration, registration-state transitions, authentication information, active-server state, application and SDK logs, and network traces.
+I debugged SIP registration, connection, and recovery behavior through the Qt application and the customized Linphone SDK. I examined account and proxy configuration, registration-state transitions, authentication information, active-server state, application and SDK logs, and observed network-reachability behavior.
 
 When logs were insufficient, I followed the relevant C and C++ execution path using gdb or gdbserver on the target device. The aim was not simply to find the line where the symptom appeared, but to reconstruct why the state machine reached that condition and which layer should own the correction.
 
@@ -167,7 +169,7 @@ Testing and diagnostic tools
 
 I used focused QtTest coverage for logic that could be isolated, including models, validation, configuration conversion, contact import and export, and controller behavior. Hardware-dependent behavior required deployment to the target phone and repetition of the complete scenario.
 
-My diagnostic workflow included Qt Creator remote kits, SSH deployment, gdb and gdbserver, application logs, SIP logs, system and kernel logs, persistent configuration, structured diagnostics, and media statistics. I used network traces where the question involved signaling or connectivity.
+My diagnostic workflow included Qt Creator remote kits, SSH deployment, gdb and gdbserver, application logs, SIP logs, system and kernel logs, persistent configuration, structured diagnostics, and media statistics. Verified evidence does not establish packet-capture analysis, so I should not add Wireshark or tcpdump to this workflow.
 
 Project result and main lesson
 

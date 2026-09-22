@@ -6,7 +6,9 @@ Request ID: E469
 Candidate: Aliaksei Ivanou
 Target role: Broadband Triage Engineer
 CV source: E469 Aliaksei Ivanou (14+, C++).pdf
+Source request: E469_Request_AliakseiIvanou.md
 Source profile: E469_Profile_AliakseiIvanou.md
+Source analysis: E469_Request_Analysis_AliakseiIvanou.md
 Preparation language: English
 Delivery format: Full spoken version
 Estimated duration: 9–10 minutes
@@ -32,7 +34,7 @@ The main technical stack included C++17, Qt, Embedded Linux, Yocto, systemd, Lin
 
 One of my key responsibilities was third-level investigation of escalated telecom issues. These cases could start with a device failing to register, a call not recovering after a network interruption, incorrect switching to a backup server, or a video session being established without usable media. The visible symptom was often far from the actual defect, so I traced behavior through the Qt application, customized liblinphone code, SIP state transitions, embedded services, provisioning data, and the network path.
 
-For SIP-related issues, I examined application and SDK logs, account configuration, registration transitions, authentication context, active-server state, and network traces. I debugged the C and C++ implementation at source level using tools such as gdb and gdbserver. Depending on the case, the cause could be incorrect application state, an SDK transition, a provisioning value, an authentication realm, a network-recovery condition, or inconsistent state between the primary and backup servers.
+For SIP-related issues, I examined application and SDK logs, account configuration, registration transitions, authentication context, active-server state, and observed network-reachability behavior. I debugged the C and C++ implementation at source level using tools such as gdb and gdbserver. Depending on the case, the cause could be incorrect application state, an SDK transition, a provisioning value, an authentication realm, a network-recovery condition, or inconsistent state between the primary and backup servers.
 
 An important part of my work was primary and backup SIP server support. I implemented a registration watchdog and failover and failback state machine in customized liblinphone. The solution covered automatic switching when the primary server was unavailable, controlled return to the primary server, cooldown behavior, persistence of the active server, and diagnostics showing which server was currently in use.
 
@@ -74,6 +76,9 @@ INTERVIEW BOUNDARIES
 • Technical investigation ownership does not mean ownership of the support organization, customer WAN, or external PBX infrastructure.
 • Scala work was targeted API integration, and AWS work used existing infrastructure rather than administering or automating it.
 • Do not claim hands-on GStreamer, direct V4L2 API work, or full WebRTC server ownership.
+• The recent endpoint was a SIP desk phone, not a broadband gateway, and the verified role was engineering with escalation responsibility rather than an operator L3 support position.
+• Do not claim TR-069, TR-181, DSL, GPON, FTTH, RDK-B, OpenWrt, prplOS, EasyMesh, Wi-Fi roaming, tier-one operator work, or packet-capture expertise.
+• The documented English level is B2, not C1.
 
 EXPECTED FOLLOW-UP TOPICS
 

@@ -7,6 +7,8 @@ Candidate: Aliaksei Ivanou
 Spoken name: Alex
 Target role: Broadband Triage Engineer
 CV source: E469 Aliaksei Ivanou (14+, C++).pdf
+Request document: E469_Request_AliakseiIvanou.md
+Request analysis: E469_Request_Analysis_AliakseiIvanou.md
 Preparation language: English
 Output format: Plain text for Google Docs
 Profile status: Interview-ready
@@ -146,6 +148,14 @@ UNSUPPORTED OR UNVERIFIED CLAIMS
 • GStreamer: UNSUPPORTED as hands-on project implementation.
 • V4L2: UNSUPPORTED as direct API experience.
 • ReSharper C++: VERIFY before use.
+• Direct broadband gateway or access-network project experience: UNSUPPORTED.
+• TR-069 and TR-181: UNSUPPORTED as hands-on project experience.
+• DSL, GPON, and FTTH troubleshooting: UNSUPPORTED.
+• RDK-B, OpenWrt, and prplOS: UNSUPPORTED.
+• Wi-Fi mesh, EasyMesh, and roaming: UNSUPPORTED.
+• Packet-capture analysis with Wireshark or tcpdump: UNSUPPORTED unless separately confirmed.
+• Prior work for a tier-one operator: UNSUPPORTED.
+• English C1: UNVERIFIED. The request-specific CV states English B2.
 
 PRIVATE CONSISTENCY NOTES
 
@@ -184,5 +194,4 @@ FINAL APPROVAL
 
 Profile reviewed against CV: Yes
 Profile reviewed against career source: Yes
-Open questions: Confirm ReSharper C++ before use.
-
+Open questions: Confirm ReSharper C++ before use. Confirm whether direct TR-069/TR-181 and access-network experience is a strict screening gate. Confirm the actual CPE platform, access technology, escalation workflow, packet-capture tooling, and expected on-call coverage. The request asks for English C1 while the CV states B2.

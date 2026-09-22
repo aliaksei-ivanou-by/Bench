@@ -6,7 +6,9 @@ Request ID: E469
 Candidate: Aliaksei Ivanou
 Target role: Broadband Triage Engineer
 CV source: E469 Aliaksei Ivanou (14+, C++).pdf
+Source request: E469_Request_AliakseiIvanou.md
 Source profile: E469_Profile_AliakseiIvanou.md
+Source analysis: E469_Request_Analysis_AliakseiIvanou.md
 Preparation language: English
 Document status: Interview-ready
 
@@ -72,7 +74,7 @@ The system combined a C++17 and Qt Widgets phone application, customized Linphon
 
 Responsibility 1 — Third-Level Investigation of Escalated Telecom Faults
 
-Status: CONFIRMED
+Status: CONFIRMED — NARROWER SCOPE
 
 Original CV wording
 
@@ -86,7 +88,7 @@ Detailed explanation
 
 The initial report often described only a user-visible symptom: a phone failed to register, did not recover after a network interruption, remained on a backup server, could call one type of destination but not another, or established a session without usable video.
 
-I began by confirming the affected device model, firmware build, configuration, event sequence, and expected behavior. I reproduced the scenario and collected application logs, SIP and SDK logs, system logs, persistent configuration, network evidence, and provisioning output. I then reduced the problem to an owning layer: application logic, SDK state, signaling, media, network reachability, a Linux service, configuration, firmware packaging, or hardware integration.
+I began by confirming the affected device model, firmware build, configuration, event sequence, and expected behavior. I reproduced the scenario and collected application logs, SIP and SDK logs, system logs, persistent configuration, observed network-reachability behavior, and provisioning output. I then reduced the problem to an owning layer: application logic, SDK state, signaling, media, network reachability, a Linux service, configuration, firmware packaging, or hardware integration.
 
 Where the evidence was incomplete, I added focused diagnostics or used source-level debugging. I implemented the correction when it belonged to my area or produced a technical handoff identifying the owning component. Final validation covered the original failure and related restart, failover, and recovery scenarios on the actual target device.
 
@@ -120,7 +122,7 @@ The important result was one authoritative registration state machine close to t
 
 Responsibility 3 — Source-Level C and C++ SIP Stack Debugging
 
-Status: CONFIRMED
+Status: CONFIRMED — NARROWER SCOPE
 
 Original CV wording
 
@@ -128,7 +130,7 @@ Debugged C/C++ SIP stack behavior at source level, tracing registration, connect
 
 Corrected responsibility
 
-Debugged SIP registration, connection, authentication, failover, and recovery behavior through the C++ and Qt application and customized liblinphone, using source inspection, application and SDK logs, SIP and network evidence, gdb or gdbserver, and repeatable on-device scenarios.
+Debugged SIP registration, connection, authentication, failover, and recovery behavior through the C++ and Qt application and customized liblinphone, using source inspection, application and SDK logs, observed network-reachability behavior, gdb or gdbserver, and repeatable on-device scenarios.
 
 Detailed explanation
 
@@ -138,7 +140,7 @@ The product supported SIP URIs, internal extensions, direct IP destinations, and
 
 Scope boundary
 
-The project used a customized Linphone SDK. My principal SDK ownership was the registration watchdog and failover/failback work, the authentication backup-domain change, and a small H.26x NAL-packer update. Other conference, timing, and media changes in the SDK fork belonged to the wider project team.
+The project used a customized Linphone SDK. My principal SDK ownership was the registration watchdog and failover/failback work, the authentication backup-domain change, and a small H.26x NAL-packer update. Other conference, timing, and media changes in the SDK fork belonged to the wider project team. The CV phrase network traces must not be expanded into a claim of packet-capture analysis; Wireshark and tcpdump use are not verified by the career repository.
 
 
 Responsibility 4 — WAN Connectivity and Recovery Scenarios
