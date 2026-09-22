@@ -1,12 +1,27 @@
-Responsibilities
+RESPONSIBILITIES
 
-Status Labels
+DOCUMENT INFORMATION
+
+Request ID: E468
+Candidate: Aliaksei Ivanou
+Target role: Software Engineer, C++
+CV source: E468 Aliaksei Ivanou (13, C++).pdf
+Source profile: E468_Profile_AliakseiIvanou.md
+Preparation language: English
+Document status: Interview-ready
+
+PURPOSE
+
+This document reconciles every responsibility in the E468 CV with verified experience. Each responsibility receives a status, accurate interview wording, a detailed explanation, and an ownership boundary where required.
+
+STATUS LABELS
 • CONFIRMED — the responsibility is supported by the detailed project record.
 • CONFIRMED — NARROWER SCOPE — the underlying work is real, but the E468 wording overstates the scope or ownership.
 • UNSUPPORTED — the repository does not support the claim. Do not present it as hands-on experience.
 • FACTUAL CORRECTION — the project existed, but the dates, role, or employment context in E468 need correction.
+• VERIFY — the available sources do not establish the claim and Aliaksei must confirm it before use.
 
-01 Positioning and Timeline Corrections
+01. POSITIONING AND TIMELINE CORRECTIONS
 
 The eight projects in E468 all have a real basis. None of the project titles is wholly invented. The main issues are positioning, dates, ownership boundaries, and several technologies listed in the environment.
 
@@ -21,13 +36,13 @@ The eight projects in E468 all have a real basis. None of the project titles is 
 
 
 
-02 Embedded SIP Desk Phone Platform
+02. EMBEDDED SIP DESK PHONE PLATFORM
 
 Correct period: May 2025 – August 2026
 Accurate role: C++ Software Engineer; hands-on senior individual contributor with technical-lead responsibilities for a separate internal engineering sub-group
 Project status: Real and well documented
 
-Project Context
+Project context
 
 I worked on an embedded SIP desk-phone platform for audio and video communication. The product ran on ARM64 devices based on NXP i.MX hardware and combined a C++17/Qt Widgets phone application, a customized Linphone SDK, a Yocto-based Linux image, a WebRTC/mediasoup conference path, local device services, and a Windows provisioning utility.
 
@@ -36,6 +51,10 @@ My primary responsibility was the embedded Qt application, but my work regularly
 Responsibility 1 — Call-Flow Architecture Refactoring
 
 Status: CONFIRMED
+
+Original CV wording
+
+Refactored SIP call handling toward a cleaner MVC/MVVM-style architecture by separating UI rendering from call state, user actions, media negotiation, and Linphone SDK integration logic.
 
 Corrected responsibility
 
@@ -51,6 +70,10 @@ Responsibility 2 — Incremental Legacy Decomposition
 
 Status: CONFIRMED
 
+Original CV wording
+
+Incrementally decomposed legacy Qt Widgets call-flow code into clearer domain, presentation, and SDK-integration boundaries while preserving existing UI behavior and QObject signal compatibility.
+
 Corrected responsibility
 
 Migrated the legacy Qt Widgets call flow incrementally, preserving existing UI behavior, QObject signal compatibility, and a reviewable path from legacy CallModel code to the new session/service structure.
@@ -65,6 +88,10 @@ Responsibility 3 — Video-Call and Conference Edge Cases
 
 Status: CONFIRMED
 
+Original CV wording
+
+Hardened video-call and conference UI behavior for edge cases such as held calls, second-line calls, remote hangups, stale overlays, and active video-stream switching.
+
 Corrected responsibility
 
 Developed and debugged call-state synchronization for active, held, transferred, second-line, remote-hangup, video-upgrade, and conference scenarios, preventing stale media or UI state during asynchronous transitions.
@@ -78,6 +105,10 @@ The phone supported multiple simultaneous lines, hold-and-answer and drop-and-an
 Responsibility 4 — Primary/Backup SIP Failover and Failback
 
 Status: CONFIRMED; the real contribution is stronger than the E468 wording
+
+Original CV wording
+
+Extended and customized Linphone SDK backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
 
 Corrected responsibility
 
@@ -95,6 +126,10 @@ Responsibility 5 — WebRTC Video Conferencing
 
 Status: CONFIRMED — NARROWER SERVER-SIDE SCOPE
 
+Original CV wording
+
+Developed WebRTC video-conferencing UI and signaling flows, including conference creation and joining, incoming invite screens, participant roster, SIP, IP, and phonebook add dialogs, status strip, control panel, video-tile layout, and audio and video device controls.
+
 Corrected responsibility
 
 Implemented and debugged the phone-side WebRTC/mediasoup conference integration, including conference lifecycle, participant state, video rendering, camera selection, media-device controls, and the supporting Qt user interface.
@@ -108,6 +143,10 @@ I made a limited contribution to the initial JavaScript/Node.js server implement
 Responsibility 6 — Windows Autoprovisioning Manager
 
 Status: CONFIRMED; the real contribution is substantially more detailed than E468
+
+Original CV wording
+
+Migrated a WinForms configuration utility from .NET Framework 4.8 to .NET 8, unified project-file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
 
 Corrected responsibility
 
@@ -124,6 +163,10 @@ I also improved SIP realm probing for real 401 and 407 challenges, including WWW
 Responsibility 7 — Yocto and Embedded Linux Integration
 
 Status: CONFIRMED
+
+Original CV wording
+
+Collaborated on Yocto and BitBake customization, NXP i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
 
 Corrected responsibility
 
@@ -164,19 +207,23 @@ Strong Real Responsibilities Missing from E468
 • Worked with static IP, DHCP, DNS, VLAN, MTU/PMTU, certificate handling, GPIO, USB devices, and hardware-specific behavior.
 • Used QtTest, SSH, Qt Creator remote kits, gdb/gdbserver, system logs, SIP logs, kernel logs, and on-device reproduction.
 
-03 Integrated Library System
+03. INTEGRATED LIBRARY SYSTEM
 
 Correct period: March 2022 – April 2024
 Accurate role: Junior C++ Software Engineer at project entry; promoted to middle grade in May 2022
 Project status: Real, but several E468 responsibilities overstate ownership
 
-Project Context
+Project context
 
 I worked on a mature integrated library platform with a C89 backend and supporting Java and Scala components. The delivery team included three C developers, three Java developers, QA, a Business Analyst, and project management. My primary area was the shared C backend. Java and Scala were secondary technologies used when an end-to-end task crossed the C boundary.
 
 Responsibility 1 — Maintenance, Defect Resolution, and Performance
 
 Status: CONFIRMED
+
+Original CV wording
+
+Optimized and maintained the existing codebase by resolving complex bugs and implementing performance enhancements.
 
 Corrected responsibility
 
@@ -189,6 +236,10 @@ The codebase contained decades of compatibility requirements, fixed-size charact
 Responsibility 2 — Cross-Service Communication
 
 Status: CONFIRMED — NARROWER SCOPE
+
+Original CV wording
+
+Developed new backend and frontend features for socket-based communication.
 
 Corrected responsibility
 
@@ -204,6 +255,10 @@ Responsibility 3 — C Development Ownership
 
 Status: CONFIRMED — NARROWER LEADERSHIP CLAIM
 
+Original CV wording
+
+Led development efforts as a key contributor in C, driving the successful implementation of critical features and solutions.
+
 Corrected responsibility
 
 Shared responsibility for the C89 backend as one of three C developers, taking assigned features and defects through implementation, integration, review, and validation across the components they touched.
@@ -216,6 +271,10 @@ Responsibility 4 — Scala API Work
 
 Status: CONFIRMED — NARROWER SCOPE; E468 OVERSTATES REFACTORING
 
+Original CV wording
+
+Refactored existing Scala API code to improve maintainability and scalability.
+
 Corrected responsibility
 
 Implemented a targeted Scala API request, documented it through Swagger, and connected it to established C-side data processing while preserving request, response, and error semantics.
@@ -227,6 +286,10 @@ I added request handling in Scala, mapped the returned data, connected the opera
 Responsibility 5 — AWS Build and Deployment Workflow
 
 Status: CONFIRMED — NARROWER SCOPE; E468 CLAIM OF CI/CD AUTOMATION IS UNSUPPORTED
+
+Original CV wording
+
+Worked with AWS pipelines, automating CI/CD processes for smoother deployments and reducing development cycle times.
 
 Corrected responsibility
 
@@ -242,6 +305,10 @@ Responsibility 6 — Database-Backed Features
 
 Status: CONFIRMED — NARROWER DATABASE OWNERSHIP
 
+Original CV wording
+
+Modified database tables to support new feature implementations and aligned the schema with updated system workflows.
+
 Corrected responsibility
 
 Implemented and debugged database-backed application behavior across PostgreSQL and MySQL, updating the application-side data path and coordinating feature-related data changes without owning database administration or migration.
@@ -256,6 +323,10 @@ Responsibility 7 — Estimation
 
 Status: CONFIRMED
 
+Original CV wording
+
+Estimated tasks with precision, ensuring realistic timelines and efficient resource allocation for development milestones.
+
 Corrected responsibility
 
 Estimated assigned feature and defect work with explicit allowance for investigation, cross-component changes, review, deployment, and regression validation in a legacy system.
@@ -268,6 +339,10 @@ Responsibility 8 — Code Review and Collaboration
 
 Status: CONFIRMED
 
+Original CV wording
+
+Conducted thorough code reviews, ensuring code quality, adherence to standards, and knowledge sharing within the primary team and the client’s team.
+
 Corrected responsibility
 
 Participated in mandatory cross-company code review, reviewed changes for compatibility and correctness, supported onboarding, presented sprint demonstrations, and collaborated with QA, the Business Analyst, and the customer engineering group.
@@ -279,6 +354,10 @@ The review process included both delivery-company and customer-side engineers. I
 Responsibility 9 — Legacy Refactoring
 
 Status: CONFIRMED
+
+Original CV wording
+
+Refactored legacy application code to improve maintainability, scalability, and overall system efficiency.
 
 Corrected responsibility
 
@@ -299,19 +378,23 @@ Strong Real Responsibilities Missing from E468
 
 
 
-04 Oil and Gas Corporate System
+04. OIL AND GAS CORPORATE SYSTEM
 
 Correct period: October 2021 – December 2021
 Accurate role: Junior C++ Software Engineer
 Project status: Real and substantially accurate
 
-Project Context
+Project context
 
 This was my first enterprise assignment at EPAM. I joined an established C++17 industrial data-processing system used in oilfield-service workflows. The delivery group included five EPAM C++ developers, an external QA team, and US-based customer representatives. My primary responsibility was C++ application development, with JavaScript changes where a complete workflow crossed into the user-facing layer.
 
 Responsibility 1 — Backend Feature Development
 
 Status: CONFIRMED
+
+Original CV wording
+
+Engineered efficient backend software solutions, ensuring optimal performance for critical operations in the oil and gas industry.
 
 Corrected responsibility
 
@@ -325,6 +408,10 @@ Responsibility 2 — Individual Contribution
 
 Status: CONFIRMED — NARROWER SENIORITY CLAIM
 
+Original CV wording
+
+Contributed as a core developer, implementing key functionality and supporting project milestones.
+
 Corrected responsibility
 
 Contributed as one of five C++ developers, taking assigned features and defects through implementation and external QA validation.
@@ -337,6 +424,10 @@ Responsibility 3 — Estimation and Delivery Planning
 
 Status: CONFIRMED
 
+Original CV wording
+
+Provided accurate task estimations, enabling effective planning and resource management for project deliverables.
+
 Corrected responsibility
 
 Estimated assigned work, communicated implementation scope and dependencies, and delivered changes through the project’s sprint and validation process.
@@ -344,6 +435,10 @@ Estimated assigned work, communicated implementation scope and dependencies, and
 Responsibility 4 — Maintenance, Defects, and Technical Debt
 
 Status: CONFIRMED
+
+Original CV wording
+
+Maintained and enhanced the existing codebase by resolving bugs, optimizing performance, and reducing technical debt.
 
 Corrected responsibility
 
@@ -356,6 +451,10 @@ Some tasks crossed the native and user-facing layers. I treated the C++ and Java
 Responsibility 5 — Removal of Obsolete Code
 
 Status: CONFIRMED
+
+Original CV wording
+
+Removed outdated legacy components, modernizing the system to improve reliability and maintainability.
 
 Corrected responsibility
 
@@ -372,19 +471,23 @@ Scope Boundaries
 • Nginx, Microsoft SQL Server, and jQuery were integration or limited-use technologies rather than my primary ownership areas.
 • ReSharper C++ is not established by the repository and must be verified before it is claimed.
 
-05 Independent Personal-Finance Application
+05. INDEPENDENT PERSONAL-FINANCE APPLICATION
 
 Correct period: May 2020 – September 2021; application development started in July 2020
 Accurate role: Sole designer and developer; independent project, not commercial employment
 Project status: Real, public, and fully supported by source history
 
-Project Context
+Project context
 
 I used this period to transition from MATLAB-based algorithm research into production-oriented C++. I built a personal-finance desktop application from scratch while completing a long-running EPAM C++ mentoring programme and laboratory. The application is public and contains more than 300 commits.
 
 Responsibility 1 — End-to-End Application Development
 
 Status: CONFIRMED
+
+Original CV wording
+
+Developed a home accounting application to manage personal financial transactions.
 
 Corrected responsibility
 
@@ -398,6 +501,10 @@ Responsibility 2 — FLTK User Interface
 
 Status: CONFIRMED
 
+Original CV wording
+
+Used the FLTK C++ library to create a graphical interface for transaction entry and financial analysis.
+
 Corrected responsibility
 
 Built FLTK interfaces for account management and expense, income, and transfer entry while keeping business logic outside the GUI layer.
@@ -409,6 +516,10 @@ The application had four layers: models, data access, business logic, and GUI. T
 Responsibility 3 — SQLite Data Layer
 
 Status: CONFIRMED
+
+Original CV wording
+
+Integrated SQLite for database management of transaction records, providing quick access and reliable local storage.
 
 Corrected responsibility
 
@@ -422,6 +533,10 @@ Responsibility 4 — Automated Testing
 
 Status: CONFIRMED, WITH AN IMPORTANT LIMITATION
 
+Original CV wording
+
+Implemented testing practices using Google Test to improve application reliability and accuracy.
+
 Corrected responsibility
 
 Built a GoogleTest/CTest unit-test target for the model layer and used testability as pressure for separating business logic and storage from the user interface.
@@ -434,6 +549,10 @@ Responsibility 5 — Logging and Build Automation
 
 Status: CONFIRMED
 
+Original CV wording
+
+Used plog for error logging and debugging and managed build automation with CMake.
+
 Corrected responsibility
 
 Added plog diagnostics at the SQLite failure boundary and created a reproducible CMake build with CTest integration, pinned submodules, and GoogleTest obtained through FetchContent.
@@ -442,19 +561,23 @@ Detailed explanation
 
 The logs identified the database operation and included SQLite error text so failures could be diagnosed on another user’s machine without attaching a debugger. I validated the build from a clean checkout to remove hidden dependence on my local environment.
 
-06 Industrial 3D Scanning and Metrology Software
+06. INDUSTRIAL 3D SCANNING AND METROLOGY SOFTWARE
 
 Correct period: March 2020 – May 2020
 Accurate role: C++ Software Engineer in a small R&D-oriented product team
 Project status: Real and well documented
 
-Project Context
+Project context
 
 I developed a C++17/Qt prototype that combined profile data from several standard 2D laser scanners into a common three-dimensional point cloud and reconstructed a 3D model. This was an internal R&D prototype, not a released product line, and it was my first commercial C++ role after more than seven years of MATLAB-based algorithm work.
 
 Responsibility 1 — Multi-Sensor 3D Reconstruction
 
 Status: CONFIRMED
+
+Original CV wording
+
+Developed software for generating 3D models from data collected by multiple 2D laser sensors.
 
 Corrected responsibility
 
@@ -468,6 +591,10 @@ Responsibility 2 — PCL Processing Pipeline
 
 Status: CONFIRMED
 
+Original CV wording
+
+Used the Point Cloud Library for processing and manipulation of point-cloud data.
+
 Corrected responsibility
 
 Built a staged PCL pipeline for filtering, voxel downsampling, outlier removal, normal estimation, alignment refinement, and preparation for surface reconstruction.
@@ -479,6 +606,10 @@ The important work was selecting and validating parameters rather than merely ca
 Responsibility 3 — Open3D Evaluation
 
 Status: CONFIRMED
+
+Original CV wording
+
+Integrated Open3D for visualization and analysis of 3D models.
 
 Corrected responsibility
 
@@ -492,6 +623,10 @@ Responsibility 4 — Qt Application and Debugging
 
 Status: CONFIRMED
 
+Original CV wording
+
+Used Visual Studio for coding, debugging, and performance optimization.
+
 Corrected responsibility
 
 Built a Qt desktop interface for loading datasets, enabling or disabling individual sensors, inspecting pipeline stages, viewing clouds and reconstructed surfaces, and exporting results.
@@ -504,20 +639,24 @@ Scope Boundary
 
 I made a limited exploratory contribution to a two-scanner medical/prosthetics configuration. I did not own the medical requirements, scanner hardware, calibration methodology, optics, firmware, or product-release decision.
 
-07 UAV Optical-System Processing Modules
+07. UAV OPTICAL-SYSTEM PROCESSING MODULES
 
 Correct context: A workstream within continuous employment from August 2012 to January 2020
 E468 period: August 2018 – December 2019
 Accurate role: Research/design engineer working primarily in MATLAB
 Project status: Real and supported
 
-Project Context
+Project context
 
 I developed image-processing modules for an optical payload used on unmanned aerial vehicles. The primary implementation and verification environment was MATLAB. The work was closer to real-time operation than the satellite ground-processing tasks and was validated through real flight-test activity.
 
 Responsibility 1 — UAV Image-Processing Chain
 
 Status: CONFIRMED
+
+Original CV wording
+
+Developed software modules for digital image-processing systems used in unmanned aerial vehicles.
 
 Corrected responsibility
 
@@ -526,6 +665,10 @@ Designed and implemented MATLAB image-processing modules that converted raw UAV 
 Responsibility 2 — Debayering
 
 Status: CONFIRMED
+
+Original CV wording
+
+Implemented a debayer algorithm to convert raw sensor data into full-color images.
 
 Corrected responsibility
 
@@ -539,6 +682,10 @@ Responsibility 3 — Image-Format Conversion
 
 Status: CONFIRMED
 
+Original CV wording
+
+Created image-format conversion tools to support multiple formats and improve compatibility across systems.
+
 Corrected responsibility
 
 Developed format-conversion modules that preserved image dimensions, channel meaning, and required data precision across the processing chain.
@@ -546,6 +693,10 @@ Developed format-conversion modules that preserved image dimensions, channel mea
 Responsibility 4 — Image Stabilization
 
 Status: CONFIRMED
+
+Original CV wording
+
+Developed an image-stabilization algorithm to reduce motion-induced distortions in UAV video.
 
 Corrected responsibility
 
@@ -558,6 +709,10 @@ The work addressed motion that was more aggressive and less predictable than sat
 Responsibility 5 — Image Fusion
 
 Status: CONFIRMED
+
+Original CV wording
+
+Designed an image-fusion algorithm to combine data from multiple sensors and improve detail and contrast.
 
 Corrected responsibility
 
@@ -574,20 +729,24 @@ Strong Real Responsibilities Missing from E468
 • Planned flight-test imaging with Systems Tool Kit.
 • Participated in image-sensor alignment and real operating-condition validation.
 
-08 Remote-Sensing Satellite Reference Database
+08. REMOTE-SENSING SATELLITE REFERENCE DATABASE
 
 Correct context: A workstream within the 2012–2020 research and engineering role
 E468 period: March 2016 – March 2017
 Accurate role: Research/design engineer with a secondary database and web-development responsibility
 Project status: Real and supported
 
-Project Context
+Project context
 
 Reference data on remote-sensing missions, platforms, instruments, spectral bands, and orbital parameters was scattered across documents and individual engineers’ files. I designed and implemented a shared, queryable reference system using Ruby on Rails and PostgreSQL.
 
 Responsibility 1 — Rails Web Interface
 
 Status: CONFIRMED
+
+Original CV wording
+
+Built a web-based interface using Ruby on Rails for access to and manipulation of satellite data.
 
 Corrected responsibility
 
@@ -601,6 +760,10 @@ Responsibility 2 — PostgreSQL Data Model
 
 Status: CONFIRMED
 
+Original CV wording
+
+Designed and optimized a PostgreSQL database for detailed satellite specifications and efficient retrieval.
+
 Corrected responsibility
 
 Designed the PostgreSQL relational model for missions, platforms, instruments, spectral bands, and orbital parameters and implemented the queries required by the Rails application.
@@ -613,23 +776,31 @@ Responsibility 3 — Legacy MS Access Data
 
 Status: CONFIRMED
 
+Original CV wording
+
+Integrated Microsoft Access for legacy-data support, migration, and compatibility with existing systems.
+
 Corrected responsibility
 
 Supported legacy Microsoft Access data during the transition to the Rails/PostgreSQL system, mapping existing records into the new relational structure and validating that required information was preserved.
 
-09 Satellite Earth-Observation Image Processing
+09. SATELLITE EARTH-OBSERVATION IMAGE PROCESSING
 
 Correct context and period: August 2012 – January 2020 continuous employment; E468 presents selected work as August 2012 – March 2016
 Accurate role: Research/design engineer; primary algorithm environment was MATLAB
 Project status: Real and strongly supported
 
-Project Context
+Project context
 
 I designed and verified image-processing algorithms for optoelectronic payloads used in Earth-observation systems. My primary work was algorithm development in MATLAB against instrument-level requirements, followed by handover and support for onboard or operational implementation. I did not own the complete flight-software platform.
 
 Responsibility 1 — Frame Stitching and Radiometric Matching
 
 Status: CONFIRMED; the real work is more specific than E468
+
+Original CV wording
+
+Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects.
 
 Corrected responsibility
 
@@ -643,6 +814,10 @@ Responsibility 2 — Automated Linear-Resolution Assessment
 
 Status: CONFIRMED
 
+Original CV wording
+
+Designed and implemented software to analyze the linear resolution of satellite images using the sharp-edge method.
+
 Corrected responsibility
 
 Developed MATLAB software that automatically measured achieved linear resolution from flight-test imagery using a defined sharp-edge criterion.
@@ -655,6 +830,10 @@ Responsibility 3 — Image Sharpness and Edge Analysis
 
 Status: CONFIRMED
 
+Original CV wording
+
+Created algorithms to assess image sharpness and edge clarity for remote-sensing applications.
+
 Corrected responsibility
 
 Implemented quantitative image-sharpness and edge-analysis methods used to evaluate imaging performance and support resolution assessment.
@@ -666,6 +845,10 @@ This work supported a defensible instrument-level quality measurement rather tha
 Responsibility 4 — Image-Type Prediction and Adaptive Quantization
 
 Status: CONFIRMED; E468 USES LESS ACCURATE WORDING
+
+Original CV wording
+
+Developed software to predict quantization ranges for remote-sensing satellites by analyzing Earth-observation data and estimating the albedo range.
 
 Corrected responsibility
 
@@ -681,6 +864,10 @@ Responsibility 5 — Workflow Automation
 
 Status: CONFIRMED, BUT SHOULD BE ATTACHED TO A SPECIFIC WORKFLOW
 
+Original CV wording
+
+Automated the prediction of quantization ranges.
+
 Corrected responsibility
 
 Automated repeatable image-analysis workflows, most notably linear-resolution assessment, replacing manual expert processing with consistent software-generated results.
@@ -692,6 +879,10 @@ The E468 phrase “automated quantization-range prediction” is less directly s
 Responsibility 6 — Onboard ADPCM-Family Compression
 
 Status: CONFIRMED; the real contribution includes a measured result
+
+Original CV wording
+
+Designed and implemented a custom image-compression algorithm using ADPCM with multiple quantizers.
 
 Corrected responsibility
 
@@ -710,7 +901,7 @@ Strong Real Responsibilities Missing from E468
 • Produced staged engineering documentation and supported algorithm handover to flight-software engineers.
 • Designed under hard onboard computation and downlink constraints, including decisions where a theoretically stronger codec was rejected because it did not fit the hardware.
 
-10 Final List of New, Unsupported, or Overstated Claims
+10. FINAL RISK SUMMARY
 
 Unsupported Technologies
 
