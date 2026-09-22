@@ -493,7 +493,7 @@ Developed a home accounting application to manage personal financial transaction
 
 Corrected responsibility
 
-Designed and built a C++20 desktop personal-finance application from scratch, owning its architecture, domain model, data access, business logic, user interface, tests, diagnostics, and build system.
+Designed and built a modern C++ desktop personal-finance application from scratch, owning its architecture, domain model, data access, business logic, user interface, tests, diagnostics, and build system. The CV prints C++ for this project; the standard actually used was C++20, which is offered only on a direct question about standards.
 
 Detailed explanation
 

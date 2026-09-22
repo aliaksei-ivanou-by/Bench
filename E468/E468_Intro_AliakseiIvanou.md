@@ -59,6 +59,9 @@ INTERVIEW BOUNDARIES
 • The CV lists selected projects rather than continuous employment. If asked about the break between March 2017 and August 2018, or about the shorter breaks, explain that the 2012–2020 entries are workstreams inside one continuous employment.
 • If an interviewer asks to reconcile real assignment dates, answer directly: the library assignment ended in April 2024, the SIP assignment began in May 2025, and employment continued between assignments.
 • For GStreamer, V4L2, Conan, and ReSharper C++: do not defend the CV entry and do not disown the CV. Say that it was part of the project environment, state exactly what I did myself, and name the boundary.
+• Windows and MSVC currency. The CV matrix shows Visual Studio at five years last used 2021 and Windows at one year last used 2021. Do not talk around this. Name the projects those figures come from, then say that the most recent Windows work is the C# provisioning tool and the recent native C++ is Qt on embedded Linux.
+• Standards. C++17 is the only standard printed in the CV. Lead with it. C++20 was used in the independent application and is offered only if the interviewer asks which standard it used. C++14 is not claimed.
+• Security, multithreading and parallelism do not appear anywhere in the CV, although the request treats them as must-haves. Open those answers by saying the CV does not present such a role, then give the concrete work. The full wording is in the profile boundary statements.
 • The submitted CV presents the latest SIP project as May 2025 – present. The opening script deliberately avoids giving a conflicting end date.
 • The submitted CV labels the two latest project roles as Senior Software Engineer. Do not add a different formal grade to the spoken introduction; explain concrete scope and ownership instead.
 • Scala work was targeted API integration, and AWS work used existing build and deployment infrastructure.
@@ -73,3 +76,6 @@ EXPECTED FOLLOW-UP TOPICS
 • Legacy C89 debugging with gdb, logs, and core dumps.
 • Yocto image integration and target-device validation.
 • ADPCM-family compression and automated image-quality measurement.
+• How current the Windows, Visual Studio and MSVC experience is.
+• Why the CV opens with fourteen-plus years while the skills matrix shows six years of C++.
+• What the security and multithreading evidence is, given that neither word appears in the CV.

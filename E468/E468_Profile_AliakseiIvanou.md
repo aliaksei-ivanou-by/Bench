@@ -75,7 +75,8 @@ Verified period: May 2020 – September 2021; application started in July 2020
 CV role: Software Engineer
 Verified role: Sole designer and developer; independent project, not employment
 Status: FACTUAL CORRECTION
-Primary relevance: C++20, architecture, SQLite, FLTK, GoogleTest, logging, and CMake.
+Primary relevance: modern C++, architecture, SQLite, FLTK, GoogleTest, logging, and CMake.
+CV boundary: the E468 CV prints C++ for this project and names C++17 only on the SIP and oil and gas projects. Lead with C++17 as the standard the CV states. The independent application used C++20, which is a detail under the CV line and is introduced only if the interviewer asks which standard it used.
 
 Project 5
 CV title: 3D Reconstruction Software for Industrial Applications
@@ -126,7 +127,7 @@ SUPPORTED CLAIMS TO LEAD WITH
 • Yocto and BitBake image integration and target-device debugging.
 • WinForms provisioning-tool migration from .NET Framework 4.8 to .NET 8.
 • C89 feature delivery and cross-component debugging with gdb and core dumps.
-• C++20 independent application with FLTK, SQLite, GoogleTest, plog, and CMake.
+• Independent desktop application with FLTK, SQLite, GoogleTest, plog, and CMake. The CV prints C++ for it; C++20 is the standard actually used and is offered only on a direct question about standards.
 • PCL-based industrial 3D reconstruction.
 • Satellite and UAV image-processing algorithms with flight-test participation.
 
@@ -172,6 +173,18 @@ PRIVATE CONSISTENCY NOTES
 • If asked to reconcile actual assignment dates: the library assignment ended in April 2024, the embedded SIP assignment began in May 2025, and employment continued between assignments.
 
 STANDARD BOUNDARY STATEMENTS
+
+Windows and MSVC currency
+
+The E468 skills matrix shows Visual Studio at five years with a last use of 2021 and Windows at one year with a last use of 2021, while the request is a Windows desktop product. The answer is the CV read accurately, not a correction of it: my native Windows and Visual Studio work is the industrial 3D project and my own desktop application, my most recent Windows work is the C# provisioning tool, and my last two years of native C++ have been Qt on embedded Linux. I would confirm the project toolset rather than claim MSVC-version-specific experience.
+
+Overall years against C++ years
+
+The CV opens with fourteen-plus years and the same CV shows C++ at six years. Both numbers are mine and they describe different things. The career starts in 2012 in algorithm research and development, mainly in MATLAB, in the satellite and UAV work. C and C++ delivery starts with the 2020 and 2021 projects and runs through the library system and the phone platform. I give that shape before anyone has to ask for it.
+
+Requirements the CV does not speak to
+
+Security, multithreading and parallelism are central to this request and none of those words appears in my CV. When they come up, I open by saying that my CV does not present a security or high-parallelism role, and then give the concrete work that exists: authentication and provisioning trust boundaries, encrypted transport and certificate settings, and event-driven concurrency with asynchronous callbacks, cross-thread delivery, ownership, cancellation and shutdown. Stating the absence first is what keeps the rest credible.
 
 CV technology entries
 

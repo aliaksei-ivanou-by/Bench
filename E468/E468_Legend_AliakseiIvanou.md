@@ -405,6 +405,24 @@ The career progression runs from measurement and image-processing R&D through in
 
 The satellite and UAV period established algorithm design and hardware-facing validation. The 3D project moved that experience into a native C++ and Qt application. The independent project added layered design, testing, logging, and reproducible builds. The enterprise projects developed safe legacy maintenance and cross-component debugging. The SIP project combined these skills in an embedded product involving application state, a third-party SDK, networking, media, provisioning, firmware, and hardware.
 
+CV-FACING ANSWERS
+
+Windows and MSVC currency
+
+My native Windows and Visual Studio work is the industrial 3D project and my own desktop application, which is what the five-year Visual Studio entry and the 2021 last-use date in my CV reflect. My most recent Windows work is the C# and .NET provisioning tool on the phone programme, and my recent native C++ has been Qt on embedded Linux. I would confirm the exact toolset in your project rather than claim MSVC-version-specific depth.
+
+Fourteen-plus years against six years of C++
+
+Both figures in my CV are accurate and they measure different things. From 2012 I worked in algorithm research and development, mainly in MATLAB, on satellite and UAV optical systems. My C and C++ delivery starts with the 2020 and 2021 projects and runs through the library platform and the phone platform, which is the six-year figure in the skills summary.
+
+Standards
+
+C++17 is the standard named in my CV and it is the one I lead with. The independent desktop application was written to C++20. I do not claim C++14 as a separate body of experience.
+
+Security and multithreading
+
+Neither word appears in my CV, and I say so before describing what exists. The security work was product engineering at integration boundaries: authentication and credential handling, encrypted transport and certificate settings, provisioning trust boundaries and safe maintenance of mature native code. The concurrency was event-driven: asynchronous SDK callbacks, cross-thread signal delivery, object ownership and lifetime, cancellation and clean shutdown. That is different from a security role and from data-parallel or lock-free work.
+
 SAFE BOUNDARY STATEMENTS
 
 Scala
