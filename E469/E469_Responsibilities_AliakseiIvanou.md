@@ -35,7 +35,7 @@ The eight projects in E469 all have a real basis. The principal issues are proje
 
 Overall experience
 
-The defensible positioning is more than fourteen years across software engineering and research and development, including more than six years of C and C++ and approximately five years in commercial software employment. It is not accurate to describe all fourteen years as commercial C++ development.
+The E469 CV is the source of truth for this package. The defensible spoken positioning is the CV figure delivered accurately: more than fourteen years across software engineering and research and development, with seven years of C++ and three years of C as stated in the CV skills matrix. It is not accurate to describe all fourteen years as commercial C++ development; the verified record supports about five years of commercial software employment.
 
 Current positioning
 
@@ -54,14 +54,14 @@ Project dates and roles
 
 Unsupported or unverified technologies
 
-GStreamer, direct V4L2 programming, and Conan are not supported as hands-on project experience by the repository. ReSharper C++ is also not established and must be verified independently before it is claimed.
+GStreamer and direct V4L2 programming are listed in the E469 CV but are not supported as hands-on project experience by the repository. ReSharper C++ is also not established and must be verified independently before it is claimed. Conan is not listed in the E469 CV and must not be reintroduced.
 
 
 02. EMBEDDED BROADBAND-CONNECTED SIP/VOIP COMMUNICATIONS PLATFORM
 
 Correct assignment period: May 2025 – August 2026
 
-Accurate role: C++ Software Engineer; senior individual contributor with third-level investigation responsibilities and a separate internal technical-lead component
+Accurate role: C++ Software Engineer, formal middle grade, performing senior-scope individual-contributor work with third-level investigation responsibilities and a separate internal technical-lead component. The CV label for this project is Software Engineer
 
 Project status: Real and extensively documented
 
@@ -461,7 +461,7 @@ Project status: Real and substantially accurate
 
 Project context
 
-This was my first enterprise assignment after joining EPAM. I worked on an established C++17 industrial data-processing system with JavaScript-facing behavior and MySQL-backed workflows. The delivery group included five C++ developers, an external QA team, and US-based customer representatives.
+This was my first enterprise assignment after joining that employer. I worked on an established C++17 industrial data-processing system with JavaScript-facing behavior and MySQL-backed workflows. The delivery group included five C++ developers, an external QA team, and US-based customer representatives.
 
 
 Responsibility 1 — Backend Software Solutions
@@ -671,7 +671,7 @@ Developed software for generating 3D models from data collected by multiple 2D l
 
 Corrected responsibility
 
-Implemented a C++17 and Qt prototype that ingested profile data from multiple 2D laser scanners, transformed each sensor’s profiles into a shared coordinate frame, assembled a common point cloud, and produced reconstructed surfaces.
+Implemented a native C++ prototype that ingested profile data from multiple 2D laser scanners, transformed each sensor’s profiles into a shared coordinate frame, assembled a common point cloud, and produced reconstructed surfaces.
 
 Detailed explanation
 
@@ -1028,7 +1028,7 @@ Unsupported technologies
 
 1. GStreamer — no documented hands-on project use.
 2. V4L2 — no documented direct ioctl-level programming.
-3. Conan — no documented project use and no longer listed in E469, but it must not be reintroduced in discussion.
+3. Conan — not listed in the E469 CV and no documented project use. Do not raise it.
 4. ReSharper C++ — not established by the repository and requires independent confirmation.
 
 Overstated or broadened responsibilities

@@ -30,7 +30,9 @@ FORMAL CAREER POSITIONING
 
 Formal current title: C++ Software Engineer
 Target-role relationship: Broadband Triage Engineer is the target role; the embedded SIP assignment provides direct functional evidence through third-level telecom investigation and recovery diagnosis.
-Total experience wording: More than fourteen years across software engineering and research and development; more than six years of C and C++; approximately five years in commercial software employment.
+Total experience wording: Fourteen-plus years, as stated in the E469 CV. Spoken form: more than fourteen years across software engineering and research and development.
+Technology depth follows the E469 skills matrix: seven years of C++ and three years of C.
+Internal note, not spoken: the verified record supports about five years of commercial software employment. The CV headline is therefore delivered as overall software-engineering and research-and-development experience, never as fourteen years of commercial C++ development.
 Primary technical specialization: C and C++, embedded Linux, SIP and VoIP, source-level debugging, fault isolation, recovery validation, and hardware-software integration.
 
 PROJECT MAP
@@ -41,7 +43,7 @@ Interview title: Embedded Broadband-Connected SIP/VoIP Communications Platform
 CV period: April 2025 – present
 Verified period: May 2025 – August 2026; employed between assignments from September 2026
 CV role: Software Engineer
-Verified role: C++ Software Engineer with third-level investigation responsibility and a separate internal technical-lead component
+Verified role: C++ Software Engineer, formal middle grade, with third-level investigation responsibility and a separate internal technical-lead component
 Status: FACTUAL CORRECTION
 Primary relevance: Direct evidence for broadband triage, SIP, WAN recovery, embedded Linux, and source-level debugging.
 
@@ -159,12 +161,20 @@ UNSUPPORTED OR UNVERIFIED CLAIMS
 
 PRIVATE CONSISTENCY NOTES
 
+• The E469 CV is the source of truth for this package. Project titles, order, periods, role labels, technology lists, and skills-matrix figures follow the CV. Verified values stay inside the Verified period and Verified role fields and are used only if an interviewer asks for reconciliation.
 • Broadband Triage Engineer is the target role, not the formal employment title.
+• The E469 CV does not list Qt, Qt Widgets, or Qt Creator as frameworks and describes the phone software as a native C/C++ application. Spoken material says native C++ application. Qt is named only if the interviewer asks which UI toolkit was used.
+• The E469 CV shows the library assignment as December 2021 to April 2025. Spoken duration must match that, not the shorter verified period.
+• If asked to reconcile actual assignment dates: the library assignment ended in April 2024, the embedded SIP assignment began in May 2025, and employment continued between assignments.
 • Use past tense for the completed embedded SIP assignment.
 • Do not describe technical investigation ownership as ownership of the support organization, customer network, or external PBX.
 • Do not describe all fourteen years as commercial C++ experience.
 
 STANDARD BOUNDARY STATEMENTS
+
+CV technology entries
+
+Some entries in the CV technology list and skills matrix are project-environment technologies rather than areas I implemented personally. If one of them comes up, I say what I personally did and where the boundary is, instead of either defending the entry or disowning my own CV. This applies to GStreamer, V4L2, the network-traces wording, and ReSharper C++. A usable opening is: that was part of the project environment; my own work on it was limited to the following, and here is what I would want to learn.
 
 Broadband triage
 
