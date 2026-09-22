@@ -56,7 +56,7 @@ Before that project, I worked for more than two years on an integrated library s
 
 I also worked on a C++17 corporate system for the oil and gas industry. I implemented and maintained backend functionality, made supporting JavaScript changes, worked with database-backed workflows, estimated tasks, fixed defects, and removed obsolete code in small reviewable steps. The assignment was short, but it reinforced disciplined work in a Windows-oriented enterprise codebase.
 
-Earlier, I developed a C++ and Qt prototype for industrial 3D scanning. It combined profiles from multiple two-dimensional laser scanners in a common three-dimensional coordinate frame and used PCL for filtering, alignment, and reconstruction. The diagnostic interface exposed intermediate stages, so an incorrect model could be traced to a sensor, pose transformation, filter, or reconstruction step. This is relevant to hardware-close troubleshooting because it taught me to distinguish a software defect from calibration, coverage, and physical measurement limitations.
+Earlier, I developed a native C++ prototype for industrial 3D scanning. It combined profiles from multiple two-dimensional laser scanners in a common three-dimensional coordinate frame and used PCL for filtering, alignment, and reconstruction. The diagnostic interface exposed intermediate stages, so an incorrect model could be traced to a sensor, pose transformation, filter, or reconstruction step. This is relevant to hardware-close troubleshooting because it taught me to distinguish a software defect from calibration, coverage, and physical measurement limitations.
 
 Earlier, I worked on UAV optical-system software from 2018 to 2019. I primarily used MATLAB to develop debayering, image-format conversion, stabilization, and image-fusion modules. I also worked on IMU-to-camera calibration and operated the optical payload during more than thirty UAV test flights. That experience gave me a strong systems mindset and respect for repeatable validation when software interacts with sensors and real operating conditions.
 
@@ -67,7 +67,9 @@ At the same time, I would not present prepared knowledge as delivered project ex
 INTERVIEW BOUNDARIES
 
 • The direct recent Windows experience is C# and .NET 8 desktop provisioning software, WMI and netsh network-interface handling, and installer packaging. Visual Studio belongs to earlier native Windows development rather than the verified provisioning-tool stack.
-• The E474 submitted CV presents eight-plus years of experience. Do not reuse the fourteen-plus opening from E468 or E469.
+• The E474 CV is the source of truth for this interview. Periods, project order, role labels, technology lists, and the experience figure follow the CV.
+• The E474 submitted CV presents eight-plus years of experience, and the opening script uses that figure. Do not reuse the fourteen-plus opening from E468 or E469; this CV contains no projects before 2018. If an interviewer asks whether the eight years are all commercial, answer that the figure covers software development and technical research and development.
+• The CV shows Qt with three years last used in 2026, which corresponds to the SIP project only. Do not attach Qt to the 2020 industrial 3D project.
 • The submitted CV presents the latest SIP project as November 2023 – present. The opening script deliberately avoids giving a conflicting end date.
 • The provisioned endpoints ran embedded Linux; do not describe the work as Windows IoT Enterprise operating-system hardening.
 • Image integration and lifecycle experience was delivered with Yocto and BitBake, not Windows ADK, WinPE, WIM, Sysprep, or DISM.
@@ -76,6 +78,11 @@ INTERVIEW BOUNDARIES
 • Do not use the submitted-CV claims about a generic cryptographic wrapper, hardware security modules, OpenSSL CVE backports, or broad RTP, NAT, and QoS optimization as personal project stories.
 • The verified provisioning path used DHCP options 66 and 67 plus TFTP. Do not say FTP provisioning or a local SIP server.
 • Windows IoT hardening concepts discussed after preparation must be labeled as prepared knowledge, not previous project delivery.
+• The CV header lists System Administration and Networks as domains. This is the first thing a technical screener will probe and there is no administration project behind it. Answer it early and in my own words: the line describes the device and network side of the product, not administration of a Windows estate. The full wording is in the profile boundary statements.
+• The CV skills matrix shows Windows at one year last used 2021 and Visual Studio at one year last used 2020, against Windows IoT, .NET, WinForms and C# at three years last used 2026. Give that reading myself: the older entries are native Windows desktop work, the current entries are the C# and .NET 8 provisioning application. Do not let the dates be raised first.
+• The provisioning detail I lead with, including the management-instrumentation and network-shell work, the test project and the installer, is not printed in the CV. It is not a contradiction and must not sound like one. Present it as the detail underneath the provisioning responsibility the CV does state.
+• For OpenSSL, Wireshark and tcpdump, STUN, TURN and ICE, QoS and DSCP, Windows IoT, Windows Server, GStreamer, V4L2, and ReSharper C++: do not defend the CV entry and do not disown the CV. Say that it was part of the project environment, state exactly what I did myself, and name the boundary. The prepared OpenSSL answer is in the profile boundary statements.
+• If an interviewer asks to reconcile real assignment dates, answer directly: the SIP assignment ran from May 2025 to August 2026, the library assignment from March 2022 to April 2024, and the oil and gas assignment from October to December 2021.
 
 EXPECTED FOLLOW-UP TOPICS
 

@@ -30,7 +30,7 @@ VERIFY — requires confirmation before use.
 
 POSITIONING AND TIMELINE CORRECTIONS
 
-• More than fourteen years is valid only for combined engineering and research and development. The statement “eight-plus years of commercial experience” is not supported by the verified chronology.
+• The E474 CV is the source of truth for this package. The spoken experience figure is the CV figure: more than eight years across software development and technical research and development. Internal note, not spoken: the verified record contains a longer overall engineering and research history and about five years of commercial software employment, so the CV phrase eight-plus years of commercial experience is delivered as overall development and research experience rather than as eight years of commercial employment. Do not reuse the fourteen-plus positioning from the other request packages.
 • The formal current title is C++ Software Engineer. Senior Windows IoT Hardening Expert is the target role, not a previous formal role.
 • The direct Windows experience is application and tooling development in C# and .NET, WMI and netsh integration, Visual Studio, and installer packaging.
 • The managed endpoints on the recent project used embedded Linux. Windows IoT Enterprise image engineering, hardening, and lifecycle ownership are not verified.
@@ -43,7 +43,7 @@ POSITIONING AND TIMELINE CORRECTIONS
 PROJECT 1. SIP DESK PHONE PLATFORM FOR AUDIO AND VIDEO COMMUNICATION
 
 Correct period: May 2025 – August 2026
-Accurate role: C++ Software Engineer working across the Qt application, customized Linphone SDK, Yocto integration, and Windows provisioning tooling
+Accurate role: C++ Software Engineer, formal middle grade, working across the Qt application, customized Linphone SDK, Yocto integration, and Windows provisioning tooling. The CV label for this project is Software Engineer
 Project status: Real and extensively documented, but several E474 responsibilities contain unsupported security, networking, or Windows IoT wording
 
 Project context
@@ -209,6 +209,10 @@ The phone-side stack involved libwebrtc, libmediasoupclient, libsdptransform, li
 Scope boundary
 
 Do not claim ownership of the later server rewrite, the complete conferencing backend, or every WebRTC protocol component.
+
+CV note for the provisioning responsibilities
+
+The E474 CV states the provisioning application in two responsibilities and in the project environment, where .NET 8, WinForms, C#, SNMP, DHCP, TFTP, FTP and SQLite appear. The specific mechanisms behind that work, including Windows management instrumentation and command-line network-shell handling for interface selection, the unit-test project and the installer packaging, are not printed in the CV. They are detail underneath a responsibility the CV does carry, so they are offered as detail and never framed as a correction of the document. The two overstated parts of the same bullets, the all-in-one server suite with FTP provisioning and local SIP services and the automated Windows IoT server network setup, are handled by the boundaries below.
 
 Responsibility 9 — WinForms Provisioning Suite
 
@@ -626,7 +630,7 @@ Developed software for generating 3D models from data collected by multiple 2D l
 
 Corrected responsibility
 
-Implemented a C++17 and Qt prototype that ingested profiles from multiple two-dimensional laser scanners, transformed them into a shared coordinate frame, assembled a common point cloud, and produced reconstructed surfaces.
+Implemented a native C++ desktop prototype that ingested profiles from multiple two-dimensional laser scanners, transformed them into a shared coordinate frame, assembled a common point cloud, and produced reconstructed surfaces.
 
 Detailed explanation
 
@@ -820,7 +824,7 @@ Unsupported technologies or experience claims
 • Advanced Windows Server administration.
 • Formal regulated or medical-device validation.
 • Cryptographic-wrapper and hardware-security-module implementation.
-• OpenSSL CVE backporting on the SIP or library projects.
+• OpenSSL CVE backporting on the SIP or library projects. The five-year OpenSSL entry in the skills matrix is answered as integration-boundary work: TLS and secure-media settings, certificate-related device configuration, SIP Digest and realm handling, and an encrypted provisioning project format.
 • Local SIP server implementation in the provisioning tool.
 
 Overstated responsibilities

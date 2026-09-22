@@ -22,18 +22,24 @@ Start every answer with the short project summary. Expand only the parts relevan
 
 PRIVATE CONSISTENCY NOTES
 
-• The formal current title is C++ Software Engineer. Senior Windows IoT Hardening Expert is the target role.
+• The E474 CV is the source of truth for this package. Periods, project order, role labels, technology lists, and the experience figure follow the CV; verified values stay in the separate Verified fields.
+• The formal current title is C++ Software Engineer at middle grade. Senior Windows IoT Hardening Expert is the target role.
 • The E474 submitted CV presents eight-plus years of experience. Do not reuse the fourteen-plus positioning from E468 or E469 in this interview package.
 • The E474 skills matrix states four years of C++, three years of C, three years of C#, and three years of Windows IoT. Do not import the six- or seven-year C++ figures from the other submitted CVs.
 • The submitted CV uses Software Engineer for every project. Keep that CV-facing label separate from the verified grade progression and explain responsibility through concrete scope.
 • When the submitted CV period and the verified project period differ, the two fields below must remain separate. Do not derive technology years from the altered CV periods.
-• The Windows IoT three-year matrix entry must not be expanded into Windows IoT Enterprise image or hardening ownership. The spoken story is limited to the Windows provisioning application and embedded Linux endpoint platform.
+• The E474 skills matrix shows Qt, Qt Widgets, and QSS with three years last used in 2026, which corresponds to the SIP project only. Project 4 below is therefore described as a native C++ prototype; the interface was built with Qt, but that is an if-asked detail rather than a lead claim.
+• The E474 skills matrix shows OpenSSL with five years. The prepared answer is integration-boundary work only. CVE analysis, CVE backporting, and OpenSSL branch migration are not claimed.
+• The Windows IoT three-year matrix entry must not be expanded into Windows IoT Enterprise image or hardening ownership.
+• The CV header lists System Administration and Networks as domains, with no project behind either. Prepare that answer first; it is the most likely opening probe for this role.
+• The CV skills matrix shows Windows at one year last used 2021 and Visual Studio at one year last used 2020. Offer the reading before being asked.
+• The specific provisioning work below, including management instrumentation and network-shell handling, the unit-test project and the installer, is not printed in the CV. Present it as detail under the provisioning responsibility the CV states, never as a correction of the CV. The spoken story is limited to the Windows provisioning application and embedded Linux endpoint platform.
 • The submitted CV presents the most recent project as current. Internal source material records delivered project work through August 2026. Keep those timelines separate and avoid an end-date statement in the spoken project summary.
 • The Windows provisioning application configured embedded Linux phones. It was not a Windows IoT Enterprise product image.
 • The Yocto image work is real and relevant, but it must not be renamed as Windows image servicing.
 • The submitted-CV statements about a generic cryptographic wrapper, hardware security modules, OpenSSL CVE backports, and broad RTP, NAT, and QoS optimization are not supported as personal project stories and must remain excluded from spoken answers.
 • The verified provisioning path used DHCP options 66 and 67 with TFTP. The submitted references to FTP provisioning, a local SIP server, and Windows IoT server setup must not be repeated.
-• In the spoken project narratives, avoid adding a date or grade where the submitted CV and verified record differ. If an interviewer asks for reconciliation directly, state the difference accurately rather than merging the two timelines.
+• In the spoken project narratives, avoid adding a date or grade where the submitted CV and verified record differ. If an interviewer asks for reconciliation directly, state the difference accurately rather than merging the two timelines: the embedded SIP assignment ran from May 2025 to August 2026, the library assignment from March 2022 to April 2024, and the oil and gas assignment from October to December 2021, with employment continuing between assignments.
 
 PROJECT 1. EMBEDDED SIP DESK PHONE PLATFORM
 
@@ -291,7 +297,7 @@ Project status: FACTUAL CORRECTION
 
 Short project summary
 
-I developed a C++17 and Qt prototype that combined profiles from multiple two-dimensional laser scanners into a common three-dimensional coordinate system. I used PCL for point-cloud processing and evaluated Open3D on recorded datasets. The project is relevant to E474 through Visual Studio, native C++, hardware-derived data, diagnostic visualization, and separation of software defects from calibration and physical limitations.
+I developed a native C++ desktop prototype that combined profiles from multiple two-dimensional laser scanners into a common three-dimensional coordinate system. I used PCL for point-cloud processing and evaluated Open3D on recorded datasets. The project is relevant to E474 through Visual Studio, native C++, hardware-derived data, diagnostic visualization, and separation of software defects from calibration and physical limitations.
 
 Product and business context
 
@@ -434,6 +440,20 @@ The career progression is coherent when described through systems engineering ra
 The early research period established algorithm design, sensor behavior, numerical validation, and real-condition testing. The industrial 3D project moved that experience into native C++, Qt, Visual Studio, and hardware-derived point-cloud data. The oil and gas and library assignments developed mature-codebase maintenance, cross-component diagnosis, estimation, review, and conservative change control. The SIP phone platform combined these skills in a physical embedded product and added substantial C++17 and Qt development, Yocto image integration, Windows C# and .NET 8 provisioning tooling, WMI and netsh integration, installer packaging, focused automated tests, and device-level troubleshooting.
 
 The resulting profile is strong for systems development and adjacent to Windows IoT hardening. It is not evidence of previous senior ownership of the Windows IoT Enterprise hardening stack.
+
+CV-FACING ANSWERS
+
+Domains printed in the CV
+
+The CV header lists Telecommunications, Networks, System Administration and UAV Systems. System Administration is the closest line in the document to this role, so expect it first, and answer it before it becomes a credibility problem. The accurate reading is that the line describes the device and network side of the product I worked on: device configuration and provisioning, network settings, service configuration on the target, and the Windows host tooling that drives all of it. It does not describe administration of a Windows estate, a server fleet or a domain. I say that plainly and then move to what I did configure and automate.
+
+Windows figures in the skills matrix
+
+The CV shows Windows at one year with a last use of 2021 and Visual Studio at one year with a last use of 2020, while Windows IoT, .NET, WinForms and C# each show three years with a last use of 2026. Those numbers are consistent with my work rather than in conflict with it: the older entries are native Windows desktop development on the industrial 3D project, and the current entries are the C# and .NET 8 provisioning application on the phone programme. My Windows work today is application and tooling development on a Windows host, not administration of the Windows platform. I give that reading myself rather than waiting to be challenged on the dates.
+
+Detail behind the provisioning bullet
+
+The CV compresses the provisioning application into two responsibilities, so the specifics are not printed in it. That is a summary, not a gap, and I present the detail as detail: migration from .NET Framework 4.8 to .NET 8 with an SDK-style project structure, network-interface selection and configuration assistance through Windows management instrumentation and the command-line network shell, device discovery over ICMP, UDP and SNMP, configuration generation, explicit project-state persistence as encrypted JSON, DHCP options 66 and 67, built-in TFTP distribution, SQLite storage, localization, installer packaging with silent installation, and a unit-test project. None of that contradicts the CV; it is what sits under the line the CV does print.
 
 SAFE BOUNDARY STATEMENTS
 

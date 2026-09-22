@@ -30,7 +30,9 @@ FORMAL CAREER POSITIONING
 
 Formal current title: C++ Software Engineer
 Target-role relationship: Adjacent rather than direct. The strongest overlap is Windows desktop tooling, WMI and netsh network-interface handling, C#/.NET, automation of device provisioning, security-aware configuration, testing, and hardware-software troubleshooting.
-Total experience wording: More than fourteen years across engineering and research and development; more than six years of C and C++; approximately five years in commercial software employment. The request-specific CV says eight-plus years and must not be expanded into eight years of Windows IoT experience.
+Total experience wording: Eight-plus years, as stated in the E474 CV. Spoken form: more than eight years across software development and technical research and development.
+Technology depth follows the E474 skills matrix: four years of C++, three years of C, and three years of C#.
+Internal note, not spoken: the verified record contains a longer overall engineering and research history and about five years of commercial software employment. In this package the CV figure is the one that is spoken. Do not reuse the fourteen-plus positioning from the other request packages, and do not expand eight-plus years into eight years of Windows IoT experience.
 Primary technical specialization: C and C++, C#/.NET desktop tooling, embedded Linux, device provisioning, networking integration, and cross-layer debugging.
 
 PROJECT MAP
@@ -41,7 +43,7 @@ Interview title: Embedded SIP Desk Phone Platform
 CV period: November 2023 – present
 Verified period: May 2025 – August 2026; employed between assignments from September 2026
 CV role: Software Engineer
-Verified role: C++ Software Engineer working across the Qt application, customized Linphone SDK, Yocto integration, and Windows provisioning tooling
+Verified role: C++ Software Engineer, formal middle grade, working across the Qt application, customized Linphone SDK, Yocto integration, and Windows provisioning tooling
 Status: FACTUAL CORRECTION
 Primary relevance: C#/.NET 8 WinForms, WMI and netsh, network provisioning, installer packaging, C++17, physical-device troubleshooting, and firmware integration.
 
@@ -126,12 +128,36 @@ UNSUPPORTED OR UNVERIFIED CLAIMS
 
 PRIVATE CONSISTENCY NOTES
 
+• The E474 CV is the source of truth for this package. Project titles, order, periods, role labels, technology lists, and skills-matrix figures follow the CV. Verified values stay inside the Verified period and Verified role fields and are used only if an interviewer asks for reconciliation.
+• The spoken experience figure in this package is eight-plus years, matching the CV. The fourteen-plus positioning used in other request packages must not appear here; the CV contains no projects before 2018.
+• The E474 CV shows Qt, Qt Widgets, and QSS with three years of experience last used in 2026, which corresponds to the SIP project only. Do not attach Qt to the 2020 industrial 3D project.
+• If asked to reconcile actual assignment dates: the embedded SIP assignment ran from May 2025 to August 2026, the library assignment from March 2022 to April 2024, and the oil and gas assignment from October to December 2021. State the difference plainly rather than merging the two timelines.
 • Do not present Windows provisioning-tool development as Windows IoT Enterprise operating-system hardening.
 • Do not transfer Yocto image and Linux driver-integration experience directly into Windows DISM or driver-servicing claims.
 • Do not describe the CV project dates as verified dates.
 • Do not describe all experience as commercial Windows or C++ experience.
 
 STANDARD BOUNDARY STATEMENTS
+
+Domains printed in the CV
+
+The CV header lists Telecommunications, Networks, System Administration and UAV Systems. System Administration is the closest line in the document to this role, so expect it first, and answer it before it becomes a credibility problem. The accurate reading is that the line describes the device and network side of the product I worked on: device configuration and provisioning, network settings, service configuration on the target, and the Windows host tooling that drives all of it. It does not describe administration of a Windows estate, a server fleet or a domain. I say that plainly and then move to what I did configure and automate.
+
+Windows figures in the skills matrix
+
+The CV shows Windows at one year with a last use of 2021 and Visual Studio at one year with a last use of 2020, while Windows IoT, .NET, WinForms and C# each show three years with a last use of 2026. Those numbers are consistent with my work rather than in conflict with it: the older entries are native Windows desktop development on the industrial 3D project, and the current entries are the C# and .NET 8 provisioning application on the phone programme. My Windows work today is application and tooling development on a Windows host, not administration of the Windows platform. I give that reading myself rather than waiting to be challenged on the dates.
+
+Detail behind the provisioning bullet
+
+The CV compresses the provisioning application into two responsibilities, so the specifics are not printed in it. That is a summary, not a gap, and I present the detail as detail: migration from .NET Framework 4.8 to .NET 8 with an SDK-style project structure, network-interface selection and configuration assistance through Windows management instrumentation and the command-line network shell, device discovery over ICMP, UDP and SNMP, configuration generation, explicit project-state persistence as encrypted JSON, DHCP options 66 and 67, built-in TFTP distribution, SQLite storage, localization, installer packaging with silent installation, and a unit-test project. None of that contradicts the CV; it is what sits under the line the CV does print.
+
+CV technology entries
+
+Several entries in the CV technology list and skills matrix are project-environment technologies rather than areas I implemented personally. If one of them comes up, I say what I personally did and where the boundary is, instead of either defending the entry or disowning my own CV. This applies to OpenSSL, Wireshark and tcpdump, STUN, TURN and ICE, QoS and DSCP, Windows IoT, Windows Server, GStreamer, V4L2, and ReSharper C++. A usable opening is: that was part of the project environment; my own work on it was limited to the following, and here is what I would want to learn.
+
+OpenSSL
+
+The skills matrix shows OpenSSL as a long-standing environment technology across the library and SIP products. My own work was at the integration boundary: TLS and secure-media settings, certificate-related device configuration, SIP Digest and realm handling, and an encrypted provisioning project format. I did not perform CVE analysis, CVE backporting, or an OpenSSL branch migration, and I would not present that as my work.
 
 Windows IoT
 
