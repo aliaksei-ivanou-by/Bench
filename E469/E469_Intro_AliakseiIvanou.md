@@ -1,4 +1,26 @@
-Self Intro
+SELF INTRO
+
+DOCUMENT INFORMATION
+
+Request ID: E469
+Candidate: Aliaksei Ivanou
+Target role: Broadband Triage Engineer
+CV source: E469 Aliaksei Ivanou (14+, C++).pdf
+Source profile: E469_Profile_AliakseiIvanou.md
+Preparation language: English
+Delivery format: Full spoken version
+Estimated duration: 9–10 minutes
+Document status: Interview-ready
+
+PURPOSE
+
+This is the opening self-introduction for a Broadband Triage Engineer interview. It leads with third-level SIP and embedded-device investigation and then establishes the wider engineering background behind that diagnostic work.
+
+TARGET POSITIONING
+
+C++ and embedded Linux engineer with hands-on third-level investigation across SIP application logic, customized liblinphone, WAN recovery, provisioning, Linux services, firmware integration, and target hardware.
+
+INTERVIEW SCRIPT
 
 Hello, my name is Alex. I am a software engineer with more than fourteen years of overall experience across software engineering and research and development. My strongest areas are C and C++, embedded Linux, telecommunications, source-level debugging, and the investigation of complex issues that cross application, network, operating-system, and hardware boundaries.
 
@@ -45,3 +67,18 @@ The first major stage of my career was more than seven years in satellite and UA
 For a UAV optical system, I developed debayering, image-format conversion, stabilization, and image-fusion modules. I also worked on IMU-to-camera calibration and frame-centre coordinate computation and operated the optical payload during more than thirty UAV test flights. This experience gave me a strong understanding of problems where software, sensor behavior, calibration, and physical operating conditions interact.
 
 Across all these projects, the common theme is diagnosis across boundaries. I have worked on cases where each subsystem appeared correct independently, but their interaction produced the failure. I believe this combination of development experience and structured troubleshooting is my main strength for a broadband triage position. I can read and debug C and C++ code, understand SIP and network behavior, work directly with embedded Linux devices, and communicate a technical conclusion with evidence. I am comfortable owning a problem from an incomplete initial report through reproduction, root-cause isolation, correction, and final validation.
+
+INTERVIEW BOUNDARIES
+
+• Broadband Triage Engineer is the target role; the formal employment title is C++ Software Engineer.
+• Technical investigation ownership does not mean ownership of the support organization, customer WAN, or external PBX infrastructure.
+• Scala work was targeted API integration, and AWS work used existing infrastructure rather than administering or automating it.
+• Do not claim hands-on GStreamer, direct V4L2 API work, or full WebRTC server ownership.
+
+EXPECTED FOLLOW-UP TOPICS
+
+• Third-level escalation workflow and fault-domain isolation.
+• SIP registration, Digest authentication, and primary and backup server recovery.
+• Source-level C and C++ debugging on an ARM64 embedded device.
+• WAN interruption and service-recovery validation.
+• Provisioning faults versus runtime software defects.

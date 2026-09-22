@@ -1,10 +1,20 @@
-E469 Responsibilities Reconciled with Real Experience
+RESPONSIBILITIES
 
-Purpose
+DOCUMENT INFORMATION
+
+Request ID: E469
+Candidate: Aliaksei Ivanou
+Target role: Broadband Triage Engineer
+CV source: E469 Aliaksei Ivanou (14+, C++).pdf
+Source profile: E469_Profile_AliakseiIvanou.md
+Preparation language: English
+Document status: Interview-ready
+
+PURPOSE
 
 This document reconciles every responsibility in the E469 CV with the detailed project records in this repository. It provides an accurate English formulation, an interview-ready explanation, and a clear boundary for claims that are broader than the documented experience.
 
-Status labels
+STATUS LABELS
 
 CONFIRMED — the responsibility is supported by the detailed project record.
 
@@ -13,6 +23,8 @@ CONFIRMED — NARROWER SCOPE — the underlying work is real, but the E469 wordi
 UNSUPPORTED — the repository does not support hands-on experience with the stated technology or responsibility.
 
 FACTUAL CORRECTION — the project existed, but the dates, role, or employment context in E469 differs from the documented career record.
+
+VERIFY — the available sources do not establish the claim and Aliaksei must confirm it before use.
 
 
 01. POSITIONING AND TIMELINE CORRECTIONS
@@ -62,7 +74,7 @@ Responsibility 1 — Third-Level Investigation of Escalated Telecom Faults
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Owned third-level investigation of escalated embedded telecom faults across SIP application logic, liblinphone, embedded Linux services, networking, and device configuration, taking issues from customer-reported symptoms through reproduction, root-cause analysis, remediation, and validation.
 
@@ -87,7 +99,7 @@ Responsibility 2 — SIP Failover and Backup-Server Connectivity
 
 Status: CONFIRMED; the documented contribution is stronger than the E469 wording
 
-E469 responsibility
+Original CV wording
 
 Extended and customized Linphone SDK backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
 
@@ -110,7 +122,7 @@ Responsibility 3 — Source-Level C and C++ SIP Stack Debugging
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Debugged C/C++ SIP stack behavior at source level, tracing registration, connection, and failover problems through liblinphone state transitions, application logs, and network traces to identify defects in signaling and recovery logic.
 
@@ -133,7 +145,7 @@ Responsibility 4 — WAN Connectivity and Recovery Scenarios
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Investigated WAN and service-connectivity and recovery scenarios involving loss of network reachability, remote-server unavailability, and connection interruption, reproducing failures and validating device recovery behavior.
 
@@ -154,7 +166,7 @@ Responsibility 5 — Yocto, BitBake, and NXP i.MX Integration
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Collaborated on Yocto and BitBake customization, NXP i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
 
@@ -179,7 +191,7 @@ Responsibility 6 — WebRTC Conferencing and Signaling
 
 Status: CONFIRMED — NARROWER SERVER-SIDE SCOPE
 
-E469 responsibility
+Original CV wording
 
 Developed WebRTC video-conferencing and signaling flows, including conference creation and joining, incoming invite screens, participant roster, status strip, control panel, video-tile layout, and audio and video device controls.
 
@@ -200,7 +212,7 @@ Responsibility 7 — Autoprovisioning Tooling
 
 Status: CONFIRMED; the documented contribution is more detailed than E469
 
-E469 responsibility
+Original CV wording
 
 Migrated a WinForms configuration utility from .NET Framework 4.8 to .NET 8, unified project-file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
 
@@ -261,7 +273,7 @@ Responsibility 1 — Maintenance, Complex Defects, and Performance
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Optimized and maintained the existing codebase by resolving complex bugs and implementing performance enhancements.
 
@@ -282,7 +294,7 @@ Responsibility 2 — Backend and Frontend Socket-Based Features
 
 Status: CONFIRMED — NARROWER SCOPE
 
-E469 responsibility
+Original CV wording
 
 Developed new backend and frontend features for socket-based communication.
 
@@ -301,7 +313,7 @@ Responsibility 3 — Key C Contributor and Development Leadership
 
 Status: CONFIRMED — NARROWER LEADERSHIP CLAIM
 
-E469 responsibility
+Original CV wording
 
 Led development efforts as a key contributor in C, driving the successful implementation of critical features and solutions.
 
@@ -320,7 +332,7 @@ Responsibility 4 — Scala API Refactoring
 
 Status: CONFIRMED — NARROWER SCOPE; E469 OVERSTATES REFACTORING
 
-E469 responsibility
+Original CV wording
 
 Refactored existing Scala API code to improve maintainability and scalability.
 
@@ -339,7 +351,7 @@ Responsibility 5 — AWS and CI/CD Pipelines
 
 Status: CONFIRMED — NARROWER SCOPE; CI/CD AUTOMATION CLAIM IS UNSUPPORTED
 
-E469 responsibility
+Original CV wording
 
 Worked with AWS pipelines, automating CI/CD processes for smoother deployments and reducing development cycle times.
 
@@ -358,7 +370,7 @@ Responsibility 6 — Database Table and Schema Changes
 
 Status: CONFIRMED — NARROWER DATABASE OWNERSHIP
 
-E469 responsibility
+Original CV wording
 
 Modified database tables to support new features, improving schema design to align with updated workflows.
 
@@ -377,7 +389,7 @@ Responsibility 7 — Task Estimation
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Estimated tasks with precision, ensuring realistic timelines and efficient resource allocation.
 
@@ -396,7 +408,7 @@ Responsibility 8 — Code Review
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Conducted code reviews, ensuring quality, standards compliance, and knowledge sharing within the core and client teams.
 
@@ -415,7 +427,7 @@ Responsibility 9 — Legacy-Code Refactoring
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Refactored legacy application code to improve maintainability, scalability, and overall system efficiency.
 
@@ -454,7 +466,7 @@ Responsibility 1 — Backend Software Solutions
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Engineered efficient backend software solutions for critical oil-and-gas operations.
 
@@ -471,7 +483,7 @@ Responsibility 2 — Core Development Contribution
 
 Status: CONFIRMED — NARROWER SENIORITY CLAIM
 
-E469 responsibility
+Original CV wording
 
 Contributed as a core developer, implementing key functionality and supporting project milestones.
 
@@ -488,7 +500,7 @@ Responsibility 3 — Task Estimation
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Provided task estimations for project deliverables.
 
@@ -501,7 +513,7 @@ Responsibility 4 — Maintenance, Defects, Performance, and Technical Debt
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Maintained and enhanced the codebase by resolving bugs, optimizing performance, and reducing technical debt.
 
@@ -520,7 +532,7 @@ Responsibility 5 — Removal of Obsolete Components
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Removed outdated legacy components to improve reliability and maintainability.
 
@@ -553,7 +565,7 @@ Responsibility 1 — Personal-Finance Application Development
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Developed a home accounting application to manage personal financial transactions.
 
@@ -570,7 +582,7 @@ Responsibility 2 — FLTK User Interface
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Used FLTK to create a user-friendly interface for transaction entry and financial analysis.
 
@@ -587,7 +599,7 @@ Responsibility 3 — SQLite Integration
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Integrated SQLite for efficient management of transaction records.
 
@@ -606,7 +618,7 @@ Responsibility 4 — Google Test
 
 Status: CONFIRMED, WITH A DOCUMENTED LIMITATION
 
-E469 responsibility
+Original CV wording
 
 Implemented robust testing practices using Google Test.
 
@@ -625,7 +637,7 @@ Responsibility 5 — Logging and CMake
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Used plog for logging and CMake for build automation.
 
@@ -651,7 +663,7 @@ Responsibility 1 — Generating 3D Models from Multiple 2D Scanners
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Developed software for generating 3D models from data collected by multiple 2D laser sensors.
 
@@ -668,7 +680,7 @@ Responsibility 2 — Point Cloud Library
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Used PCL for processing and manipulation of point-cloud data.
 
@@ -685,7 +697,7 @@ Responsibility 3 — Open3D
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Integrated Open3D for visualization and analysis of 3D models.
 
@@ -702,7 +714,7 @@ Responsibility 4 — Visual Studio, Debugging, and Performance
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Used Visual Studio for coding, debugging, and performance optimization.
 
@@ -736,7 +748,7 @@ Responsibility 1 — UAV Image-Processing Modules
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Developed software modules for digital image-processing systems used in unmanned aerial vehicles.
 
@@ -753,7 +765,7 @@ Responsibility 2 — Debayering
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Implemented a debayer algorithm to convert raw sensor data into full-color images.
 
@@ -770,7 +782,7 @@ Responsibility 3 — Image-Format Conversion
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Created image-format conversion tools to support multiple formats.
 
@@ -783,7 +795,7 @@ Responsibility 4 — Image Stabilization
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Developed an image-stabilization algorithm to reduce motion-induced distortions.
 
@@ -800,7 +812,7 @@ Responsibility 5 — Image Fusion
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Designed an image-fusion algorithm to combine data from multiple sensors.
 
@@ -836,7 +848,7 @@ Responsibility 1 — Ruby on Rails Interface
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Built a web-based interface using Ruby on Rails for accessing and manipulating satellite data.
 
@@ -853,7 +865,7 @@ Responsibility 2 — PostgreSQL Database
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Designed and optimized a PostgreSQL database for detailed satellite specifications.
 
@@ -870,7 +882,7 @@ Responsibility 3 — Microsoft Access Legacy Data
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Integrated Microsoft Access for legacy-data support and migration.
 
@@ -892,7 +904,7 @@ Responsibility 1 — Brightness Standardization and Optical Defects
 
 Status: CONFIRMED; the real work is more specific than E469
 
-E469 responsibility
+Original CV wording
 
 Developed algorithms for standardizing brightness levels across frames and eliminating optical defects.
 
@@ -911,7 +923,7 @@ Responsibility 2 — Linear-Resolution Assessment
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Designed and implemented software to analyze the linear resolution of satellite images using the sharp-edge method.
 
@@ -928,7 +940,7 @@ Responsibility 3 — Image Sharpness and Edge Clarity
 
 Status: CONFIRMED
 
-E469 responsibility
+Original CV wording
 
 Created algorithms to assess image sharpness and edge clarity.
 
@@ -945,7 +957,7 @@ Responsibility 4 — Quantization-Range Prediction and Albedo
 
 Status: CONFIRMED — E469 WORDING IS LESS PRECISE THAN THE DOCUMENTED WORK
 
-E469 responsibility
+Original CV wording
 
 Developed software to predict quantization ranges by analyzing Earth-observation data and estimating the albedo range.
 
@@ -964,7 +976,7 @@ Responsibility 5 — Quantization Workflow Automation
 
 Status: CONFIRMED — SHOULD BE ATTACHED TO THE DOCUMENTED WORKFLOW
 
-E469 responsibility
+Original CV wording
 
 Automated prediction of quantization ranges.
 
@@ -981,7 +993,7 @@ Responsibility 6 — ADPCM Compression
 
 Status: CONFIRMED; the documented contribution includes a measured result
 
-E469 responsibility
+Original CV wording
 
 Designed and implemented a custom image-compression algorithm using ADPCM with multiple quantizers.
 

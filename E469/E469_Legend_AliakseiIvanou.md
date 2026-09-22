@@ -1,6 +1,38 @@
-Legend
+PROJECT LEGEND
 
-1. EMBEDDED BROADBAND-CONNECTED SIP/VOIP COMMUNICATIONS PLATFORM
+DOCUMENT INFORMATION
+
+Request ID: E469
+Candidate: Aliaksei Ivanou
+Target role: Broadband Triage Engineer
+CV source: E469 Aliaksei Ivanou (14+, C++).pdf
+Source profile: E469_Profile_AliakseiIvanou.md
+Preparation language: English
+Document status: Interview-ready
+
+PURPOSE
+
+This document contains the detailed project narratives behind the E469 CV. It is reference material for follow-up questions, not one continuous speech.
+
+HOW TO USE THE LEGEND
+
+Start with the short project summary. Expand only the investigation, architecture, contribution, result, and scope-boundary sections relevant to the interviewer’s question.
+
+PRIVATE CONSISTENCY NOTES
+
+• Broadband Triage Engineer is the target role; the formal title is C++ Software Engineer.
+• Use past tense for the completed embedded SIP assignment.
+• The library assignment ended in April 2024, not April 2025.
+• Home accounting was an independent project, not employment.
+• Fourteen-plus years refers to overall software-engineering and R&D experience.
+
+PROJECT 1. EMBEDDED BROADBAND-CONNECTED SIP/VOIP COMMUNICATIONS PLATFORM
+
+CV period: April 2025 – present
+Verified period: May 2025 – August 2026
+CV role: Software Engineer
+Verified role: C++ Software Engineer with third-level investigation responsibility and a separate internal technical-lead component
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -144,7 +176,13 @@ The strongest result was my ability to work across product layers instead of tre
 The main lesson was that triage is a form of systems engineering. The quality of the result depends on identifying the owner of state, gathering evidence before changing code, and validating recovery behavior rather than only the happy path.
 
 
-2. INTEGRATED LIBRARY SYSTEM
+PROJECT 2. INTEGRATED LIBRARY SYSTEM
+
+CV period: December 2021 – April 2025
+Verified period: March 2022 – April 2024
+CV role: Software Engineer
+Verified role: Junior at entry; promoted to middle grade in May 2022; one of three C developers
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -241,7 +279,13 @@ Project result and main lesson
 
 The project taught me how to change a long-lived production system without treating legacy code as something that can simply be replaced. It strengthened my log-first diagnostic approach, native-debugging skills, cross-language reasoning, and respect for compatibility.
 
-3. CORPORATE SYSTEM FOR THE OIL AND GAS INDUSTRY
+PROJECT 3. CORPORATE SYSTEM FOR THE OIL AND GAS INDUSTRY
+
+CV period: July 2021 – December 2021
+Verified period: October 2021 – December 2021
+CV role: Software Engineer
+Verified role: Junior C++ Software Engineer
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -276,6 +320,12 @@ Project result and main lesson
 The main value of the assignment was learning how to enter a mature enterprise product, identify the relevant flow quickly, and deliver focused C++ changes in a distributed team. It also established the debugging and compatibility habits that became more important on the library platform.
 
 PROJECT 4. HOME ACCOUNTING SOFTWARE
+
+CV period: May 2020 – July 2021
+Verified period: May 2020 – September 2021; application started in July 2020
+CV role: Software Engineer
+Verified role: Sole designer and developer; independent project, not employment
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -328,7 +378,13 @@ Project result and main lesson
 
 The project taught me that the distance between a working script and an application is largely testability, diagnostics, reproducible builds, explicit dependencies, and behavior that can be understood by somebody other than the author.
 
-5. INDUSTRIAL 3D RECONSTRUCTION SOFTWARE
+PROJECT 5. INDUSTRIAL 3D RECONSTRUCTION SOFTWARE
+
+CV period: December 2019 – May 2020
+Verified period: March 2020 – May 2020
+CV role: Software Engineer
+Verified role: C++ Software Engineer in a product-company R&D group
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -386,7 +442,13 @@ Project result and main lesson
 
 The project demonstrated that standard 2D scanners could be combined through software into a 3D measurement prototype. It also taught me that observability between processing stages is essential for debugging pipelines and that visual quality is not the same as measurement quality.
 
-6. SOFTWARE MODULES FOR UAV
+PROJECT 6. SOFTWARE MODULES FOR UAV
+
+CV period: March 2017 – December 2019
+Verified period: Workstream within continuous August 2012 – January 2020 employment
+CV role: Software Engineer
+Verified role: Research and design engineer working primarily in MATLAB
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -438,7 +500,13 @@ Project result and main lesson
 
 The project delivered a working image-processing chain for the UAV payload and reliably geo-referenced imagery. It also gave me early experience with triage across software, sensors, calibration, navigation data, and physical operating conditions.
 
-7. REMOTE-SENSING SATELLITE DATABASE
+PROJECT 7. REMOTE-SENSING SATELLITE DATABASE
+
+CV period: March 2016 – March 2017
+Verified period: Workstream within continuous August 2012 – January 2020 employment
+CV role: Software Engineer
+Verified role: Research and design engineer with secondary web and database responsibility
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -470,7 +538,13 @@ Project result and main lesson
 
 The delivered system replaced scattered reference material with a shared, queryable source. It broadened my experience from algorithm development into web applications, relational modelling, and legacy-data integration.
 
-8. SATELLITE EARTH-OBSERVATION IMAGE PROCESSING
+PROJECT 8. SATELLITE EARTH-OBSERVATION IMAGE PROCESSING
+
+CV period: August 2012 – March 2016
+Verified period: Selected workstream within continuous August 2012 – January 2020 employment
+CV role: Software Engineer
+Verified role: Research and design engineer; primary algorithm environment was MATLAB
+Project status: FACTUAL CORRECTION
 
 Short project summary
 
@@ -550,7 +624,7 @@ In satellite and UAV work, I diagnosed interaction between algorithms, sensors, 
 
 This is why the transition to broadband triage is natural. My strongest skill is identifying which layer owns a failure when the initial symptom is incomplete or misleading.
 
-Safe boundary statements
+SAFE BOUNDARY STATEMENTS
 
 Scala
 
@@ -576,6 +650,6 @@ Conan
 
 I did not use Conan on these projects. Embedded dependencies were handled through Yocto and BitBake, while my independent application used pinned submodules and CMake FetchContent.
 
-Broadband triage closing statement
+CLOSING POSITIONING
 
 My value in a triage role is the combination of development depth and a structured diagnostic process. I can inspect C and C++ source code, understand SIP registration and recovery, work with embedded Linux services and target hardware, analyze logs and network evidence, and distinguish a software defect from a configuration, infrastructure, or integration problem. I am comfortable taking ownership from an incomplete escalation through reproduction, fault isolation, technical correction, and final recovery validation.
