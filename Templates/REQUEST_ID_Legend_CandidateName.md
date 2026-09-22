@@ -6,7 +6,9 @@ Request ID: [REQUEST_ID]
 Candidate: [CANDIDATE_NAME]
 Target role: [TARGET_ROLE]
 CV source: [CV_FILENAME]
+Source request: [REQUEST_FILENAME]
 Source profile: [PROFILE_FILENAME]
+Source analysis: [REQUEST_ANALYSIS_FILENAME]
 Preparation language: English
 Document status: Draft / Reviewed / Interview-ready
 
@@ -95,4 +97,3 @@ SAFE BOUNDARY STATEMENTS
 CLOSING POSITIONING
 
 [TARGET_ROLE_CLOSING_STATEMENT]
-

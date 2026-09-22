@@ -6,7 +6,9 @@ Request ID: [REQUEST_ID]
 Candidate: [CANDIDATE_NAME]
 Target role: [TARGET_ROLE]
 CV source: [CV_FILENAME]
+Source request: [REQUEST_FILENAME]
 Source profile: [PROFILE_FILENAME]
+Source analysis: [REQUEST_ANALYSIS_FILENAME]
 Preparation language: English
 Delivery format: Full spoken version
 Estimated duration: [MINUTES]
@@ -37,4 +39,3 @@ EXPECTED FOLLOW-UP TOPICS
 • [TOPIC_1]
 • [TOPIC_2]
 • [TOPIC_3]
-

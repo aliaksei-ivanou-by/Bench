@@ -6,6 +6,8 @@ Request ID: [REQUEST_ID]
 Candidate: [CANDIDATE_NAME]
 Target role: [TARGET_ROLE]
 CV source: [CV_FILENAME]
+Request document: [REQUEST_FILENAME]
+Request analysis: [REQUEST_ANALYSIS_FILENAME]
 Preparation language: English
 Output format: Plain text for Google Docs
 Profile status: Draft / Reviewed / Interview-ready
@@ -74,4 +76,3 @@ FINAL APPROVAL
 Profile reviewed against CV: Yes / No
 Profile reviewed against career source: Yes / No
 Open questions: [NONE_OR_LIST]
-
