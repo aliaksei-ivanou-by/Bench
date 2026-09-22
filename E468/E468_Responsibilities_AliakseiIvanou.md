@@ -27,12 +27,12 @@ STATUS LABELS
 
 The eight projects in E468 all have a real basis. None of the project titles is wholly invented. The main issues are positioning, dates, ownership boundaries, and several technologies listed in the environment.
 
-• My defensible overall positioning is: more than fourteen years across software engineering and research and development, including more than six years of C and C++ and about five years in commercial software employment. It is not accurate to describe all fourteen years as commercial C++ development.
-• My current formal title is C++ Software Engineer. On the embedded SIP project I also carried technical-lead responsibilities for a separate internal engineering sub-group while remaining approximately 80% hands-on. I should describe myself as a senior individual contributor with a lead component, not invent a formal management title.
+• The E468 CV is the source of truth for this package. My defensible spoken positioning is the CV figure delivered accurately: more than fourteen years across software engineering and research and development, with six years of C++ and three years of C as stated in the CV skills matrix. It is not accurate to describe all fourteen years as commercial C++ development; the verified record supports about five years of commercial software employment.
+• My current formal title is C++ Software Engineer at middle grade. On the embedded SIP project I performed senior-scope individual-contributor work and also carried technical-lead responsibilities for a separate internal engineering sub-group while remaining approximately 80% hands-on. The CV label for that project is Senior Software Engineer; in the interview I explain seniority through concrete scope and ownership and do not invent an awarded grade or a formal management title.
 • The embedded SIP desk-phone assignment ran from May 2025 to August 2026. From September 2026 I remained employed but was between assignments.
 • The integrated library-system assignment ran from March 2022 to April 2024, not April 2025.
 • I joined the library project as a Junior C++ Software Engineer and was promoted to middle grade in May 2022. I was one of three C developers, not the formal senior or sole technical owner of the platform.
-• The home-accounting application was an independent engineering project, not commercial employment. It was part of my transition into commercial C++ and ran alongside an EPAM mentoring programme and laboratory.
+• The home-accounting application was an independent engineering project, not commercial employment. It was part of my transition into commercial C++ and ran alongside an external C++ mentoring programme and laboratory.
 • The satellite, remote-sensing database, and UAV entries are separate workstreams from one continuous period of employment in an optoelectronic research and engineering organization from August 2012 to January 2020.
 • GStreamer, direct V4L2 programming, and Conan are not supported as hands-on project experience by the repository. ReSharper C++ is also not established and must be verified before it is claimed.
 
@@ -41,7 +41,7 @@ The eight projects in E468 all have a real basis. None of the project titles is 
 02. EMBEDDED SIP DESK PHONE PLATFORM
 
 Correct period: May 2025 – August 2026
-Accurate role: C++ Software Engineer; hands-on senior individual contributor with technical-lead responsibilities for a separate internal engineering sub-group
+Accurate role: C++ Software Engineer, formal middle grade, performing senior-scope individual-contributor work with technical-lead responsibilities for a separate internal engineering sub-group. The CV label for this project is Senior Software Engineer
 Project status: Real and well documented
 
 Project context
@@ -267,7 +267,7 @@ Shared responsibility for the C89 backend as one of three C developers, taking a
 
 Detailed explanation
 
-I was a substantial contributor, but I was not the formal senior lead or sole owner of the backend. My work included my own feature delivery, code review, support for onboarding, sprint demonstrations, and technical interviews for EPAM. The defensible phrase is “one of three C developers with shared backend responsibility,” not “led the development effort.”
+I was a substantial contributor, but I was not the formal senior lead or sole owner of the backend. My work included my own feature delivery, code review, support for onboarding, sprint demonstrations, and technical interviews for my employer at the time. The defensible phrase is “one of three C developers with shared backend responsibility,” not “led the development effort.”
 
 Responsibility 4 — Scala API Work
 
@@ -376,7 +376,7 @@ Strong Real Responsibilities Missing from E468
 • Added a Java desktop-table column backed by C-side data.
 • Corrected Japanese search/highlighting through a custom locale and character-mapping path.
 • Fixed time-critical US daylight-saving-time behavior before the transition.
-• Delivered 12+ user-requested features on the library project; across the full EPAM period, contributed to 16+ new features and 100+ defect fixes.
+• Delivered 12+ user-requested features on the library project; across the full period at that employer, contributed to 16+ new features and 100+ defect fixes.
 
 
 
@@ -388,7 +388,7 @@ Project status: Real and substantially accurate
 
 Project context
 
-This was my first enterprise assignment at EPAM. I joined an established C++17 industrial data-processing system used in oilfield-service workflows. The delivery group included five EPAM C++ developers, an external QA team, and US-based customer representatives. My primary responsibility was C++ application development, with JavaScript changes where a complete workflow crossed into the user-facing layer.
+This was my first enterprise assignment at that employer. I joined an established C++17 industrial data-processing system used in oilfield-service workflows. The delivery group included five C++ developers from the delivery company, an external QA team, and US-based customer representatives. My primary responsibility was C++ application development, with JavaScript changes where a complete workflow crossed into the user-facing layer.
 
 Responsibility 1 — Backend Feature Development
 
@@ -468,7 +468,7 @@ The goal was to reduce the maintenance surface without turning a short assignmen
 
 Scope Boundaries
 
-• I did not administer the Azure environment.
+• I did not administer the hosting or server environment.
 • I did not own the database or sensor hardware.
 • Nginx, Microsoft SQL Server, and jQuery were integration or limited-use technologies rather than my primary ownership areas.
 • ReSharper C++ is not established by the repository and must be verified before it is claimed.
@@ -481,7 +481,7 @@ Project status: Real, public, and fully supported by source history
 
 Project context
 
-I used this period to transition from MATLAB-based algorithm research into production-oriented C++. I built a personal-finance desktop application from scratch while completing a long-running EPAM C++ mentoring programme and laboratory. The application is public and contains more than 300 commits.
+I used this period to transition from MATLAB-based algorithm research into production-oriented C++. I built a personal-finance desktop application from scratch while completing a long-running external C++ mentoring programme and laboratory. The application is public and contains more than 300 commits.
 
 Responsibility 1 — End-to-End Application Development
 
@@ -571,7 +571,7 @@ Project status: Real and well documented
 
 Project context
 
-I developed a C++17/Qt prototype that combined profile data from several standard 2D laser scanners into a common three-dimensional point cloud and reconstructed a 3D model. This was an internal R&D prototype, not a released product line, and it was my first commercial C++ role after more than seven years of MATLAB-based algorithm work.
+I developed a native C++ desktop prototype that combined profile data from several standard 2D laser scanners into a common three-dimensional point cloud and reconstructed a 3D model. The E468 CV lists C++, Visual Studio, PCL, Open3D, and Git for this project; the interface was built with Qt, but that is an if-asked detail rather than a lead claim. This was an internal R&D prototype, not a released product line, and it was my first commercial C++ role after more than seven years of MATLAB-based algorithm work.
 
 Responsibility 1 — Multi-Sensor 3D Reconstruction
 
@@ -583,7 +583,7 @@ Developed software for generating 3D models from data collected by multiple 2D l
 
 Corrected responsibility
 
-Implemented a C++17/Qt reconstruction prototype that ingested profile data from multiple 2D laser scanners, transformed each sensor’s data into a shared coordinate frame, and assembled it into a consistent 3D point cloud.
+Implemented a native C++ reconstruction prototype that ingested profile data from multiple 2D laser scanners, transformed each sensor’s data into a shared coordinate frame, and assembled it into a consistent 3D point cloud.
 
 Detailed explanation
 
@@ -631,7 +631,7 @@ Used Visual Studio for coding, debugging, and performance optimization.
 
 Corrected responsibility
 
-Built a Qt desktop interface for loading datasets, enabling or disabling individual sensors, inspecting pipeline stages, viewing clouds and reconstructed surfaces, and exporting results.
+Built a desktop interface for loading datasets, enabling or disabling individual sensors, inspecting pipeline stages, viewing clouds and reconstructed surfaces, and exporting results.
 
 Detailed explanation
 

@@ -100,7 +100,7 @@ MUST-HAVE REQUIREMENT MAPPING
 
 Requirement 1: Several years as a Senior C++ Developer, ideally in high-performance and highly parallel desktop applications
 Priority: MUST-HAVE
-Candidate evidence: Recent C++17 and Qt work in a stateful embedded application, C++20 in an independent desktop application, C++17 in an industrial Windows prototype, and mature C89 delivery. The recent project included QThread, Qt Concurrent, queued signal delivery, asynchronous SDK callbacks, and background work.
+Candidate evidence: Recent C++17 and Qt work in a stateful embedded application, C++20 in an independent desktop application, native C++ in an industrial Windows prototype, and mature C89 delivery. The recent project included asynchronous SDK callbacks, queued signal delivery across thread boundaries, background operations, and explicit QObject ownership and teardown.
 Match: PARTIAL
 Boundary or risk: The verified career record does not support fourteen years of commercial C++ or senior-level ownership throughout. The strongest recent product was embedded Qt, not a highly parallel Windows desktop application.
 Safe interview wording: My recent work is modern C++ in a complex event-driven Qt product with asynchronous SDK callbacks, thread boundaries, background operations, and difficult lifetime and state-management problems. I have Windows desktop and Visual Studio experience as well, but I would not describe my background as years of highly parallel Windows desktop development.
@@ -121,7 +121,7 @@ Safe interview wording: My experience is security-aware product engineering rath
 
 Requirement 4: Multithreading
 Priority: MUST-HAVE
-Candidate evidence: QThread, Qt Concurrent, queued connections across thread boundaries, asynchronous Linphone callbacks, background discovery and provisioning operations, and explicit QObject ownership and teardown.
+Candidate evidence: queued connections across thread boundaries, asynchronous Linphone callbacks, background discovery and provisioning operations, and explicit QObject ownership and teardown.
 Match: PARTIAL TO STRONG
 Boundary or risk: This is event-driven and task-oriented concurrency, not evidence of high-throughput parallel algorithms or lock-free programming at scale.
 Safe interview wording: My strongest concurrency experience is in asynchronous Qt systems where callback ordering, cross-thread delivery, object lifetime, cancellation, and shutdown correctness matter. I would separate that from claims about large-scale data-parallel computation.
@@ -232,7 +232,7 @@ LIKELY INTERVIEW QUESTIONS
 Answer direction: Use asynchronous SIP registration or call state, show reproduction, state-boundary diagnosis, lifetime or ordering reasoning, incremental fix, and device validation.
 
 2. How have you handled multithreading?
-Answer direction: Explain QThread, Qt Concurrent, queued signals, worker ownership, shutdown, and avoiding UI-thread blocking. State that this differs from data-parallel or lock-free systems.
+Answer direction: Explain queued signal delivery across thread boundaries, worker and QObject ownership, cancellation, shutdown, and avoiding UI-thread blocking. Name a specific Qt threading class only if it matches the real implementation. State that this differs from data-parallel or lock-free systems.
 
 3. What security work did you personally own?
 Answer direction: Discuss authentication realm and HA1 handling, TLS and SRTP integration boundaries, certificate and provisioning paths, and security tradeoffs. Explicitly state that this was product engineering, not a formal security-program role.

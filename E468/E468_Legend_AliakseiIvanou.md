@@ -22,6 +22,7 @@ Start with the short project summary, then expand the technical contribution, re
 
 PRIVATE CONSISTENCY NOTES
 
+• The E468 CV is the source of truth for this package. Periods, project order, role labels, and technology lists follow the CV; verified values stay in the separate Verified fields.
 • Use past tense for the completed embedded SIP assignment.
 • The library assignment ended in April 2024, not April 2025.
 • Home accounting was an independent project, not employment.
@@ -30,6 +31,9 @@ PRIVATE CONSISTENCY NOTES
 • The submitted CV uses Senior Software Engineer for Projects 1 and 2. Keep that CV-facing label separate from the verified grade history and explain seniority through concrete scope rather than inventing an awarded title.
 • When the submitted CV period and the verified project period differ, the two fields below must remain separate. Do not combine a CV duration with verified responsibilities to calculate years of experience.
 • The submitted CV lists Conan in the environment and skill matrix, but hands-on use is not supported by the preparation sources. The Intro must not turn the matrix entry into a project story.
+• The CV lists selected projects, not continuous employment. The break between March 2017 and August 2018 and the shorter breaks are project boundaries inside continuous employment from August 2012 to January 2020.
+• If asked to reconcile real assignment dates, state them plainly: library to April 2024, SIP from May 2025, employment continued between assignments.
+• The E468 CV lists C++, Visual Studio, PCL, Open3D, and Git for the 3D reconstruction project. Project 5 below is written without Qt for that reason. The interface was a desktop UI built with Qt, but that detail is only used if the interviewer asks which toolkit was used.
 
 PROJECT 1. SIP DESK PHONE PLATFORM FOR AUDIO AND VIDEO COMMUNICATION
 

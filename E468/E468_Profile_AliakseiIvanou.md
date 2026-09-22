@@ -30,7 +30,9 @@ FORMAL CAREER POSITIONING
 
 Formal current title: C++ Software Engineer
 Target-role relationship: Direct match through recent hands-on C++17, Qt, embedded Linux, SIP, WebRTC, C89 maintenance, and C++17 industrial application work.
-Total experience wording: More than fourteen years across software engineering and research and development; more than six years of C and C++; approximately five years in commercial software employment.
+Total experience wording: Fourteen-plus years, as stated in the E468 CV. Spoken form: more than fourteen years across software engineering and research and development.
+Technology depth follows the E468 skills matrix: six years of C++ and three years of C.
+Internal note, not spoken: the verified record supports about five years of commercial software employment. The CV headline therefore has to be delivered as overall software-engineering and research-and-development experience, never as fourteen years of commercial C++ development.
 Primary technical specialization: C and C++, Qt, embedded Linux, debugging, legacy modernization, multimedia and networking integration.
 
 PROJECT MAP
@@ -41,7 +43,7 @@ Interview title: Embedded SIP Desk Phone Platform
 CV period: May 2025 – present
 Verified period: May 2025 – August 2026; employed between assignments from September 2026
 CV role: Senior Software Engineer
-Verified role: C++ Software Engineer; senior individual contributor with a separate internal technical-lead component
+Verified role: C++ Software Engineer, formal middle grade, performing senior-scope individual-contributor work with a separate internal technical-lead component
 Status: FACTUAL CORRECTION
 Primary relevance: C++17, Qt, embedded Linux, SIP, WebRTC, architecture, provisioning, and hardware-facing diagnosis.
 
@@ -83,7 +85,8 @@ Verified period: March 2020 – May 2020
 CV role: Software Engineer
 Verified role: C++ Software Engineer in a product-company R&D group
 Status: CONFIRMED
-Primary relevance: C++17, Qt, PCL, Open3D, point clouds, coordinate transformation, and diagnostic visualization.
+Primary relevance: native C++, Visual Studio, PCL, Open3D, point clouds, coordinate transformation, and diagnostic visualization.
+CV boundary: the E468 CV lists C++, Visual Studio, PCL, Open3D, and Git for this project. Do not lead with Qt or with a C++ standard version that the CV does not state.
 
 Project 6
 CV title: Software Modules for UAV
@@ -160,12 +163,19 @@ UNSUPPORTED OR UNVERIFIED CLAIMS
 
 PRIVATE CONSISTENCY NOTES
 
+• The E468 CV is the source of truth for this package. Project titles, order, periods, role labels, technology lists, and skills-matrix figures follow the CV. Verified values stay inside the Verified period and Verified role fields and are used only if an interviewer asks for reconciliation.
 • Use past tense for the completed SIP assignment.
 • Do not describe the home-accounting project as employment.
 • Do not describe all fourteen years as commercial C++ experience.
 • Do not state that the library assignment continued to April 2025.
+• The CV presents selected projects, not continuous employment. The visible break between March 2017 and August 2018, and the shorter breaks in 2019, 2020, 2021, and 2022, are project boundaries. The period from August 2012 to January 2020 was one continuous employment containing several workstreams.
+• If asked to reconcile actual assignment dates: the library assignment ended in April 2024, the embedded SIP assignment began in May 2025, and employment continued between assignments.
 
 STANDARD BOUNDARY STATEMENTS
+
+CV technology entries
+
+Some entries in the CV technology list and skills matrix are project-environment technologies rather than areas I implemented personally. If one of them comes up, I say what I personally did and where the boundary is, instead of either defending the entry or disowning my own CV. This applies to GStreamer, V4L2, Conan, and ReSharper C++. A usable opening is: that was part of the project environment; my own work on it was limited to the following, and here is what I would want to learn.
 
 WebRTC
 
