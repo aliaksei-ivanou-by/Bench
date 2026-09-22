@@ -26,17 +26,21 @@ PRIVATE CONSISTENCY NOTES
 • The library assignment ended in April 2024, not April 2025.
 • Home accounting was an independent project, not employment.
 • Fourteen-plus years refers to overall software engineering and R&D experience.
+• The E468 skills matrix states six years of C++. Do not replace it in this package with the seven-year figure from E469 or the four-year figure from E474.
+• The submitted CV uses Senior Software Engineer for Projects 1 and 2. Keep that CV-facing label separate from the verified grade history and explain seniority through concrete scope rather than inventing an awarded title.
+• When the submitted CV period and the verified project period differ, the two fields below must remain separate. Do not combine a CV duration with verified responsibilities to calculate years of experience.
+• The submitted CV lists Conan in the environment and skill matrix, but hands-on use is not supported by the preparation sources. The Intro must not turn the matrix entry into a project story.
 
 PROJECT 1. SIP DESK PHONE PLATFORM FOR AUDIO AND VIDEO COMMUNICATION
 
 CV period: May 2025 – present
 Verified period: May 2025 – August 2026
 CV role: Senior Software Engineer
-Verified role: C++ Software Engineer; senior individual contributor with a separate internal technical-lead component
+Verified role: C++ Software Engineer, formal middle grade, performing senior-scope individual-contributor work with a separate internal technical-lead component
 Project status: FACTUAL CORRECTION
 
 Short project summary
-My most recent assignment was an embedded platform for SIP desk phones. The product family included devices with and without a camera, so the software supported both audio-only and video communication.
+My most recent project is an embedded platform for SIP desk phones. The product family included devices with and without a camera, so the software supported both audio-only and video communication.
 The platform covers the complete phone workflow: SIP registration, incoming and outgoing calls, call hold and transfer, conferences, phonebook access, direct IP dialing, device configuration, and automatic provisioning.
 The product consists of several parts:
 A native application running on the phone.
@@ -68,6 +72,8 @@ Processing of user actions.
 Media-related logic.
 Integration with Linphone SDK.
 I had to preserve compatibility with the existing QObject signals and the existing Qt Widgets UI. This allowed us to improve the internal structure without introducing a large risky migration.
+Concurrency and asynchronous execution
+Linphone registration, call, and media notifications arrived asynchronously, while Qt objects and widgets had thread-affinity and lifetime constraints. I worked with SDK callbacks, queued signal delivery, background operations, and explicit state transitions so the UI consumed stable application state rather than mutating SDK state directly. This is relevant multithreading and concurrency experience, but it is not evidence of a highly parallel Windows desktop compute engine.
 Video-call edge cases
 Another important part of my work was improving the behavior of video calls and conferences.
 The difficult cases were not basic one-to-one calls but combinations of several events, such as:
@@ -131,7 +137,7 @@ Socket-based communication.
 Existing Jenkins builds and AWS-hosted Linux deployment environments.
 A major project requirement was to continue developing the product while maintaining compatibility with existing components and workflows.
 My role and ownership
-I joined the project at junior grade, was promoted to middle grade in May 2022, and shared responsibility for the C89 backend as one of three C developers.
+I worked as one of three C developers with shared responsibility for the C89 backend. My responsibilities grew over the assignment, but the spoken project answer should explain scope and ownership rather than introduce a grade that differs from the submitted CV label.
 My responsibilities included:
 Investigating and fixing complex defects.
 Developing new functionality.
