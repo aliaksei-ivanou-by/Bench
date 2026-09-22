@@ -210,6 +210,10 @@ The main diagnostic lesson was that successful signaling did not guarantee succe
 I made a limited contribution to the initial JavaScript and Node.js server implementation. I did not own the later server rewrite, so the accurate focus is phone-side integration and debugging rather than end-to-end ownership of the conferencing platform.
 
 
+CV note for this responsibility
+
+The E469 CV states the WinForms and .NET 8 migration inside the project responsibilities, but .NET and WinForms are not repeated in the frameworks list or the skills matrix, where only C# appears with one year. This is a weighting choice in the CV rather than a contradiction to correct in the interview. Do not raise it; if the interviewer notices, say that the summary is weighted towards the embedded side and the tooling detail sits in the project description.
+
 Responsibility 7 — Autoprovisioning Tooling
 
 Status: CONFIRMED; the documented contribution is more detailed than E469

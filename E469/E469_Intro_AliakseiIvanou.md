@@ -85,6 +85,10 @@ INTERVIEW BOUNDARIES
 • The recent endpoint was a SIP desk phone, not a broadband gateway, and the verified role was engineering with escalation responsibility rather than an operator L3 support position.
 • Do not claim TR-069, TR-181, DSL, GPON, FTTH, RDK-B, OpenWrt, prplOS, EasyMesh, Wi-Fi roaming, tier-one operator work, or packet-capture expertise.
 • The documented English level is B2, not C1.
+• The CV shows the current project from April 2025, so the third-level work reads as about seventeen months. State that number if asked and bridge to the earlier cross-service investigation work on the library platform. Do not let it be discovered.
+• The CV skills matrix shows Embedded Linux, Yocto, BitBake, systemd, NXP i.MX, SIP, SDP and RTP each at one year, because they all come from this single assignment. Answer on what was done, not on the number.
+• The CV does not print the words senior or lead on any project. Do not introduce a grade; explain responsibility through concrete scope.
+• The CV describes the WinForms and .NET 8 migration in the project responsibilities but does not repeat .NET or WinForms in the frameworks list or skills matrix. Do not raise it; if asked, say the summary is weighted towards the embedded side. The full wording is in the legend.
 
 EXPECTED FOLLOW-UP TOPICS
 

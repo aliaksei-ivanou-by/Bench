@@ -32,6 +32,9 @@ PRIVATE CONSISTENCY NOTES
 • The submitted CV uses Software Engineer for every project. Keep that CV-facing label separate from the verified grade progression and explain responsibility through concrete scope.
 • When the submitted CV period and the verified project period differ, the two fields below must remain separate. Do not derive technology years from the altered CV periods.
 • The submitted CV mentions network traces, GStreamer, and V4L2. The Intro may discuss source-level diagnosis and higher-level media integration, but it must not expand those entries into packet-capture, GStreamer-pipeline, or direct V4L2 expertise.
+• The submitted CV shows this project from April 2025, so the third-level responsibility reads as about seventeen months. Give that number directly if asked, and bridge to the earlier cross-service investigation work rather than letting the interviewer find it.
+• The submitted CV skills matrix shows Embedded Linux, Yocto, BitBake, systemd, NXP i.MX, SIP, SDP and RTP each at one year, because they all come from this single assignment. Answer on depth of work, not on the number.
+• The submitted CV describes the WinForms and .NET 8 migration inside the project responsibilities, but does not repeat .NET or WinForms in the frameworks list or the skills matrix, where only C# appears. Do not raise this; if asked, say the summary is weighted towards the embedded side.
 • The submitted CV does not list Qt, Qt Widgets, or Qt Creator as frameworks and describes the phone software as a native C/C++ application. The CV also lists only C++, Visual Studio, PCL, Open3D, and Git for the industrial 3D project. The narratives below keep Qt as reference detail; spoken answers say native C++ application and name Qt only if the interviewer asks which UI toolkit was used.
 • Conan is not listed in the E469 CV. Do not raise it and do not reuse a Conan boundary statement from another package.
 • If asked to reconcile real assignment dates, state them plainly: library to April 2024, SIP from May 2025, employment continued between assignments.
@@ -74,6 +77,10 @@ My work crossed into customized liblinphone behavior, Yocto image integration, s
 I did not own the device-local REST server or the browser frontend. Another engineer implemented those components. I used the local API as an integration surface and ensured that Qt-side models and runtime state remained compatible with changes made through the API, web interface, and provisioning system.
 
 My WebRTC responsibility was mainly phone-side integration and debugging. I made a limited contribution to the initial JavaScript and Node.js server implementation, but I did not own the later server rewrite.
+
+Duration and depth of the third-level responsibility
+
+The CV shows this project from April 2025 to the present, which is about seventeen months, and it is the only entry in the CV that carries the third-level wording. If asked how long I have worked in escalation, I give the number rather than letting it be discovered: seventeen months on this product, preceded by more than two years of cross-service defect investigation on the library platform, where the symptom and the cause were regularly in different components. The escalation habit is older than the escalation job title.
 
 Third-level triage responsibility
 
@@ -633,6 +640,24 @@ The career story is not a collection of unrelated domains. It follows one consis
 In satellite and UAV work, I diagnosed interaction between algorithms, sensors, calibration, navigation, and physical conditions. In 3D reconstruction, I diagnosed interaction between several scanners, coordinate systems, geometry, and processing stages. In enterprise systems, I traced behavior through C, Java, Scala, databases, and distributed services. In the SIP phone project, I applied the same method to the application, SDK, signaling, network, provisioning, services, firmware, and hardware.
 
 This is why the transition to broadband triage is natural. My strongest skill is identifying which layer owns a failure when the initial symptom is incomplete or misleading.
+
+CV-FACING ANSWERS
+
+How long the third-level work has run
+
+The CV shows seventeen months on this project, and that is the whole of my formally escalation-labelled work. Before it I spent more than two years diagnosing production-style failures across C, Java, Scala and database components, which is the same method applied to a different product.
+
+Why the skills matrix shows one year for embedded Linux
+
+The one-year figures in my skills summary count the assignment, not the depth. Embedded Linux, Yocto, BitBake, systemd, NXP i.MX, SIP, SDP and RTP all come from this one product, so they all carry the same year count. Inside that year I worked on the firmware image content, service startup ordering, the ARM64 target, the SIP stack in customized liblinphone and on-device debugging. I would rather be asked what I did with them than be judged on the number.
+
+Why the CV headline says Broadband Triage Engineer
+
+That is the role I am applying for, not a title I have held. Every project in my CV carries the label Software Engineer, and my formal title is C++ Software Engineer.
+
+Provisioning tooling in the CV
+
+The CV describes migrating the WinForms configuration utility from .NET Framework 4.8 to .NET 8 inside the project responsibilities. The frameworks list and skills summary in that CV are focused on the embedded side, so .NET and WinForms are not repeated there; C# is. If the interviewer notices, the answer is simply that the summary is weighted towards the device work and the tooling detail sits in the project description.
 
 SAFE BOUNDARY STATEMENTS
 
