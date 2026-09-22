@@ -5,8 +5,10 @@ DOCUMENT INFORMATION
 Request ID: E468
 Candidate: Aliaksei Ivanou
 Spoken name: Aliaksei
-Target role: Software Engineer, C++
+Target role: Senior C++ Developer
 CV source: E468 Aliaksei Ivanou (13, C++).pdf
+Request document: E468_Request_AliakseiIvanou.md
+Request analysis: E468_Request_Analysis_AliakseiIvanou.md
 Preparation language: English
 Output format: Plain text for Google Docs
 Profile status: Interview-ready
@@ -148,6 +150,13 @@ UNSUPPORTED OR UNVERIFIED CLAIMS
 • V4L2: UNSUPPORTED as direct API experience. Use only the higher-level camera-integration boundary statement.
 • Conan: UNSUPPORTED. Do not claim project use.
 • ReSharper C++: VERIFY before use.
+• German B2 or fluent German: UNSUPPORTED. German is not listed in the CV or verified career record.
+• English C1: UNVERIFIED. The request-specific CV states English B2.
+• Claude Code or comparable agent use in a commercial project: UNSUPPORTED unless separately confirmed.
+• BSI IT-Grundschutz implementation: UNSUPPORTED.
+• Highly parallel Windows desktop delivery as a primary specialization: UNSUPPORTED. The closest evidence is asynchronous and threaded Qt product work plus narrower Windows desktop experience.
+• In-depth cybersecurity ownership: UNSUPPORTED as a broad claim. Use the narrower security-aware product-engineering evidence.
+• MSVC-specific depth: VERIFY. Visual Studio use is confirmed, but the exact compiler and toolset details are not established.
 
 PRIVATE CONSISTENCY NOTES
 
@@ -174,5 +183,4 @@ FINAL APPROVAL
 
 Profile reviewed against CV: Yes
 Profile reviewed against career source: Yes
-Open questions: Confirm ReSharper C++ before use.
-
+Open questions: Confirm ReSharper C++ before use. Confirm whether German is mandatory in practice; the request requires B2 or fluent German, while the CV and verified record do not list German. Confirm whether Deloitte is the delivery customer or is staffing for an undisclosed end client.

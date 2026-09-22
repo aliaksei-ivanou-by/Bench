@@ -4,9 +4,11 @@ DOCUMENT INFORMATION
 
 Request ID: E468
 Candidate: Aliaksei Ivanou
-Target role: Software Engineer, C++
+Target role: Senior C++ Developer
 CV source: E468 Aliaksei Ivanou (13, C++).pdf
+Source request: E468_Request_AliakseiIvanou.md
 Source profile: E468_Profile_AliakseiIvanou.md
+Source analysis: E468_Request_Analysis_AliakseiIvanou.md
 Preparation language: English
 Document status: Interview-ready
 

@@ -4,9 +4,11 @@ DOCUMENT INFORMATION
 
 Request ID: E468
 Candidate: Aliaksei Ivanou
-Target role: Software Engineer, C++
+Target role: Senior C++ Developer
 CV source: E468 Aliaksei Ivanou (13, C++).pdf
+Source request: E468_Request_AliakseiIvanou.md
 Source profile: E468_Profile_AliakseiIvanou.md
+Source analysis: E468_Request_Analysis_AliakseiIvanou.md
 Preparation language: English
 Delivery format: Full spoken version
 Estimated duration: 7–8 minutes
@@ -14,7 +16,7 @@ Document status: Interview-ready
 
 PURPOSE
 
-This is the opening self-introduction for a C++ Software Engineer interview. It presents the complete career progression while leading toward the most recent embedded C++ and Qt experience.
+This is the opening self-introduction for a Senior C++ Developer interview. It presents the complete career progression while leading toward the most recent embedded C++ and Qt experience.
 
 TARGET POSITIONING
 
@@ -37,7 +39,7 @@ The main challenge on that project was making changes safely. Because the system
 My most recent assignment was an embedded platform for SIP desk phones. The product included models with and without cameras and supported audio calls, video calls, call hold and transfer, conferences, phonebook access, direct IP dialing, remote configuration, and automatic provisioning.
 The main technology stack included C++17, Qt 5, Qt Widgets, Embedded Linux, Yocto, Linphone SDK, SIP, SDP, RTP, WebRTC, Qt Multimedia, mediasoup, and libmediasoupclient. The target hardware was based on the NXP i.MX platform.
 My main responsibility was the call-handling logic of the native application. One of my major tasks was refactoring the existing call flow toward clearer session, service, SDK-adapter, and presentation boundaries.
-Originally, UI rendering, call state, user actions, media negotiation, and direct interaction with Linphone SDK were tightly coupled. This made the code difficult to understand and made changes risky. I have been gradually separating these responsibilities into clearer domain, presentation, and SDK-integration layers.
+Originally, UI rendering, call state, user actions, media negotiation, and direct interaction with Linphone SDK were tightly coupled. This made the code difficult to understand and made changes risky. I separated these responsibilities incrementally into clearer domain, presentation, and SDK-integration layers.
 Because this was an existing product, we could not simply rewrite the entire application. The refactoring had to be incremental and preserve existing UI behavior and Qt signal compatibility.
 I also worked on complex video-call scenarios, including held calls, second-line calls, remote hangups, active video-stream changes, conference layouts, and stale UI state. The main challenge was keeping application state, Linphone SDK state, UI state, and actual media state synchronized.
 Another responsibility was phone-side WebRTC conferencing. I worked on conference lifecycle, participant presentation, video-tile layouts, camera selection, rendering, and audio and video controls.
@@ -53,6 +55,8 @@ INTERVIEW BOUNDARIES
 • The most recent SIP assignment ended in August 2026; use past tense.
 • Scala work was targeted API integration, and AWS work used existing build and deployment infrastructure.
 • Do not claim hands-on GStreamer, direct V4L2 API work, Conan, or broad WebRTC server ownership.
+• The documented English level is B2, not C1, and German is not listed.
+• Do not claim BSI IT-Grundschutz implementation, a dedicated cybersecurity role, production Claude Code use, or years of highly parallel Windows desktop development.
 
 EXPECTED FOLLOW-UP TOPICS
 
