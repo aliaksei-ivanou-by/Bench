@@ -23,18 +23,24 @@ Start every answer with the short project summary. Expand only the parts relevan
 PRIVATE CONSISTENCY NOTES
 
 • The formal current title is C++ Software Engineer. Senior Windows IoT Hardening Expert is the target role.
-• More than fourteen years refers to overall engineering and research and development. It is not fourteen years of commercial Windows or C++ work.
-• The most recent assignment ended in August 2026. Since September 2026, the candidate has been employed between assignments.
+• The E474 submitted CV presents eight-plus years of experience. Do not reuse the fourteen-plus positioning from E468 or E469 in this interview package.
+• The E474 skills matrix states four years of C++, three years of C, three years of C#, and three years of Windows IoT. Do not import the six- or seven-year C++ figures from the other submitted CVs.
+• The submitted CV uses Software Engineer for every project. Keep that CV-facing label separate from the verified grade progression and explain responsibility through concrete scope.
+• When the submitted CV period and the verified project period differ, the two fields below must remain separate. Do not derive technology years from the altered CV periods.
+• The Windows IoT three-year matrix entry must not be expanded into Windows IoT Enterprise image or hardening ownership. The spoken story is limited to the Windows provisioning application and embedded Linux endpoint platform.
+• The submitted CV presents the most recent project as current. Internal source material records delivered project work through August 2026. Keep those timelines separate and avoid an end-date statement in the spoken project summary.
 • The Windows provisioning application configured embedded Linux phones. It was not a Windows IoT Enterprise product image.
 • The Yocto image work is real and relevant, but it must not be renamed as Windows image servicing.
-• Use the verified project dates and roles below when answering interview questions.
+• The submitted-CV statements about a generic cryptographic wrapper, hardware security modules, OpenSSL CVE backports, and broad RTP, NAT, and QoS optimization are not supported as personal project stories and must remain excluded from spoken answers.
+• The verified provisioning path used DHCP options 66 and 67 with TFTP. The submitted references to FTP provisioning, a local SIP server, and Windows IoT server setup must not be repeated.
+• In the spoken project narratives, avoid adding a date or grade where the submitted CV and verified record differ. If an interviewer asks for reconciliation directly, state the difference accurately rather than merging the two timelines.
 
 PROJECT 1. EMBEDDED SIP DESK PHONE PLATFORM
 
 CV period: November 2023 – present
 Verified period: May 2025 – August 2026; employed between assignments from September 2026
 CV role: Software Engineer
-Verified role: C++ Software Engineer working across the Qt application, customized Linphone SDK, Yocto integration, and Windows provisioning tooling
+Verified role: C++ Software Engineer, formal middle grade, working across the Qt application, customized Linphone SDK, Yocto integration, and Windows provisioning tooling
 Project status: FACTUAL CORRECTION
 
 Short project summary
@@ -216,7 +222,7 @@ Project status: FACTUAL CORRECTION
 
 Short project summary
 
-I joined an established Windows-oriented corporate system in the oil and gas domain for a short assignment. I implemented requested C++17 functionality, made supporting JavaScript changes, worked with database-backed workflows, fixed defects, estimated tasks, and removed obsolete code in small controlled steps.
+I joined an established Windows-oriented corporate system in the oil and gas domain. I implemented requested C++17 functionality, made supporting JavaScript changes, worked with database-backed workflows, fixed defects, estimated tasks, and removed obsolete code in small controlled steps.
 
 Product and business context
 
@@ -231,7 +237,7 @@ System architecture and main components
 
 My role and ownership
 
-I was a junior individual contributor. I owned assigned implementation and maintenance tasks and collaborated with more experienced engineers. I was not the system architect, technical lead, or owner of the full database or deployment platform.
+I worked as an individual contributor. I owned assigned implementation and maintenance tasks and collaborated with other engineers. I was not the system architect, technical lead, or owner of the full database or deployment platform.
 
 Main contributions
 
@@ -243,7 +249,7 @@ Main contributions
 
 Key engineering challenges
 
-The short assignment required rapid onboarding into unfamiliar domain rules and a mature codebase. Changes often crossed C++, JavaScript, and database boundaries, so local correctness was insufficient.
+The assignment required rapid onboarding into unfamiliar domain rules and a mature codebase. Changes often crossed C++, JavaScript, and database boundaries, so local correctness was insufficient.
 
 Representative investigation or delivery story
 
@@ -257,7 +263,7 @@ Result: The area became easier to understand and maintain without a broad rewrit
 
 Testing, validation, and diagnostics
 
-I used local debugging, logs, focused checks of affected C++ and JavaScript behavior, and database-state verification. I treated existing behavior and review feedback as constraints because the assignment was too short to justify large architectural changes.
+I used local debugging, logs, focused checks of affected C++ and JavaScript behavior, and database-state verification. I treated existing behavior and review feedback as constraints because the work did not justify broad architectural changes.
 
 Outcome and main lesson
 
@@ -265,7 +271,7 @@ The project reinforced fast, disciplined onboarding and conservative modernizati
 
 Scope boundaries
 
-• The role was junior and the assignment lasted approximately three months.
+• The submitted CV role is Software Engineer. Describe the work through assigned ownership and delivered changes rather than introducing a different grade in the spoken answer.
 • I contributed to the established system; I did not own the product architecture, deployment, or database design.
 • No Windows IoT, Windows Server hardening, driver, GPO, or security-baseline work is established by this project.
 

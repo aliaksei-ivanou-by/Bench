@@ -26,9 +26,9 @@ This is an adjacent profile for the requested role. The candidate has strong tra
 
 INTERVIEW SCRIPT
 
-Hello, my name is Alex. I am a software engineer with more than fourteen years of overall experience across software engineering and research and development. My strongest technical areas are C and C++, C# and .NET desktop tooling, embedded Linux, device provisioning, networking integration, and the diagnosis of problems that cross application, operating-system, firmware, and hardware boundaries.
+Hello, my name is Alex. I am a software engineer with more than eight years of experience across software development and technical research and development. My strongest technical areas are C and C++, C# and .NET desktop tooling, embedded Linux, device provisioning, networking integration, and the diagnosis of problems that cross application, operating-system, firmware, and hardware boundaries.
 
-My most relevant recent experience for this position comes from an embedded SIP desk-phone platform. The platform combined physical ARM64 devices, a C++17 and Qt application, a customized Linphone SDK, a Yocto-based Linux image, device services, networking and telephony configuration, and a Windows application used to discover and provision phones. I worked across those layers from May 2025 to August 2026.
+My most relevant recent experience for this position comes from my most recent project, an embedded SIP desk-phone platform. The platform combined physical ARM64 devices, a C++17 and Qt application, a customized Linphone SDK, a Yocto-based Linux image, device services, networking and telephony configuration, and a Windows application used to discover and provision phones.
 
 The Windows part of that project was a WinForms Autoprovisioning Manager written in C#. A foundation already existed, and I finished and substantially extended the application. I also migrated it from .NET Framework 4.8 to .NET 8 using an SDK-style project structure while preserving the administrator workflow and the configuration format expected by the devices.
 
@@ -42,7 +42,7 @@ I replaced that with explicit project-state models. The application gathered UI 
 
 This task illustrates how I approach lifecycle and compatibility work. I first identify the actual contract. In this case, the contract was not only the project file; it also included generated configuration keys, defaults, archive names, directory layout, account fields, and the behavior expected by the firmware. I then make the state and version boundary explicit, add focused tests, and verify the end-to-end result rather than only checking that serialization completes.
 
-At the end of my work, the provisioning repository contained seventy MSTest methods, mainly around configuration generation, validation, ZIP handling, and related logic. I treat that number only as a repository count, not as a coverage percentage or proof that every system scenario was automated. Physical-device and firmware behavior still required scenario-based validation.
+The provisioning repository used for this preparation contained seventy MSTest methods, mainly around configuration generation, validation, ZIP handling, and related logic. I treat that number only as a repository count, not as a coverage percentage or proof that every system scenario was automated. Physical-device and firmware behavior still required scenario-based validation.
 
 On the device side, I worked with an inherited Yocto and BitBake platform for two phone models. I adapted recipes and image contents for the Qt application, the customized Linphone SDK, media dependencies, scripts, services, configuration, and model-specific resources. I worked with systemd startup ordering, Weston and Wayland readiness, filesystem layout, service dependencies, and physical-device failures involving audio, camera, GPIO, USB, network interfaces, and other integration points.
 
@@ -58,7 +58,7 @@ I also worked on a C++17 corporate system for the oil and gas industry. I implem
 
 Earlier, I developed a C++ and Qt prototype for industrial 3D scanning. It combined profiles from multiple two-dimensional laser scanners in a common three-dimensional coordinate frame and used PCL for filtering, alignment, and reconstruction. The diagnostic interface exposed intermediate stages, so an incorrect model could be traced to a sensor, pose transformation, filter, or reconstruction step. This is relevant to hardware-close troubleshooting because it taught me to distinguish a software defect from calibration, coverage, and physical measurement limitations.
 
-The first major part of my career was more than seven years in satellite and UAV optical-imaging research and development. I primarily used MATLAB to develop image-processing algorithms, including satellite frame stitching, radiometric correction, automated resolution assessment, adaptive quantization, onboard compression, debayering, stabilization, and image fusion. I also worked on IMU-to-camera calibration and operated the optical payload during more than thirty UAV test flights. That experience gave me a strong systems mindset and respect for repeatable validation when software interacts with sensors and real operating conditions.
+Earlier, I worked on UAV optical-system software from 2018 to 2019. I primarily used MATLAB to develop debayering, image-format conversion, stabilization, and image-fusion modules. I also worked on IMU-to-camera calibration and operated the optical payload during more than thirty UAV test flights. That experience gave me a strong systems mindset and respect for repeatable validation when software interacts with sensors and real operating conditions.
 
 For this opportunity, my strongest contribution would be in C++ and C# engineering, Windows provisioning-tool development, WMI-based integration, embedded-image concepts, automation, testing, and cross-layer diagnosis. I can also explain how I would approach a hardened fixed-purpose Windows platform: start from an approved baseline, reduce the enabled surface, make configuration repeatable, control drivers and applications, validate effective state, document exceptions, test update and rollback behavior, and retain evidence for each control.
 
@@ -66,11 +66,15 @@ At the same time, I would not present prepared knowledge as delivered project ex
 
 INTERVIEW BOUNDARIES
 
-• The direct Windows experience is C# and .NET 8 desktop provisioning software, WMI and netsh network-interface handling, Visual Studio, and installer packaging.
+• The direct recent Windows experience is C# and .NET 8 desktop provisioning software, WMI and netsh network-interface handling, and installer packaging. Visual Studio belongs to earlier native Windows development rather than the verified provisioning-tool stack.
+• The E474 submitted CV presents eight-plus years of experience. Do not reuse the fourteen-plus opening from E468 or E469.
+• The submitted CV presents the latest SIP project as November 2023 – present. The opening script deliberately avoids giving a conflicting end date.
 • The provisioned endpoints ran embedded Linux; do not describe the work as Windows IoT Enterprise operating-system hardening.
 • Image integration and lifecycle experience was delivered with Yocto and BitBake, not Windows ADK, WinPE, WIM, Sysprep, or DISM.
 • Do not claim delivered PowerShell hardening, Group Policy design, Windows security-baseline implementation, registry or ACL ownership, Windows driver integration, Active Directory, enterprise WLAN certificates, or regulated validation.
 • Windows Server administration in the tailored CV is not supported by the verified career record.
+• Do not use the submitted-CV claims about a generic cryptographic wrapper, hardware security modules, OpenSSL CVE backports, or broad RTP, NAT, and QoS optimization as personal project stories.
+• The verified provisioning path used DHCP options 66 and 67 plus TFTP. Do not say FTP provisioning or a local SIP server.
 • Windows IoT hardening concepts discussed after preparation must be labeled as prepared knowledge, not previous project delivery.
 
 EXPECTED FOLLOW-UP TOPICS
