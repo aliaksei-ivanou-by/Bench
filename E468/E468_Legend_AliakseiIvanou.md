@@ -367,7 +367,7 @@ Linear-resolution measurement.
 Sharpness analysis.
 Quantization-range prediction.
 Image compression based on ADPCM.
-The primary algorithm environment was MATLAB. Supporting tools and technologies included PostgreSQL, Microsoft Access, Systems Tool Kit, Jira, and project-specific implementation and documentation tooling.
+The primary algorithm environment was MATLAB. Supporting tools and technologies included PostgreSQL, Microsoft Access, System Tool Kit, Jira, and project-specific implementation and documentation tooling.
 My role and ownership
 I worked on the development, investigation, and verification of image-processing algorithms.
 I designed, implemented, and verified the algorithms in MATLAB and supported handover to the engineers responsible for onboard or operational implementation. I did not own the complete flight-software platform.
@@ -393,7 +393,7 @@ Reconstructed image quality.
 Data range.
 Computational complexity.
 Supporting tools and data
-PostgreSQL and Microsoft Access were used for related data storage. Systems Tool Kit was used for satellite and Earth-observation planning tasks, and Jira supported task tracking.
+PostgreSQL and Microsoft Access were used for related data storage. System Tool Kit was used for satellite and Earth-observation planning tasks, and Jira supported task tracking.
 Outcome and main lesson
 This project gave me a strong foundation in algorithm development. I learned how to move from an instrument-level requirement to implementation and experimentation in MATLAB, verification using real imagery, formal documentation, and handover to the engineers responsible for operational or onboard implementation.
 

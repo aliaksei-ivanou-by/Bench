@@ -728,7 +728,7 @@ Strong Real Responsibilities Missing from E468
 
 • Developed a frame-centre coordinate module and calibrated IMU-to-camera alignment.
 • Operated the optical payload during more than thirty UAV test flights.
-• Planned flight-test imaging with Systems Tool Kit.
+• Planned flight-test imaging with System Tool Kit.
 • Participated in image-sensor alignment and real operating-condition validation.
 
 08. REMOTE-SENSING SATELLITE REFERENCE DATABASE
