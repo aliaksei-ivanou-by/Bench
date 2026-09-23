@@ -110,7 +110,7 @@ Status: CONFIRMED; the real contribution is stronger than the E468 wording
 
 Original CV wording
 
-Extended and customized Linphone SDK backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
+Extended and customized Linphone-SDK (liblinphone) backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
 
 Corrected responsibility
 
@@ -130,7 +130,7 @@ Status: CONFIRMED — NARROWER SERVER-SIDE SCOPE
 
 Original CV wording
 
-Developed WebRTC video-conferencing UI and signaling flows, including conference creation and joining, incoming invite screens, participant roster, SIP, IP, and phonebook add dialogs, status strip, control panel, video-tile layout, and audio and video device controls.
+Developed WebRTC video-conferencing UI and signaling flows: conference creation/join, incoming invite screens, participant roster, SIP/IP/phonebook add dialogs, status strip, control panel, video tile layout, and audio/video device controls.
 
 Corrected responsibility
 
@@ -148,7 +148,7 @@ Status: CONFIRMED; the real contribution is substantially more detailed than E46
 
 Original CV wording
 
-Migrated a WinForms configuration utility from .NET Framework 4.8 to .NET 8, unified project-file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
+Autoprovisioning tooling: migrated a WinForms-based configuration utility from .NET Framework 4.8 to .NET 8, unified project file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
 
 Corrected responsibility
 
@@ -168,7 +168,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Collaborated on Yocto and BitBake customization, NXP i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
+Collaborated on Yocto/BitBake customization, i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
 
 Corrected responsibility
 
@@ -259,7 +259,7 @@ Status: CONFIRMED — NARROWER LEADERSHIP CLAIM
 
 Original CV wording
 
-Led development efforts as a key contributor in C, driving the successful implementation of critical features and solutions.
+Led development efforts as a key contributor in C language, driving the successful implementation of critical features and solutions.
 
 Corrected responsibility
 
@@ -309,7 +309,7 @@ Status: CONFIRMED — NARROWER DATABASE OWNERSHIP
 
 Original CV wording
 
-Modified database tables to support new feature implementations and aligned the schema with updated system workflows.
+Modified database tables to support new feature implementations, improving schema design to align with updated system workflows.
 
 Corrected responsibility
 
@@ -343,7 +343,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Conducted thorough code reviews, ensuring code quality, adherence to standards, and knowledge sharing within the primary team and the client’s team.
+Conducted thorough code reviews, ensuring code quality, adherence to standards, and knowledge sharing within the basic team and client’s team.
 
 Corrected responsibility
 
@@ -396,7 +396,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Engineered efficient backend software solutions, ensuring optimal performance for critical operations in the oil and gas industry.
+Engineered efficient back-end software solutions, ensuring optimal performance for critical operations in the oil and gas industry.
 
 Corrected responsibility
 
@@ -404,7 +404,7 @@ Implemented customer-requested functionality in an inherited C++17 industrial da
 
 Detailed explanation
 
-I learned the relevant parts of the codebase quickly, followed the data from processing through persistence and presentation, and implemented focused changes within a three-month assignment. I should discuss concrete application behavior rather than use the vague phrase “critical oil-and-gas operations.”
+I learned the relevant parts of the codebase quickly, followed the data from processing through persistence and presentation, and implemented focused changes within a three-month assignment. I should discuss concrete application behavior rather than use the vague phrase “critical operations in the oil and gas industry.”
 
 Responsibility 2 — Individual Contribution
 
@@ -412,7 +412,7 @@ Status: CONFIRMED — NARROWER SENIORITY CLAIM
 
 Original CV wording
 
-Contributed as a core developer, implementing key functionality and supporting project milestones.
+Contributed as a core developer, implementing key functionalities and supporting project milestones.
 
 Corrected responsibility
 
@@ -505,7 +505,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Used the FLTK C++ library to create a graphical interface for transaction entry and financial analysis.
+Utilized the FLTK C++ library to create a user-friendly graphical interface for simplifying transaction entry and financial analysis.
 
 Corrected responsibility
 
@@ -521,7 +521,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Integrated SQLite for database management of transaction records, providing quick access and reliable local storage.
+Integrated SQLite for efficient database management of transaction records, ensuring quick access and reliable data storage.
 
 Corrected responsibility
 
@@ -537,7 +537,7 @@ Status: CONFIRMED, WITH AN IMPORTANT LIMITATION
 
 Original CV wording
 
-Implemented testing practices using Google Test to improve application reliability and accuracy.
+Implemented robust testing practices using Google Test to ensure application reliability and accuracy, resolving potential issues before deployment.
 
 Corrected responsibility
 
@@ -553,7 +553,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Used plog for error logging and debugging and managed build automation with CMake.
+Employed plog for effective error logging and debugging, enhancing application reliability, and managed build automation with CMake for streamlined development.
 
 Corrected responsibility
 
@@ -579,7 +579,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Developed software for generating 3D models from data collected by multiple 2D laser sensors.
+Developed software for generating 3D models from data collected by multiple 2D laser sensors, significantly enhancing accuracy in 3D reconstruction.
 
 Corrected responsibility
 
@@ -595,7 +595,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Used the Point Cloud Library for processing and manipulation of point-cloud data.
+Utilized the Point Cloud Library (PCL) for efficient processing and manipulation of point cloud data, optimizing data handling and performance.
 
 Corrected responsibility
 
@@ -611,7 +611,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Integrated Open3D for visualization and analysis of 3D models.
+Integrated Open3D to facilitate advanced visualization and analysis of 3D models, improving user interaction and understanding of spatial data.
 
 Corrected responsibility
 
@@ -627,7 +627,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Used Visual Studio for coding, debugging, and performance optimization.
+Employed Visual Studio for coding, debugging, and optimizing performance, ensuring a robust and efficient software solution.
 
 Corrected responsibility
 
@@ -670,7 +670,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Implemented a debayer algorithm to convert raw sensor data into full-color images.
+Implemented a debayer algorithm to convert raw sensor data into full-color images, significantly improving image quality and accuracy for better visual data interpretation.
 
 Corrected responsibility
 
@@ -686,7 +686,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Created image-format conversion tools to support multiple formats and improve compatibility across systems.
+Created image format conversion tools to support multiple formats, enhancing compatibility and integration across different systems and platforms.
 
 Corrected responsibility
 
@@ -698,7 +698,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Developed an image-stabilization algorithm to reduce motion-induced distortions in UAV video.
+Developed an image stabilization algorithm to reduce motion-induced distortions, improving video clarity in real-time UAV operations for clearer footage capture.
 
 Corrected responsibility
 
@@ -714,7 +714,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Designed an image-fusion algorithm to combine data from multiple sensors and improve detail and contrast.
+Designed an image fusion algorithm to combine data from multiple sensors, increasing detail and contrast for improved target recognition and analysis.
 
 Corrected responsibility
 
@@ -748,7 +748,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Built a web-based interface using Ruby on Rails for access to and manipulation of satellite data.
+Built a web-based interface using Ruby on Rails, enabling easy access and manipulation of satellite data for users of varying technical expertise.
 
 Corrected responsibility
 
@@ -764,7 +764,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Designed and optimized a PostgreSQL database for detailed satellite specifications and efficient retrieval.
+Designed and optimized a PostgreSQL database to handle large datasets with detailed satellite specifications, improving data retrieval speed and enhancing user experience.
 
 Corrected responsibility
 
@@ -780,7 +780,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Integrated Microsoft Access for legacy-data support, migration, and compatibility with existing systems.
+Integrated MS Access for legacy data support, ensuring smooth data migration and compatibility with existing systems to facilitate seamless transitions.
 
 Corrected responsibility
 
@@ -802,7 +802,7 @@ Status: CONFIRMED; the real work is more specific than E468
 
 Original CV wording
 
-Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects.
+Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects, improving the overall quality and consistency of satellite imagery.
 
 Corrected responsibility
 
@@ -818,7 +818,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Designed and implemented software to analyze the linear resolution of satellite images using the sharp-edge method.
+Designed and implemented software to analyze the linear resolution of satellite images using the sharp edge method, enhancing the accuracy of imaging performance evaluation.
 
 Corrected responsibility
 
@@ -834,7 +834,7 @@ Status: CONFIRMED
 
 Original CV wording
 
-Created algorithms to assess image sharpness and edge clarity for remote-sensing applications.
+Created algorithms to assess image sharpness and edge clarity, ensuring precise resolution measurements for remote sensing applications and contributing to reliable data interpretation.
 
 Corrected responsibility
 
@@ -850,7 +850,7 @@ Status: CONFIRMED; E468 USES LESS ACCURATE WORDING
 
 Original CV wording
 
-Developed software to predict quantization ranges for remote-sensing satellites by analyzing Earth-observation data and estimating the albedo range.
+Developed software to predict quantization ranges for remote sensing satellites by analyzing Earth observation data and estimating the albedo range, improving sensor calibration and minimizing data loss.
 
 Corrected responsibility
 
@@ -868,7 +868,7 @@ Status: CONFIRMED, BUT SHOULD BE ATTACHED TO A SPECIFIC WORKFLOW
 
 Original CV wording
 
-Automated the prediction of quantization ranges.
+Automated the prediction of quantization ranges, streamlining workflows, and improving operational efficiency.
 
 Corrected responsibility
 
@@ -884,7 +884,7 @@ Status: CONFIRMED; the real contribution includes a measured result
 
 Original CV wording
 
-Designed and implemented a custom image-compression algorithm using ADPCM with multiple quantizers.
+Designed and implemented a custom image compression algorithm using ADPCM with multiple quantizers, achieving optimized compression ratios and enhanced flexibility for different data sizes.
 
 Corrected responsibility
 
@@ -915,8 +915,8 @@ Unsupported Technologies
 Overstated Responsibilities
 
 1. “Refactored existing Scala API code” — replace with the targeted Scala request, Swagger documentation, and C integration that I actually implemented.
-2. “Automated AWS CI/CD pipelines” — replace with use of existing Jenkins/AWS Linux build and deployment environments, plus SSH/gdb/core-dump diagnosis.
-3. “Led development efforts as a key C contributor” on the library system — replace with shared responsibility as one of three C developers.
+2. “Worked with AWS pipelines, automating CI/CD processes for smoother deployments and reducing development cycle times” — replace with use of existing Jenkins/AWS Linux build and deployment environments, plus SSH/gdb/core-dump diagnosis.
+3. “Led development efforts as a key contributor in C language, driving the successful implementation of critical features and solutions” on the library system — replace with shared responsibility as one of three C developers.
 4. Broad socket-programming ownership — describe cross-service request/response work unless a specific low-level socket implementation can be evidenced.
 5. Database-schema ownership — describe application-side PostgreSQL/MySQL integration and specific feature-related data work; database administration and migration were outside my role.
 6. Full WebRTC server ownership — my main contribution was phone-side integration; server work was limited to an initial contribution and did not include ownership of the later rewrite.

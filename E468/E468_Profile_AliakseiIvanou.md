@@ -176,7 +176,7 @@ STANDARD BOUNDARY STATEMENTS
 
 Windows and MSVC currency
 
-The E468 skills matrix shows Visual Studio at five years with a last use of 2021 and Windows at one year with a last use of 2021, while the request is a Windows desktop product. The answer is the CV read accurately, not a correction of it: my native Windows and Visual Studio work is the industrial 3D project and my own desktop application, my most recent Windows work is the C# provisioning tool, and my last two years of native C++ have been Qt on embedded Linux. I would confirm the project toolset rather than claim MSVC-version-specific experience.
+The E468 skills matrix shows Visual Studio at five years with a last use of 2021 and Windows at one year with a last use of 2021, while the request is a Windows desktop product. The answer is the CV read accurately, not a correction of it: my native Windows and Visual Studio work is the industrial 3D project and my own desktop application, my most recent Windows work is the C# provisioning tool, and my recent native C++ has been Qt on embedded Linux. I would confirm the project toolset rather than claim MSVC-version-specific experience.
 
 Overall years against C++ years
 
