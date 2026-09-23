@@ -80,7 +80,7 @@ My WebRTC responsibility was mainly phone-side integration and debugging. I made
 
 Duration and depth of the third-level responsibility
 
-The CV shows this project from April 2025 to the present, which is about seventeen months, and it is the only entry in the CV that carries the third-level wording. If asked how long I have worked in escalation, I give the number rather than letting it be discovered: seventeen months on this product, preceded by more than two years of cross-service defect investigation on the library platform, where the symptom and the cause were regularly in different components. The escalation habit is older than the escalation job title.
+The CV shows this project from April 2025 to the present, which is about seventeen months, and it is the only entry in the CV that carries the third-level wording. If asked how long I have worked in escalation, I give the number rather than letting it be discovered: seventeen months on this product, preceded by more than three years of cross-service defect investigation on the library platform, where the symptom and the cause were regularly in different components. The escalation habit is older than the escalation job title.
 
 Third-level triage responsibility
 
@@ -645,7 +645,7 @@ CV-FACING ANSWERS
 
 How long the third-level work has run
 
-The CV shows seventeen months on this project, and that is the whole of my formally escalation-labelled work. Before it I spent more than two years diagnosing production-style failures across C, Java, Scala and database components, which is the same method applied to a different product.
+The CV shows seventeen months on this project, and that is the whole of my formally escalation-labelled work. Before it I spent more than three years diagnosing production-style failures across C, Java, Scala and database components, which is the same method applied to a different product.
 
 Why the skills matrix shows one year for embedded Linux
 
