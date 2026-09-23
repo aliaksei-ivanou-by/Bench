@@ -440,7 +440,7 @@ Status: CONFIRMED — NARROWER SCOPE
 
 Original CV wording
 
-Modified database tables to support new feature implementations, improving schema design to align with updated system workflows.
+Modified database tables to support new feature.
 
 Corrected responsibility
 
@@ -806,7 +806,7 @@ Strong real responsibilities missing from the CV
 • Developed a frame-centre coordinate module.
 • Worked on IMU-to-camera alignment and calibration.
 • Operated the optical payload during more than thirty UAV test flights.
-• Planned flight-test imaging with Systems Tool Kit.
+• Planned flight-test imaging with System Tool Kit.
 • Participated in sensor alignment and validation under real operating conditions.
 
 FINAL RISK SUMMARY

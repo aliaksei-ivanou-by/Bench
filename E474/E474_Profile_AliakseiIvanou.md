@@ -92,7 +92,7 @@ SUPPORTED CLAIMS TO LEAD WITH
 • Migrated and modernized an inherited Windows WinForms provisioning application from .NET Framework 4.8 to .NET 8.
 • Implemented device discovery, configuration generation, DHCP option 66 and 67 workflows, TFTP distribution, SNMP querying, SQLite persistence, project save and load, diagnostics, localization, and installer packaging.
 • Worked with System.Management and WMI plus netsh for Windows network-interface selection and configuration assistance.
-• Used MSTest and scenario-based validation; the project-end repository contained 70 test methods, which is a repository count rather than a coverage or pass-rate claim.
+• Used MSTest and scenario-based validation; the project-end repository contained 70 test methods, which is a repository count rather than a coverage or pass-rate claim. The CV lists no test framework, so this is offered as detail underneath the provisioning responsibility, never as a correction of the CV.
 • Debugged across application code, embedded Linux services, Yocto image contents, device hardware, networking, and configuration.
 • Developed in C++17 and C# with hands-on Windows and embedded-device integration.
 
