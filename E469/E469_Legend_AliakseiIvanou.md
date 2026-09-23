@@ -511,7 +511,7 @@ This was a systems problem. The camera and IMU could each pass their own tests w
 
 Flight testing
 
-I operated the optical payload during more than thirty UAV flights and used Systems Tool Kit to support imaging planning. Flight tests exposed conditions that curated datasets did not, including unexpected motion, lighting, synchronization, and physical integration effects.
+I operated the optical payload during more than thirty UAV flights and used System Tool Kit to support imaging planning. Flight tests exposed conditions that curated datasets did not, including unexpected motion, lighting, synchronization, and physical integration effects.
 
 Project result and main lesson
 

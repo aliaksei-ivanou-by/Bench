@@ -835,7 +835,7 @@ Strong real responsibilities missing from E469
 • Developed a frame-centre coordinate module.
 • Calibrated IMU-to-camera alignment.
 • Operated the optical payload during more than thirty UAV test flights.
-• Planned flight-test imaging with Systems Tool Kit.
+• Planned flight-test imaging with System Tool Kit.
 • Participated in sensor alignment and real-condition instrument validation.
 
 

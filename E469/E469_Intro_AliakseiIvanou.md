@@ -68,6 +68,8 @@ The first major stage of my career was more than six years in satellite and UAV 
 
 For a UAV optical system, I developed debayering, image-format conversion, stabilization, and image-fusion modules. I also worked on IMU-to-camera calibration and frame-centre coordinate computation and operated the optical payload during more than thirty UAV test flights. This experience gave me a strong understanding of problems where software, sensor behavior, calibration, and physical operating conditions interact.
 
+In the same period I also built a reference database and web application for Earth remote-sensing satellites. That project was different from my algorithmic work because it used Ruby on Rails and PostgreSQL, with Microsoft Access as the legacy data source. I designed the relational structure, implemented the web interface used by engineers in the department, and mapped the existing records into the new schema. It is the part of my background where I worked on data modelling and a user-facing system rather than on algorithms.
+
 Across all these projects, the common theme is diagnosis across boundaries. I have worked on cases where each subsystem appeared correct independently, but their interaction produced the failure. I believe this combination of development experience and structured troubleshooting is my main strength for a broadband triage position. I can read and debug C and C++ code, understand SIP and network behavior, work directly with embedded Linux devices, and communicate a technical conclusion with evidence. I am comfortable owning a problem from an incomplete initial report through reproduction, root-cause isolation, correction, and final validation.
 
 INTERVIEW BOUNDARIES
