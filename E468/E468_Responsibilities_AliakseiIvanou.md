@@ -571,7 +571,7 @@ Project status: Real and well documented
 
 Project context
 
-I developed a native C++ desktop prototype that combined profile data from several standard 2D laser scanners into a common three-dimensional point cloud and reconstructed a 3D model. The E468 CV lists C++, Visual Studio, PCL, Open3D, and Git for this project; the interface was built with Qt, but that is an if-asked detail rather than a lead claim. This was an internal R&D prototype, not a released product line, and it was my first commercial C++ role after more than seven years of MATLAB-based algorithm work.
+I developed a native C++ desktop prototype that combined profile data from several standard 2D laser scanners into a common three-dimensional point cloud and reconstructed a 3D model. The E468 CV lists C++, Visual Studio, PCL, Open3D, and Git for this project; the interface was built with Qt, but that is an if-asked detail rather than a lead claim. This was an internal R&D prototype, not a released product line, and it was my first commercial C++ role after more than seven years of algorithm research and development.
 
 Responsibility 1 — Multi-Sensor 3D Reconstruction
 
