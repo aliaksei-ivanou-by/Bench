@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="580" viewBox="0 0 1000 580" role="img" aria-labelledby="title desc" fill="#0f172a" font-family="Arial, sans-serif">
+  <title id="title">Boundary-based latency diagnosis</title>
+  <desc id="desc">A request moves through storage, worker queue, decode, upload queue, GPU upload, scene traversal, GPU rendering and presentation. Timestamp differences and related counters distinguish service time from queueing and GPU work.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#64748b"/></marker></defs>
+  <text x="500" y="38" text-anchor="middle" font-size="26" font-weight="600">Latency diagnosis: timestamp the boundaries, then fix the owning stage</text>
+
+  <text x="40" y="92" font-size="18" font-weight="600" fill="#1d4ed8">CPU / streaming path</text>
+  <g>
+    <rect x="40" y="112" width="102" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+    <text x="91" y="140" text-anchor="middle" font-size="14" font-weight="600">Tile request</text><text x="91" y="162" text-anchor="middle" font-size="12" fill="#475569">t0</text>
+    <path d="M142 147 H166" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="177" y="112" width="102" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+    <text x="228" y="140" text-anchor="middle" font-size="14" font-weight="600">Storage</text><text x="228" y="162" text-anchor="middle" font-size="12" fill="#475569">read end t1</text>
+    <path d="M279 147 H303" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="314" y="104" width="112" height="86" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="370" y="133" text-anchor="middle" font-size="14" font-weight="600">Worker queue</text><text x="370" y="155" text-anchor="middle" font-size="12" fill="#475569">wait time</text><text x="370" y="174" text-anchor="middle" font-size="12" fill="#475569">depth / age</text>
+    <path d="M426 147 H450" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="461" y="112" width="102" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+    <text x="512" y="140" text-anchor="middle" font-size="14" font-weight="600">Decode</text><text x="512" y="162" text-anchor="middle" font-size="12" fill="#475569">end t2</text>
+    <path d="M563 147 H587" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="598" y="104" width="112" height="86" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/>
+    <text x="654" y="133" text-anchor="middle" font-size="14" font-weight="600">Upload queue</text><text x="654" y="155" text-anchor="middle" font-size="12" fill="#475569">wait time</text><text x="654" y="174" text-anchor="middle" font-size="12" fill="#475569">depth / bytes</text>
+    <path d="M710 147 H734" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="745" y="112" width="102" height="70" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/>
+    <text x="796" y="140" text-anchor="middle" font-size="14" font-weight="600">GPU upload</text><text x="796" y="162" text-anchor="middle" font-size="12" fill="#475569">submitted t3</text>
+    <path d="M847 147 H871" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+    <rect x="882" y="112" width="78" height="70" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+    <text x="921" y="140" text-anchor="middle" font-size="14" font-weight="600">Resident</text><text x="921" y="162" text-anchor="middle" font-size="12" fill="#475569">ready</text>
+  </g>
+
+  <text x="40" y="244" font-size="18" font-weight="600" fill="#c2410c">Frame path</text>
+  <rect x="96" y="264" width="160" height="72" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/>
+  <text x="176" y="291" text-anchor="middle" font-size="15" font-weight="600">Scene traversal + LOD</text>
+  <text x="176" y="315" text-anchor="middle" font-size="12" fill="#475569">visible count / CPU time</text>
+  <path d="M256 300 H319" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="330" y="264" width="160" height="72" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/>
+  <text x="410" y="291" text-anchor="middle" font-size="15" font-weight="600">Command submission</text>
+  <text x="410" y="315" text-anchor="middle" font-size="12" fill="#475569">draw count / driver time</text>
+  <path d="M490 300 H553" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="564" y="254" width="180" height="92" rx="8" fill="#ede9fe" stroke="#a78bfa" stroke-width="3"/>
+  <text x="654" y="284" text-anchor="middle" font-size="15" font-weight="600" fill="#6d28d9">GPU rendering</text>
+  <text x="654" y="307" text-anchor="middle" font-size="12">timer query collected later</text>
+  <text x="654" y="327" text-anchor="middle" font-size="12" fill="#475569">vertices / fragments / bandwidth</text>
+  <path d="M744 300 H807" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="818" y="264" width="142" height="72" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <text x="889" y="291" text-anchor="middle" font-size="15" font-weight="600">Presentation</text>
+  <text x="889" y="315" text-anchor="middle" font-size="12" fill="#475569">swap / display time t4</text>
+
+  <rect x="40" y="392" width="920" height="122" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="62" y="423" font-size="18" font-weight="600">How to read the evidence</text>
+  <text x="75" y="451" font-size="13">• Long stage duration → that service is slow.</text>
+  <text x="92" y="472" font-size="12" fill="#475569">Compare monotonic start and end timestamps.</text>
+  <text x="75" y="496" font-size="13">• Growing queue depth and age → consumer cannot keep up.</text>
+  <text x="535" y="451" font-size="13">• CPU normal + GPU high → shader, overdraw or bandwidth.</text>
+  <text x="535" y="475" font-size="13">• Compare p50, p95, p99 and worst frame.</text>
+  <text x="552" y="496" font-size="12" fill="#475569">Average time can hide visible hitches.</text>
+
+  <text x="500" y="554" text-anchor="middle" font-size="16" font-weight="600">Avoid `glFinish` in measurement: it serializes the pipeline and changes the latency you are trying to observe.</text>
+</svg>

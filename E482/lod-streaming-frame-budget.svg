@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc" fill="#0f172a" font-family="Arial, sans-serif">
+  <title id="title">Quadtree LOD, asynchronous tile streaming and frame-budget protection</title>
+  <desc id="desc">The left side shows parent and child quadtree tiles with a resident parent fallback. The right side separates worker loading and decoding from a render thread that admits bounded uploads and draws within a 16.67 millisecond frame.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#64748b"/></marker></defs>
+  <text x="500" y="38" text-anchor="middle" font-size="26" font-weight="600">Protecting frame time: select less, stream asynchronously, upload by budget</text>
+
+  <rect x="25" y="70" width="420" height="500" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="49" y="105" font-size="20" font-weight="600">1 · Quadtree LOD selection</text>
+  <rect x="126" y="130" width="216" height="216" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+  <line x1="234" y1="130" x2="234" y2="346" stroke="#60a5fa" stroke-width="2"/>
+  <line x1="126" y1="238" x2="342" y2="238" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="234" y="130" width="108" height="108" fill="#ffedd5" stroke="#ea580c" stroke-width="4"/>
+  <line x1="288" y1="130" x2="288" y2="238" stroke="#fb923c" stroke-width="2"/>
+  <line x1="234" y1="184" x2="342" y2="184" stroke="#fb923c" stroke-width="2"/>
+  <circle cx="357" cy="118" r="12" fill="#7c3aed"/>
+  <text x="425" y="133" text-anchor="end" font-size="14" fill="#6d28d9" font-weight="600">Camera</text>
+  <path d="M357 133 L326 159" stroke="#7c3aed" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="234" y="372" text-anchor="middle" font-size="15" font-weight="600">Blue parent tile is already resident</text>
+  <text x="234" y="396" text-anchor="middle" font-size="14" fill="#475569">Orange children are requested only when their</text>
+  <text x="234" y="416" text-anchor="middle" font-size="14" fill="#475569">projected screen error justifies more detail.</text>
+  <rect x="68" y="447" width="332" height="70" rx="8" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/>
+  <text x="234" y="473" text-anchor="middle" font-size="15" font-weight="600" fill="#15803d">No empty hole during refinement</text>
+  <text x="234" y="491" text-anchor="middle" font-size="14">Keep the parent visible until</text>
+  <text x="234" y="510" text-anchor="middle" font-size="14">required children are ready.</text>
+  <text x="234" y="546" text-anchor="middle" font-size="14" fill="#475569">Selection is camera-driven; residency is resource-driven.</text>
+
+  <rect x="470" y="70" width="505" height="500" rx="12" fill="#fffaf0" stroke="#fed7aa" stroke-width="2"/>
+  <text x="494" y="105" font-size="20" font-weight="600">2 · Async streaming and bounded upload</text>
+  <text x="494" y="145" font-size="15" font-weight="600" fill="#1d4ed8">Worker threads</text>
+  <rect x="494" y="164" width="112" height="58" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="550" y="190" text-anchor="middle" font-size="14" font-weight="600">Storage read</text>
+  <text x="550" y="210" text-anchor="middle" font-size="12" fill="#475569">no render stall</text>
+  <path d="M606 193 H634" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="645" y="164" width="112" height="58" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="701" y="190" text-anchor="middle" font-size="14" font-weight="600">Decode</text>
+  <text x="701" y="210" text-anchor="middle" font-size="12" fill="#475569">prepare pixels</text>
+  <path d="M757 193 H785" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="796" y="154" width="150" height="78" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="871" y="184" text-anchor="middle" font-size="14" font-weight="600">Completed queue</text>
+  <text x="871" y="205" text-anchor="middle" font-size="12" fill="#475569">bounded depth</text>
+  <text x="871" y="222" text-anchor="middle" font-size="12" fill="#475569">explicit overload policy</text>
+
+  <path d="M871 232 V268" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="494" y="283" font-size="15" font-weight="600" fill="#c2410c">Render thread — one 60 Hz frame ≈ 16.67 ms</text>
+  <rect x="494" y="305" width="132" height="70" rx="8" fill="#ffffff" stroke="#fdba74" stroke-width="2"/>
+  <text x="560" y="333" text-anchor="middle" font-size="14" font-weight="600">Scene + LOD</text>
+  <text x="560" y="355" text-anchor="middle" font-size="12" fill="#475569">visible tile set</text>
+  <path d="M626 340 H651" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="662" y="297" width="145" height="86" rx="8" fill="#ffedd5" stroke="#fb923c" stroke-width="3"/>
+  <text x="734" y="325" text-anchor="middle" font-size="14" font-weight="600">Bounded upload</text>
+  <text x="734" y="347" text-anchor="middle" font-size="12">byte or item budget</text>
+  <text x="734" y="366" text-anchor="middle" font-size="12" fill="#475569">defer excess work</text>
+  <path d="M807 340 H832" stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <rect x="843" y="305" width="103" height="70" rx="8" fill="#ffffff" stroke="#fdba74" stroke-width="2"/>
+  <text x="894" y="333" text-anchor="middle" font-size="14" font-weight="600">Draw</text>
+  <text x="894" y="355" text-anchor="middle" font-size="12" fill="#475569">GPU passes</text>
+
+  <text x="494" y="420" font-size="14" font-weight="600">Illustrative frame budget</text>
+  <rect x="494" y="440" width="120" height="36" fill="#bfdbfe"/>
+  <rect x="614" y="440" width="92" height="36" fill="#fed7aa"/>
+  <rect x="706" y="440" width="184" height="36" fill="#bbf7d0"/>
+  <rect x="890" y="440" width="56" height="36" fill="#e9d5ff"/>
+  <text x="554" y="463" text-anchor="middle" font-size="12">CPU scene</text>
+  <text x="660" y="463" text-anchor="middle" font-size="12">upload</text>
+  <text x="798" y="463" text-anchor="middle" font-size="12">GPU render</text>
+  <text x="918" y="463" text-anchor="middle" font-size="12">margin</text>
+  <line x1="494" y1="487" x2="946" y2="487" stroke="#64748b" stroke-width="2"/>
+  <text x="494" y="508" font-size="12" fill="#475569">0 ms</text>
+  <text x="946" y="508" text-anchor="end" font-size="12" fill="#475569">16.67 ms</text>
+  <text x="720" y="545" text-anchor="middle" font-size="14" fill="#475569">Measure p95/p99 and worst frames — average FPS can hide spikes.</text>
+
+  <text x="500" y="622" text-anchor="middle" font-size="16" font-weight="600">Do not drain every completed upload in one frame; stable pacing is the objective.</text>
+</svg>

@@ -26,6 +26,7 @@ The reusable source files are in `Templates/`.
 | `E468` | Senior C++ Developer | YER Experts GmbH | Deloitte is the named requester; final product owner is undisclosed | Full preparation package plus request and customer analysis |
 | `E469` | Broadband Triage Engineer | 5V Video | Deutsche Telekom | Full preparation package plus request and customer analysis |
 | `E474` | Senior Windows IoT Hardening Expert | Timspark | Final client is undisclosed | Full preparation package plus request and customer analysis |
+| `E482` | Senior Embedded C++ and Real-Time Graphics Engineer | BrightBox Group | Acron Aviation, according to the supplied account context | Full preparation package; the Intro combines the BrightBox pre-screen and the Acron customer interview in one stage-tagged question set; unsupported graphics, personal RTOS-platform, bus, sensor-fusion, and formal-compliance claims are explicitly bounded |
 
 ## Document roles
 
