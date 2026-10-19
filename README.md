@@ -27,6 +27,7 @@ The reusable source files are in `Templates/`.
 | `E469` | Broadband Triage Engineer | 5V Video | Deutsche Telekom | Full preparation package plus request and customer analysis |
 | `E474` | Senior Windows IoT Hardening Expert | Timspark | Final client is undisclosed | Full preparation package plus request and customer analysis |
 | `E482` | Senior Embedded C++ and Real-Time Graphics Engineer | BrightBox Group | Acron Aviation, according to the supplied account context | Full preparation package; the Intro combines the BrightBox pre-screen and the Acron customer interview in one stage-tagged question set; unsupported graphics, personal RTOS-platform, bus, sensor-fusion, and formal-compliance claims are explicitly bounded |
+| `E496` | GNC Engineer | Direct Samara Aerospace vacancy | Samara Aerospace | Full preparation package completed, including official customer research and requirement-to-evidence analysis; fit is weak for direct day-one GNC ownership and conditional for an adjacent aerospace algorithm and embedded C++ profile |
 
 ## Document roles
 
