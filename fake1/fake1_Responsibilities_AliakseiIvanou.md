@@ -6,944 +6,1276 @@ Request ID: fake1
 Candidate: Alex I.
 Target role: C++ Software Engineer, generic positioning because no request was provided
 CV source: !MODIFIED Aliaksei Ivanou (13, C++).pdf
+Reality source: Summary repository, relevant Interview career documents
 Source request: Not provided
-Source profile: The supplied fake1 CV only
-Source analysis: Not created because no request was provided
 Preparation language: English
-Document status: CV-based interview preparation; no external verification applied
+Document status: Interview-ready
 
 PURPOSE
 
-This document turns every responsibility in the supplied fake1 CV into an interview-ready response. It does not use another CV, the Summary repository, or any external career record. The original wording and all quantified outcomes come from the supplied CV. Where the CV does not explain implementation details, ownership boundaries, measurement methods, or business context, those details are explicitly marked as not stated.
+This document reconciles every responsibility in the fake1 CV with the factual career record in Summary. The CV wording remains visible, while the response uses only the scope that Summary supports. Intro and Legend remain CV-based documents and are not rewritten from this reconciliation.
 
-STATUS LABELS
+EVIDENCE STATUS
 
-CV-SOURCED — the responsibility appears in the supplied CV.
+CONFIRMED — Summary directly supports the responsibility and its stated scope.
 
-CV-SOURCED METRIC — the responsibility and its numerical result appear in the supplied CV, but the measurement method is not described there.
+PARTIALLY CONFIRMED — the underlying work is real, but the CV broadens the technology, ownership, seniority, period or result.
 
-CV-SOURCED BROAD CLAIM — the responsibility appears in the supplied CV, but its scope or outcome needs a concrete example before a detailed interview discussion.
+NOT SUPPORTED — Summary contains no evidence that the candidate performed the stated responsibility.
 
-DELIVERY RULE
-
-Use the interview-ready response as a concise opening answer. Add technical detail only when it is known from first-hand experience. Do not invent architecture, scale, team size, customer identity, benchmarks, test results, or personal ownership that the CV does not state.
+CV RESPONSIBILITIES COMPARED WITH REAL EXPERIENCE
 
 PROJECT 1. CLOUD NATIVE ENCODING PLATFORM
 
-Period: April 2025 – present
+CV period: April 2025 – present
 CV role: Streaming Engineer/Architect
-CV context: A distributed cloud-native microservices platform for real-time live and video-on-demand encoding and delivery. The CV describes a hybrid C++ and Java/Kotlin codebase, cloud-agnostic deployment, and support for more than 100,000 concurrent users across three availability zones.
+Project reconciliation: FACTUAL CORRECTION — Summary records employment at Innowise from December 2024, an Embedded SIP Desk Phone Platform assignment from May 2025 to August 2026, and time between assignments from September 2026. The supported title is C++ Software Engineer, with a separate internal M1 / People Lead responsibility from October 2025; no streaming-platform assignment or architect title is recorded.
+Summary source: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
 
 Responsibility 1 — JSON-RPC to gRPC/Protobuf migration
 
-Status: CV-SOURCED METRIC
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Replaced legacy JSON-RPC IPC with gRPC/Protobuf, reducing serialization overhead by ~40% and request size by ~60%.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries; Contributions.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+My recent integration work was in a C++/Qt embedded SIP application, a customized Linphone SDK and provisioning paths. Summary records no JSON-RPC-to-gRPC migration.
+
+Difference from the CV wording
+
+The protocol migration and the 40% and 60% metrics have no supporting evidence in Summary.
+
 Interview-ready response
 
-I replaced a legacy JSON-RPC inter-process communication path with gRPC and Protobuf. According to the measurements recorded in my CV, this reduced serialization overhead by about 40 percent and request size by about 60 percent.
-
-Details to prepare
-
-• Which services and message flows were migrated.
-• How serialization overhead and request size were measured.
-• The baseline payloads, test environment, compatibility strategy, and rollout plan.
-• These details are not stated in the CV.
+I have not performed a JSON-RPC-to-gRPC or Protobuf migration. My recent integration work was in a C++/Qt embedded SIP application, a customized Linphone SDK and provisioning paths.
 
 Responsibility 2 — Cloud connector cost and upload-speed optimization
 
-Status: CV-SOURCED BROAD CLAIM
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Analyzed and optimized cost/upload speed ratio for cloud client connectors to achieve the best fit based on customer preferences.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Role and Delivery Boundaries.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I worked on embedded-device networking, SIP configuration, provisioning and target-device diagnostics, not cloud-storage connector economics.
+
+Difference from the CV wording
+
+Summary contains no S3, GCS or Azure Blob connector optimization, cost model or upload-performance ownership.
+
 Interview-ready response
 
-I analyzed the trade-off between upload performance and cost for cloud-storage client connectors and used the result to select or tune a configuration that matched customer priorities.
-
-Details to prepare
-
-• The connector implementations, workloads, cost model, performance indicators, and decision criteria.
-• Whether the result changed concurrency, chunking, retries, SDK settings, routing, or another part of the upload path.
-• The CV does not state these implementation details or a quantified outcome.
+I worked on embedded-device networking, SIP configuration, provisioning and target-device diagnostics, not cloud-storage connector economics. I do not claim cloud-connector cost or upload-speed optimization.
 
 Responsibility 3 — Predictable segment-upload SLA
 
-Status: CV-SOURCED METRIC
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Improved predictable segment upload SLA from 90% to 99.9% for cloud storages.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Outcomes, Impact & Evidence.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+My supported reliability work concerned SIP registration failover, application state consistency and physical-device validation.
+
+Difference from the CV wording
+
+Summary contains no media-segment upload SLA and no improvement from 90% to 99.9%.
+
 Interview-ready response
 
-I improved the predictability of media-segment uploads to cloud storage. The CV records an SLA improvement from 90 percent to 99.9 percent.
-
-Details to prepare
-
-• The exact SLA definition, observation window, percentile or threshold, and data source.
-• Which cloud providers and failure modes were included.
-• The technical changes that produced the improvement and how regression was prevented.
-• These details are not stated in the CV.
+My supported reliability work concerned SIP registration failover, application state consistency and physical-device validation. I can discuss SIP failover reliability, but not a cloud-segment SLA.
 
 Responsibility 4 — Encoder instrumentation and monitoring framework
 
-Status: CV-SOURCED
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Architected C++ encoder instrumentation and monitoring framework supporting Google Cloud, Prometheus and OpenTelemetry.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Testing and Debugging; Observability and Debugging.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I used application, SIP, system and kernel logs, structured diagnostics, Qt remote debugging, gdb and media statistics on ARM64 phones.
+
+Difference from the CV wording
+
+The encoder framework, Google Cloud, Prometheus and OpenTelemetry ownership are not supported.
+
 Interview-ready response
 
-I designed an instrumentation and monitoring framework for the C++ encoder with support for Google Cloud monitoring, Prometheus, and OpenTelemetry.
-
-Details to prepare
-
-• The telemetry model, metrics, traces, exporters, abstraction boundaries, and integration points.
-• Which architectural decisions and implementation tasks were personally owned.
-• How overhead, cardinality, portability, and failure behavior were handled.
-• These details are not stated in the CV.
+I used application, SIP, system and kernel logs, structured diagnostics, Qt remote debugging, gdb and media statistics on ARM64 phones. My direct observability experience is device- and SIP-focused rather than an encoder telemetry platform.
 
 Responsibility 5 — FFmpeg libavfilter instrumentation and latency
 
-Status: CV-SOURCED METRIC
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Implemented instrumentation of FFmpeg libavfilter pipelines reducing end-to-end latency by 4 seconds.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Video and Conferencing.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I debugged phone-side video, WebRTC and mediasoup integration, including media callbacks, rendering, camera enumeration and libyuv conversion.
+
+Difference from the CV wording
+
+Summary records no FFmpeg libavfilter instrumentation and no four-second latency reduction.
+
 Interview-ready response
 
-I instrumented FFmpeg libavfilter pipelines to expose where time was spent in the processing path. The CV records a four-second reduction in end-to-end latency following this work.
-
-Details to prepare
-
-• The original latency, stream type, measurement endpoints, pipeline stages, and workload.
-• Whether instrumentation directly reduced latency or enabled a subsequent optimization.
-• The specific bottleneck and change responsible for the result.
-• These details are not stated in the CV.
+I debugged phone-side video, WebRTC and mediasoup integration, including media callbacks, rendering, camera enumeration and libyuv conversion. I can discuss embedded media debugging, but not this FFmpeg optimization claim.
 
 Responsibility 6 — AI skills for team workflows
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Developed AI skills for the team allowing faster feature delivery and incident resolution.
 
+Summary evidence
+
+• Summary/Interview/Certificates and Continuing Education.md — Certificates and Continuing Education — AI-assisted development.
+
+Supported real scope
+
+I completed Innowise's AI-Assisted Development Training in October 2026: 10 hours 37 minutes of material plus a 6–10-hour C++ assignment extending Catch2 through a specification, tests, 23 reproducible patches, independent review and validation.
+
+Difference from the CV wording
+
+The training supports practical AI-assisted workflow knowledge, but not production ownership of team AI skills or measured feature-delivery and incident-resolution gains.
+
 Interview-ready response
 
-I developed reusable AI-assisted workflows for the team to support feature development and incident investigation. The CV describes the outcome as faster delivery and resolution, without assigning a numerical improvement.
-
-Details to prepare
-
-• What an AI skill contained, which tools it used, and how engineers invoked it.
-• One feature-delivery example and one incident-resolution example.
-• Adoption, quality controls, privacy boundaries, and any measured effect.
-• These details are not stated in the CV.
+I completed Innowise's AI-Assisted Development Training in October 2026: 10 hours 37 minutes of material plus a 6–10-hour C++ assignment extending Catch2 through a specification, tests, 23 reproducible patches, independent review and validation. I present this as structured training and a validated C++ assignment, not as production streaming-platform ownership.
 
 Responsibility 7 — CEA-608/708 subtitle conversion
 
-Status: CV-SOURCED
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Implemented end-to-end Cea608/708 to TTML (IMSC) and WebVTT subtitle conversion workflow.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Shipped Feature Surface.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+My supported media work covered SIP audio/video calls, conferencing and embedded rendering paths.
+
+Difference from the CV wording
+
+Summary contains no CEA-608/708, TTML/IMSC or WebVTT conversion implementation.
+
 Interview-ready response
 
-I implemented an end-to-end workflow that converted CEA-608 and CEA-708 captions into TTML using the IMSC profile and into WebVTT for downstream delivery.
-
-Details to prepare
-
-• Input extraction, timing, character mapping, styling, segmentation, and packaging stages.
-• Edge cases, conformance validation, and how output synchronization was tested.
-• The exact service boundaries and libraries used for the conversion.
-• These details are not stated in the CV.
+My supported media work covered SIP audio/video calls, conferencing and embedded rendering paths. I do not claim subtitle-conversion experience.
 
 Responsibility 8 — MCP and code-knowledge workflow integration
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Integrated mcp-on-demand, graphify and rag-code-mcp into the AI workflows increasing response quality and reducing token consumption.
 
+Summary evidence
+
+• Summary/Interview/Certificates and Continuing Education.md — Certificates and Continuing Education — AI-assisted development.
+
+Supported real scope
+
+My 2026 AI-assisted development programme covered MCP, agent skills, prompt and context engineering, security and controlled coding workflows.
+
+Difference from the CV wording
+
+Summary does not support production integration of mcp-on-demand, graphify or rag-code-mcp, nor a measured response-quality or token-consumption result.
+
 Interview-ready response
 
-I integrated mcp-on-demand, graphify, and rag-code-mcp into the team's AI workflows to improve the relevance of code-related responses and reduce unnecessary context and token use.
-
-Details to prepare
-
-• The previous workflow, integration architecture, retrieval strategy, and supported use cases.
-• How response quality and token consumption were evaluated.
-• Any security, access-control, or source-code privacy constraints.
-• The CV does not provide metrics or implementation details.
+My 2026 AI-assisted development programme covered MCP, agent skills, prompt and context engineering, security and controlled coding workflows. I can discuss MCP concepts and training exercises, not deployment of the named code-knowledge stack.
 
 Responsibility 9 — Internal rag-code-mcp fork
 
-Status: CV-SOURCED
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Owned and maintained internal fork of rag-code-mcp with added support for C, C++, Java and Kotlin written in Go.
 
+Summary evidence
+
+• Summary/Interview/Certificates and Continuing Education.md — Certificates and Continuing Education — AI-assisted development.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I have practical AI-assisted development training and a C++ Catch2 assignment, but no recorded ownership of a rag-code-mcp fork.
+
+Difference from the CV wording
+
+The internal fork, Go implementation and added C, C++, Java and Kotlin support are unsupported.
+
 Interview-ready response
 
-I owned and maintained an internal Go-based fork of rag-code-mcp and extended it to support C, C++, Java, and Kotlin codebases.
-
-Details to prepare
-
-• What language support meant in practice: parsing, chunking, symbol extraction, graph construction, retrieval, or another capability.
-• How tree-sitter or related parsers were used, if applicable to the responsibility.
-• Test coverage, upstream synchronization, release process, and users of the fork.
-• These details are not stated in the CV.
+I have practical AI-assisted development training and a C++ Catch2 assignment, but no recorded ownership of a rag-code-mcp fork. I do not claim Go or rag-code-mcp maintenance experience.
 
 Responsibility 10 — Encoder recovery after output outages
 
-Status: CV-SOURCED
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Implemented proper encoder recovery mechanism on output outages covering S3, GCS, Azure Blob Storage and Akamai MSL4/5.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Primary / Backup SIP Server Behavior.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I implemented a registration watchdog and primary/backup failover/failback state machine in customized liblinphone and integrated it with the Qt application.
+
+Difference from the CV wording
+
+This is relevant recovery-state experience, but it is not encoder recovery and does not involve S3, GCS, Azure Blob Storage or Akamai.
+
 Interview-ready response
 
-I implemented encoder recovery behavior for output outages across Amazon S3, Google Cloud Storage, Azure Blob Storage, and Akamai MSL4 and MSL5 delivery targets.
-
-Details to prepare
-
-• How outages were detected, classified, retried, and surfaced operationally.
-• State recovery, idempotency, buffering, backoff, data-loss behavior, and recovery limits.
-• How the mechanism was tested across the different output types.
-• These details are not stated in the CV.
+I implemented a registration watchdog and primary/backup failover/failback state machine in customized liblinphone and integrated it with the Qt application. I use the SIP failover implementation as an adjacent example and do not present the encoder claim as direct experience.
 
 Responsibility 11 — HLS and DASH Live-to-VOD consistency
 
-Status: CV-SOURCED
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Diagnosed and resolved HLS and DASH manifest misalignments in Live to VOD workflows and preventing orphan segments on input removal.
 
+Summary evidence
+
+• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Video and Conferencing.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+My supported video work was phone-side SIP/WebRTC integration and embedded rendering diagnostics.
+
+Difference from the CV wording
+
+Summary contains no HLS or DASH manifest work, Live-to-VOD workflow or orphan-segment correction.
+
 Interview-ready response
 
-I diagnosed and fixed HLS and DASH manifest-alignment problems in Live-to-VOD workflows and addressed orphaned media segments created when an input was removed.
-
-Details to prepare
-
-• The observed failure, manifest fields, sequence or timeline mismatch, and root cause.
-• Differences between the HLS and DASH paths.
-• Cleanup behavior, regression tests, and operational validation.
-• These details are not stated in the CV.
+My supported video work was phone-side SIP/WebRTC integration and embedded rendering diagnostics. I do not claim HLS/DASH packaging experience.
 
 PROJECT 2. LIBRARY SYSTEM
 
-Period: March 2022 – April 2025
+CV period: March 2022 – April 2025
 CV role: Software Engineer
-CV context: A library-management platform with more than 40 years of operational history, implemented with C, Java, and Scala and designed to preserve compatibility with legacy components.
+Project reconciliation: FACTUAL CORRECTION — the Sierra assignment ran from March 2022 to April 2024. The candidate joined it as a Junior C++ Software Engineer, was promoted to middle grade in May 2022 and continued after relocation to EPAM Systems Poland in August 2022.
+Summary source: Summary/Interview/2022-2024. Integrated Library System.md
 
 Responsibility 1 — Maintenance and performance work
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Optimized and maintained the existing codebase by resolving complex bugs and implementing performance enhancements.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Outcomes and Impact.
+
+Supported real scope
+
+I implemented features, fixed complex native defects and refactored modules across a mature C89 backend.
+
+Difference from the CV wording
+
+Maintenance and defect work are direct; Summary does not establish a specific performance-enhancement result.
+
 Interview-ready response
 
-I maintained and optimized an established library-system codebase, resolving complex defects and implementing performance improvements.
-
-Details to prepare
-
-• One representative defect and one performance bottleneck.
-• Diagnostic tools, root cause, change made, and validation method.
-• The CV does not state concrete examples or metrics.
+I implemented features, fixed complex native defects and refactored modules across a mature C89 backend. I describe the work as feature delivery, defect correction and targeted refactoring, without adding an unmeasured performance claim.
 
 Responsibility 2 — Socket-based backend and frontend features
 
-Status: CV-SOURCED
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Developed new backend and frontend features for socket-based communication.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — System Architecture & Integration Boundaries; Java Data Services and Desktop Application.
+
+Supported real scope
+
+I delivered cross-component features spanning C services, a Scala API and a Java desktop application, and worked with custom protocols between independently running services.
+
+Difference from the CV wording
+
+Summary supports backend/frontend and protocol integration but does not establish ownership of socket implementation.
+
 Interview-ready response
 
-I developed backend and frontend functionality for socket-based communication within the library system.
-
-Details to prepare
-
-• Protocol, client and server responsibilities, message lifecycle, error handling, and user-facing behavior.
-• Languages used for each side and how compatibility was maintained.
-• These details are not stated in the CV.
+I delivered cross-component features spanning C services, a Scala API and a Java desktop application, and worked with custom protocols between independently running services. I present the cross-component feature work directly and keep socket-level implementation outside my claim.
 
 Responsibility 3 — C development leadership
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Led development efforts as a key contributor in C language, driving the successful implementation of critical features and solutions.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — Team and Collaboration; C Backend Development.
+
+Supported real scope
+
+I was one of three C developers sharing responsibility for the C89 backend and independently delivered assigned features, fixes and refactoring.
+
+Difference from the CV wording
+
+The key-contributor work is supported; technical leadership of the project is not.
+
 Interview-ready response
 
-I acted as a key C contributor and led development work for important features and technical solutions in the library platform.
-
-Details to prepare
-
-• The feature, team structure, decision authority, and meaning of “led.”
-• Personal implementation work versus coordination, review, or mentoring.
-• The CV does not identify the features or leadership scope.
+I was one of three C developers sharing responsibility for the C89 backend and independently delivered assigned features, fixes and refactoring. I describe myself as one of the core C contributors, not as the development lead.
 
 Responsibility 4 — Scala API refactoring
 
-Status: CV-SOURCED
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Refactored existing Scala API code to improve maintainability and scalability.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — Scala API and Swagger.
+
+Supported real scope
+
+I added a Swagger-documented Scala API request, connected it to established C processing and made occasional Scala fixes.
+
+Difference from the CV wording
+
+Summary does not support broad Scala API refactoring or a scalability outcome.
+
 Interview-ready response
 
-I refactored an existing Scala API to improve its maintainability and ability to scale.
-
-Details to prepare
-
-• The API boundary, original design problem, refactoring approach, and compatibility constraints.
-• What “scalability” meant and how the improvement was evaluated.
-• These details are not stated in the CV.
+I added a Swagger-documented Scala API request, connected it to established C processing and made occasional Scala fixes. I claim targeted Scala API contribution, not ownership of API-wide refactoring.
 
 Responsibility 5 — AWS CI/CD automation
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Worked with AWS pipelines, automating CI/CD processes for smoother deployments and reducing development cycle times.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — Build and Deployment; Technical Ownership.
+
+Supported real scope
+
+I compiled, deployed and validated changes through Jenkins builds, nightly and on-demand deployments to AWS Linux developer and QA machines.
+
+Difference from the CV wording
+
+Summary records use of the established pipeline, not automation or administration of CI/CD.
+
 Interview-ready response
 
-I worked with AWS-based pipelines and automated parts of the CI/CD process to make deployments smoother and shorten the development cycle.
-
-Details to prepare
-
-• The AWS services, pipeline stages, manual steps removed, and deployment targets.
-• Evidence for the cycle-time improvement and personal ownership.
-• These details are not stated in the CV.
+I compiled, deployed and validated changes through Jenkins builds, nightly and on-demand deployments to AWS Linux developer and QA machines. I can explain the delivery workflow in detail while keeping pipeline ownership outside my scope.
 
 Responsibility 6 — Database schema changes
 
-Status: CV-SOURCED
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Modified database tables to support new feature implementations, improving schema design to align with updated system workflows.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — Technical Ownership; Role Boundaries.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I worked with PostgreSQL and residual MySQL through Java data services and followed database-backed workflows during feature work and diagnosis.
+
+Difference from the CV wording
+
+Summary explicitly places database migration and administration outside my responsibility and records no schema-change ownership.
+
 Interview-ready response
 
-I changed database tables and schema structures to support new features and align persistence with updated application workflows.
-
-Details to prepare
-
-• The database used, schema change, migration strategy, backward compatibility, and data-volume constraints.
-• Query or index changes and how correctness was verified.
-• These details are not stated in the CV.
+I worked with PostgreSQL and residual MySQL through Java data services and followed database-backed workflows during feature work and diagnosis. I claim application-level database integration, not schema design or migration.
 
 Responsibility 7 — Estimation and resource allocation
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Estimated tasks with precision, ensuring realistic timelines and efficient resource allocation for development milestones.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — Development Process; Beyond the Codebase.
+
+Supported real scope
+
+I participated in two-week sprints, grooming, stand-ups, demos and retrospectives and took my own tasks through delivery.
+
+Difference from the CV wording
+
+This supports team planning participation, but Summary does not establish precise estimation ownership or resource allocation.
+
 Interview-ready response
 
-I estimated development tasks and contributed to planning realistic timelines and allocating work for project milestones.
-
-Details to prepare
-
-• Estimation method, planning cadence, team size, and decision authority.
-• One example of uncertainty or scope change and how the estimate was adjusted.
-• The CV does not provide these details or evidence for estimation precision.
+I participated in two-week sprints, grooming, stand-ups, demos and retrospectives and took my own tasks through delivery. I discuss estimation as a team activity and do not claim staffing or resource-management authority.
 
 Responsibility 8 — Code reviews and knowledge sharing
 
-Status: CV-SOURCED
+Status: CONFIRMED
 
 Original CV wording
 
 Conducted thorough code reviews, ensuring code quality, adherence to standards, and knowledge sharing within the basic team and client’s team.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — Beyond the Codebase; Outcomes and Impact.
+
+Supported real scope
+
+I participated in mandatory EPAM/customer code review, supported onboarding of new developers, presented sprint demos and conducted technical interviews for EPAM.
+
+Difference from the CV wording
+
+The responsibility is directly supported; the evidence describes participation and onboarding rather than sole ownership of team standards.
+
 Interview-ready response
 
-I reviewed code for quality and standards compliance and used reviews to share knowledge across the delivery team and the client's team.
-
-Details to prepare
-
-• Review criteria, tools, languages, typical risks, and an example of a valuable review finding.
-• Clarify what the CV's phrase “basic team” means before using it in conversation.
-• Team structure and review volume are not stated in the CV.
+I participated in mandatory EPAM/customer code review, supported onboarding of new developers, presented sprint demos and conducted technical interviews for EPAM. I can discuss concrete review, onboarding and knowledge-sharing practices from this project.
 
 Responsibility 9 — Legacy application refactoring
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Refactored legacy application code to improve maintainability, scalability, and overall system efficiency.
 
+Summary evidence
+
+• Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Important Decisions and Tradeoffs.
+
+Supported real scope
+
+I performed focused refactoring in a long-lived C89 codebase while preserving established behavior and cross-language contracts.
+
+Difference from the CV wording
+
+Maintainability work is supported; broad scalability and overall efficiency improvements are not measured in Summary.
+
 Interview-ready response
 
-I refactored legacy application code to make it easier to maintain and more efficient as the system evolved.
-
-Details to prepare
-
-• The legacy component, code smell or architectural constraint, and incremental migration strategy.
-• How behavior was preserved and what evidence supports the scalability and efficiency claims.
-• These details are not stated in the CV.
+I performed focused refactoring in a long-lived C89 codebase while preserving established behavior and cross-language contracts. I present this as safe incremental refactoring rather than a system-wide scalability programme.
 
 PROJECT 3. CORPORATE SYSTEM FOR THE OIL AND GAS INDUSTRY
 
-Period: October 2021 – December 2021
+CV period: October 2021 – December 2021
 CV role: Software Engineer
-CV context: An internal corporate system with a C++17 backend, JavaScript, HTML, and jQuery frontend, Microsoft SQL Server data storage, Nginx, CMake, and Windows deployment.
+Project reconciliation: FACTUAL CORRECTION — the assignment ran from October 2021 to January 2022. It was the candidate's first EPAM assignment, performed as a Junior C++ Software Engineer.
+Summary source: Summary/Interview/2021. Oil and Gas Corporate System.md
 
 Responsibility 1 — Backend development and performance
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Engineered efficient back-end software solutions, ensuring optimal performance for critical operations in the oil and gas industry.
 
+Summary evidence
+
+• Summary/Interview/2021. Oil and Gas Corporate System.md — C++17 Feature Development and Maintenance.
+
+Supported real scope
+
+I implemented requested C++17 functionality, corrected defects and maintained processing and MySQL-backed application workflows.
+
+Difference from the CV wording
+
+Backend delivery is supported; 'optimal performance' is a broad, unmeasured characterization.
+
 Interview-ready response
 
-I developed C++17 backend functionality for an internal oil-and-gas system, with attention to performance in critical operations.
-
-Details to prepare
-
-• The operation, performance constraint, implementation, workload, and measurement.
-• The CV does not state a specific optimization or metric.
+I implemented requested C++17 functionality, corrected defects and maintained processing and MySQL-backed application workflows. I describe the concrete C++ feature and maintenance work without claiming an unmeasured performance result.
 
 Responsibility 2 — Core development contribution
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Contributed as a core developer, implementing key functionalities and supporting project milestones.
 
+Summary evidence
+
+• Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Contributions.
+
+Supported real scope
+
+As a junior engineer on a short assignment, I delivered assigned C++ features and fixes and crossed into JavaScript when a workflow required it.
+
+Difference from the CV wording
+
+Direct contribution is supported, but the 'core developer' label overstates seniority and project centrality.
+
 Interview-ready response
 
-I contributed as a core developer by implementing important product functionality and supporting planned delivery milestones.
-
-Details to prepare
-
-• The functionality, personal ownership, milestone, and acceptance criteria.
-• The CV does not identify the features or delivery result.
+As a junior engineer on a short assignment, I delivered assigned C++ features and fixes and crossed into JavaScript when a workflow required it. I present myself as a contributing Junior C++ Software Engineer, not as the project's core owner.
 
 Responsibility 3 — Task estimation
 
-Status: CV-SOURCED BROAD CLAIM
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Provided accurate task estimations, enabling effective planning and resource management for project deliverables.
 
+Summary evidence
+
+• Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I worked in the team's delivery process and completed assigned work, but Summary does not record responsibility for estimation or resource planning.
+
+Difference from the CV wording
+
+Accurate estimation and resource-management ownership are unsupported.
+
 Interview-ready response
 
-I estimated implementation work and contributed to planning and resource decisions for project deliverables.
-
-Details to prepare
-
-• The estimation process, participants, project cadence, and an example.
-• The CV does not quantify accuracy or define resource-management authority.
+I participated in the team's sprint and grooming process and took my own tasks through delivery. I did not own team estimates, staffing or resource allocation on this project.
 
 Responsibility 4 — Maintenance, performance, and technical debt
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Maintained and enhanced the existing codebase by resolving bugs, optimizing performance, and reducing technical debt.
 
+Summary evidence
+
+• Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; Outcomes and Impact.
+
+Supported real scope
+
+I fixed C++ and JavaScript defects, simplified inherited C++ paths and reduced maintenance surface in the areas I changed.
+
+Difference from the CV wording
+
+Maintenance and technical-debt reduction are supported; a specific performance optimization result is not.
+
 Interview-ready response
 
-I maintained the existing codebase by fixing defects, improving performance, and reducing technical debt.
-
-Details to prepare
-
-• One defect, one performance issue, and one technical-debt example.
-• Root-cause analysis, tests, and measurable impact are not stated in the CV.
+I fixed C++ and JavaScript defects, simplified inherited C++ paths and reduced maintenance surface in the areas I changed. I lead with defect correction and safe simplification and leave performance metrics out.
 
 Responsibility 5 — Removal of legacy components
 
-Status: CV-SOURCED BROAD CLAIM
+Status: CONFIRMED
 
 Original CV wording
 
 Removed outdated legacy components, modernizing the system to improve reliability and maintainability.
 
+Summary evidence
+
+• Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification.
+
+Supported real scope
+
+I traced dependencies and removed obsolete C++ components and code while preserving established product workflows and supporting regression validation.
+
+Difference from the CV wording
+
+This responsibility is directly supported within the limited areas assigned to me.
+
 Interview-ready response
 
-I removed obsolete legacy components as part of modernizing the system and simplifying its maintenance.
-
-Details to prepare
-
-• The components, dependencies, replacement or migration path, and rollback strategy.
-• Evidence for reliability improvement is not stated in the CV.
+I traced dependencies and removed obsolete C++ components and code while preserving established product workflows and supporting regression validation. I can explain how I kept the cleanup focused, reviewable and safe for regression testing.
 
 PROJECT 4. HOME ACCOUNTING SOFTWARE
 
-Period: July 2020 – July 2021
+CV period: July 2020 – July 2021
 CV role: Software Engineer
-CV context: A C++ desktop bookkeeping application for recording and analyzing personal financial transactions, built with FLTK, SQLite, Google Test, plog, CMake, and Visual Studio.
+Project reconciliation: FACTUAL CORRECTION — Summary records the public Home Accounting project from July 2020 to September 2021, built independently during a professional-development period rather than as commercial employment.
+Summary source: Summary/Interview/2020-2021. Independent C++ Engineering Projects.md
 
 Responsibility 1 — Accounting application development
 
-Status: CV-SOURCED
+Status: CONFIRMED
 
 Original CV wording
 
 Developed a home accounting application to manage personal financial transactions.
 
+Summary evidence
+
+• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Personal Finance Analytics Application.
+
+Supported real scope
+
+I designed and built the complete C++20 personal-finance desktop application from a clean slate as the sole developer.
+
+Difference from the CV wording
+
+The responsibility is directly supported; 'personal-finance application' is more precise than a commercial accounting product.
+
 Interview-ready response
 
-I developed a C++ home-accounting application for recording and managing personal financial transactions.
-
-Details to prepare
-
-• Core user workflows, application architecture, data model, and personal ownership.
-• Product scale, users, and deployment model are not stated in the CV.
+I designed and built the complete C++20 personal-finance desktop application from a clean slate as the sole developer. I describe it as a personal-finance application with accounts, transactions, categories, transfers and analysis.
 
 Responsibility 2 — FLTK user interface
 
-Status: CV-SOURCED BROAD CLAIM
+Status: CONFIRMED
 
 Original CV wording
 
 Utilized the FLTK C++ library to create a user-friendly graphical interface for simplifying transaction entry and financial analysis.
 
+Summary evidence
+
+• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture; Personal Finance Analytics Application.
+
+Supported real scope
+
+I implemented FLTK windows for account management and expense, income and transfer entry and kept UI concerns separated from business logic.
+
+Difference from the CV wording
+
+The implementation is supported; 'user-friendly' remains a qualitative description rather than a measured usability result.
+
 Interview-ready response
 
-I built the application's graphical interface with FLTK, covering transaction entry and financial-analysis workflows.
-
-Details to prepare
-
-• Main screens, interaction model, validation, table or chart behavior, and usability decisions.
-• The CV does not describe how user friendliness was evaluated.
+I implemented FLTK windows for account management and expense, income and transfer entry and kept UI concerns separated from business logic. I focus on the concrete workflows and the interface-versus-logic separation.
 
 Responsibility 3 — SQLite persistence
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Integrated SQLite for efficient database management of transaction records, ensuring quick access and reliable data storage.
 
+Summary evidence
+
+• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture; Tech Stack & Technical Decisions.
+
+Supported real scope
+
+I built an eight-table SQLite persistence layer through the sqlite3 C API, prepared statements, per-entity database classes and repositories.
+
+Difference from the CV wording
+
+Reliable relational persistence is supported; a measured quick-access performance improvement is not.
+
 Interview-ready response
 
-I integrated SQLite as the local persistence layer for financial transaction records and implemented the required storage and retrieval workflows.
-
-Details to prepare
-
-• Schema, queries, indexes, transactions, migrations, backup behavior, and error handling.
-• The CV does not provide access-time or reliability measurements.
+I built an eight-table SQLite persistence layer through the sqlite3 C API, prepared statements, per-entity database classes and repositories. I explain the schema and data-access architecture without attaching an unmeasured performance claim.
 
 Responsibility 4 — Google Test coverage
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Implemented robust testing practices using Google Test to ensure application reliability and accuracy, resolving potential issues before deployment.
 
+Summary evidence
+
+• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Testing; Outcomes and Impact.
+
+Supported real scope
+
+I introduced GoogleTest from the first features, wired it through CTest and covered seven model types, using testability to drive separation of UI, logic and storage.
+
+Difference from the CV wording
+
+The testing practice is direct, but 'robust coverage' overstates it: Transaction and the risk-sensitive multi-currency FinanceRepository logic remained insufficiently covered.
+
 Interview-ready response
 
-I used Google Test to verify important application behavior and financial-data logic before deployment.
-
-Details to prepare
-
-• Components tested, test levels, important edge cases, and examples of defects caught.
-• Coverage, test count, deployment process, and quality metrics are not stated in the CV.
+I introduced GoogleTest from the first features, wired it through CTest and covered seven model types, using testability to drive separation of UI, logic and storage. I state both the architectural benefit and the known coverage limitation.
 
 Responsibility 5 — Logging and build automation
 
-Status: CV-SOURCED
+Status: CONFIRMED
 
 Original CV wording
 
 Employed plog for effective error logging and debugging, enhancing application reliability, and managed build automation with CMake for streamlined development.
 
+Summary evidence
+
+• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Diagnostics; Build.
+
+Supported real scope
+
+I added structured plog logging around database operations and failures and created a reproducible CMake build with CTest and pinned dependencies.
+
+Difference from the CV wording
+
+This responsibility is directly supported; the build was reproducible automation, not a CI/CD platform.
+
 Interview-ready response
 
-I added plog-based diagnostic logging and used CMake to automate configuration and builds for the C++ application.
-
-Details to prepare
-
-• Log structure, levels, sensitive-data handling, failure scenarios, and CMake target layout.
-• The CV does not quantify the reliability or development-speed effect.
+I added structured plog logging around database operations and failures and created a reproducible CMake build with CTest and pinned dependencies. I can discuss the logging points, clean-checkout build and dependency strategy.
 
 PROJECT 5. 3D RECONSTRUCTION SOFTWARE FOR INDUSTRIAL APPLICATIONS
 
-Period: March 2020 – May 2020
+CV period: March 2020 – May 2020
 CV role: Software Engineer
-CV context: C++ software for creating 3D models from multiple 2D laser sensors, using PCL, Open3D, Visual Studio, and Git.
+Project reconciliation: CONFIRMED — Summary records an informal commercial C++ Software Engineer engagement from 23 March to 19 May 2020 and a C++17/Qt multi-scanner reconstruction prototype.
+Summary source: Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md
 
 Responsibility 1 — Multi-sensor 3D reconstruction
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Developed software for generating 3D models from data collected by multiple 2D laser sensors, significantly enhancing accuracy in 3D reconstruction.
 
+Summary evidence
+
+• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Multi-Sensor Profile Ingestion and Coordinate Transformation.
+
+Supported real scope
+
+I implemented ingestion from multiple 2D laser scanners, transformed sensor-local profiles into a shared 3D frame and assembled a common point cloud for reconstruction.
+
+Difference from the CV wording
+
+The implementation is direct; a significant accuracy improvement was not quantified.
+
 Interview-ready response
 
-I developed C++ software that generated 3D models from measurements produced by multiple 2D laser sensors.
-
-Details to prepare
-
-• Sensor geometry, calibration, synchronization, transformations, registration, and reconstruction pipeline.
-• The baseline, accuracy metric, and size of the improvement are not stated in the CV.
+I implemented ingestion from multiple 2D laser scanners, transformed sensor-local profiles into a shared 3D frame and assembled a common point cloud for reconstruction. I describe the geometric pipeline and the resulting consistent absolute representation without inventing an accuracy metric.
 
 Responsibility 2 — PCL point-cloud processing
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Utilized the Point Cloud Library (PCL) for efficient processing and manipulation of point cloud data, optimizing data handling and performance.
 
+Summary evidence
+
+• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Point-Cloud Processing Pipeline with PCL.
+
+Supported real scope
+
+I built a PCL pipeline for filtering, voxel downsampling, outlier removal, normal estimation, alignment refinement and surface reconstruction.
+
+Difference from the CV wording
+
+Processing and data handling are direct; Summary does not record a performance benchmark or optimization metric.
+
 Interview-ready response
 
-I used PCL to process and manipulate point-cloud data in the reconstruction workflow.
-
-Details to prepare
-
-• PCL data structures and algorithms, filtering, registration, transformation, and data volumes.
-• The specific performance optimization and measurements are not stated in the CV.
+I built a PCL pipeline for filtering, voxel downsampling, outlier removal, normal estimation, alignment refinement and surface reconstruction. I discuss parameter tradeoffs and stage-level diagnosability rather than an unmeasured speedup.
 
 Responsibility 3 — Open3D visualization and analysis
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Integrated Open3D to facilitate advanced visualization and analysis of 3D models, improving user interaction and understanding of spatial data.
 
+Summary evidence
+
+• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — 3D Model Reconstruction and Library Evaluation.
+
+Supported real scope
+
+I evaluated Open3D alongside PCL on recorded datasets and used it as a secondary comparison and visualization path.
+
+Difference from the CV wording
+
+Open3D use is supported, but advanced end-user interaction and an improvement in spatial-data understanding were not measured.
+
 Interview-ready response
 
-I integrated Open3D to visualize and inspect the reconstructed 3D models and spatial data.
-
-Details to prepare
-
-• Visualization features, analysis tools, interaction workflow, and integration boundary with PCL.
-• The CV does not specify how user interaction or understanding was measured.
+I evaluated Open3D alongside PCL on recorded datasets and used it as a secondary comparison and visualization path. I present Open3D as an evaluation and visualization tool, with PCL as the primary processing library.
 
 Responsibility 4 — Visual Studio development and optimization
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Employed Visual Studio for coding, debugging, and optimizing performance, ensuring a robust and efficient software solution.
 
+Summary evidence
+
+• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Tech Stack & Technical Decisions; Transition from Research Code to Commercial C++.
+
+Supported real scope
+
+I developed and debugged the native C++17/Qt application with Visual Studio and CMake and managed heavy PCL/Open3D dependencies.
+
+Difference from the CV wording
+
+The toolchain use is direct; a specific performance-optimization result is not recorded.
+
 Interview-ready response
 
-I used Visual Studio to implement, debug, and optimize the C++ reconstruction software.
-
-Details to prepare
-
-• Debugging or profiling tools, bottleneck found, optimization made, and validation.
-• Robustness and efficiency evidence is not stated in the CV.
+I developed and debugged the native C++17/Qt application with Visual Studio and CMake and managed heavy PCL/Open3D dependencies. I claim native development, debugging and dependency integration, not a measured optimization outcome.
 
 PROJECT 6. SOFTWARE MODULES FOR UAV
 
-Period: August 2018 – December 2019
+CV period: August 2018 – December 2019
 CV role: Software Engineer
-CV context: MATLAB-based image-processing modules and algorithms for optical sensors used in UAV and remote-sensing applications.
+Project reconciliation: FACTUAL CORRECTION — Summary places the UAV work inside the broader August 2012–January 2020 PELENG period. The formal roles were Design Engineer and Research Engineer; exact subproject dates are not established.
+Summary source: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
 
 Responsibility 1 — UAV image-processing modules
 
-Status: CV-SOURCED
+Status: CONFIRMED
 
 Original CV wording
 
 Developed software modules for digital image processing systems used in Unmanned Aerial Vehicles.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — UAV Optical System Processing Modules.
+
+Supported real scope
+
+I designed and implemented MATLAB image-processing modules for a UAV optical payload: debayering, format conversion, stabilization and frame fusion.
+
+Difference from the CV wording
+
+The responsibility is directly supported; the implementation language was MATLAB.
+
 Interview-ready response
 
-I developed MATLAB modules for digital image-processing systems used in unmanned aerial vehicles.
-
-Details to prepare
-
-• Module boundaries, inputs and outputs, data rates, target platform, and integration method.
-• The CV does not state whether the modules ran on board, offline, or in a ground system.
+I designed and implemented MATLAB image-processing modules for a UAV optical payload: debayering, format conversion, stabilization and frame fusion. I present this as algorithm development for a real UAV optical payload.
 
 Responsibility 2 — Debayer algorithm
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Implemented a debayer algorithm to convert raw sensor data into full-color images, significantly improving image quality and accuracy for better visual data interpretation.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — UAV Optical System Processing Modules; Compatibility Matrix.
+
+Supported real scope
+
+I implemented debayering that reconstructed full-colour imagery from Bayer-pattern sensor output and evaluated edge artefacts on reference targets.
+
+Difference from the CV wording
+
+The algorithm is direct; a significant quantified improvement in image quality or accuracy is not recorded.
+
 Interview-ready response
 
-I implemented a debayer algorithm that converted raw color-filter-array sensor data into full-color images.
-
-Details to prepare
-
-• Bayer pattern, interpolation method, boundary handling, color correction, and test images.
-• Image-quality and accuracy metrics and the size of the improvement are not stated in the CV.
+I implemented debayering that reconstructed full-colour imagery from Bayer-pattern sensor output. I focused on avoiding false colour at edges and validated the result on reference targets; I do not attach a percentage improvement to that work.
 
 Responsibility 3 — Image-format conversion
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Created image format conversion tools to support multiple formats, enhancing compatibility and integration across different systems and platforms.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — UAV Optical System Processing Modules.
+
+Supported real scope
+
+I implemented image-format conversion as part of the UAV processing chain.
+
+Difference from the CV wording
+
+Direct conversion work is supported; the number of formats and cross-platform compatibility outcome are not established.
+
 Interview-ready response
 
-I created image-format conversion tools so imagery could move between the formats required by different systems and processing stages.
-
-Details to prepare
-
-• Source and destination formats, metadata handling, bit depth, color space, and validation.
-• The systems and platforms integrated are not named in the CV.
+I implemented image-format conversion as part of the UAV processing chain. I keep the claim to the conversion modules I implemented.
 
 Responsibility 4 — Image stabilization
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Developed an image stabilization algorithm to reduce motion-induced distortions, improving video clarity in real-time UAV operations for clearer footage capture.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — UAV Optical System Processing Modules.
+
+Supported real scope
+
+I designed and implemented an image-stabilization algorithm to compensate for UAV platform motion.
+
+Difference from the CV wording
+
+The algorithm is supported; a real-time performance guarantee and quantified clarity improvement are not recorded.
+
 Interview-ready response
 
-I developed a MATLAB image-stabilization algorithm intended to reduce motion-induced distortion in UAV video and support real-time operation.
-
-Details to prepare
-
-• Motion-estimation model, transformations, reference selection, smoothing, cropping, and latency budget.
-• Target hardware, achieved frame rate, and image-quality measurements are not stated in the CV.
+I designed and implemented an image-stabilization algorithm to compensate for UAV platform motion. I discuss the stabilization problem and flight-condition constraints without claiming a measured real-time result.
 
 Responsibility 5 — Multi-sensor image fusion
 
-Status: CV-SOURCED BROAD CLAIM
+Status: CONFIRMED
 
 Original CV wording
 
 Designed an image fusion algorithm to combine data from multiple sensors, increasing detail and contrast for improved target recognition and analysis.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — UAV Optical System Processing Modules.
+
+Supported real scope
+
+I designed and implemented frame and sensor fusion that combined complementary imagery to make the output more informative and support target recognition.
+
+Difference from the CV wording
+
+The core responsibility and intended recognition value are directly supported.
+
 Interview-ready response
 
-I designed a MATLAB image-fusion algorithm that combined data from multiple sensors to improve the detail and contrast available for analysis.
-
-Details to prepare
-
-• Sensor types, registration method, fusion level, algorithm, normalization, and output format.
-• The CV does not provide target-recognition results or quantitative detail and contrast metrics.
+I designed and implemented frame and sensor fusion that combined complementary imagery to make the output more informative and support target recognition. I can explain the fusion objective, inputs and validation in the MATLAB workflow.
 
 PROJECT 7. REMOTE SENSING SATELLITES DATABASE
 
-Period: March 2016 – March 2017
+CV period: March 2016 – March 2017
 CV role: Software Engineer
-CV context: A Ruby on Rails system for storing and working with detailed Earth remote-sensing satellite information, using PostgreSQL and MS Access.
+Project reconciliation: FACTUAL CORRECTION — Summary places this database inside the August 2012–January 2020 PELENG period, where the formal roles were Design Engineer and Research Engineer. It confirms the delivered Rails/PostgreSQL database but not exact subproject dates.
+Summary source: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
 
 Responsibility 1 — Ruby on Rails web interface
 
-Status: CV-SOURCED BROAD CLAIM
+Status: CONFIRMED
 
 Original CV wording
 
 Built a web-based interface using Ruby on Rails, enabling easy access and manipulation of satellite data for users of varying technical expertise.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Remote-Sensing Satellite Database.
+
+Supported real scope
+
+I designed and implemented a shared remote-sensing satellite reference database and its web interface using Ruby on Rails and PostgreSQL.
+
+Difference from the CV wording
+
+The responsibility is directly supported; no formal usability study is recorded.
+
 Interview-ready response
 
-I built a Ruby on Rails web interface for searching, viewing, and modifying remote-sensing satellite data.
-
-Details to prepare
-
-• User workflows, authorization, validation, filters, editing operations, and interface architecture.
-• User groups and usability evaluation are not stated in the CV.
+I designed and implemented a shared remote-sensing satellite reference database and its web interface using Ruby on Rails and PostgreSQL. I focus on the delivered web interface and queryable reference data.
 
 Responsibility 2 — PostgreSQL design and optimization
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Designed and optimized a PostgreSQL database to handle large datasets with detailed satellite specifications, improving data retrieval speed and enhancing user experience.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Remote-Sensing Satellite Database; Tech Stack & Technical Decisions.
+
+Supported real scope
+
+I designed the relational structure for mission, platform, instrument, spectral-band and orbital parameters in PostgreSQL.
+
+Difference from the CV wording
+
+Schema design is direct; large-data scale and a measured retrieval-speed improvement are not established.
+
 Interview-ready response
 
-I designed and optimized a PostgreSQL database for detailed satellite specifications and data-retrieval workflows.
-
-Details to prepare
-
-• Schema, dataset size, query patterns, indexes, normalization, and optimization method.
-• The retrieval-speed improvement and user-experience evidence are not quantified in the CV.
+I designed the relational structure for mission, platform, instrument, spectral-band and orbital parameters in PostgreSQL. I describe the relational model and shared-query benefit without inventing scale or performance numbers.
 
 Responsibility 3 — MS Access legacy-data integration
 
-Status: CV-SOURCED BROAD CLAIM
+Status: NOT SUPPORTED
 
 Original CV wording
 
 Integrated MS Access for legacy data support, ensuring smooth data migration and compatibility with existing systems to facilitate seamless transitions.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — External Integrations; Tech Stack & Technical Decisions.
+• No supporting evidence in Summary for the CV-specific responsibility.
+
+Supported real scope
+
+I used MS Access for earlier, smaller internal data management and separately built the Rails/PostgreSQL satellite database.
+
+Difference from the CV wording
+
+Summary does not support migration, integration or compatibility work between MS Access and PostgreSQL.
+
 Interview-ready response
 
-I integrated legacy MS Access data with the newer satellite-information system and supported migration and compatibility with the PostgreSQL-based workflow.
-
-Details to prepare
-
-• Import or synchronization direction, mapping, cleansing, duplicate handling, validation, and cutover.
-• The CV does not describe the migration volume, tooling, or compatibility mechanism.
+I used MS Access for earlier, smaller internal data management and separately built the Rails/PostgreSQL satellite database. I keep these as two separate experiences and do not claim an Access migration.
 
 PROJECT 8. SOFTWARE FOR PROCESSING AND ANALYSIS OF SATELLITE EARTH OBSERVATION IMAGES
 
-Period: August 2012 – March 2016
+CV period: August 2012 – March 2016
 CV role: Software Engineer
-CV context: C++ and MATLAB software for satellite-image quality analysis, frame processing, quantization-range prediction, and ADPCM-based compression.
+Project reconciliation: FACTUAL CORRECTION — Summary confirms the work inside the August 2012–January 2020 PELENG period, under the formal titles Design Engineer and Research Engineer. It does not establish the exact dates assigned to this subset of algorithms.
+Summary source: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
 
 Responsibility 1 — Brightness standardization and optical-defect removal
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects, improving the overall quality and consistency of satellite imagery.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Satellite Frame Stitching; Radiometric Correction of Detector Arrays.
+
+Supported real scope
+
+I implemented radiometric matching across detector segments and corrected detector response coefficients to suppress fixed-pattern artefacts, stripes and defective pixels.
+
+Difference from the CV wording
+
+Radiometric correction is direct; the CV's wording about standardizing multiple frames is broader than the detector-segment scope recorded in Summary.
+
 Interview-ready response
 
-I developed image-processing algorithms that standardized brightness across multiple satellite frames and reduced optical defects between them.
-
-Details to prepare
-
-• The defects addressed, radiometric model, frame statistics, correction method, and evaluation dataset.
-• Image-quality and consistency metrics are not stated in the CV.
+I implemented radiometric matching across detector segments and corrected detector response coefficients to suppress fixed-pattern artefacts, stripes and defective pixels. I describe detector-level correction and seam matching rather than a general multi-frame normalization system.
 
 Responsibility 2 — Linear-resolution analysis by the sharp-edge method
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Designed and implemented software to analyze the linear resolution of satellite images using the sharp edge method, enhancing the accuracy of imaging performance evaluation.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Linear Resolution Assessment from Imagery.
+
+Supported real scope
+
+I designed and implemented MATLAB software that automated linear-resolution measurement from flight-test imagery using defined targets and repeatable criteria.
+
+Difference from the CV wording
+
+The automated resolution assessment is direct, but Summary does not name the sharp-edge method specifically.
+
 Interview-ready response
 
-I designed and implemented software that evaluated the linear resolution of satellite imagery using the sharp-edge method.
-
-Details to prepare
-
-• Edge selection, edge-spread and line-spread processing, sampling, noise handling, and resolution calculation.
-• Reference data and the claimed accuracy improvement are not stated in the CV.
+I designed and implemented MATLAB software that automated linear-resolution measurement from flight-test imagery using defined targets and repeatable criteria. I can explain how the criterion became repeatable, but I do not identify it as a specific sharp-edge implementation.
 
 Responsibility 3 — Sharpness and edge-clarity assessment
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Created algorithms to assess image sharpness and edge clarity, ensuring precise resolution measurements for remote sensing applications and contributing to reliable data interpretation.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Linear Resolution Assessment from Imagery.
+
+Supported real scope
+
+I converted expert judgement about achieved image resolution into a defined, repeatable MATLAB measurement on flight-test targets.
+
+Difference from the CV wording
+
+This supports edge-related resolution analysis, but Summary does not establish a separate sharpness-and-clarity algorithm.
+
 Interview-ready response
 
-I created algorithms for assessing image sharpness and edge clarity as part of resolution measurement for remote-sensing imagery.
-
-Details to prepare
-
-• Sharpness metrics, edge-detection method, thresholds, noise sensitivity, and validation.
-• Precision and interpretation outcomes are not quantified in the CV.
+I converted expert judgement about achieved image resolution into a defined, repeatable MATLAB measurement on flight-test targets. I present this as part of the resolution-assessment work, not as a separate delivered subsystem.
 
 Responsibility 4 — Quantization-range prediction from albedo
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Developed software to predict quantization ranges for remote sensing satellites by analyzing Earth observation data and estimating the albedo range, improving sensor calibration and minimizing data loss.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Image-Type Prediction for Adaptive Quantization.
+
+Supported real scope
+
+I designed image-type prediction and adaptive quantization that changed quantization according to scene content to improve quality at a fixed compression ratio.
+
+Difference from the CV wording
+
+Adaptive prediction is direct; Summary does not establish albedo-range estimation, sensor calibration or a data-loss metric.
+
 Interview-ready response
 
-I developed software that analyzed Earth-observation data and estimated albedo ranges to predict suitable quantization ranges for remote-sensing imagery.
-
-Details to prepare
-
-• Input data, albedo model, sensor characteristics, prediction algorithm, quantizer interface, and validation.
-• The calibration process and reduction in data loss are not quantified in the CV.
+I designed image-type prediction and adaptive quantization that changed quantization according to scene content to improve quality at a fixed compression ratio. I discuss scene classification and adaptive quantization rather than albedo-based sensor calibration.
 
 Responsibility 5 — Quantization prediction automation
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Automated the prediction of quantization ranges, streamlining workflows, and improving operational efficiency.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Image-Type Prediction for Adaptive Quantization.
+
+Supported real scope
+
+I implemented software that predicted image type and selected an appropriate quantization strategy automatically.
+
+Difference from the CV wording
+
+The automation is direct; a quantified operational-efficiency improvement is not recorded.
+
 Interview-ready response
 
-I automated the quantization-range prediction workflow so the analysis could be performed more consistently and with less manual effort.
-
-Details to prepare
-
-• Previous manual steps, automation pipeline, inputs, outputs, error handling, and user interaction.
-• Time savings and operational-efficiency metrics are not stated in the CV.
+I implemented software that predicted image type and selected an appropriate quantization strategy automatically. I claim the automated selection and its image-quality purpose without adding workflow-speed metrics.
 
 Responsibility 6 — ADPCM image compression
 
-Status: CV-SOURCED BROAD CLAIM
+Status: PARTIALLY CONFIRMED
 
 Original CV wording
 
 Designed and implemented a custom image compression algorithm using ADPCM with multiple quantizers, achieving optimized compression ratios and enhanced flexibility for different data sizes.
 
+Summary evidence
+
+• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — Onboard Lossy Compression; Image-Type Prediction for Adaptive Quantization.
+
+Supported real scope
+
+I designed and implemented an ADPCM-family lossy onboard compression algorithm with adaptive quantization, achieving a 3–4x ratio within a severe computation budget.
+
+Difference from the CV wording
+
+The algorithm, adaptive quantization and ratio are direct; flexibility for different data sizes is not the supported reason for the design.
+
 Interview-ready response
 
-I designed and implemented a custom ADPCM-based image-compression algorithm with multiple quantizers so compression behavior could be adapted to different data sizes.
+I designed and implemented an ADPCM-family lossy onboard compression algorithm with adaptive quantization, achieving a 3–4x ratio within a severe computation budget. The design adapted quantization to image content; its flexibility concerned image characteristics and hardware limits, not different file sizes.
 
-Details to prepare
+REAL EXPERIENCE MISSING OR UNDERSTATED IN THE CV
 
-• Predictor, residual representation, quantizer design and selection, bitstream format, and reconstruction path.
-• Compression ratios, quality metrics, runtime constraints, and comparison with alternatives are not stated in the CV.
+1. Embedded SIP desk-phone platform
 
-FINAL COVERAGE AND INTERVIEW CHECKLIST
+Summary records the real May 2025–August 2026 assignment as embedded C++17/Qt product development across Linphone SDK integration, SIP failover/failback, call/session architecture, contacts and BLF, video, Yocto image integration, provisioning tooling and ARM64 device diagnostics. This is the correct recent-project answer instead of the unsupported streaming-platform narrative.
 
-Coverage
+2. Internal M1 / People Lead responsibility
 
-• Cloud Native Encoding Platform: 11 of 11 CV responsibilities covered.
-• Library System: 9 of 9 CV responsibilities covered.
-• Corporate System for the Oil and Gas Industry: 5 of 5 CV responsibilities covered.
-• Home Accounting Software: 5 of 5 CV responsibilities covered.
-• 3D Reconstruction Software for Industrial Applications: 4 of 4 CV responsibilities covered.
-• Software Modules for UAV: 5 of 5 CV responsibilities covered.
-• Remote Sensing Satellites Database: 3 of 3 CV responsibilities covered.
-• Software for Processing and Analysis of Satellite Earth Observation Images: 6 of 6 CV responsibilities covered.
-• Total: 48 of 48 CV responsibilities covered.
+From October 2025, alongside hands-on development, I supported an internal engineering group that grew from four to six engineers through technical guidance, one-to-ones, growth planning, onboarding, interview preparation and coordination with company functions. I keep this separate from customer-project architecture ownership.
 
-Highest-priority details to prepare before an interview
+3. Concrete library-system depth
 
-• Baseline, workload, measurement points, and validation method for every numerical result.
-• One complete technical story for each broad claim: problem, constraints, personal actions, result, and evidence.
-• Personal ownership versus team ownership for architecture, leadership, and cross-service work.
-• Concrete interfaces, failure modes, tests, deployment boundaries, and operational lessons for the current project.
-• Confidentiality boundaries for customer names, repositories, incidents, infrastructure, and production data.
+The strongest verified examples are the C89 backend, cross-layer diagnosis through Scala, C, Java and PostgreSQL/MySQL, gdb and core-dump work on AWS Linux, a Swagger-documented Scala request backed by C, a Java UI field backed by C data, mandatory cross-company review and concrete time, memory, multilingual-search and generated-output fixes.
 
-SOURCE BOUNDARY
+4. Home Accounting scope and limitation
 
-This file deliberately reflects the supplied fake1 CV as written. It does not assert that a claim has been independently verified. Before using any response in an interview, the candidate should replace each “details not stated” gap with accurate first-hand information or keep the answer at the narrower CV-supported level.
+The public project contains a four-layer C++20 architecture, eight SQLite tables, prepared statements, FLTK, plog, CMake and 305 commits. The honest limitation is that GoogleTest coverage concentrated on model types while Transaction and the most risk-sensitive multi-currency facade logic remained insufficiently covered.
+
+5. Satellite and UAV work omitted by the condensed CV
+
+Summary also supports satellite frame stitching, IMU-to-camera calibration, frame-centre coordinate computation, Systems Tool Kit planning, radiometric correction, payload operation on more than thirty UAV flights and participation in satellite in-orbit testing.
+
+6. AI-assisted development is real but belongs to 2026 training
+
+The supported record is Innowise training completed in October 2026 plus a reviewed Catch2 C++ assignment. It should not be moved into the earlier SIP assignment or presented as production ownership of a streaming team's AI platform.
+
+FINAL COVERAGE SUMMARY
+
+CV responsibilities reconciled: 48 of 48
+Confirmed: 8
+Partially confirmed: 28
+Not supported: 12
+Projects with factual period or role corrections: 7 of 8
+Request coverage: omitted because no request was supplied

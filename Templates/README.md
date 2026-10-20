@@ -1,49 +1,103 @@
-# Request Template Checklist
+# Package Template Checklist
 
-Copy the six artifact templates into the request folder and rename them with the request ID and candidate name. The supplied raw request is input data only and must not be copied into the repository.
+The current workflow creates interview material from the selected CV, uses the sibling `Summary` repository to validate Responsibilities, and, when available, processes a supplied role request. Read the root `AGENTS.md` before starting.
 
-## Required files
+## Standard files
+
+Always create these bilingual pairs:
+
+- `REQUEST_ID_Intro_CandidateName.md`
+- `REQUEST_ID_Intro_CandidateName_RU.md`
+- `REQUEST_ID_Legend_CandidateName.md`
+- `REQUEST_ID_Legend_CandidateName_RU.md`
+- `REQUEST_ID_Responsibilities_CandidateName.md`
+- `REQUEST_ID_Responsibilities_CandidateName_RU.md`
+
+Create these files only when a request was supplied:
 
 - `REQUEST_ID_Request_CandidateName.md`
+- `REQUEST_ID_Request_CandidateName_RU.md`
+
+Do not create placeholder Request files for a CV-only package.
+
+`Profile` and `Request Analysis` are optional or legacy artifacts. Create them only when explicitly requested, always as bilingual pairs:
+
 - `REQUEST_ID_Profile_CandidateName.md`
+- `REQUEST_ID_Profile_CandidateName_RU.md`
 - `REQUEST_ID_Request_Analysis_CandidateName.md`
-- `REQUEST_ID_Intro_CandidateName.md`
-- `REQUEST_ID_Legend_CandidateName.md`
-- `REQUEST_ID_Responsibilities_CandidateName.md`
+- `REQUEST_ID_Request_Analysis_CandidateName_RU.md`
 
 ## Authoring order
 
-1. Request
-2. Profile
-3. Request Analysis
-4. Responsibilities
-5. Legend
-6. Intro
+1. Inspect and fully extract the selected CV; this CV is the only experience source for Intro and Legend.
+2. Request EN and RU, only when a request exists.
+3. Intro EN and RU.
+4. Legend EN and RU.
+5. Responsibilities EN and RU, reconciling each CV item with the relevant `Summary` career documents.
+6. Bilingual and package-level validation.
 
-Responsibilities are reconciled before the spoken documents so unsupported CV wording does not leak into the Legend or Intro.
+## Intro checklist
 
-## Final consistency checklist
+- [ ] Opens with the candidate's name, experience and primary specialization.
+- [ ] Uses only the selected CV for candidate experience; no claim is imported from `Summary` or another CV.
+- [ ] Groups experience by domains.
+- [ ] Gives representative project examples for every domain.
+- [ ] Expands the latest project in detail.
+- [ ] Gives additional emphasis to request-relevant experience when a request exists.
+- [ ] Reads naturally as a five-to-six-minute spoken answer.
+- [ ] English and Russian versions contain the same facts, domains, projects and metrics.
 
-- [ ] The same target role appears in Request, Profile, Request Analysis, Intro, Legend, and Responsibilities.
-- [ ] The Request is written in English and contains the material role facts from the supplied source.
-- [ ] No raw CRM, IMS, email, or messenger export is stored in the request directory.
-- [ ] Internal URLs, personal sales contacts, decorative markers, duplicate fields, Russian service labels, and unrelated system metadata are absent from the Request.
-- [ ] Contradictory source fields are preserved as explicit alternatives or open questions rather than silently resolved.
-- [ ] The normalized Request is linked from Profile, Request Analysis, Intro, Legend, and Responsibilities.
-- [ ] Request facts, public facts, candidate evidence, inference, open questions, and gaps are explicitly separated.
-- [ ] The customer chain distinguishes intermediary, named customer, final client, and unknown parties.
-- [ ] Every public-research claim has a direct URL and a research date.
-- [ ] Requirement mapping is based on verified career evidence, not CV wording alone.
-- [ ] The same project order is used in all documents.
-- [ ] CV dates and verified dates are both recorded where they differ.
-- [ ] Completed assignments use past tense.
-- [ ] Independent work is not described as employment.
-- [ ] Research and development is not automatically described as commercial software employment.
-- [ ] Formal roles are distinguished from target roles and functional responsibilities.
-- [ ] Every responsibility in the CV appears once in the Responsibilities report.
-- [ ] Every `NARROWER SCOPE`, `UNSUPPORTED`, `FACTUAL CORRECTION`, and `VERIFY` item has a safe boundary statement.
-- [ ] Intro claims are a subset of confirmed Legend and Responsibilities claims.
-- [ ] The Legend does not introduce unsupported technologies, metrics, team sizes, or ownership.
-- [ ] Customer and product names respect the confidentiality rules in the source career repository.
-- [ ] The documents contain no Markdown markers and are ready to paste into Google Docs.
-- [ ] The final files contain no unresolved template placeholders.
+## Legend checklist
+
+- [ ] Uses every CV project in the original order.
+- [ ] Uses only the selected CV as its factual project basis; added narrative detail remains compatible with that CV.
+- [ ] Where the CV is concise, completes architecture, implementation, team and situation details with a realistic, internally consistent narrative rather than leaving gaps or review notes.
+- [ ] Contains product and business context for every project.
+- [ ] Describes system architecture, components, data flow and integrations.
+- [ ] Describes team size, roles, grades, locations and the stack owned by each role.
+- [ ] Uses stable names consistently when project-member names are included.
+- [ ] Separates the candidate's personal ownership from team responsibilities.
+- [ ] Contains at least one detailed project story per project.
+- [ ] Every story explains the situation, problem, why it mattered, alternatives, why the selected approach was chosen, actions, validation and result.
+- [ ] Every CV responsibility has an expanded technical answer.
+- [ ] Expanded answers cover architecture or algorithm, implementation, edge cases, validation and outcome.
+- [ ] English and Russian versions have identical project, story and task counts.
+
+## Responsibilities checklist
+
+- [ ] Every CV responsibility appears exactly once and is checked against `Summary`.
+- [ ] English preserves the original CV wording.
+- [ ] Russian provides a faithful translation.
+- [ ] Every item has one evidence status: `CONFIRMED`, `PARTIALLY CONFIRMED`, `NOT SUPPORTED` or `FACTUAL CORRECTION`.
+- [ ] Every item cites the relevant `Summary` path or explicitly states that no supporting evidence exists there.
+- [ ] Every item has an interview-ready answer and detailed explanation limited to the real scope supported by `Summary`.
+- [ ] Every difference between CV wording and supported reality is stated directly and without a pending-review note.
+- [ ] If a request exists, every requested responsibility and requirement appears exactly once in the coverage section.
+- [ ] Coverage uses only `COVERED`, `PARTIALLY COVERED` and `NOT COVERED`.
+- [ ] Every coverage result cites the relevant CV item and `Summary` evidence.
+- [ ] English and Russian coverage statuses are identical.
+
+## Request checklist
+
+- [ ] Request files exist only when a request was supplied.
+- [ ] Both English and Russian files contain all material role facts.
+- [ ] Role summary, responsibilities, requirements, technologies, engagement terms and constraints are normalized.
+- [ ] Raw CRM, IMS, email or messenger noise is not copied into the package.
+- [ ] The request is treated as opportunity data, not proof of candidate experience.
+
+## Final bilingual consistency checklist
+
+- [ ] Every standard artifact exists in English and Russian.
+- [ ] Both languages use the same target role or generic positioning.
+- [ ] Both languages use the same project order.
+- [ ] Dates, roles, technologies, metrics and names match.
+- [ ] Team composition and personal ownership match.
+- [ ] Project-story structure and causal reasoning match.
+- [ ] Intro and Legend agree with the selected CV and with each other.
+- [ ] Responsibilities reports CV-versus-reality differences directly; those findings are not silently copied back into the CV-based Intro or Legend.
+- [ ] No unresolved placeholders remain outside the reusable templates.
+- [ ] No `TODO`, `TBD`, `VERIFY`, draft status, human-review request or “not stated in the CV” note remains in an interview artifact.
+- [ ] Artifacts contain no Markdown headings, emphasis, code fences or tables.
+- [ ] Text files use UTF-8 without BOM and CRLF line endings.
+- [ ] `git diff --check` passes.
+- [ ] Root `README.md` reflects the package state.

@@ -7,8 +7,6 @@ Candidate: Alex I.
 Target role: C++ Software Engineer, generic positioning because no request was provided
 CV source: !MODIFIED Aliaksei Ivanou (13, C++).pdf
 Source request: Not provided
-Source profile: The supplied fake1 CV only
-Source analysis: Not created because no request was provided
 Preparation language: English
 Document status: Production-ready expanded interview legend
 

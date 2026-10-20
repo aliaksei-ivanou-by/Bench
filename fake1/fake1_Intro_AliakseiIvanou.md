@@ -7,16 +7,10 @@ Candidate: Alex I.
 Target role: C++ Software Engineer, generic positioning because no request was provided
 CV source: !MODIFIED Aliaksei Ivanou (13, C++).pdf
 Source request: Not provided
-Source profile: The supplied fake1 CV only
-Source analysis: Not created because no request was provided
 Preparation language: English
 Delivery format: Domain-based full spoken version with a detailed current-project section
 Estimated duration: 5–6 minutes
-Document status: Interview-ready from the supplied CV; no external verification applied
-
-SOURCE BOUNDARY
-
-This introduction uses only information stated in the supplied fake1 CV. It does not use another CV, the Summary repository, public research, or inferred customer details. Technical explanations stay within the projects, responsibilities, environments, roles, dates and metrics recorded in that CV.
+Document status: Interview-ready
 
 PURPOSE
 
@@ -63,18 +57,6 @@ I also worked on media-format and streaming workflows. I implemented end-to-end 
 Another part of my work focused on developer productivity. I developed AI skills for the team to support faster feature delivery and incident resolution. I integrated mcp-on-demand, graphify and rag-code-mcp into AI workflows to improve response quality and reduce token consumption. I also owned and maintained an internal Go fork of rag-code-mcp and added support for C, C++, Java and Kotlin codebases.
 
 The current project brings together the themes that have appeared throughout my career: performance-sensitive C++, distributed-system integration, reliability, observability, data formats, cloud services and practical modernization of existing systems. I am most interested in work where performance, architecture and operational reliability have to be solved together rather than in isolation.
-
-INTERVIEW BOUNDARIES
-
-• This script uses the current-project scale, percentages, SLA values and latency reduction exactly as stated in the supplied CV. The CV does not describe the measurement methodology, baselines or test datasets behind them.
-
-• The CV states the role as Streaming Engineer/Architect. It does not describe the formal reporting line, team size or organizational authority associated with the Architect title.
-
-• The CV states that the platform supports more than one hundred thousand concurrent users across three availability zones. It does not state whether this is measured production load, tested capacity or a design target.
-
-• The CV lists a wide project environment. In follow-up answers, distinguish technologies tied to a stated responsibility from technologies merely listed in the environment.
-
-• Customer names, exact service topology, repository structure, incident details and confidential operational data are not stated in the CV and must not be invented.
 
 EXPECTED FOLLOW-UP TOPICS
 

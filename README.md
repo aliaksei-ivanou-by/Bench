@@ -1,23 +1,27 @@
 # Bench Request Preparation
 
-This repository stores one preparation package per bench request. Each package is based on the request-specific CV and reconciled with the verified career records in the `Summary` repository.
+This repository stores one interview-preparation package per candidate CV. A role request may be supplied, but it is optional. Intro and Legend are built from the selected CV. Responsibilities compares that CV with the sibling `Summary` repository so the interview answer reflects the candidate's real, defensible scope.
+
+Agent instructions and the complete authoring workflow are defined in `AGENTS.md`.
 
 ## Directory structure
 
-Each request directory uses the same layout:
+Every package contains the CV and three bilingual artifact pairs. A bilingual Request pair is added only when a request was supplied:
 
 ```text
-E###/
-  E### Candidate Name (...).pdf
-  E###_Request_CandidateName.md
-  E###_Profile_CandidateName.md
-  E###_Request_Analysis_CandidateName.md
-  E###_Intro_CandidateName.md
-  E###_Legend_CandidateName.md
-  E###_Responsibilities_CandidateName.md
+<request-id>/
+  <source-cv>.pdf
+  <request-id>_Request_<CandidateName>.md       # only when a request exists
+  <request-id>_Request_<CandidateName>_RU.md    # only when a request exists
+  <request-id>_Intro_<CandidateName>.md
+  <request-id>_Intro_<CandidateName>_RU.md
+  <request-id>_Legend_<CandidateName>.md
+  <request-id>_Legend_<CandidateName>_RU.md
+  <request-id>_Responsibilities_<CandidateName>.md
+  <request-id>_Responsibilities_<CandidateName>_RU.md
 ```
 
-The reusable source files are in `Templates/`.
+Profile and Request Analysis files may remain in older packages and may be created when explicitly requested, but they are not default artifacts in the current workflow. Reusable source files are in `Templates/`.
 
 ## Current request packages
 
@@ -28,58 +32,63 @@ The reusable source files are in `Templates/`.
 | `E474` | Senior Windows IoT Hardening Expert | Timspark | Final client is undisclosed | Full preparation package plus request and customer analysis |
 | `E482` | Senior Embedded C++ and Real-Time Graphics Engineer | BrightBox Group | Acron Aviation, according to the supplied account context | Full preparation package; the Intro combines the BrightBox pre-screen and the Acron customer interview in one stage-tagged question set; unsupported graphics, personal RTOS-platform, bus, sensor-fusion, and formal-compliance claims are explicitly bounded |
 | `E496` | GNC Engineer | Direct Samara Aerospace vacancy | Samara Aerospace | Full preparation package completed, including official customer research and requirement-to-evidence analysis; fit is weak for direct day-one GNC ownership and conditional for an adjacent aerospace algorithm and embedded C++ profile |
-| `fake1` | C++ Software Engineer, generic | No request provided | Not provided | English and Russian versions of Intro, Legend, and Responsibilities completed and synchronized; both Legends include production-ready expanded technical answers for all project tasks; no request was provided |
+| `fake1` | C++ Software Engineer, generic | No request provided | Not provided | English and Russian Intro and Legend remain based on the selected CV; Responsibilities reconciles all 48 CV items against `Summary` with 8 confirmed, 28 partially confirmed and 12 unsupported items; no Request files were created |
 
 ## Document roles
 
 | Document | Purpose |
 |---|---|
-| `Request` | Clean English version of the request: role, engagement, responsibilities, requirements, constraints, and open questions. Raw CRM exports are not stored in the package. |
-| `Profile` | Single source of truth for target role, CV facts, verified facts, positioning, dates, and high-risk claims. |
-| `Request Analysis` | Request facts, customer chain, public customer/domain research, requirement-to-evidence mapping, gaps, interview priorities, and questions. |
-| `Intro` | One interview-ready opening answer tailored to the request. |
-| `Legend` | Detailed project narratives, ownership boundaries, technical stories, and follow-up material. |
-| `Responsibilities` | Line-by-line reconciliation of every CV responsibility with verified experience. |
+| `Request` | Optional bilingual normalization of a supplied request: role, engagement, responsibilities, requirements, technologies and constraints. It is not created when no request exists. |
+| `Intro` | Bilingual domain-based opening answer: career domains and project examples followed by a detailed latest-project narrative. |
+| `Legend` | Bilingual detailed project narratives built from the selected CV: team composition, architecture, ownership, technical reasoning, delivery stories and expanded answers for every CV task. Missing narrative detail is completed with realistic, internally consistent facts that do not contradict the CV. |
+| `Responsibilities` | Bilingual line-by-line reconciliation of every CV responsibility against the factual `Summary` repository. When a request exists, it also marks every requested responsibility and requirement as covered, partially covered or not covered by the candidate's supported real experience. |
+| `Profile` | Optional or legacy positioning artifact created only when explicitly requested. |
+| `Request Analysis` | Optional or legacy customer and requirement analysis created only when explicitly requested. |
 
 ## Required consistency
 
-All preparation documents must agree with the request profile and request analysis on:
+All English and Russian artifacts must agree on:
 
 - candidate name used in the interview;
 - target role and positioning;
 - project order;
-- CV dates and verified dates;
-- formal role versus target role;
+- CV dates and roles;
 - personal ownership boundaries;
-- supported, narrowed, and unsupported technologies;
+- technologies and metrics;
+- team composition, locations, grades, names and individual stacks;
 - tense: current assignment, completed assignment, or time between assignments;
 - customer confidentiality.
 
-The CV wording may be recorded for preparation, but the spoken material must not expand an unsupported claim. If the CV conflicts with the verified history, the profile records both values and the Intro and Legend use an interview-safe formulation.
+The English and Russian versions must have the same section order, project order, number of stories, expanded task answers and responsibility items. After changing either language, update the other in the same task.
 
-## Status vocabulary
+## Evidence and request-coverage vocabulary
 
-- `CONFIRMED`: supported by the detailed career record.
-- `CONFIRMED — NARROWER SCOPE`: the underlying work is real, but the CV wording overstates scope or ownership.
-- `UNSUPPORTED`: no evidence of hands-on experience; do not present it as project work.
-- `FACTUAL CORRECTION`: the project is real, but a date, role, or employment context differs.
-- `VERIFY`: not established by the available sources and requires Aliaksei's confirmation.
+- `CONFIRMED`: `Summary` directly supports the CV responsibility and its scope.
+- `PARTIALLY CONFIRMED`: the work is supported, but the CV broadens its technology, ownership, seniority or outcome.
+- `NOT SUPPORTED`: `Summary` contains no evidence that the candidate performed the stated responsibility.
+- `FACTUAL CORRECTION`: the project is real, but `Summary` establishes a materially different date, role or employment context.
 
-## Workflow for a new request
+- `COVERED`: the CV and `Summary` contain direct, defensible evidence for the requested responsibility or requirement.
+- `PARTIALLY COVERED`: `Summary` supports adjacent or narrower experience but not the complete requested scope.
+- `NOT COVERED`: `Summary` contains no defensible evidence for the requested responsibility or requirement.
 
-1. Create the request directory and place the request-specific CV in it.
-2. Treat the supplied CRM, IMS, email, or messenger request as input data only. Do not copy the raw export into the repository.
-3. Copy the six artifact templates from `Templates`, rename them with the request ID and candidate name, and create the normalized English Request first.
-4. In the Request, remove internal URLs, personal sales contacts, decorative markers, duplicate fields, Russian service labels, and unrelated system metadata. Preserve all material role facts and record contradictions as alternative fields or open questions.
-5. Fill in the Profile by reconciling the request-specific CV with the verified career repository.
-6. Complete the Request Analysis from the normalized Request, Profile, verified career evidence, and official public research. Separate request facts, public facts, candidate evidence, inference, open questions, and gaps.
-7. Reconcile every CV responsibility in the Responsibilities report. Preserve the original CV wording, then provide corrected wording and a scope boundary.
-8. Draft the Legend project by project using the same project names and order as the CV.
-9. Draft the Intro from the target role backward: lead with the most relevant confirmed evidence, then establish the career progression.
-10. Run the final consistency checklist in `Templates/README.md` and verify that no raw request export remains in the package.
+These statuses are used only when a request exists. Without a request, Responsibilities provides interview-ready answers for the CV responsibilities without request-fit labels.
+
+## Workflow for a new package
+
+1. Create the package directory and place the selected CV in it.
+2. Extract every project, period, role, responsibility, technology and metric from the CV. Resolve the sibling `Summary` repository for the later Responsibilities comparison.
+3. Determine whether a request exists. If it does, create synchronized English and Russian Request files. If it does not, create no Request file.
+4. Create the English Intro by grouping experience into domains, naming representative projects and then expanding the latest project. Create the Russian mirror with the same content.
+5. Create the English Legend project by project. Include detailed architecture, team composition, locations, grades, individual stacks, stable names, ownership, engineering challenges and complete project stories explaining why each action was taken. Create the Russian mirror.
+6. Create Responsibilities by taking every item from the selected CV and checking it against the relevant `Summary` career documents. Record whether the item is confirmed, only partially confirmed, unsupported or factually different; use only the supported scope in the interview answer. When a request exists, classify every requested responsibility and requirement as `COVERED`, `PARTIALLY COVERED` or `NOT COVERED` from the reconciled real experience.
+7. Synchronize both languages: same projects, order, counts, dates, roles, technologies, metrics, names, stories and outcomes.
+8. Remove placeholders, draft labels, human-review notes and repository-generation commentary from interview artifacts.
+9. Run the consistency checklist in `Templates/README.md`, update this README and inspect `git status`.
 
 ## Research rules
 
+- Perform public customer or domain research only when it is part of the requested package.
 - Prefer the named customer's, vendor's, standards body's, or product owner's official sources.
 - Record the research date because company and product information changes.
 - Keep a raw URL beside every external fact used in a preparation artifact.
@@ -89,6 +98,6 @@ The CV wording may be recorded for preparation, but the spoken material must not
 
 ## Formatting convention
 
-Preparation artifacts use plain text inside `.md` files so they can be pasted into Google Docs without cleanup. They use capitalized section labels, blank lines, numbered sections, and `•` bullets. Markdown heading markers, emphasis markers, backticks, and tables are avoided inside the artifacts.
+Preparation artifacts use plain text inside `.md` files so they can be pasted into Google Docs without cleanup. Every standard artifact has synchronized English and Russian versions. They use capitalized section labels, blank lines, numbered sections, and `•` bullets. Markdown heading markers, emphasis markers, backticks, and tables are avoided inside the artifacts.
 
 `README.md` files may use normal Markdown because they are repository documentation rather than Google Docs content.

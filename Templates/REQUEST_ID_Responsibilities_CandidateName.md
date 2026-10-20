@@ -4,88 +4,116 @@ DOCUMENT INFORMATION
 
 Request ID: [REQUEST_ID]
 Candidate: [CANDIDATE_NAME]
-Target role: [TARGET_ROLE]
+Target role: [TARGET_ROLE_OR_GENERIC_CV_POSITIONING]
 CV source: [CV_FILENAME]
-Source request: [REQUEST_FILENAME]
-Source profile: [PROFILE_FILENAME]
-Source analysis: [REQUEST_ANALYSIS_FILENAME]
+Reality source: [SUMMARY_PATHS_USED]
+Source request: [REQUEST_FILENAME_OR_NOT_PROVIDED]
 Preparation language: English
-Document status: Draft / Reviewed / Interview-ready
+Document status: Interview-ready
 
 PURPOSE
 
-This document reconciles every CV responsibility with verified experience. Each responsibility preserves the original CV wording, assigns a status, provides accurate interview wording, and defines the personal ownership boundary.
+This document reconciles every responsibility in the selected CV with the candidate's factual Summary repository. It preserves the CV wording, shows the defensible real scope and provides a production-ready interview answer. When a request exists, it also evaluates every requested responsibility and requirement against the reconciled experience.
 
-STATUS LABELS
+EVIDENCE STATUS
 
-CONFIRMED — supported by the detailed career record.
+CONFIRMED — Summary directly supports the CV responsibility and its stated scope.
 
-CONFIRMED — NARROWER SCOPE — the work is real, but the CV overstates scope or ownership.
+PARTIALLY CONFIRMED — Summary supports the underlying work, but the CV broadens the technology, ownership, seniority or outcome.
 
-UNSUPPORTED — not supported as hands-on project experience.
+NOT SUPPORTED — Summary contains no evidence that the candidate performed the stated responsibility.
 
-FACTUAL CORRECTION — the project is real, but a date, role, or employment context differs.
+FACTUAL CORRECTION — Summary supports the project but establishes a materially different date, role, employment context or other fact.
 
-VERIFY — requires confirmation before use.
-
-POSITIONING AND TIMELINE CORRECTIONS
-
-• [CORRECTION]
+CV RESPONSIBILITIES COMPARED WITH REAL EXPERIENCE
 
 PROJECT 1. [PROJECT_TITLE]
 
-Correct period: [VERIFIED_PERIOD]
-Accurate role: [VERIFIED_ROLE]
-Project status: [STATUS_OR_SHORT_ASSESSMENT]
+CV period: [CV_PERIOD]
+CV role: [CV_ROLE]
+Supported period and role: [SUMMARY_SUPPORTED_PERIOD_AND_ROLE]
 
-Project context
+Responsibility 1. [SHORT_TITLE]
 
-[SHORT_CONTEXT]
-
-Responsibility 1 — [SHORT_TITLE]
-
-Status: [STATUS]
+Status: [CONFIRMED_PARTIALLY_CONFIRMED_NOT_SUPPORTED_OR_FACTUAL_CORRECTION]
 
 Original CV wording
 
-[EXACT_OR_FAITHFUL_CV_WORDING]
+[ORIGINAL_CV_RESPONSIBILITY]
 
-Corrected responsibility
+Summary evidence
 
-[INTERVIEW_SAFE_WORDING]
+• [SUMMARY_RELATIVE_PATH_AND_SECTION]
+• [ADDITIONAL_EVIDENCE_PATH_OR_REMOVE_THIS_LINE]
+
+Supported real scope
+
+[WHAT_SUMMARY_ESTABLISHES_AS_THE_CANDIDATES_ACTUAL_WORK]
+
+Difference from the CV wording
+
+[NO_MATERIAL_DIFFERENCE_OR_PRECISE_DIFFERENCE_IN_TECHNOLOGY_OWNERSHIP_SENIORITY_RESULT_DATE_OR_CONTEXT]
+
+Interview-ready answer
+
+[DIRECT_SPOKEN_ANSWER_USING_ONLY_THE_SUPPORTED_REAL_SCOPE]
 
 Detailed explanation
 
-[WHAT_WAS_DONE_HOW_AND_WHY]
+[WHAT_WAS_ACTUALLY_DONE_WHY_IT_WAS_NEEDED_HOW_IT_WAS_IMPLEMENTED_VALIDATED_AND_WHAT_RESULTED]
 
-Scope boundary
+Relevant follow-up topics
 
-[OPTIONAL_WHEN_NEEDED: WHAT_WAS_NOT_OWNED_OR_IMPLEMENTED]
+• [TOPIC_1]
+• [TOPIC_2]
 
-[REPEAT FOR EVERY RESPONSIBILITY]
+[REPEAT FOR EVERY RESPONSIBILITY OF EVERY CV PROJECT]
 
-Strong real responsibilities missing from the CV
+REAL EXPERIENCE MISSING OR UNDERSTATED IN THE CV
 
-• [CONFIRMED_RESPONSIBILITY]
+Item 1. [SUPPORTED_SUMMARY_EXPERIENCE]
 
-[REPEAT FOR EVERY PROJECT]
+Summary evidence: [SUMMARY_RELATIVE_PATH_AND_SECTION]
+Related CV project: [PROJECT_OR_NO_DIRECT_MATCH]
 
-FINAL RISK SUMMARY
+Interview use
 
-Unsupported technologies
+[HOW_TO_PRESENT_THIS_REAL_EXPERIENCE_WITHOUT_REWRITING_THE_CV_HISTORY]
 
-• [TECHNOLOGY_AND_HANDLING]
+[REPEAT_FOR_MATERIAL_SUPPORTED_EXPERIENCE_RELEVANT_TO_THE_POSITIONING]
 
-Overstated responsibilities
+REQUEST COVERAGE
 
-• [CLAIM_AND_SAFE_REPLACEMENT]
+[REMOVE_THIS_SECTION_WHEN_NO_REQUEST_EXISTS]
 
-Incorrect dates or roles
+COVERED — the reconciled evidence directly supports the requested item.
 
-• [CORRECTION]
+PARTIALLY COVERED — the reconciled evidence supports relevant adjacent or narrower experience, but not the complete requested scope.
 
-Recommended boundary statements
+NOT COVERED — Summary contains no defensible evidence for the requested item.
 
-[AREA]
+Request item 1. [REQUEST_RESPONSIBILITY_OR_REQUIREMENT]
 
-[BOUNDARY_STATEMENT]
+Type: [RESPONSIBILITY_MUST_HAVE_OR_NICE_TO_HAVE]
+Coverage: [COVERED_PARTIALLY_COVERED_OR_NOT_COVERED]
+Related CV item: [PROJECT_AND_RESPONSIBILITY_OR_NO_DIRECT_MATCH]
+Summary evidence: [SUMMARY_RELATIVE_PATH_AND_SECTION_OR_NO_SUPPORTING_EVIDENCE_IN_SUMMARY]
+
+Coverage explanation
+
+[PRECISE_REASON_FOR_THE_STATUS]
+
+Interview-ready response
+
+[DIRECT_HONEST_ANSWER_USING_ONLY_THE_SUPPORTED_REAL_SCOPE]
+
+[REPEAT FOR EVERY REQUEST RESPONSIBILITY AND REQUIREMENT]
+
+FINAL COVERAGE SUMMARY
+
+CV responsibilities reconciled: [COUNT] of [COUNT]
+Confirmed: [COUNT]
+Partially confirmed: [COUNT]
+Not supported: [COUNT]
+Factual corrections: [COUNT]
+Request items assessed: [COUNT] of [COUNT]

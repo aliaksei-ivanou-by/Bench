@@ -4,33 +4,30 @@ DOCUMENT INFORMATION
 
 Request ID: [REQUEST_ID]
 Candidate: [CANDIDATE_NAME]
-Target role: [TARGET_ROLE]
+Target role: [TARGET_ROLE_OR_GENERIC_CV_POSITIONING]
 CV source: [CV_FILENAME]
-Source request: [REQUEST_FILENAME]
-Source profile: [PROFILE_FILENAME]
-Source analysis: [REQUEST_ANALYSIS_FILENAME]
+Source request: [REQUEST_FILENAME_OR_NOT_PROVIDED]
 Preparation language: English
-Document status: Draft / Reviewed / Interview-ready
+Document status: Interview-ready
 
 PURPOSE
 
-This document contains the detailed project narratives behind the request-specific CV. It is reference material for follow-up questions, not one continuous speech.
+This document contains detailed, interview-ready narratives for every project in the selected CV. It provides enough context to answer architecture, ownership, teamwork, decision-making, troubleshooting, delivery and result questions while remaining compatible with that CV.
 
 HOW TO USE THE LEGEND
 
-Start every project answer with the short summary. Expand only the sections relevant to the interviewer’s question. A complete answer should distinguish product context, personal contribution, result, and ownership boundary.
+Begin with the short summary, then expand the sections relevant to the interviewer's question. Keep personal ownership distinct from the team's work. Explain why each important decision or action was necessary, not only what was done.
 
-PRIVATE CONSISTENCY NOTES
+DOMAIN AND PROJECT MAP
 
-• [DATE_ROLE_OR_CLAIM_NOTE]
+1. [DOMAIN_1]: [PROJECTS_AND_RELEVANCE]
+2. [DOMAIN_2]: [PROJECTS_AND_RELEVANCE]
 
 PROJECT 1. [PROJECT_TITLE]
 
-CV period: [CV_PERIOD]
-Verified period: [VERIFIED_PERIOD]
-CV role: [CV_ROLE]
-Verified role: [VERIFIED_ROLE]
-Project status: CONFIRMED / NARROWER SCOPE / FACTUAL CORRECTION / VERIFY
+Period: [CV_PERIOD]
+Role: [CV_ROLE]
+Project status: [CURRENT_OR_COMPLETED]
 
 Short project summary
 
@@ -38,62 +35,116 @@ Short project summary
 
 Product and business context
 
-[CONTEXT]
+[USERS_PROBLEM_PRODUCT_VALUE_AND_OPERATING_ENVIRONMENT]
 
-System architecture and main components
+System architecture and data flow
 
-• [COMPONENT]
+• [COMPONENT_OR_SERVICE_1_AND_PURPOSE]
+• [COMPONENT_OR_SERVICE_2_AND_PURPOSE]
+• [DATA_FLOW_AND_EXTERNAL_INTEGRATIONS]
+
+Team composition
+
+Approximate team size: [TEAM_SIZE]
+
+• [NAME], [GRADE], [LOCATION] — [ROLE]; stack: [STACK]; ownership: [RESPONSIBILITIES].
+• [NAME], [GRADE], [LOCATION] — [ROLE]; stack: [STACK]; ownership: [RESPONSIBILITIES].
+• [REPEAT_FOR_EACH_RELEVANT_TEAM_ROLE]
 
 My role and ownership
 
-[ROLE_AND_PERSONAL_OWNERSHIP]
+[PERSONAL_SCOPE_DECISIONS_DELIVERABLES_AND_COLLABORATION]
 
 Main contributions
 
-[CONTRIBUTION_NARRATIVE]
+1. [CONTRIBUTION_WITH_TECHNICAL_DETAIL_AND_REASON]
+2. [CONTRIBUTION_WITH_TECHNICAL_DETAIL_AND_REASON]
 
 Key engineering challenges
 
-[CHALLENGE_NARRATIVE]
+1. [CHALLENGE_ROOT_CAUSE_CONSTRAINTS_AND_IMPACT]
+2. [CHALLENGE_ROOT_CAUSE_CONSTRAINTS_AND_IMPACT]
 
-Representative investigation or delivery story
+Representative delivery or investigation story
 
-Situation: [SITUATION]
+Situation
 
-Task: [TASK]
+[INITIAL_TECHNICAL_AND_PRODUCT_CONTEXT]
 
-Actions: [ACTIONS]
+Problem
 
-Result: [RESULT]
+[CONCRETE_FAILURE_LIMITATION_OR_DELIVERY_NEED]
 
-Testing, validation, and diagnostics
+Why it mattered
 
-[TESTING_AND_DIAGNOSTIC_APPROACH]
+[BUSINESS_USER_OPERATIONAL_OR_ENGINEERING_CONSEQUENCE]
+
+Alternatives considered
+
+1. [ALTERNATIVE_AND_TRADEOFF]
+2. [ALTERNATIVE_AND_TRADEOFF]
+
+Why the selected approach was chosen
+
+[TECHNICAL_PRODUCT_AND_DELIVERY_REASONING]
+
+Actions
+
+1. [INVESTIGATION_OR_MEASUREMENT_AND_WHY]
+2. [DESIGN_OR_IMPLEMENTATION_AND_WHY]
+3. [ROLLOUT_COORDINATION_OR_MITIGATION_AND_WHY]
+
+Validation
+
+[TESTS_MEASUREMENTS_MONITORING_DIAGNOSTICS_AND_REGRESSION_PROTECTION]
+
+Result
+
+[TECHNICAL_PRODUCT_AND_TEAM_OUTCOME]
+
+Testing, validation and diagnostics
+
+[PROJECT_LEVEL_TEST_STRATEGY_TOOLING_OBSERVABILITY_AND_RELEASE_CHECKS]
 
 Outcome and main lesson
 
-[OUTCOME_AND_LESSON]
-
-Scope boundaries
-
-• [OUTSIDE_OWNERSHIP]
+[OUTCOME_AND_REUSABLE_ENGINEERING_LESSON]
 
 Likely follow-up questions
 
-• [QUESTION]
+• [QUESTION_1]
+• [QUESTION_2]
 
-[REPEAT FOR EVERY PROJECT]
+[REPEAT THE COMPLETE PROJECT BLOCK FOR EVERY CV PROJECT]
+
+EXPANDED ANSWERS FOR PROJECT TASKS
+
+PROJECT 1. [PROJECT_TITLE]
+
+Task 1. [SHORT_TASK_TITLE]
+
+Original CV task
+
+[ORIGINAL_CV_RESPONSIBILITY]
+
+Expanded interview answer
+
+[UNDERLYING_PROBLEM_AND_WHY_THE_TASK_WAS_NEEDED]
+
+[CHOSEN_ARCHITECTURE_ALGORITHM_OR_WORKFLOW_AND_WHY]
+
+[IMPLEMENTATION_DETAILS_DEPENDENCIES_AND_PERSONAL_OWNERSHIP]
+
+[EDGE_CASES_FAILURE_MODES_AND_MITIGATIONS]
+
+[VALIDATION_DIAGNOSTICS_RESULT_AND_LESSON]
+
+[REPEAT FOR EVERY RESPONSIBILITY OF EVERY CV PROJECT]
 
 CROSS-PROJECT CAREER NARRATIVE
 
-[HOW_THE_PROJECTS_FORM_ONE_COHERENT_CAREER_STORY]
-
-SAFE BOUNDARY STATEMENTS
-
-[TECHNOLOGY_OR_AREA]
-
-[BOUNDARY_STATEMENT]
+[HOW_THE_DOMAINS_PROJECTS_AND_RESPONSIBILITIES_FORM_ONE_COHERENT_CAREER_STORY]
 
 CLOSING POSITIONING
 
-[TARGET_ROLE_CLOSING_STATEMENT]
+[INTERVIEW_READY_CLOSING_STATEMENT]

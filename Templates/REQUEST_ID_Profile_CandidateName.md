@@ -1,78 +1,51 @@
-REQUEST PROFILE
+CANDIDATE PROFILE
 
 DOCUMENT INFORMATION
 
 Request ID: [REQUEST_ID]
 Candidate: [CANDIDATE_NAME]
-Target role: [TARGET_ROLE]
+Target role: [TARGET_ROLE_OR_GENERIC_CV_POSITIONING]
 CV source: [CV_FILENAME]
-Request document: [REQUEST_FILENAME]
-Request analysis: [REQUEST_ANALYSIS_FILENAME]
 Preparation language: English
-Output format: Plain text for Google Docs
-Profile status: Draft / Reviewed / Interview-ready
-Last updated: [YYYY-MM-DD]
+Document status: Interview-ready
+
+PURPOSE
+
+This optional profile summarizes the positioning expressed by the selected CV. It does not import experience from another CV or from Summary.
 
 TARGET POSITIONING
 
-Primary positioning:
-[ONE_SENTENCE_POSITIONING]
+[TWO_OR_THREE_SENTENCE_POSITIONING]
 
-Three strongest evidence areas:
+CAREER OVERVIEW
 
-1. [EVIDENCE_AREA_1]
-2. [EVIDENCE_AREA_2]
-3. [EVIDENCE_AREA_3]
+Total experience wording: [CV_SUPPORTED_EXPERIENCE]
+Primary specialization: [PRIMARY_SPECIALIZATION]
+Current or latest role: [LATEST_CV_ROLE]
 
-FORMAL CAREER POSITIONING
+DOMAIN MAP
 
-Formal current title: [FORMAL_TITLE]
-Target-role relationship: [HOW_REAL_EXPERIENCE_SUPPORTS_TARGET_ROLE]
-Total experience wording: [DEFENSIBLE_TOTAL_EXPERIENCE]
-Primary technical specialization: [PRIMARY_SPECIALIZATION]
+1. [DOMAIN]: [PROJECTS_CONTRIBUTIONS_AND_STACK]
+2. [DOMAIN]: [PROJECTS_CONTRIBUTIONS_AND_STACK]
 
 PROJECT MAP
 
-Project 1
-CV title: [CV_PROJECT_TITLE]
-Interview title: [SAFE_PROJECT_TITLE]
-CV period: [CV_PERIOD]
-Verified period: [VERIFIED_PERIOD]
-CV role: [CV_ROLE]
-Verified role: [VERIFIED_ROLE]
-Status: CONFIRMED / NARROWER SCOPE / FACTUAL CORRECTION / VERIFY
-Primary relevance to request: [RELEVANCE]
+Project 1. [PROJECT_TITLE]
 
-[REPEAT FOR EVERY PROJECT]
+Period: [CV_PERIOD]
+Role: [CV_ROLE]
+Domain: [DOMAIN]
+Main contribution: [CV_SUPPORTED_CONTRIBUTION]
+Technology: [CV_SUPPORTED_STACK]
+Relevance to positioning: [RELEVANCE]
 
-SUPPORTED CLAIMS TO LEAD WITH
+[REPEAT FOR EVERY CV PROJECT]
 
-• [SUPPORTED_CLAIM]
+CORE SKILLS
 
-NARROWED CLAIMS
+• [SKILL]: [CV_PROJECT_EVIDENCE]
+• [SKILL]: [CV_PROJECT_EVIDENCE]
 
-• CV claim: [CLAIM]
-  Safe wording: [SAFE_WORDING]
-  Boundary: [BOUNDARY]
+POSITIONING SUMMARY
 
-UNSUPPORTED OR UNVERIFIED CLAIMS
-
-• Claim: [CLAIM]
-  Status: UNSUPPORTED / VERIFY
-  Required handling: Remove from spoken material / Confirm before use / Use conceptual bridge only
-
-PRIVATE CONSISTENCY NOTES
-
-• [DATE_ROLE_OR_EMPLOYMENT_NOTE]
-
-STANDARD BOUNDARY STATEMENTS
-
-[TECHNOLOGY_OR_AREA]
-
-[ONE_OR_TWO_SENTENCE_BOUNDARY_STATEMENT]
-
-FINAL APPROVAL
-
-Profile reviewed against CV: Yes / No
-Profile reviewed against career source: Yes / No
-Open questions: [NONE_OR_LIST]
+[INTERVIEW_READY_SUMMARY_CONNECTING_DOMAINS_PROJECTS_AND_STRENGTHS]
