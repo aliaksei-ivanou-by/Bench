@@ -6,7 +6,7 @@ Agent instructions and the complete authoring workflow are defined in `AGENTS.md
 
 ## Directory structure
 
-Every package contains the CV and three bilingual artifact pairs. A bilingual Request pair is added only when a request was supplied:
+Every package contains the CV, three bilingual artifact pairs and a bilingual `Tech` collection. A bilingual Request pair is added only when a request was supplied:
 
 ```text
 <request-id>/
@@ -19,6 +19,11 @@ Every package contains the CV and three bilingual artifact pairs. A bilingual Re
   <request-id>_Legend_<CandidateName>_RU.md
   <request-id>_Responsibilities_<CandidateName>.md
   <request-id>_Responsibilities_<CandidateName>_RU.md
+  Tech/
+    _Index.md
+    _Index_RU.md
+    <Technology>.md
+    <Technology>_RU.md
 ```
 
 Profile and Request Analysis files may remain in older packages and may be created when explicitly requested, but they are not default artifacts in the current workflow. Reusable source files are in `Templates/`.
@@ -32,7 +37,7 @@ Profile and Request Analysis files may remain in older packages and may be creat
 | `E474` | Senior Windows IoT Hardening Expert | Timspark | Final client is undisclosed | Full preparation package plus request and customer analysis |
 | `E482` | Senior Embedded C++ and Real-Time Graphics Engineer | BrightBox Group | Acron Aviation, according to the supplied account context | Full preparation package; the Intro combines the BrightBox pre-screen and the Acron customer interview in one stage-tagged question set; unsupported graphics, personal RTOS-platform, bus, sensor-fusion, and formal-compliance claims are explicitly bounded |
 | `E496` | GNC Engineer | Direct Samara Aerospace vacancy | Samara Aerospace | Full preparation package completed, including official customer research and requirement-to-evidence analysis; fit is weak for direct day-one GNC ownership and conditional for an adjacent aerospace algorithm and embedded C++ profile |
-| `fake1` | C++ Software Engineer, generic | No request provided | Not provided | Complete EN/RU package: domain-based Intro; eight-project Legend with team composition, 26 eight-part stories and 48 seven-part expanded task answers; seven projects are verified full matches built from `Summary` with CV titles, periods and roles kept, while Cloud Native Encoding Platform remains a constructed CV-based narrative; Responsibilities reconciles all 48 CV items with 8 confirmed, 28 partially confirmed and 12 unsupported items, project-level factual corrections and per-item follow-up topics; no Request files were created |
+| `fake1` | C++ Software Engineer, generic | No request provided | Not provided | Complete core EN/RU package: domain-based Intro; eight-project Legend with team composition, 26 eight-part stories and 48 seven-part expanded task answers; seven projects are verified full matches built from `Summary` with CV titles, periods and roles kept, while Cloud Native Encoding Platform remains a constructed CV-based narrative; Responsibilities reconciles all 48 CV items with 8 confirmed, 28 partially confirmed and 12 unsupported items; project-scoped Tech contains 48 synchronized EN/RU topics for Cloud Native Encoding Platform only, by explicit candidate request; technologies exclusive to projects 2–8 are not covered; no Request files were created |
 
 ## Document roles
 
@@ -42,6 +47,7 @@ Profile and Request Analysis files may remain in older packages and may be creat
 | `Intro` | Bilingual domain-based opening answer: career domains and project examples followed by a detailed latest-project narrative. |
 | `Legend` | Bilingual detailed project narratives built from the selected CV: team composition, architecture, ownership, technical reasoning, delivery stories and expanded answers for every CV task. Missing narrative detail is completed with realistic, internally consistent facts that do not contradict the CV. |
 | `Responsibilities` | Bilingual line-by-line reconciliation of every CV responsibility against the factual `Summary` repository. When a request exists, it also marks every requested responsibility and requirement as covered, partially covered or not covered by the candidate's supported real experience. |
+| `Tech` | Bilingual interview theory for the technologies in scope, with one topic per file, a synchronized index, project context that repeats only Legend claims, interview questions and dated official sources. The normal scope is the complete selected CV plus a supplied request; an explicitly requested narrower scope must be stated in both indexes and in the package status. |
 | `Profile` | Optional or legacy positioning artifact created only when explicitly requested. |
 | `Request Analysis` | Optional or legacy customer and requirement analysis created only when explicitly requested. |
 
@@ -82,9 +88,10 @@ These statuses are used only when a request exists. Without a request, Responsib
 4. Create the English Intro by grouping experience into domains, naming representative projects and then expanding the latest project. Create the Russian mirror with the same content.
 5. Create the English Legend project by project. Include detailed architecture, team composition, locations, grades, individual stacks, stable names, ownership, engineering challenges and complete project stories explaining why each action was taken. Create the Russian mirror.
 6. Create Responsibilities by taking every item from the selected CV and checking it against the relevant `Summary` career documents. Record whether the item is confirmed, only partially confirmed, unsupported or factually different; use only the supported scope in the interview answer. When a request exists, classify every requested responsibility and requirement as `COVERED`, `PARTIALLY COVERED` or `NOT COVERED` from the reconciled real experience.
-7. Synchronize both languages: same projects, order, counts, dates, roles, technologies, metrics, names, stories and outcomes.
-8. Remove placeholders, draft labels, human-review notes and repository-generation commentary from interview artifacts.
-9. Run the consistency checklist in `Templates/README.md`, update this README and inspect `git status`.
+7. Create `Tech/_Index.md` and `Tech/_Index_RU.md`, then one synchronized EN/RU theory pair for every technology in scope. Use dated official documentation for version-specific or changing facts and repeat only Legend-supported project claims.
+8. Synchronize both languages: same projects, order, counts, dates, roles, technologies, metrics, names, stories and outcomes.
+9. Remove placeholders, draft labels, human-review notes and repository-generation commentary from interview artifacts.
+10. Run the consistency checklist in `Templates/README.md`, update this README and inspect `git status`.
 
 ## Research rules
 
@@ -98,6 +105,6 @@ These statuses are used only when a request exists. Without a request, Responsib
 
 ## Formatting convention
 
-Preparation artifacts use plain text inside `.md` files so they can be pasted into Google Docs without cleanup. Every standard artifact has synchronized English and Russian versions. They use capitalized section labels, blank lines, numbered sections, and `•` bullets. Markdown heading markers, emphasis markers, backticks, and tables are avoided inside the artifacts.
+Preparation artifacts use plain text inside `.md` files so they can be pasted into Google Docs without cleanup. Every standard artifact has synchronized English and Russian versions. They use capitalized section labels, blank lines, numbered sections, and hyphen bullets (`- `). Markdown heading markers, emphasis markers, backticks, and tables are avoided inside the artifacts.
 
 `README.md` files may use normal Markdown because they are repository documentation rather than Google Docs content.

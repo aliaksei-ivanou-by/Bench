@@ -13,6 +13,15 @@ Always create these bilingual pairs:
 - `REQUEST_ID_Responsibilities_CandidateName.md`
 - `REQUEST_ID_Responsibilities_CandidateName_RU.md`
 
+Always create the technology collection:
+
+- `Tech/_Index.md`
+- `Tech/_Index_RU.md`
+- `Tech/Technology.md`
+- `Tech/Technology_RU.md`
+
+The normal Tech scope is every technology named in the selected CV and, when present, the request. When the candidate explicitly requests a narrower scope, state the boundary in both indexes and in the root package-status row.
+
 Create these files only when a request was supplied:
 
 - `REQUEST_ID_Request_CandidateName.md`
@@ -34,7 +43,8 @@ Do not create placeholder Request files for a CV-only package.
 3. Intro EN and RU.
 4. Legend EN and RU.
 5. Responsibilities EN and RU, reconciling each CV item with the relevant `Summary` career documents.
-6. Bilingual and package-level validation.
+6. Tech index and EN/RU theory pair for every technology in scope.
+7. Bilingual and package-level validation.
 
 ## Intro checklist
 
@@ -85,6 +95,15 @@ Do not create placeholder Request files for a CV-only package.
 - [ ] Raw CRM, IMS, email or messenger noise is not copied into the package.
 - [ ] The request is treated as opportunity data, not proof of candidate experience.
 
+## Tech checklist
+
+- [ ] `_Index.md` and `_Index_RU.md` state the scope and list the same topic files by category.
+- [ ] Every technology in scope has one English file and one Russian file; permitted variants and cloud-provider services are grouped consistently.
+- [ ] Each topic covers purpose, internal concepts, typical use, alternatives, pitfalls, project context, five to ten interview questions and dated sources.
+- [ ] Project-use sections repeat only claims already present in Legend and do not convert environment-list presence into personal ownership.
+- [ ] Version-specific or changing facts use official documentation or specifications researched for the package.
+- [ ] No out-of-scope technology file is present.
+
 ## Final bilingual consistency checklist
 
 - [ ] Every standard artifact exists in English and Russian.
@@ -95,6 +114,7 @@ Do not create placeholder Request files for a CV-only package.
 - [ ] Project-story structure and causal reasoning match.
 - [ ] Intro and Legend agree with the selected CV and with each other.
 - [ ] Responsibilities reports CV-versus-reality differences directly; those findings are not silently copied back into the CV-based Intro or Legend.
+- [ ] Tech indexes and topic pairs are synchronized and match the declared scope.
 - [ ] No unresolved placeholders remain outside the reusable templates.
 - [ ] No `TODO`, `TBD`, `VERIFY`, draft status, human-review request or “not stated in the CV” note remains in an interview artifact.
 - [ ] Artifacts contain no Markdown headings, emphasis, code fences or tables.
