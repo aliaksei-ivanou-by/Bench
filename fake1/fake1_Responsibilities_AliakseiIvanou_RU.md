@@ -44,8 +44,8 @@ FACTUAL CORRECTION — Summary подтверждает проект, но фи�
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries (Main Components and Data Flow; Technical Ownership Boundaries); Contributions — REST / Local API Usage and Integration Boundaries; Contributions — Windows Autoprovisioning Manager — .NET 8 Migration.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries (Main Components and Data Flow; Technical Ownership Boundaries); Contributions — REST / Local API Usage and Integration Boundaries; Contributions — Windows Autoprovisioning Manager — .NET 8 Migration.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -63,10 +63,10 @@ CV описывает миграцию межсервисного протоко
 
 Темы для дополнительных вопросов
 
-• Как было выполнено изменение формата .cuman — содержимое BinaryFormatter заменено на JSON внутри AES-контейнера, а старые файлы явно отклоняются как несовместимые, а не мигрируются.
-• Как управлялся рост схемы — явные DTO Project означали, что каждое новое поле, например режим Password/HA1, подсветка или состояние микрофона, требовало осознанного отображения и проверки влияния на сгенерированную конфигурацию.
-• Как сохранялась совместимость API на телефоне — новые API SDK для резервного и активного сервера были интегрированы с откатом на устаревший параметр backup_server.
-• Использовались ли gRPC или Protobuf — нет; вместо этого можно обсуждать принципы совместимости контрактов на примере архивов provisioning.
+- Как было выполнено изменение формата .cuman — содержимое BinaryFormatter заменено на JSON внутри AES-контейнера, а старые файлы явно отклоняются как несовместимые, а не мигрируются.
+- Как управлялся рост схемы — явные DTO Project означали, что каждое новое поле, например режим Password/HA1, подсветка или состояние микрофона, требовало осознанного отображения и проверки влияния на сгенерированную конфигурацию.
+- Как сохранялась совместимость API на телефоне — новые API SDK для резервного и активного сервера были интегрированы с откатом на устаревший параметр backup_server.
+- Использовались ли gRPC или Protobuf — нет; вместо этого можно обсуждать принципы совместимости контрактов на примере архивов provisioning.
 
 Обязанность 2 — оптимизация стоимости и скорости облачных коннекторов
 
@@ -78,9 +78,9 @@ CV описывает миграцию межсервисного протоко
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Team, Role & Ownership — Role and Delivery Boundaries; Contributions — Network, Certificates and Security-Related Settings; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning.
-• Summary/Interview/Certificates and Continuing Education.md — Cloud: Badges, Not Certifications.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Team, Role & Ownership — Role and Delivery Boundaries; Contributions — Network, Certificates and Security-Related Settings; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning.
+- Summary/Interview/Certificates and Continuing Education.md — Cloud: Badges, Not Certifications.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -98,10 +98,10 @@ CV описывает миграцию межсервисного протоко
 
 Темы для дополнительных вопросов
 
-• Почему для provisioning использовался TFTP — он соответствовал процессу в управляемой локальной сети и ожиданиям устройств, но как протокол для доверенной сети не обеспечивает сквозной конфиденциальности и строгой аутентификации.
-• Как диагностировались сбои доставки — по выбору адаптера, адресу provisioning, результату обнаружения, поступлению TFTP-запросов и наличию архива для конкретного MAC-адреса.
-• Какой облачный опыт реален — использование AWS EC2 и Azure на предыдущих проектах и два учебных бейджа AWS; никогда не «AWS Certified».
-• Как подходить к компромиссу стоимости и скорости — отвечать только рассуждением, явно не заявляя проектных измерений.
+- Почему для provisioning использовался TFTP — он соответствовал процессу в управляемой локальной сети и ожиданиям устройств, но как протокол для доверенной сети не обеспечивает сквозной конфиденциальности и строгой аутентификации.
+- Как диагностировались сбои доставки — по выбору адаптера, адресу provisioning, результату обнаружения, поступлению TFTP-запросов и наличию архива для конкретного MAC-адреса.
+- Какой облачный опыт реален — использование AWS EC2 и Azure на предыдущих проектах и два учебных бейджа AWS; никогда не «AWS Certified».
+- Как подходить к компромиссу стоимости и скорости — отвечать только рассуждением, явно не заявляя проектных измерений.
 
 Обязанность 3 — предсказуемость SLA загрузки сегментов
 
@@ -113,8 +113,8 @@ CV описывает миграцию межсервисного протоко
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Context, Goals & Constraints — Success Criteria; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Contributions — Primary / Backup SIP Server Behavior; Outcomes, Impact & Evidence.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Context, Goals & Constraints — Success Criteria; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Contributions — Primary / Backup SIP Server Behavior; Outcomes, Impact & Evidence.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -132,10 +132,10 @@ CV заявляет повышение SLA загрузки медиасегме
 
 Темы для дополнительных вопросов
 
-• Как тестировался failover — воспроизведением потери и восстановления основного сервера с настроенными основным и резервным аккаунтами и проверкой состояния SDK, SIP-логов, состояния UI, сохранённой конфигурации и аутентификации на целевых телефонах.
-• Почему нет процента надёжности — не было автоматизированной лаборатории SIP-совместимости и метрики длительных прогонов; результаты были сценарными.
-• Что стоило бы добавить сейчас — небольшую автоматизированную SIP-лабораторию с потерей основного сервера, восстановлением резервного, сменой realm, вариантами 401/407 и разрывом сети.
-• Какие соседние состояния охватывала регрессия — удержание, перевод, второй вызов, включение или отключение видео, завершение и сохранение после перезагрузки.
+- Как тестировался failover — воспроизведением потери и восстановления основного сервера с настроенными основным и резервным аккаунтами и проверкой состояния SDK, SIP-логов, состояния UI, сохранённой конфигурации и аутентификации на целевых телефонах.
+- Почему нет процента надёжности — не было автоматизированной лаборатории SIP-совместимости и метрики длительных прогонов; результаты были сценарными.
+- Что стоило бы добавить сейчас — небольшую автоматизированную SIP-лабораторию с потерей основного сервера, восстановлением резервного, сменой realm, вариантами 401/407 и разрывом сети.
+- Какие соседние состояния охватывала регрессия — удержание, перевод, второй вызов, включение или отключение видео, завершение и сохранение после перезагрузки.
 
 Обязанность 4 — система инструментирования и мониторинга кодировщика
 
@@ -147,8 +147,8 @@ CV заявляет повышение SLA загрузки медиасегме
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Delivery, Testing & Quality — Observability and Debugging; Contributions — Testing and Debugging; Contributions — Primary / Backup SIP Server Behavior; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning; Tradeoffs, Lessons & Retrospective — What I Would Change Now.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Delivery, Testing & Quality — Observability and Debugging; Contributions — Testing and Debugging; Contributions — Primary / Backup SIP Server Behavior; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning; Tradeoffs, Lessons & Retrospective — What I Would Change Now.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -166,10 +166,10 @@ CV заявляет повышение SLA загрузки медиасегме
 
 Темы для дополнительных вопросов
 
-• Как локализовался дефект на стыке слоёв — сначала классификация (provisioning, модель Qt, SDK, Linux runtime, сеть/SIP или медиаустройство), затем отслеживание данных от источника до итогового поведения UI.
-• Что показывала диагностика активного прокси — сервер, который SDK считал активным, чтобы UI и логи отражали состояние SDK, а не локальные предположения.
-• Какие инструменты использовались на устройстве — remote kits Qt Creator, развёртывание по SSH, gdb/gdbserver, Valgrind, логи и статистика медиа.
-• Что стоило бы улучшить — логи переходов failover с кодами причин и автоматические проверки загрузки и готовности.
+- Как локализовался дефект на стыке слоёв — сначала классификация (provisioning, модель Qt, SDK, Linux runtime, сеть/SIP или медиаустройство), затем отслеживание данных от источника до итогового поведения UI.
+- Что показывала диагностика активного прокси — сервер, который SDK считал активным, чтобы UI и логи отражали состояние SDK, а не локальные предположения.
+- Какие инструменты использовались на устройстве — remote kits Qt Creator, развёртывание по SSH, gdb/gdbserver, Valgrind, логи и статистика медиа.
+- Что стоило бы улучшить — логи переходов failover с кодами причин и автоматические проверки загрузки и готовности.
 
 Обязанность 5 — инструментирование FFmpeg libavfilter и задержка
 
@@ -181,8 +181,8 @@ CV заявляет повышение SLA загрузки медиасегме
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Video and Conferencing; Linphone SDK Customization — Media and Compatibility Fixes; Yocto & Embedded Linux Platform Integration — Recipes and Image Integration; Key Engineering Challenges — Video / WebRTC Media on Embedded ARM64.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Video and Conferencing; Linphone SDK Customization — Media and Compatibility Fixes; Yocto & Embedded Linux Platform Integration — Recipes and Image Integration; Key Engineering Challenges — Video / WebRTC Media on Embedded ARM64.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -200,10 +200,10 @@ CV заявляет повышение SLA загрузки медиасегме
 
 Темы для дополнительных вопросов
 
-• Как диагностировался установленный видеовызов без изображения — разделением сигнализации, согласованного медиа, жизненного цикла камеры и нативного окна, преобразования кадров и зависимостей образа.
-• Что было лично изменено в медиакоде SDK — только небольшое обновление H.26x NAL-packer.
-• Как WebRTC собирался для устройства — libwebrtc кросс-компилировалась под ARM64 через GN/Ninja в тулчейне Yocto, а libmediasoupclient собиралась поверх неё.
-• Какой была роль на стороне сервера — ограниченный вклад в первоначальный сервер mediasoup на Node.js, тогда как основная ответственность оставалась за интеграцией на стороне телефона.
+- Как диагностировался установленный видеовызов без изображения — разделением сигнализации, согласованного медиа, жизненного цикла камеры и нативного окна, преобразования кадров и зависимостей образа.
+- Что было лично изменено в медиакоде SDK — только небольшое обновление H.26x NAL-packer.
+- Как WebRTC собирался для устройства — libwebrtc кросс-компилировалась под ARM64 через GN/Ninja в тулчейне Yocto, а libmediasoupclient собиралась поверх неё.
+- Какой была роль на стороне сервера — ограниченный вклад в первоначальный сервер mediasoup на Node.js, тогда как основная ответственность оставалась за интеграцией на стороне телефона.
 
 Обязанность 6 — AI skills для командных процессов
 
@@ -215,7 +215,7 @@ CV заявляет повышение SLA загрузки медиасегме
 
 Подтверждение из Summary
 
-• Summary/Interview/Certificates and Continuing Education.md — What These Credentials Are Worth; Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
+- Summary/Interview/Certificates and Continuing Education.md — What These Credentials Are Worth; Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
 
 Готовый ответ для интервью
 
@@ -233,10 +233,10 @@ Summary подтверждает практическое знание AI-про
 
 Темы для дополнительных вопросов
 
-• Чем skill отличается от промпта — это повторяемый сценарий с определёнными входами, источниками и результатами, как было разобрано в программе.
-• Как контролировались изменения, созданные AI, в задании — сначала спецификация, затем воспроизводимые патчи, независимое ревью и полная валидация.
-• Как определялся объём расширения Catch2 --retry-failed — через письменную спецификацию до реализации и тестов.
-• Является ли обучение сертификацией — нет; это сертификат о прохождении внутренней программы работодателя.
+- Чем skill отличается от промпта — это повторяемый сценарий с определёнными входами, источниками и результатами, как было разобрано в программе.
+- Как контролировались изменения, созданные AI, в задании — сначала спецификация, затем воспроизводимые патчи, независимое ревью и полная валидация.
+- Как определялся объём расширения Catch2 --retry-failed — через письменную спецификацию до реализации и тестов.
+- Является ли обучение сертификацией — нет; это сертификат о прохождении внутренней программы работодателя.
 
 Обязанность 7 — преобразование субтитров CEA-608 и CEA-708
 
@@ -248,8 +248,8 @@ Summary подтверждает практическое знание AI-про
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Shipped Feature Surface; Contributions — Contacts, Phonebook and Call History; Contributions — Windows Autoprovisioning Manager — SIP Digest and HA1 Handling; Selected STAR / Debugging Stories — Make SIP Realm Discovery Tolerant of Real Authentication Challenges.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Shipped Feature Surface; Contributions — Contacts, Phonebook and Call History; Contributions — Windows Autoprovisioning Manager — SIP Digest and HA1 Handling; Selected STAR / Debugging Stories — Make SIP Realm Discovery Tolerant of Real Authentication Challenges.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -267,10 +267,10 @@ Summary подтверждает практическое знание AI-про
 
 Темы для дополнительных вопросов
 
-• Как импорт удалённой телефонной книги обрабатывал некорректные данные — валидация, слияние или замена, отображение хода выполнения и восстановление после неудачных загрузок.
-• Как парсер realm справлялся с разными серверами — оба заголовка аутентификации, свёрнутые строки, значения в кавычках и без них и отсутствие предположений о порядке параметров.
-• Почему для проверки использовался небольшой устойчивый парсер — нужные поля запроса были ограничены; это не SIP-стек уровня RFC, и тестовые данные должны покрывать каждый принимаемый вариант.
-• Как контакты оставались связанными с историей вызовов при слиянии — импорт сохранял связь между контактом и историей вызовов, а не пересоздавал записи.
+- Как импорт удалённой телефонной книги обрабатывал некорректные данные — валидация, слияние или замена, отображение хода выполнения и восстановление после неудачных загрузок.
+- Как парсер realm справлялся с разными серверами — оба заголовка аутентификации, свёрнутые строки, значения в кавычках и без них и отсутствие предположений о порядке параметров.
+- Почему для проверки использовался небольшой устойчивый парсер — нужные поля запроса были ограничены; это не SIP-стек уровня RFC, и тестовые данные должны покрывать каждый принимаемый вариант.
+- Как контакты оставались связанными с историей вызовов при слиянии — импорт сохранял связь между контактом и историей вызовов, а не пересоздавал записи.
 
 Обязанность 8 — интеграция MCP и инструментов работы с кодовой базой
 
@@ -282,7 +282,7 @@ Summary подтверждает практическое знание AI-про
 
 Подтверждение из Summary
 
-• Summary/Interview/Certificates and Continuing Education.md — Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
+- Summary/Interview/Certificates and Continuing Education.md — Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
 
 Готовый ответ для интервью
 
@@ -300,10 +300,10 @@ Summary подтверждает знание MCP и context engineering по и
 
 Темы для дополнительных вопросов
 
-• Для чего нужен MCP — стандартный способ предоставить AI-агенту инструменты и источники данных, изученный в программе.
-• Как объём контекста влияет на качество и стоимость — разобрано в модулях по context engineering и выбору модели и стоимости, без проектных измерений.
-• Какие инструменты действительно охвачены — AI coding agents из программы и курс Claude Code 101; не mcp-on-demand, graphify или rag-code-mcp.
-• Как результат AI оставался проверяемым — спецификация, независимое ревью и воспроизводимая валидация в задании по Catch2.
+- Для чего нужен MCP — стандартный способ предоставить AI-агенту инструменты и источники данных, изученный в программе.
+- Как объём контекста влияет на качество и стоимость — разобрано в модулях по context engineering и выбору модели и стоимости, без проектных измерений.
+- Какие инструменты действительно охвачены — AI coding agents из программы и курс Claude Code 101; не mcp-on-demand, graphify или rag-code-mcp.
+- Как результат AI оставался проверяемым — спецификация, независимое ревью и воспроизводимая валидация в задании по Catch2.
 
 Обязанность 9 — внутренний форк rag-code-mcp
 
@@ -315,9 +315,9 @@ Summary подтверждает знание MCP и context engineering по и
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Linphone SDK Customization; Tradeoffs, Lessons & Retrospective — Important Tradeoffs.
-• Summary/Interview/Certificates and Continuing Education.md — Programming, Engineering and Professional Education — Credentials.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Linphone SDK Customization; Tradeoffs, Lessons & Retrospective — Important Tradeoffs.
+- Summary/Interview/Certificates and Continuing Education.md — Programming, Engineering and Professional Education — Credentials.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -335,10 +335,10 @@ Summary подтверждает знание MCP и context engineering по и
 
 Темы для дополнительных вопросов
 
-• За что я отвечал внутри модифицированного SDK — логика watchdog, failover и failback, изменение DomainBackup в AuthInfo и обновление NAL-packer; не остальная часть форка.
-• Во что обходится модифицированный SDK — зависимость от API вне upstream и постоянные затраты на сопровождение и rebase.
-• Как изменения SDK и приложения оставались проверяемыми — отдельная история SDK и слитая интеграция в приложении, у каждой из которых есть идентифицируемые коммиты.
-• Использовался ли Go — подтверждения в проектах нет; это нужно говорить прямо.
+- За что я отвечал внутри модифицированного SDK — логика watchdog, failover и failback, изменение DomainBackup в AuthInfo и обновление NAL-packer; не остальная часть форка.
+- Во что обходится модифицированный SDK — зависимость от API вне upstream и постоянные затраты на сопровождение и rebase.
+- Как изменения SDK и приложения оставались проверяемыми — отдельная история SDK и слитая интеграция в приложении, у каждой из которых есть идентифицируемые коммиты.
+- Использовался ли Go — подтверждения в проектах нет; это нужно говорить прямо.
 
 Обязанность 10 — восстановление кодировщика после сбоев вывода
 
@@ -350,8 +350,8 @@ Summary подтверждает знание MCP и context engineering по и
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Primary / Backup SIP Server Behavior; Contributions — Authentication and Realm Handling; Key Engineering Challenges — Primary / Backup Registration and Authentication Context; Selected STAR / Debugging Stories — Replace Competing Qt Failover Logic with SDK-Owned State.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Primary / Backup SIP Server Behavior; Contributions — Authentication and Realm Handling; Key Engineering Challenges — Primary / Backup Registration and Authentication Context; Selected STAR / Debugging Stories — Replace Competing Qt Failover Logic with SDK-Owned State.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -369,11 +369,11 @@ Summary подтверждает знание MCP и context engineering по и
 
 Темы для дополнительных вопросов
 
-• Почему был откатан цикл на уровне Qt — он дублировал состояние регистрации и создавал конкурирующие автоматы состояний; это состояние должно находиться рядом с регистрацией в SDK.
-• Почему HA1 важен при failover — HA1 зависит от имени пользователя, realm и пароля, поэтому другой realm резервного сервера делает сохранённый хеш недействительным.
-• Как тестировался failover — потеря и восстановление основного сервера на целевых телефонах с проверкой состояния SDK, SIP-логов, UI, сохранённой конфигурации и аутентификации.
-• Во что обошлось такое решение — зависимость от модифицированного SDK и затраты на его rebase.
-• Что стоило бы добавить сейчас — логи переходов, коды причин и детерминированные тесты тайминга для автомата состояний.
+- Почему был откатан цикл на уровне Qt — он дублировал состояние регистрации и создавал конкурирующие автоматы состояний; это состояние должно находиться рядом с регистрацией в SDK.
+- Почему HA1 важен при failover — HA1 зависит от имени пользователя, realm и пароля, поэтому другой realm резервного сервера делает сохранённый хеш недействительным.
+- Как тестировался failover — потеря и восстановление основного сервера на целевых телефонах с проверкой состояния SDK, SIP-логов, UI, сохранённой конфигурации и аутентификации.
+- Во что обошлось такое решение — зависимость от модифицированного SDK и затраты на его rebase.
+- Что стоило бы добавить сейчас — логи переходов, коды причин и детерминированные тесты тайминга для автомата состояний.
 
 Обязанность 11 — согласованность HLS и DASH в Live-to-VOD
 
@@ -385,8 +385,8 @@ Summary подтверждает знание MCP и context engineering по и
 
 Подтверждение из Summary
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries — State and Failure Boundaries; Contributions — Late-Project Call Architecture Refactor; Key Engineering Challenges — Asynchronous Call State and Runtime Ownership; Key Engineering Challenges — Configuration as a Cross-Layer Contract.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries — State and Failure Boundaries; Contributions — Late-Project Call Architecture Refactor; Key Engineering Challenges — Asynchronous Call State and Runtime Ownership; Key Engineering Challenges — Configuration as a Cross-Layer Contract.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -404,10 +404,10 @@ Summary подтверждает знание MCP и context engineering по и
 
 Темы для дополнительных вопросов
 
-• Откуда возникали расхождения — одно и то же логическое состояние существовало в сгенерированном, сохранённом, SDK- и UI-представлениях.
-• Почему использовались снимки, а не живые объекты SDK — код представления не должен зависеть от изменяемых объектов SDK по каждому вопросу, что также упрощает завершение вызовов.
-• Как снижался риск переработки — небольшими проверяемыми шагами через адаптеры, с сохранением собираемости промежуточных состояний.
-• Каков был её статус — завершённая внутренняя архитектурная работа, а не выпущенная клиентская функциональность.
+- Откуда возникали расхождения — одно и то же логическое состояние существовало в сгенерированном, сохранённом, SDK- и UI-представлениях.
+- Почему использовались снимки, а не живые объекты SDK — код представления не должен зависеть от изменяемых объектов SDK по каждому вопросу, что также упрощает завершение вызовов.
+- Как снижался риск переработки — небольшими проверяемыми шагами через адаптеры, с сохранением собираемости промежуточных состояний.
+- Каков был её статус — завершённая внутренняя архитектурная работа, а не выпущенная клиентская функциональность.
 
 ПРОЕКТ 2. LIBRARY SYSTEM
 
@@ -426,7 +426,7 @@ Summary подтверждает знание MCP и context engineering по и
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Representative C Defects and Output Paths; Reliability, Security and Performance Validation; Outcomes and Impact.
+- Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Representative C Defects and Output Paths; Reliability, Security and Performance Validation; Outcomes and Impact.
 
 Готовый ответ для интервью
 
@@ -444,11 +444,11 @@ Summary подтверждает знание MCP и context engineering по и
 
 Темы для дополнительных вопросов
 
-• Дефект перехода на летнее время в США — инкремент не в той точке C-функции, перенесённый в правильное место потока управления до перехода.
-• Ошибки в массивах char фиксированного размера — ёмкость буфера, длина содержимого, инициализация и завершающий нулевой символ как единый контракт.
-• Подсветка поиска для японского текста — сегментация, соответствующая системе письма, а не слова, разделённые пробелами.
-• Как диагностировались native-сбои — сначала журналы сервисов, затем SSH, gdb, core dumps и Valgrind на Linux в AWS.
-• Заявления о производительности — проверка через затронутый сценарий, без личной метрики.
+- Дефект перехода на летнее время в США — инкремент не в той точке C-функции, перенесённый в правильное место потока управления до перехода.
+- Ошибки в массивах char фиксированного размера — ёмкость буфера, длина содержимого, инициализация и завершающий нулевой символ как единый контракт.
+- Подсветка поиска для японского текста — сегментация, соответствующая системе письма, а не слова, разделённые пробелами.
+- Как диагностировались native-сбои — сначала журналы сервисов, затем SSH, gdb, core dumps и Valgrind на Linux в AWS.
+- Заявления о производительности — проверка через затронутый сценарий, без личной метрики.
 
 Обязанность 2 — серверная и клиентская сокетная функциональность
 
@@ -460,7 +460,7 @@ Summary подтверждает знание MCP и context engineering по и
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — System Architecture & Integration Boundaries (External Integrations; State, Failure and Trust Boundaries); Java Data Services and Desktop Application; Scala API and Swagger.
+- Summary/Interview/2022-2024. Integrated Library System.md — System Architecture & Integration Boundaries (External Integrations; State, Failure and Trust Boundaries); Java Data Services and Desktop Application; Scala API and Swagger.
 
 Готовый ответ для интервью
 
@@ -478,10 +478,10 @@ Summary подтверждает сквозную разработку серв�
 
 Темы для дополнительных вопросов
 
-• Что здесь означал «frontend» — Java desktop application для сотрудников библиотек, а также Scala API для интеграций.
-• Как работал столбец в desktop-приложении — столбец Java-таблицы, отображение которого согласовано с данными, подготовленными на стороне C.
-• Как защищалась совместимость — поля запросов и ответов как контракты, проверка по журналам сервисов, в интегрированных сценариях и регрессии QA.
-• Почему детали протокола остаются общими — поля собственного протокола конфиденциальны, ответ остаётся на уровне сервисов и контрактов.
+- Что здесь означал «frontend» — Java desktop application для сотрудников библиотек, а также Scala API для интеграций.
+- Как работал столбец в desktop-приложении — столбец Java-таблицы, отображение которого согласовано с данными, подготовленными на стороне C.
+- Как защищалась совместимость — поля запросов и ответов как контракты, проверка по журналам сервисов, в интегрированных сценариях и регрессии QA.
+- Почему детали протокола остаются общими — поля собственного протокола конфиденциальны, ответ остаётся на уровне сервисов и контрактов.
 
 Обязанность 3 — ведущий вклад в разработку на C
 
@@ -493,7 +493,7 @@ Summary подтверждает сквозную разработку серв�
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Team and Collaboration; Role Progression During This Project; Beyond the Codebase; C Backend Development; Role Boundaries.
+- Summary/Interview/2022-2024. Integrated Library System.md — Team and Collaboration; Role Progression During This Project; Beyond the Codebase; C Backend Development; Role Boundaries.
 
 Готовый ответ для интервью
 
@@ -511,10 +511,10 @@ Summary подтверждает сквозную разработку серв�
 
 Темы для дополнительных вопросов
 
-• Как делилась ответственность за C — три разработчика совместно отвечали за всю кодовую базу C89, а не по модулям.
-• Повышение — с junior до middle grade в мае 2022 года, во время этого проекта.
-• Срочная поставка — исправление перехода на летнее время в США, завершённое до перехода.
-• Вклад помимо своих задач — ревью кода, помощь в onboarding, sprint demos и технические интервью для EPAM.
+- Как делилась ответственность за C — три разработчика совместно отвечали за всю кодовую базу C89, а не по модулям.
+- Повышение — с junior до middle grade в мае 2022 года, во время этого проекта.
+- Срочная поставка — исправление перехода на летнее время в США, завершённое до перехода.
+- Вклад помимо своих задач — ревью кода, помощь в onboarding, sprint demos и технические интервью для EPAM.
 
 Обязанность 4 — рефакторинг Scala API
 
@@ -526,7 +526,7 @@ Summary подтверждает сквозную разработку серв�
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Scala API and Swagger; Important Decisions and Tradeoffs; Representative Interview Stories (Add a Scala API Request Backed by C).
+- Summary/Interview/2022-2024. Integrated Library System.md — Scala API and Swagger; Important Decisions and Tradeoffs; Representative Interview Stories (Add a Scala API Request Backed by C).
 
 Готовый ответ для интервью
 
@@ -544,10 +544,10 @@ Summary подтверждает точечный вклад в Scala API: од�
 
 Темы для дополнительных вопросов
 
-• Зачем переиспользовать C из Scala — чтобы не дублировать существующую доменную логику ценой сложности между средами выполнения.
-• Как отображались ошибки и результаты — семантика запросов, ответов и ошибок сохранялась на границе Scala и C.
-• Swagger как контракт — операция публиковалась и документировалась через Swagger.
-• Как проверялось изменение — интеграционная автоматизация на стороне Scala с вызовом C и регрессия QA.
+- Зачем переиспользовать C из Scala — чтобы не дублировать существующую доменную логику ценой сложности между средами выполнения.
+- Как отображались ошибки и результаты — семантика запросов, ответов и ошибок сохранялась на границе Scala и C.
+- Swagger как контракт — операция публиковалась и документировалась через Swagger.
+- Как проверялось изменение — интеграционная автоматизация на стороне Scala с вызовом C и регрессия QA.
 
 Обязанность 5 — автоматизация CI/CD в AWS
 
@@ -559,7 +559,7 @@ Summary подтверждает точечный вклад в Scala API: од�
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Build and Deployment; Main Components and Data Flow; Ownership Boundaries; Technical Ownership.
+- Summary/Interview/2022-2024. Integrated Library System.md — Build and Deployment; Main Components and Data Flow; Ownership Boundaries; Technical Ownership.
 
 Готовый ответ для интервью
 
@@ -577,10 +577,10 @@ Summary подтверждает регулярное практическое �
 
 Темы для дополнительных вопросов
 
-• Ночное развёртывание и развёртывание по запросу — плановое интеграционное покрытие против более быстрой точечной обратной связи.
-• Зачем отдельные пулы разработчиков и QA — независимая проверка не делила состояние с отладкой.
-• Отладка на развёрнутых машинах — SSH, журналы, gdb и core dumps на Linux в AWS.
-• Что я бы улучшил — автоматизацию типовых сценариев развёртывания и smoke-тестов.
+- Ночное развёртывание и развёртывание по запросу — плановое интеграционное покрытие против более быстрой точечной обратной связи.
+- Зачем отдельные пулы разработчиков и QA — независимая проверка не делила состояние с отладкой.
+- Отладка на развёрнутых машинах — SSH, журналы, gdb и core dumps на Linux в AWS.
+- Что я бы улучшил — автоматизацию типовых сценариев развёртывания и smoke-тестов.
 
 Обязанность 6 — изменения схемы базы данных
 
@@ -592,8 +592,8 @@ Summary подтверждает регулярное практическое �
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Technical Ownership; Ownership Boundaries; Role Boundaries; Following Database Requests Across Two Databases.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2022-2024. Integrated Library System.md — Technical Ownership; Ownership Boundaries; Role Boundaries; Following Database Requests Across Two Databases.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -611,10 +611,10 @@ CV заявляет изменение таблиц и улучшение схе
 
 Темы для дополнительных вопросов
 
-• Как C обращался к базе — через Java data services, а не прямым доступом к базе из C.
-• PostgreSQL и MySQL — PostgreSQL основная после более ранней миграции, менее используемые модели остались в MySQL.
-• Диагностика дефектов, связанных с базой, — определение ответственного пути данных до изменения C, Java или поведения на стороне SQL.
-• Почему в C не добавили прямой доступ к базе — сохранение границы Java data services было архитектурным решением.
+- Как C обращался к базе — через Java data services, а не прямым доступом к базе из C.
+- PostgreSQL и MySQL — PostgreSQL основная после более ранней миграции, менее используемые модели остались в MySQL.
+- Диагностика дефектов, связанных с базой, — определение ответственного пути данных до изменения C, Java или поведения на стороне SQL.
+- Почему в C не добавили прямой доступ к базе — сохранение границы Java data services было архитектурным решением.
 
 Обязанность 7 — оценка задач и распределение ресурсов
 
@@ -626,7 +626,7 @@ CV заявляет изменение таблиц и улучшение схе
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Development Process; Responsibilities; Beyond the Codebase.
+- Summary/Interview/2022-2024. Integrated Library System.md — Development Process; Responsibilities; Beyond the Codebase.
 
 Готовый ответ для интервью
 
@@ -644,10 +644,10 @@ CV заявляет изменение таблиц и улучшение схе
 
 Темы для дополнительных вопросов
 
-• Процесс спринтов — двухнедельные спринты, еженедельный grooming, stand-ups, демонстрации и ретроспективы.
-• Планирование изменений под длинный цикл релизов — изменения должны были долго оставаться стабильными до выпуска.
-• Сквозные задачи в планировании — функция часто затрагивала C, Java и Scala и планировалась как единый результат.
-• Распределение ресурсов — не входило в мою роль; мой вклад в планирование касался задач, которые я поставлял.
+- Процесс спринтов — двухнедельные спринты, еженедельный grooming, stand-ups, демонстрации и ретроспективы.
+- Планирование изменений под длинный цикл релизов — изменения должны были долго оставаться стабильными до выпуска.
+- Сквозные задачи в планировании — функция часто затрагивала C, Java и Scala и планировалась как единый результат.
+- Распределение ресурсов — не входило в мою роль; мой вклад в планирование касался задач, которые я поставлял.
 
 Обязанность 8 — ревью кода и обмен знаниями
 
@@ -659,7 +659,7 @@ CV заявляет изменение таблиц и улучшение схе
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Beyond the Codebase; Development Process; Outcomes and Impact.
+- Summary/Interview/2022-2024. Integrated Library System.md — Beyond the Codebase; Development Process; Outcomes and Impact.
 
 Готовый ответ для интервью
 
@@ -677,10 +677,10 @@ CV заявляет изменение таблиц и улучшение схе
 
 Темы для дополнительных вопросов
 
-• Как было устроено ревью — ревьюеры EPAM и заказчика, обязательное одобрение каждого добавленного ревьюера.
-• Почему ревью было здесь важно — это была общая проверка совместимости в системе, которой владели несколько профильных групп.
-• Onboarding — помощь новым разработчикам по мере изменения состава команды.
-• Работа с командой заказчика — sprint demos и технические встречи с разработчиками заказчика.
+- Как было устроено ревью — ревьюеры EPAM и заказчика, обязательное одобрение каждого добавленного ревьюера.
+- Почему ревью было здесь важно — это была общая проверка совместимости в системе, которой владели несколько профильных групп.
+- Onboarding — помощь новым разработчикам по мере изменения состава команды.
+- Работа с командой заказчика — sprint demos и технические встречи с разработчиками заказчика.
 
 Обязанность 9 — рефакторинг унаследованного приложения
 
@@ -692,7 +692,7 @@ CV заявляет изменение таблиц и улучшение схе
 
 Подтверждение из Summary
 
-• Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Important Decisions and Tradeoffs; Key Engineering Challenges (Working Safely in a Long-Lived C89 Codebase); Tradeoffs, Lessons & Retrospective.
+- Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Important Decisions and Tradeoffs; Key Engineering Challenges (Working Safely in a Long-Lived C89 Codebase); Tradeoffs, Lessons & Retrospective.
 
 Готовый ответ для интервью
 
@@ -710,10 +710,10 @@ CV заявляет изменение таблиц и улучшение схе
 
 Темы для дополнительных вопросов
 
-• Почему без переписывания — обязательства совместимости перед большой базой установок перевешивали выгоду.
-• Как рефакторинг оставался безопасным без unit-тестов на C — воспроизведение, интеграционная автоматизация, регрессия QA и ревью.
-• Буферы фиксированного размера — восстановление модели владения и потоков данных до изменения кода.
-• Что я бы улучшил — unit-тесты на C и контрактные тесты для отображений Scala-to-C и C-to-Java.
+- Почему без переписывания — обязательства совместимости перед большой базой установок перевешивали выгоду.
+- Как рефакторинг оставался безопасным без unit-тестов на C — воспроизведение, интеграционная автоматизация, регрессия QA и ревью.
+- Буферы фиксированного размера — восстановление модели владения и потоков данных до изменения кода.
+- Что я бы улучшил — unit-тесты на C и контрактные тесты для отображений Scala-to-C и C-to-Java.
 
 ПРОЕКТ 3. CORPORATE SYSTEM FOR THE OIL AND GAS INDUSTRY
 
@@ -732,7 +732,7 @@ CV заявляет изменение таблиц и улучшение схе
 
 Подтверждение из Summary
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — C++17 Feature Development and Maintenance; Main Components and Data Flow; Database-Backed Workflows; Data and Failure Boundaries.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — C++17 Feature Development and Maintenance; Main Components and Data Flow; Database-Backed Workflows; Data and Failure Boundaries.
 
 Готовый ответ для интервью
 
@@ -750,10 +750,10 @@ CV заявляет изменение таблиц и улучшение схе
 
 Темы для дополнительных вопросов
 
-• Что делала система — обрабатывала данные промышленных датчиков на C++17, сохраняла результаты в MySQL и показывала их через веб-слой.
-• Корректность данных — разобранные, рассчитанные, сохранённые и отображаемые значения должны описывать одно и то же операционное событие.
-• Подход к отладке — проследить одно значение от входа через обработку на C++ и состояние MySQL до пользовательского слоя.
-• Производительность — измеренного результата для заявления нет; честный акцент — корректность и сопровождаемость.
+- Что делала система — обрабатывала данные промышленных датчиков на C++17, сохраняла результаты в MySQL и показывала их через веб-слой.
+- Корректность данных — разобранные, рассчитанные, сохранённые и отображаемые значения должны описывать одно и то же операционное событие.
+- Подход к отладке — проследить одно значение от входа через обработку на C++ и состояние MySQL до пользовательского слоя.
+- Производительность — измеренного результата для заявления нет; честный акцент — корректность и сопровождаемость.
 
 Обязанность 2 — вклад основного разработчика
 
@@ -765,7 +765,7 @@ CV заявляет изменение таблиц и улучшение схе
 
 Подтверждение из Summary
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Contributions (C++17 Feature Development and Maintenance; JavaScript Contributions; Distributed Delivery); Development Process.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Contributions (C++17 Feature Development and Maintenance; JavaScript Contributions; Distributed Delivery); Development Process.
 
 Готовый ответ для интервью
 
@@ -783,10 +783,10 @@ CV заявляет изменение таблиц и улучшение схе
 
 Темы для дополнительных вопросов
 
-• Команда — пять C++-разработчиков EPAM, внешняя команда QA в Индии и представители заказчика в США.
-• Мой грейд — Junior C++ Software Engineer на первом проекте в EPAM.
-• Работа на стыке слоёв — изменения на C++ и JavaScript поставлялись и проверялись как единый продуктовый сценарий.
-• Ритм поставки — спринты с демонстрациями раз в две недели руководителям подразделений заказчика.
+- Команда — пять C++-разработчиков EPAM, внешняя команда QA в Индии и представители заказчика в США.
+- Мой грейд — Junior C++ Software Engineer на первом проекте в EPAM.
+- Работа на стыке слоёв — изменения на C++ и JavaScript поставлялись и проверялись как единый продуктовый сценарий.
+- Ритм поставки — спринты с демонстрациями раз в две недели руководителям подразделений заказчика.
 
 Обязанность 3 — оценка задач
 
@@ -798,8 +798,8 @@ CV заявляет изменение таблиц и улучшение схе
 
 Подтверждение из Summary
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Development Process.
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Development Process.
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -817,10 +817,10 @@ Summary не фиксирует ответственности за оценки
 
 Темы для дополнительных вопросов
 
-• Как поступала работа — запрошенные заказчиком улучшения и дефекты в устоявшейся системе.
-• Ритм спринтов — демонстрации раз в две недели руководителям подразделений заказчика отдавали предпочтение законченным видимым изменениям.
-• Небольшие изменения — точечные изменения, которые можно было проверить, показать и провалидировать в рамках спринта.
-• Кто планировал ресурсы — на этом проекте это не входило в мою ответственность.
+- Как поступала работа — запрошенные заказчиком улучшения и дефекты в устоявшейся системе.
+- Ритм спринтов — демонстрации раз в две недели руководителям подразделений заказчика отдавали предпочтение законченным видимым изменениям.
+- Небольшие изменения — точечные изменения, которые можно было проверить, показать и провалидировать в рамках спринта.
+- Кто планировал ресурсы — на этом проекте это не входило в мою ответственность.
 
 Обязанность 4 — сопровождение, производительность и технический долг
 
@@ -832,7 +832,7 @@ Summary не фиксирует ответственности за оценки
 
 Подтверждение из Summary
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; JavaScript Contributions; Debugging Approach; Outcomes and Impact.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; JavaScript Contributions; Debugging Approach; Outcomes and Impact.
 
 Готовый ответ для интервью
 
@@ -850,10 +850,10 @@ Summary не фиксирует ответственности за оценки
 
 Темы для дополнительных вопросов
 
-• Отладка между слоями — последовательная проверка обработки на C++, состояния MySQL и поведения JavaScript.
-• Дефект, связанный с базой данных, — прослеживание от исходного значения, а не предположение о проблеме в SQL.
-• Что означало упрощение — удаление частных случаев и неиспользуемых путей, а не их наращивание.
-• Диагностика — журналы приложения; native-инструменты были доступны, но конкретного зафиксированного случая нет.
+- Отладка между слоями — последовательная проверка обработки на C++, состояния MySQL и поведения JavaScript.
+- Дефект, связанный с базой данных, — прослеживание от исходного значения, а не предположение о проблеме в SQL.
+- Что означало упрощение — удаление частных случаев и неиспользуемых путей, а не их наращивание.
+- Диагностика — журналы приложения; native-инструменты были доступны, но конкретного зафиксированного случая нет.
 
 Обязанность 5 — удаление унаследованных компонентов
 
@@ -865,7 +865,7 @@ Summary не фиксирует ответственности за оценки
 
 Подтверждение из Summary
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; Important Decisions and Tradeoffs; Representative Interview Stories (Safe Modernization of an Inherited C++ Area).
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; Important Decisions and Tradeoffs; Representative Interview Stories (Safe Modernization of an Inherited C++ Area).
 
 Готовый ответ для интервью
 
@@ -883,10 +883,10 @@ Summary не фиксирует ответственности за оценки
 
 Темы для дополнительных вопросов
 
-• Как доказывалась безопасность удаления — трассировка зависимостей, отделение используемых путей от неиспользуемых и регрессия у внешней QA.
-• Почему не оставить неиспользуемый код — он увеличивал поверхность сопровождения затронутых областей.
-• Почему не переписывание — короткий проект и унаследованная архитектура требовали инкрементальных изменений, удобных для ревью.
-• Связь очистки с поставкой — упрощение выполнялось в той же области, что и запрошенное изменение.
+- Как доказывалась безопасность удаления — трассировка зависимостей, отделение используемых путей от неиспользуемых и регрессия у внешней QA.
+- Почему не оставить неиспользуемый код — он увеличивал поверхность сопровождения затронутых областей.
+- Почему не переписывание — короткий проект и унаследованная архитектура требовали инкрементальных изменений, удобных для ревью.
+- Связь очистки с поставкой — упрощение выполнялось в той же области, что и запрошенное изменение.
 
 ПРОЕКТ 4. HOME ACCOUNTING SOFTWARE
 
@@ -905,7 +905,7 @@ Summary не фиксирует ответственности за оценки
 
 Подтверждение из Summary
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Project Snapshot; System Architecture — Main Components; Contributions — Personal Finance Analytics Application.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Project Snapshot; System Architecture — Main Components; Contributions — Personal Finance Analytics Application.
 
 Готовый ответ для интервью
 
@@ -923,10 +923,10 @@ Summary не фиксирует ответственности за оценки
 
 Темы для дополнительных вопросов
 
-• Как слои зависели друг от друга — у каждого слоя пронумерованный library target, но исполняемый файл линкует все четыре напрямую, поэтому слоистость была соглашением, а не правилом, которое обеспечивала сборка.
-• Как работали мультивалютные балансы — каждый счёт в своей валюте поверх одной базовой, переводы с курсовой корректировкой; именно эту часть я сейчас протестировал бы первой.
-• Почему выбрана такая простая предметная область — сознательно, чтобы сложность находилась в архитектуре, хранении, тестировании и инструментах.
-• Что возвращает операция find фасада — кортеж из результата, индекса и объекта.
+- Как слои зависели друг от друга — у каждого слоя пронумерованный library target, но исполняемый файл линкует все четыре напрямую, поэтому слоистость была соглашением, а не правилом, которое обеспечивала сборка.
+- Как работали мультивалютные балансы — каждый счёт в своей валюте поверх одной базовой, переводы с курсовой корректировкой; именно эту часть я сейчас протестировал бы первой.
+- Почему выбрана такая простая предметная область — сознательно, чтобы сложность находилась в архитектуре, хранении, тестировании и инструментах.
+- Что возвращает операция find фасада — кортеж из результата, индекса и объекта.
 
 Обязанность 2 — пользовательский интерфейс FLTK
 
@@ -938,7 +938,7 @@ Summary не фиксирует ответственности за оценки
 
 Подтверждение из Summary
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components, The Boundary That Mattered; Tech Stack & Technical Decisions — Decisions and Tradeoffs.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components, The Boundary That Mattered; Tech Stack & Technical Decisions — Decisions and Tradeoffs.
 
 Готовый ответ для интервью
 
@@ -956,10 +956,10 @@ FLTK был выбран вместо Qt как более компактный 
 
 Темы для дополнительных вопросов
 
-• Почему FLTK, а не Qt — компактный и без навязанной архитектуры для самостоятельного архитектурного упражнения; Qt я использовал в коммерческой работе.
-• Как интерфейс оставался тонким — каждое окно работает через FinanceRepository, а тестовый target линкует всё, кроме GUI.
-• Что такое библиотека graph — графический слой PPP из книги Страуструпа, повторно использованный в приложении.
-• Что я бы изменил — чтобы GUI линковался только с BusinessLogic и слоистость обеспечивалась сборкой.
+- Почему FLTK, а не Qt — компактный и без навязанной архитектуры для самостоятельного архитектурного упражнения; Qt я использовал в коммерческой работе.
+- Как интерфейс оставался тонким — каждое окно работает через FinanceRepository, а тестовый target линкует всё, кроме GUI.
+- Что такое библиотека graph — графический слой PPP из книги Страуструпа, повторно использованный в приложении.
+- Что я бы изменил — чтобы GUI линковался только с BusinessLogic и слоистость обеспечивалась сборкой.
 
 Обязанность 3 — хранение данных в SQLite
 
@@ -971,7 +971,7 @@ FLTK был выбран вместо Qt как более компактный 
 
 Подтверждение из Summary
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components; Tech Stack & Technical Decisions — Decisions and Tradeoffs; Contributions — Personal Finance Analytics Application.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components; Tech Stack & Technical Decisions — Decisions and Tradeoffs; Contributions — Personal Finance Analytics Application.
 
 Готовый ответ для интервью
 
@@ -989,10 +989,10 @@ SQLite был выбран вместо обычных файлов или кл�
 
 Темы для дополнительных вопросов
 
-• Почему C API, а не ORM — контроль и отсутствие тяжёлой зависимости ценой однообразной ручной привязки.
-• Почему в сборке есть неиспользуемый submodule sqlite_orm — запланированная миграция не была завершена; правильное решение — завершить её или удалить submodule.
-• Как сообщается об ошибках хранения — PLOG_ERROR с текстом ошибки SQLite из каждого класса Database.
-• Почему SQLite подходит этому приложению — встроенная база в одном файле без сервера; конкурентный доступ не требуется.
+- Почему C API, а не ORM — контроль и отсутствие тяжёлой зависимости ценой однообразной ручной привязки.
+- Почему в сборке есть неиспользуемый submodule sqlite_orm — запланированная миграция не была завершена; правильное решение — завершить её или удалить submodule.
+- Как сообщается об ошибках хранения — PLOG_ERROR с текстом ошибки SQLite из каждого класса Database.
+- Почему SQLite подходит этому приложению — встроенная база в одном файле без сервера; конкурентный доступ не требуется.
 
 Обязанность 4 — тестирование с Google Test
 
@@ -1004,7 +1004,7 @@ SQLite был выбран вместо обычных файлов или кл�
 
 Подтверждение из Summary
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Testing; Key Engineering Challenges — Testing as a Design Tool, Money That Has to Add Up Across Currencies; Tradeoffs, Lessons & Retrospective — What I Would Improve Today.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Testing; Key Engineering Challenges — Testing as a Design Tool, Money That Has to Add Up Across Currencies; Tradeoffs, Lessons & Retrospective — What I Would Improve Today.
 
 Готовый ответ для интервью
 
@@ -1022,10 +1022,10 @@ GoogleTest 1.10 подтягивается через CMake FetchContent, а gte
 
 Темы для дополнительных вопросов
 
-• Как тестирование сформировало архитектуру — тестовый target исключает GUI, что вынудило вынести логику из интерфейса.
-• Что я бы протестировал первым сегодня — Transaction, переводы и пересчёт в базовую валюту, а затем простые типы моделей.
-• Почему слой доступа к данным не тестировался — сначала нужно отделить SQL и код привязки от управления соединением, чтобы запускать его на fixture-базе.
-• Как тесты обнаруживаются и запускаются — FetchContent для GoogleTest и gtest_discover_tests для регистрации в CTest.
+- Как тестирование сформировало архитектуру — тестовый target исключает GUI, что вынудило вынести логику из интерфейса.
+- Что я бы протестировал первым сегодня — Transaction, переводы и пересчёт в базовую валюту, а затем простые типы моделей.
+- Почему слой доступа к данным не тестировался — сначала нужно отделить SQL и код привязки от управления соединением, чтобы запускать его на fixture-базе.
+- Как тесты обнаруживаются и запускаются — FetchContent для GoogleTest и gtest_discover_tests для регистрации в CTest.
 
 Обязанность 5 — логирование и автоматизация сборки
 
@@ -1037,7 +1037,7 @@ GoogleTest 1.10 подтягивается через CMake FetchContent, а gte
 
 Подтверждение из Summary
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Diagnostics, Build; Tech Stack & Technical Decisions — Decisions and Tradeoffs; System Architecture — Main Components.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Diagnostics, Build; Tech Stack & Technical Decisions — Decisions and Tradeoffs; System Architecture — Main Components.
 
 Готовый ответ для интервью
 
@@ -1055,10 +1055,10 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Темы для дополнительных вопросов
 
-• Почему логирование находится в слое доступа к данным — там возникают сбои, и лог должен указывать на неудачное выражение.
-• Почему два механизма зависимостей — Git submodules для runtime-библиотек и FetchContent для GoogleTest, выбранные вместо vcpkg или Conan, чтобы checkout был самодостаточным.
-• Как был включён C++20 — /std:c++latest в Visual Studio 2019; сегодня я бы закрепил /std:c++20.
-• Чего не хватало в автоматизации сборки — CI, проверяющей сборку из чистого checkout при каждом изменении.
+- Почему логирование находится в слое доступа к данным — там возникают сбои, и лог должен указывать на неудачное выражение.
+- Почему два механизма зависимостей — Git submodules для runtime-библиотек и FetchContent для GoogleTest, выбранные вместо vcpkg или Conan, чтобы checkout был самодостаточным.
+- Как был включён C++20 — /std:c++latest в Visual Studio 2019; сегодня я бы закрепил /std:c++20.
+- Чего не хватало в автоматизации сборки — CI, проверяющей сборку из чистого checkout при каждом изменении.
 
 ПРОЕКТ 5. 3D RECONSTRUCTION SOFTWARE FOR INDUSTRIAL APPLICATIONS
 
@@ -1077,7 +1077,7 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Подтверждение из Summary
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Multi-Sensor Profile Ingestion and Coordinate Transformation; System Architecture & Integration Boundaries — Main Components and Data Flow; Key Engineering Challenges — Error Propagation from Sensor Pose into Reconstruction; Representative Interview Stories — Diagnosing a Doubled Surface in the Merged Cloud.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Multi-Sensor Profile Ingestion and Coordinate Transformation; System Architecture & Integration Boundaries — Main Components and Data Flow; Key Engineering Challenges — Error Propagation from Sensor Pose into Reconstruction; Representative Interview Stories — Diagnosing a Doubled Surface in the Merged Cloud.
 
 Готовый ответ для интервью
 
@@ -1095,11 +1095,11 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Темы для дополнительных вопросов
 
-• Как локальные профили датчиков размещались в 3D — положение каждого датчика и геометрия съёмки как явные данные, применяемые до любой регистрации.
-• Как ошибку положения отличали от шума датчика — согласованность внутри каждого датчика при смещении между датчиками указывает на положение.
-• Почему регистрация была только уточнением — чтобы сохранить абсолютный измерительный смысл, а не получить лишь внутренне согласованное облако.
-• Как интерпретировались дыры — как ограничения окклюзии и покрытия, то есть отсутствующие, а не неверные данные.
-• За что отвечала сторона оборудования и калибровки — сканеры, оптика, firmware, монтаж и методика калибровки.
+- Как локальные профили датчиков размещались в 3D — положение каждого датчика и геометрия съёмки как явные данные, применяемые до любой регистрации.
+- Как ошибку положения отличали от шума датчика — согласованность внутри каждого датчика при смещении между датчиками указывает на положение.
+- Почему регистрация была только уточнением — чтобы сохранить абсолютный измерительный смысл, а не получить лишь внутренне согласованное облако.
+- Как интерпретировались дыры — как ограничения окклюзии и покрытия, то есть отсутствующие, а не неверные данные.
+- За что отвечала сторона оборудования и калибровки — сканеры, оптика, firmware, монтаж и методика калибровки.
 
 Обязанность 2 — обработка облаков точек с PCL
 
@@ -1111,7 +1111,7 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Подтверждение из Summary
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Point-Cloud Processing Pipeline with PCL; Key Engineering Challenges — Filtering Parameters That Trade Measurement Value for Appearance; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Point-Cloud Processing Pipeline with PCL; Key Engineering Challenges — Filtering Parameters That Trade Measurement Value for Appearance; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs.
 
 Готовый ответ для интервью
 
@@ -1129,10 +1129,10 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Темы для дополнительных вопросов
 
-• Какие этапы PCL использовались — фильтрация, voxel downsampling, удаление выбросов, нормали, уточнение выравнивания и реконструкция поверхности.
-• Как выбирались параметры — на объектах с известной геометрией и фиксированных наборах, по измеримым признакам, а не по визуализации.
-• Почему этапы были разделены — первая сквозная версия не давала подсказки о причине плохой модели.
-• Почему PCL, а не собственный код — быстрое получение зрелых алгоритмов ценой тяжёлой зависимости.
+- Какие этапы PCL использовались — фильтрация, voxel downsampling, удаление выбросов, нормали, уточнение выравнивания и реконструкция поверхности.
+- Как выбирались параметры — на объектах с известной геометрией и фиксированных наборах, по измеримым признакам, а не по визуализации.
+- Почему этапы были разделены — первая сквозная версия не давала подсказки о причине плохой модели.
+- Почему PCL, а не собственный код — быстрое получение зрелых алгоритмов ценой тяжёлой зависимости.
 
 Обязанность 3 — визуализация и анализ с Open3D
 
@@ -1144,7 +1144,7 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Подтверждение из Summary
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — 3D Model Reconstruction and Library Evaluation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs; Delivery, Testing & Quality — Test Strategy.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — 3D Model Reconstruction and Library Evaluation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs; Delivery, Testing & Quality — Test Strategy.
 
 Готовый ответ для интервью
 
@@ -1162,10 +1162,10 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Темы для дополнительных вопросов
 
-• Почему PCL была основной, а Open3D дополнительной — PCL для обработки, Open3D для проверки и визуализации её результатов.
-• Где библиотеки расходились — неполное покрытие, тонкие элементы и наклонные поверхности.
-• Почему интерполированные поверхности опасны в метрологии — правдоподобное заполнение является неверным ответом, поданным убедительно.
-• Что показывал Qt-интерфейс — промежуточные этапы, включение отдельных датчиков, число точек и экспорт.
+- Почему PCL была основной, а Open3D дополнительной — PCL для обработки, Open3D для проверки и визуализации её результатов.
+- Где библиотеки расходились — неполное покрытие, тонкие элементы и наклонные поверхности.
+- Почему интерполированные поверхности опасны в метрологии — правдоподобное заполнение является неверным ответом, поданным убедительно.
+- Что показывал Qt-интерфейс — промежуточные этапы, включение отдельных датчиков, число точек и экспорт.
 
 Обязанность 4 — разработка и оптимизация в Visual Studio
 
@@ -1177,7 +1177,7 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Подтверждение из Summary
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Tech Stack & Technical Decisions; Delivery, Testing & Quality — Build and Deployment, Observability and Debugging; Key Engineering Challenges — Native Build Complexity with Heavy Dependencies; Contributions — Transition from Research Code to Commercial C++.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Tech Stack & Technical Decisions; Delivery, Testing & Quality — Build and Deployment, Observability and Debugging; Key Engineering Challenges — Native Build Complexity with Heavy Dependencies; Contributions — Transition from Research Code to Commercial C++.
 
 Готовый ответ для интервью
 
@@ -1195,10 +1195,10 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Темы для дополнительных вопросов
 
-• Что делало сборку сложной — PCL, Open3D и Qt вместе под Windows с CMake и Visual Studio.
-• Как отлаживалась реконструкция — просмотр этапов, изоляция датчиков, записанные наборы и объекты с известной геометрией.
-• Как переход от MATLAB проявился в коде — явное управление памятью, большие наборы данных, понятные пользователю сбои и сборка, которую могут запустить другие.
-• Что я сделал бы иначе — воспроизводимая настройка зависимостей с первого дня и unit-тесты для математики преобразований.
+- Что делало сборку сложной — PCL, Open3D и Qt вместе под Windows с CMake и Visual Studio.
+- Как отлаживалась реконструкция — просмотр этапов, изоляция датчиков, записанные наборы и объекты с известной геометрией.
+- Как переход от MATLAB проявился в коде — явное управление памятью, большие наборы данных, понятные пользователю сбои и сборка, которую могут запустить другие.
+- Что я сделал бы иначе — воспроизводимая настройка зависимостей с первого дня и unit-тесты для математики преобразований.
 
 ПРОЕКТ 6. SOFTWARE MODULES FOR UAV
 
@@ -1217,7 +1217,7 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow, Technical Ownership; 02 Context, Goals & Constraints: Ownership Boundaries.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow, Technical Ownership; 02 Context, Goals & Constraints: Ownership Boundaries.
 
 Готовый ответ для интервью
 
@@ -1235,11 +1235,11 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Темы для дополнительных вопросов
 
-• Из чего состояла цепочка и в каком порядке — дебайеризация, стабилизация, слияние и преобразование формата с передачей в вычисление координат центра кадра.
-• Почему MATLAB — это была алгоритмическая среда организации; быстрая итерация и визуализация каждого промежуточного этапа.
-• Что было вне моей зоны — оптика, детекторы, бортовая электроника, платформа бортового ПО и планер.
-• Как проверялись модули — эталонные мишени, визуальный и численный контроль и в итоге испытательные полёты БПЛА, в которых я управлял полезной нагрузкой.
-• Смежная работа по геопривязке — калибровка IMU относительно камеры и почему малое рассогласование превращается в большую ошибку на земле.
+- Из чего состояла цепочка и в каком порядке — дебайеризация, стабилизация, слияние и преобразование формата с передачей в вычисление координат центра кадра.
+- Почему MATLAB — это была алгоритмическая среда организации; быстрая итерация и визуализация каждого промежуточного этапа.
+- Что было вне моей зоны — оптика, детекторы, бортовая электроника, платформа бортового ПО и планер.
+- Как проверялись модули — эталонные мишени, визуальный и численный контроль и в итоге испытательные полёты БПЛА, в которых я управлял полезной нагрузкой.
+- Смежная работа по геопривязке — калибровка IMU относительно камеры и почему малое рассогласование превращается в большую ошибку на земле.
 
 Обязанность 2 — алгоритм дебайеризации
 
@@ -1251,7 +1251,7 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Compatibility Matrix (Bayer sensor output → Debayering).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Compatibility Matrix (Bayer sensor output → Debayering).
 
 Готовый ответ для интервью
 
@@ -1269,10 +1269,10 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Темы для дополнительных вопросов
 
-• Почему границы — сложная часть дебайеризации — ложные цветные ореолы возникают там, где в изображении больше всего информации.
-• Как оценивалось качество — эталонные мишени и визуальный контроль по требованию отсутствия ложных деталей на границах.
-• Как артефакт дебайеризации проявляется на следующих этапах — ложный цвет влияет на сопоставление признаков и слияние.
-• Почему нет процента улучшения — он не измерялся и не фиксировался; утверждение качественное.
+- Почему границы — сложная часть дебайеризации — ложные цветные ореолы возникают там, где в изображении больше всего информации.
+- Как оценивалось качество — эталонные мишени и визуальный контроль по требованию отсутствия ложных деталей на границах.
+- Как артефакт дебайеризации проявляется на следующих этапах — ложный цвет влияет на сопоставление признаков и слияние.
+- Почему нет процента улучшения — он не измерялся и не фиксировался; утверждение качественное.
 
 Обязанность 3 — преобразование форматов изображений
 
@@ -1284,7 +1284,7 @@ DatabaseManager записывает в лог открытие базы и пе
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow (Format Conversion → Frame Centre Coordinate Computation).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow (Format Conversion → Frame Centre Coordinate Computation).
 
 Готовый ответ для интервью
 
@@ -1302,9 +1302,9 @@ Summary описывает преобразование только как од
 
 Темы для дополнительных вопросов
 
-• Где преобразование стояло в цепочке — после слияния и перед вычислением координат центра кадра.
-• Что преобразование должно сохранять — разрядность, порядок каналов и временные данные, нужные следующему этапу; это можно обсуждать как логику проектирования, а не как список форматов.
-• Почему утверждение узкое — Summary фиксирует один модуль, а не набор инструментов или перечень целевых платформ.
+- Где преобразование стояло в цепочке — после слияния и перед вычислением координат центра кадра.
+- Что преобразование должно сохранять — разрядность, порядок каналов и временные данные, нужные следующему этапу; это можно обсуждать как логику проектирования, а не как список форматов.
+- Почему утверждение узкое — Summary фиксирует один модуль, а не набор инструментов или перечень целевых платформ.
 
 Обязанность 4 — стабилизация изображения
 
@@ -1316,7 +1316,7 @@ Summary описывает преобразование только как од
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Observability and Debugging; 02 Context, Goals & Constraints: Problem and Goals.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Observability and Debugging; 02 Context, Goals & Constraints: Problem and Goals.
 
 Готовый ответ для интервью
 
@@ -1334,10 +1334,10 @@ Summary описывает преобразование только как од
 
 Темы для дополнительных вопросов
 
-• Почему стабилизация для БПЛА сложнее спутниковой обработки — гораздо более агрессивное движение платформы.
-• Что означало «близко к реальному времени» — проектное ограничение цепочки, а не измеренная гарантия.
-• Как выглядит дефект стабилизации — смаз вдоль направления полёта, диагностируемый по промежуточным изображениям.
-• Как проверялся результат — эталонные изображения, визуальный контроль и реальные данные испытательных полётов.
+- Почему стабилизация для БПЛА сложнее спутниковой обработки — гораздо более агрессивное движение платформы.
+- Что означало «близко к реальному времени» — проектное ограничение цепочки, а не измеренная гарантия.
+- Как выглядит дефект стабилизации — смаз вдоль направления полёта, диагностируемый по промежуточным изображениям.
+- Как проверялся результат — эталонные изображения, визуальный контроль и реальные данные испытательных полётов.
 
 Обязанность 5 — слияние изображений нескольких датчиков
 
@@ -1349,7 +1349,7 @@ Summary описывает преобразование только как од
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 12 Interview Answer Kit: Role-Specific Emphasis (Computer vision); Glossary (Image fusion).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 12 Interview Answer Kit: Role-Specific Emphasis (Computer vision); Glossary (Image fusion).
 
 Готовый ответ для интервью
 
@@ -1367,10 +1367,10 @@ Summary относит слияние изображений к работе в 
 
 Темы для дополнительных вопросов
 
-• Что объединялось — кадры или выходы разных датчиков одной полезной нагрузки.
-• Почему слияние идёт после дебайеризации и стабилизации — ошибки предыдущих этапов ограничивают качество слияния.
-• Как оценивалась польза для распознавания — эталонные изображения, визуальная проверка и данные испытательных полётов.
-• Что не заявляется — измеренные показатели детализации или контраста.
+- Что объединялось — кадры или выходы разных датчиков одной полезной нагрузки.
+- Почему слияние идёт после дебайеризации и стабилизации — ошибки предыдущих этапов ограничивают качество слияния.
+- Как оценивалась польза для распознавания — эталонные изображения, визуальная проверка и данные испытательных полётов.
+- Что не заявляется — измеренные показатели детализации или контраста.
 
 ПРОЕКТ 7. REMOTE SENSING SATELLITES DATABASE
 
@@ -1389,7 +1389,7 @@ Summary относит слияние изображений к работе в 
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 06 Delivery, Testing & Quality: Build and Deployment; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Reference data); 05 Team, Role & Ownership: Training During the Period.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 06 Delivery, Testing & Quality: Build and Deployment; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Reference data); 05 Team, Role & Ownership: Training During the Period.
 
 Готовый ответ для интервью
 
@@ -1407,10 +1407,10 @@ Summary относит слияние изображений к работе в 
 
 Темы для дополнительных вопросов
 
-• Почему веб-приложение, а не общие таблицы — общие, согласованные и доступные для запросов данные вместо разрозненных копий у инженеров.
-• Кто пользовался — инженеры отдела для планирования и анализа.
-• Как выполнялось развёртывание — Rails-приложение поверх PostgreSQL, обслуживающее отдел.
-• Освоение нового стека — обучение Rails прямо перед проектом и первый серьёзный опыт веб-разработки.
+- Почему веб-приложение, а не общие таблицы — общие, согласованные и доступные для запросов данные вместо разрозненных копий у инженеров.
+- Кто пользовался — инженеры отдела для планирования и анализа.
+- Как выполнялось развёртывание — Rails-приложение поверх PostgreSQL, обслуживающее отдел.
+- Освоение нового стека — обучение Rails прямо перед проектом и первый серьёзный опыт веб-разработки.
 
 Обязанность 2 — проектирование и оптимизация PostgreSQL
 
@@ -1422,7 +1422,7 @@ Summary относит слияние изображений к работе в 
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 04 Tech Stack & Technical Decisions: Tech Stack table (Database and web), Important Decisions and Tradeoffs.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 04 Tech Stack & Technical Decisions: Tech Stack table (Database and web), Important Decisions and Tradeoffs.
 
 Готовый ответ для интервью
 
@@ -1440,10 +1440,10 @@ Summary называет главным инженерным интересом 
 
 Темы для дополнительных вопросов
 
-• Какие сущности содержала схема — миссия, платформа, прибор, спектральный канал и орбитальные параметры.
-• Почему реляционная модель, а не таблицы — связи между приборами, каналами и орбитами теряются при сплющивании.
-• Что честно означает «ускорение получения данных» — запрос вместо ручного сбора, а не измеренный прирост скорости.
-• Что я сделал бы для оптимизации сегодня — анализ планов выполнения и индексы под реальные запросы; это общее знание, а не зафиксированный результат проекта.
+- Какие сущности содержала схема — миссия, платформа, прибор, спектральный канал и орбитальные параметры.
+- Почему реляционная модель, а не таблицы — связи между приборами, каналами и орбитами теряются при сплющивании.
+- Что честно означает «ускорение получения данных» — запрос вместо ручного сбора, а не измеренный прирост скорости.
+- Что я сделал бы для оптимизации сегодня — анализ планов выполнения и индексы под реальные запросы; это общее знание, а не зафиксированный результат проекта.
 
 Обязанность 3 — интеграция унаследованных данных MS Access
 
@@ -1455,8 +1455,8 @@ Summary называет главным инженерным интересом 
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 03 System Architecture & Integration Boundaries: External Integrations (MS Access); 04 Tech Stack & Technical Decisions: Tech Stack table (Data management).
-• В Summary нет подтверждения конкретной задачи из CV.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 03 System Architecture & Integration Boundaries: External Integrations (MS Access); 04 Tech Stack & Technical Decisions: Tech Stack table (Data management).
+- В Summary нет подтверждения конкретной задачи из CV.
 
 Готовый ответ для интервью
 
@@ -1474,9 +1474,9 @@ CV описывает интеграцию MS Access, миграцию унас�
 
 Темы для дополнительных вопросов
 
-• Для чего использовался Access — для более ранних небольших внутренних баз, на уровне рабочего использования.
-• Откуда брались справочные данные о спутниках — из разрозненных документов и файлов инженеров, а не из базы Access.
-• Как я подошёл бы к миграции из Access — явное сопоставление полей, поэтапная загрузка и сверка количества записей; это подход, а не прошлая работа в этом проекте.
+- Для чего использовался Access — для более ранних небольших внутренних баз, на уровне рабочего использования.
+- Откуда брались справочные данные о спутниках — из разрозненных документов и файлов инженеров, а не из базы Access.
+- Как я подошёл бы к миграции из Access — явное сопоставление полей, поэтапная загрузка и сверка количества записей; это подход, а не прошлая работа в этом проекте.
 
 ПРОЕКТ 8. SOFTWARE FOR PROCESSING AND ANALYSIS OF SATELLITE EARTH OBSERVATION IMAGES
 
@@ -1495,7 +1495,7 @@ CV описывает интеграцию MS Access, миграцию унас�
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Satellite Frame Stitching, Radiometric Correction of Detector Arrays; 09 Representative Interview Stories: A Seam That Was Not a Geometry Problem; 06 Delivery, Testing & Quality: Compatibility Matrix.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Satellite Frame Stitching, Radiometric Correction of Detector Arrays; 09 Representative Interview Stories: A Seam That Was Not a Geometry Problem; 06 Delivery, Testing & Quality: Compatibility Matrix.
 
 Готовый ответ для интервью
 
@@ -1513,10 +1513,10 @@ CV описывает интеграцию MS Access, миграцию унас�
 
 Темы для дополнительных вопросов
 
-• Почему шов остаётся после идеального совмещения — разные детекторы по-разному откликаются на одну яркость.
-• Как дефекты детекторов проявляются на снимках — шум фиксированного шаблона, полосы и битые пиксели, и почему их коррекция идёт первой.
-• Как проверялся результат — данные равномерной засветки и контроль через шов.
-• Корректировка курса — переход от чисто геометрического взгляда на шов к учёту радиометрии как части задачи.
+- Почему шов остаётся после идеального совмещения — разные детекторы по-разному откликаются на одну яркость.
+- Как дефекты детекторов проявляются на снимках — шум фиксированного шаблона, полосы и битые пиксели, и почему их коррекция идёт первой.
+- Как проверялся результат — данные равномерной засветки и контроль через шов.
+- Корректировка курса — переход от чисто геометрического взгляда на шов к учёту радиометрии как части задачи.
 
 Обязанность 2 — анализ линейного разрешения методом резкой границы
 
@@ -1528,7 +1528,7 @@ CV описывает интеграцию MS Access, миграцию унас�
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 09 Representative Interview Stories: Turning a Flight-Test Bottleneck into Software; 08 Key Engineering Challenges: Making an Expert Judgement Measurable.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 09 Representative Interview Stories: Turning a Flight-Test Bottleneck into Software; 08 Key Engineering Challenges: Making an Expert Judgement Measurable.
 
 Готовый ответ для интервью
 
@@ -1546,10 +1546,10 @@ CV описывает интеграцию MS Access, миграцию унас�
 
 Темы для дополнительных вопросов
 
-• Почему критерий был самой трудной частью — разрешение является приёмочной характеристикой, поэтому число должно быть обоснованным.
-• Как проверялась программа — известные мишени и сравнение с заменённым ручным анализом.
-• Что изменилось для лётных испытаний — воспроизводимые результаты независимо от оператора и более быстрый анализ в кампаниях.
-• Какой метод измерения — я описываю определённый критерий на мишенях и не заявляю конкретной реализации метода резкой границы.
+- Почему критерий был самой трудной частью — разрешение является приёмочной характеристикой, поэтому число должно быть обоснованным.
+- Как проверялась программа — известные мишени и сравнение с заменённым ручным анализом.
+- Что изменилось для лётных испытаний — воспроизводимые результаты независимо от оператора и более быстрый анализ в кампаниях.
+- Какой метод измерения — я описываю определённый критерий на мишенях и не заявляю конкретной реализации метода резкой границы.
 
 Обязанность 3 — оценка резкости и чёткости границ
 
@@ -1561,7 +1561,7 @@ CV описывает интеграцию MS Access, миграцию унас�
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 12 Interview Answer Kit: Strongest Technical Deep Dives (repeatable automated measurement).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 12 Interview Answer Kit: Strongest Technical Deep Dives (repeatable automated measurement).
 
 Готовый ответ для интервью
 
@@ -1579,9 +1579,9 @@ Summary также относит превращение субъективно�
 
 Темы для дополнительных вопросов
 
-• Как субъективная резкость стала измерением — определённый критерий на заданных мишенях.
-• Почему это часть оценки разрешения — та же программа и та же проверка.
-• Что не заявляется — отдельный набор алгоритмов резкости и показатели точности.
+- Как субъективная резкость стала измерением — определённый критерий на заданных мишенях.
+- Почему это часть оценки разрешения — та же программа и та же проверка.
+- Что не заявляется — отдельный набор алгоритмов резкости и показатели точности.
 
 Обязанность 4 — прогнозирование диапазона квантования по альбедо
 
@@ -1593,7 +1593,7 @@ Summary также относит превращение субъективно�
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Improving Quality Without Asking for More Bandwidth.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Improving Quality Without Asking for More Bandwidth.
 
 Готовый ответ для интервью
 
@@ -1611,10 +1611,10 @@ Summary также относит превращение субъективно�
 
 Темы для дополнительных вопросов
 
-• Почему адаптировалось квантование, а не повышался коэффициент — коэффициент был зафиксирован бюджетом радиолинии.
-• Чем различаются типы сцен — гладкие малоконтрастные области против плотной высокочастотной текстуры.
-• Как доказывалось улучшение — сравнение с прежним подходом при одинаковых коэффициентах на эталонных снимках.
-• Что не заявляется — оценка альбедо и результаты калибровки датчика.
+- Почему адаптировалось квантование, а не повышался коэффициент — коэффициент был зафиксирован бюджетом радиолинии.
+- Чем различаются типы сцен — гладкие малоконтрастные области против плотной высокочастотной текстуры.
+- Как доказывалось улучшение — сравнение с прежним подходом при одинаковых коэффициентах на эталонных снимках.
+- Что не заявляется — оценка альбедо и результаты калибровки датчика.
 
 Обязанность 5 — автоматизация прогнозирования квантования
 
@@ -1626,7 +1626,7 @@ Summary также относит превращение субъективно�
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Improving compression).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Improving compression).
 
 Готовый ответ для интервью
 
@@ -1642,9 +1642,9 @@ Summary также относит превращение субъективно�
 
 Темы для дополнительных вопросов
 
-• Что именно автоматизировалось — выбор квантования по прогнозируемому типу изображения.
-• Почему целью было качество, а не скорость — пропускная способность была фиксирована, а качество было ограничивающим фактором.
-• Что не заявляется — экономия времени рабочего процесса или метрики эффективности.
+- Что именно автоматизировалось — выбор квантования по прогнозируемому типу изображения.
+- Почему целью было качество, а не скорость — пропускная способность была фиксирована, а качество было ограничивающим фактором.
+- Что не заявляется — экономия времени рабочего процесса или метрики эффективности.
 
 Обязанность 6 — сжатие изображений ADPCM
 
@@ -1656,7 +1656,7 @@ Summary также относит превращение субъективно�
 
 Подтверждение из Summary
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Onboard Lossy Compression (ADPCM Family), Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Choosing a Weaker Compression Algorithm on Purpose; 02 Context, Goals & Constraints: Ownership Boundaries.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Onboard Lossy Compression (ADPCM Family), Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Choosing a Weaker Compression Algorithm on Purpose; 02 Context, Goals & Constraints: Ownership Boundaries.
 
 Готовый ответ для интервью
 
@@ -1674,11 +1674,11 @@ Summary также фиксирует вывод: сначала я ранжир
 
 Темы для дополнительных вопросов
 
-• Почему намеренно выбрано более слабое семейство алгоритмов — бортовой вычислительный бюджет был определяющим ограничением.
-• Куда ушли усилия проектирования — в предсказатель и адаптацию квантования.
-• Как оценивалось качество — эталонные снимки, сцены худшего случая и экспертная оценка артефактов.
-• Передача из MATLAB на борт — я отвечал за алгоритм и проверку, а не за бортовой код.
-• Почему важна необратимость — бортовое сжатие с потерями нельзя изменить после запуска.
+- Почему намеренно выбрано более слабое семейство алгоритмов — бортовой вычислительный бюджет был определяющим ограничением.
+- Куда ушли усилия проектирования — в предсказатель и адаптацию квантования.
+- Как оценивалось качество — эталонные снимки, сцены худшего случая и экспертная оценка артефактов.
+- Передача из MATLAB на борт — я отвечал за алгоритм и проверку, а не за бортовой код.
+- Почему важна необратимость — бортовое сжатие с потерями нельзя изменить после запуска.
 
 РЕАЛЬНЫЙ ОПЫТ, КОТОРОГО НЕТ В CV ИЛИ КОТОРЫЙ В НЁМ ЗАНИЖЕН
 

@@ -228,7 +228,8 @@ When a field is not needed, omit it instead of leaving a placeholder. Keep confi
 
 Interview artifacts are plain text stored in `.md` files for clean pasting into Google Docs.
 
-- Use capitalized section labels, blank lines, numbered sections and `•` bullets.
+- Use capitalized section labels, blank lines and numbered sections.
+- Always start a bullet item with a hyphen followed by a space (`- `). Never use `•` or other symbol characters as bullet markers: Google Docs does not convert them into a list, so the items paste as running text instead of a vertical list.
 - Do not use Markdown heading markers, emphasis markers, code fences or tables inside artifacts.
 - Keep project titles and technology names in their standard form.
 - Use UTF-8 without BOM and CRLF line endings, matching the repository convention.

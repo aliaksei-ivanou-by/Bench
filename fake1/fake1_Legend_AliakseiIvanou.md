@@ -80,30 +80,30 @@ The platform is cloud-agnostic and supports multi-cloud, hybrid-cloud and on-pre
 
 System architecture and named components
 
-• Distributed microservices architecture.
-• C++20 for performance-critical services.
-• Java and Kotlin for services where development speed is emphasized.
-• Legacy JSON-RPC and the replacement gRPC and Protobuf communication path.
-• FFmpeg, libavfilter, libavformat and libav media-processing components.
-• Docker, Kubernetes and minikube for containerized environments.
-• Prometheus, Grafana, OpenTelemetry and Google Cloud Monitoring for observability.
-• AWS S3, Google Cloud Storage, Azure Blob Storage and Akamai MSL4 and MSL5 as output destinations.
-• HLS, LL-HLS, MPEG-DASH, LL-DASH, SRT and Zixi in the project environment.
-• CEA-608, CEA-708, TTML, IMSC and WebVTT subtitle and caption formats.
-• MySQL, RabbitMQ, REST API and Kong in the wider platform environment.
-• GitHub Actions and CircleCI in the toolchain.
-• Claude, graphify, rag-code-mcp and mcp-on-demand in AI workflows.
+- Distributed microservices architecture.
+- C++20 for performance-critical services.
+- Java and Kotlin for services where development speed is emphasized.
+- Legacy JSON-RPC and the replacement gRPC and Protobuf communication path.
+- FFmpeg, libavfilter, libavformat and libav media-processing components.
+- Docker, Kubernetes and minikube for containerized environments.
+- Prometheus, Grafana, OpenTelemetry and Google Cloud Monitoring for observability.
+- AWS S3, Google Cloud Storage, Azure Blob Storage and Akamai MSL4 and MSL5 as output destinations.
+- HLS, LL-HLS, MPEG-DASH, LL-DASH, SRT and Zixi in the project environment.
+- CEA-608, CEA-708, TTML, IMSC and WebVTT subtitle and caption formats.
+- MySQL, RabbitMQ, REST API and Kong in the wider platform environment.
+- GitHub Actions and CircleCI in the toolchain.
+- Claude, graphify, rag-code-mcp and mcp-on-demand in AI workflows.
 
 Team composition and collaboration
 
 The core delivery group was approximately eleven people distributed between the United States and Poland.
 
-• Daniel — Principal Architect in the United States; owned the service topology, Kubernetes platform and cross-service architecture.
-• Maya — Senior Product Manager in the United States; owned live and VOD priorities, customer scenarios and release acceptance.
-• Alex and three backend engineers in Poland — Alex at senior level and three middle engineers; owned C++20, Java and Kotlin services, gRPC contracts, manifests and cloud-output adapters.
-• Victor — Senior Media Engineer in Poland; owned FFmpeg integration, codec behavior and media-format reviews.
-• Anna and Tomasz — middle QA Automation Engineers in Poland; owned GTest integration scenarios, media fixtures, failure injection and release regression.
-• Michael — Senior SRE in the United States; owned Kubernetes operations, Prometheus, Grafana, OpenTelemetry and incident coordination.
+- Daniel — Principal Architect in the United States; owned the service topology, Kubernetes platform and cross-service architecture.
+- Maya — Senior Product Manager in the United States; owned live and VOD priorities, customer scenarios and release acceptance.
+- Alex and three backend engineers in Poland — Alex at senior level and three middle engineers; owned C++20, Java and Kotlin services, gRPC contracts, manifests and cloud-output adapters.
+- Victor — Senior Media Engineer in Poland; owned FFmpeg integration, codec behavior and media-format reviews.
+- Anna and Tomasz — middle QA Automation Engineers in Poland; owned GTest integration scenarios, media fixtures, failure injection and release regression.
+- Michael — Senior SRE in the United States; owned Kubernetes operations, Prometheus, Grafana, OpenTelemetry and incident coordination.
 
 I worked most closely with Victor on FFmpeg and caption behavior, with Michael on telemetry and outage recovery, and with Daniel on protocol migration and compatibility decisions.
 
@@ -111,17 +111,17 @@ My role and ownership
 
 As a Streaming Engineer/Architect, I was responsible for the following areas:
 
-• Migration from JSON-RPC IPC to gRPC and Protobuf.
-• Cost and upload-speed analysis for cloud connectors.
-• Improvement of predictable segment-upload SLA.
-• Architecture of C++ encoder instrumentation and monitoring.
-• Instrumentation of FFmpeg libavfilter pipelines.
-• Development of team AI skills.
-• End-to-end caption and subtitle conversion.
-• Integration of AI development tools.
-• Ownership of an internal Go fork of rag-code-mcp.
-• Encoder recovery during output outages.
-• Diagnosis of HLS and DASH manifest misalignment and orphan segments.
+- Migration from JSON-RPC IPC to gRPC and Protobuf.
+- Cost and upload-speed analysis for cloud connectors.
+- Improvement of predictable segment-upload SLA.
+- Architecture of C++ encoder instrumentation and monitoring.
+- Instrumentation of FFmpeg libavfilter pipelines.
+- Development of team AI skills.
+- End-to-end caption and subtitle conversion.
+- Integration of AI development tools.
+- Ownership of an internal Go fork of rag-code-mcp.
+- Encoder recovery during output outages.
+- Diagnosis of HLS and DASH manifest misalignment and orphan segments.
 
 Main contributions
 
@@ -213,22 +213,22 @@ The project demonstrates a combination of performance-sensitive C++, distributed
 
 Operational characteristics
 
-• The platform supported more than one hundred thousand concurrent users across three availability zones.
-• Performance was measured on reproducible media datasets with fixed measurement boundaries.
-• Observability combined metrics, traces and structured events across the encoder, filters and output connectors.
-• The architecture supported AWS, Azure, GCP, Akamai and on-premise infrastructure through shared service and output abstractions.
+- The platform supported more than one hundred thousand concurrent users across three availability zones.
+- Performance was measured on reproducible media datasets with fixed measurement boundaries.
+- Observability combined metrics, traces and structured events across the encoder, filters and output connectors.
+- The architecture supported AWS, Azure, GCP, Akamai and on-premise infrastructure through shared service and output abstractions.
 
 Likely follow-up questions
 
-• How were serialization overhead and request size measured?
-• How were gRPC and Protobuf introduced without breaking existing services?
-• What exactly does predictable segment-upload SLA measure?
-• How did recovery differ across S3, GCS, Azure and Akamai?
-• Where were latency measurement points placed in the FFmpeg pipeline?
-• How were HLS and DASH manifests becoming misaligned?
-• How did input removal create orphan segments?
-• What was added to the Go fork to support four languages?
-• Which architecture decisions were personally owned?
+- How were serialization overhead and request size measured?
+- How were gRPC and Protobuf introduced without breaking existing services?
+- What exactly does predictable segment-upload SLA measure?
+- How did recovery differ across S3, GCS, Azure and Akamai?
+- Where were latency measurement points placed in the FFmpeg pipeline?
+- How were HLS and DASH manifests becoming misaligned?
+- How did input removal create orphan segments?
+- What was added to the Go fork to support four languages?
+- Which architecture decisions were personally owned?
 
 PROJECT 2. LIBRARY SYSTEM
 
@@ -248,14 +248,14 @@ The vendor's product line has roots going back more than forty years, and the C8
 
 System architecture, data flow and integrations
 
-• Java desktop application: staff-facing workflows, working with project services and backend data.
-• Scala API services with Swagger documentation: API entry points and request handling; Scala reused domain behavior by invoking C functions instead of duplicating it.
-• C89 backend services: backend behavior and domain logic across the product.
-• Java data services on Java 8, later Java 11: mediated database access for C; database-dependent C behavior sent requests to them rather than accessing the database directly.
-• PostgreSQL as the primary database after an earlier migration, with less-used models remaining in MySQL.
-• Custom protocols connecting independently running project services; payload layout, field semantics and error handling were part of the compatibility contract.
-• Delivery chain: source in Bitbucket, builds compiled by Jenkins on Linux machines in AWS, automatic nightly deployments and an internal on-demand deployment board, with separate developer and QA machine pools running CentOS and Red Hat Enterprise Linux; Apache was part of the deployed service stack.
-• Diagnostics: correlated service logs, targeted logging, SSH, gdb, core dumps and Valgrind for invalid-memory and initialization defects in C.
+- Java desktop application: staff-facing workflows, working with project services and backend data.
+- Scala API services with Swagger documentation: API entry points and request handling; Scala reused domain behavior by invoking C functions instead of duplicating it.
+- C89 backend services: backend behavior and domain logic across the product.
+- Java data services on Java 8, later Java 11: mediated database access for C; database-dependent C behavior sent requests to them rather than accessing the database directly.
+- PostgreSQL as the primary database after an earlier migration, with less-used models remaining in MySQL.
+- Custom protocols connecting independently running project services; payload layout, field semantics and error handling were part of the compatibility contract.
+- Delivery chain: source in Bitbucket, builds compiled by Jenkins on Linux machines in AWS, automatic nightly deployments and an internal on-demand deployment board, with separate developer and QA machine pools running CentOS and Red Hat Enterprise Linux; Apache was part of the deployed service stack.
+- Diagnostics: correlated service logs, targeted logging, SSH, gdb, core dumps and Valgrind for invalid-memory and initialization defects in C.
 
 A single user-visible operation could cross several processes and language runtimes: one API operation could cross Scala and C, and one database-dependent operation could cross C, Java and a database. A visible error in the desktop application or the API could therefore originate in another process or language layer. Patron and operational data stayed inside the product's established access and infrastructure controls.
 
@@ -263,12 +263,12 @@ Team composition and collaboration
 
 Our delivery team had twelve people, working with a customer-side group of developers and managers. The team was geographically distributed: I worked first from Belarus and later from Warsaw, Poland; several teammates moved from Saint Petersburg to Georgia, Lithuania and Turkey, while several others remained in Ukraine. Customer participants also worked from different locations.
 
-• Alex (me), Piotr and Oksana — the three C developers; we shared responsibility for the entire C89 backend rather than owning separate modules.
-• Julia, Mark and Taras — Java developers; owned the Java data services and the desktop application; the platform moved from Java 8 to Java 11 during the project without my involvement.
-• Eva, John, Hanna and Levan — QA engineers; performed functional and regression testing on separate AWS QA machines.
-• Katarzyna — Business Analyst; brought strong functional knowledge of library workflows and sometimes took part in testing alongside QA.
-• Roman — Project Manager and Scrum Master in one role; ran the sprint process and delivery coordination.
-• Customer side — three developers, later four, their development manager Robert and the Product Owner Susan.
+- Alex (me), Piotr and Oksana — the three C developers; we shared responsibility for the entire C89 backend rather than owning separate modules.
+- Julia, Mark and Taras — Java developers; owned the Java data services and the desktop application; the platform moved from Java 8 to Java 11 during the project without my involvement.
+- Eva, John, Hanna and Levan — QA engineers; performed functional and regression testing on separate AWS QA machines.
+- Katarzyna — Business Analyst; brought strong functional knowledge of library workflows and sometimes took part in testing alongside QA.
+- Roman — Project Manager and Scrum Master in one role; ran the sprint process and delivery coordination.
+- Customer side — three developers, later four, their development manager Robert and the Product Owner Susan.
 
 I worked with Piotr and Oksana on the shared C codebase, with Julia, Mark and Taras whenever a task crossed into Java, and with Eva, John, Hanna, Levan and Katarzyna on reproduction and regression validation. Every change was reviewed by both our team and the customer developers, and all added reviewers had to approve it.
 
@@ -280,13 +280,13 @@ Outside my responsibility were the overall product architecture and roadmap, pri
 
 Main contributions and engineering challenges
 
-• Implemented new behavior, fixed defects and refactored code across the C89 backend modules, delivering 12+ user-requested features on this project.
-• Preserved the contracts used by Scala APIs and Java data services while changing C code.
-• Diagnosed failures across Scala, C, Java and database boundaries by correlating service logs before choosing where to fix, adding focused logging where evidence was missing.
-• Used gdb and core dumps over SSH for native crashes and invalid-memory behavior.
-• Fixed C defects involving US daylight-saving-time handling, fixed-size character arrays, multilingual rendering, Japanese search highlighting and C-generated web and PDF output.
-• Added a Swagger-documented Scala API request backed by C-side processing and a Java desktop-table column backed by data prepared on the C side.
-• Compiled and validated changes through Jenkins builds and nightly and on-demand AWS deployments.
+- Implemented new behavior, fixed defects and refactored code across the C89 backend modules, delivering 12+ user-requested features on this project.
+- Preserved the contracts used by Scala APIs and Java data services while changing C code.
+- Diagnosed failures across Scala, C, Java and database boundaries by correlating service logs before choosing where to fix, adding focused logging where evidence was missing.
+- Used gdb and core dumps over SSH for native crashes and invalid-memory behavior.
+- Fixed C defects involving US daylight-saving-time handling, fixed-size character arrays, multilingual rendering, Japanese search highlighting and C-generated web and PDF output.
+- Added a Swagger-documented Scala API request backed by C-side processing and a Java desktop-table column backed by data prepared on the C side.
+- Compiled and validated changes through Jenkins builds and nightly and on-demand AWS deployments.
 
 The main engineering challenges were working safely in a long-lived C89 codebase where fixed-size buffers amplified small length, termination and initialization mistakes; log-first diagnosis across microservices where the symptom and the root cause lived in different processes; preserving the Scala-to-C API boundary across two runtimes and Swagger documentation; following database requests across two databases behind a Java service boundary; coordinating changes across codebases maintained by different specialists; and getting correctness right across time zones, writing systems and generated output.
 
@@ -378,15 +378,15 @@ The main lessons were to follow a distributed request through logs before choosi
 
 Likely follow-up questions
 
-• What was your primary role, and how was C ownership shared?
-• How did the Scala, C, Java and database layers interact?
-• How did you debug a failure that crossed several services?
-• How was C code validated without unit tests?
-• What was the root cause of the US DST defect?
-• Why did Japanese search highlighting fail while Chinese and Korean worked?
-• How did build and deployment work on AWS?
-• How did cross-company code review work?
-• What was outside your role, and what would you improve today?
+- What was your primary role, and how was C ownership shared?
+- How did the Scala, C, Java and database layers interact?
+- How did you debug a failure that crossed several services?
+- How was C code validated without unit tests?
+- What was the root cause of the US DST defect?
+- Why did Japanese search highlighting fail while Chinese and Korean worked?
+- How did build and deployment work on AWS?
+- How did cross-company code review work?
+- What was outside your role, and what would you improve today?
 
 PROJECT 3. CORPORATE SYSTEM FOR THE OIL AND GAS INDUSTRY
 
@@ -406,14 +406,14 @@ The users were oil-and-gas specialists working with operational and sensor-deriv
 
 System architecture, data flow and integrations
 
-• Industrial sensors or upstream acquisition systems produced operational measurements.
-• A data-ingestion path inside the C++17 product codebase accepted and parsed incoming measurements.
-• The C++17 core implemented processing, analysis and application business logic and derived the values the application required.
-• MySQL stored source and processed information and carried the processing workflows I worked on; relational storage also included Microsoft SQL Server.
-• JavaScript functionality integrated into the product codebase, with HTML and jQuery on the front end, exposed data through user-facing workflows.
-• Nginx served the user-facing layer.
-• Microsoft Azure hosted the runtime environment; development changes were integrated into the existing delivery process and validated in the hosted environment.
-• An external QA company performed functional and regression validation on the delivered builds.
+- Industrial sensors or upstream acquisition systems produced operational measurements.
+- A data-ingestion path inside the C++17 product codebase accepted and parsed incoming measurements.
+- The C++17 core implemented processing, analysis and application business logic and derived the values the application required.
+- MySQL stored source and processed information and carried the processing workflows I worked on; relational storage also included Microsoft SQL Server.
+- JavaScript functionality integrated into the product codebase, with HTML and jQuery on the front end, exposed data through user-facing workflows.
+- Nginx served the user-facing layer.
+- Microsoft Azure hosted the runtime environment; development changes were integrated into the existing delivery process and validated in the hosted environment.
+- An external QA company performed functional and regression validation on the delivered builds.
 
 A single measurement existed in several forms: incoming data, parsed C++ state, calculated values, database records and JavaScript-visible output. A visible defect could therefore originate in parsing, calculation, persistence, mapping or presentation. Invalid or incomplete input had to be handled without corrupting stored data or producing misleading results, and cross-layer changes required validation of the complete workflow rather than only the edited file. Source code, database schemas, sensor payloads, credentials and infrastructure identifiers remain confidential.
 
@@ -421,10 +421,10 @@ Team composition and collaboration
 
 Development, testing and customer communication crossed three organizations and several time zones.
 
-• Alex (me), Marek, Daria, Artem and Yana — the five C++ developers of our engineering team; I worked from Belarus. Each of us implemented requested features and fixes across the inherited C++17 codebase and changed JavaScript when a task required it.
-• Agnieszka and Priya — our main contacts in the separate QA team from another company in India; the team owned functional and regression test execution.
-• Stefan and Thomas — customer representatives in the United States; they brought requested behavior and defects and clarified expected results.
-• Customer department heads — attended the bi-weekly sprint demos.
+- Alex (me), Marek, Daria, Artem and Yana — the five C++ developers of our engineering team; I worked from Belarus. Each of us implemented requested features and fixes across the inherited C++17 codebase and changed JavaScript when a task required it.
+- Agnieszka and Priya — our main contacts in the separate QA team from another company in India; the team owned functional and regression test execution.
+- Stefan and Thomas — customer representatives in the United States; they brought requested behavior and defects and clarified expected results.
+- Customer department heads — attended the bi-weekly sprint demos.
 
 I worked with the other C++ developers on the shared codebase and review, with Agnieszka and Priya on defect reproduction and validation, and with Stefan and Thomas when requested behavior or acceptance expectations needed clarification. Because QA and the customer were geographically separate, clear reproduction steps and expected behavior were essential for every handoff.
 
@@ -436,12 +436,12 @@ Outside my responsibility were cloud architecture and Azure administration, sens
 
 Main contributions and engineering challenges
 
-• Implemented customer-requested behavior in the main C++ codebase, developing and integrating 4+ user-requested features during the assignment.
-• Fixed 20+ defects across C++ and JavaScript in processing and application logic.
-• Simplified complicated C++ implementation paths and removed obsolete components and code that no longer contributed to supported behavior.
-• Updated JavaScript when a feature or defect crossed the native and user-facing layers, keeping displayed behavior aligned with values produced by C++.
-• Maintained application behavior that processed and persisted industrial data in MySQL, following data across processing, storage and retrieval when investigating defects.
-• Supported the external QA team with reproduction information, fixes and builds for validation.
+- Implemented customer-requested behavior in the main C++ codebase, developing and integrating 4+ user-requested features during the assignment.
+- Fixed 20+ defects across C++ and JavaScript in processing and application logic.
+- Simplified complicated C++ implementation paths and removed obsolete components and code that no longer contributed to supported behavior.
+- Updated JavaScript when a feature or defect crossed the native and user-facing layers, keeping displayed behavior aligned with values produced by C++.
+- Maintained application behavior that processed and persisted industrial data in MySQL, following data across processing, storage and retrieval when investigating defects.
+- Supported the external QA team with reproduction information, fixes and builds for validation.
 
 The main engineering challenges were fast onboarding into an established C++ system on a short assignment, which required quickly reconstructing control flow, data ownership and module dependencies; preserving data correctness when a locally correct edit could still produce an incorrect stored or displayed value; crossing the C++ and JavaScript boundary while keeping one coherent workflow; modernizing legacy code safely by checking callers, data paths and user-visible behavior before removing anything; debugging database-backed behavior whose cause could sit in C++ processing, MySQL state or JavaScript mapping; and distributed collaboration with an external QA supplier and the US customer organization.
 
@@ -515,14 +515,14 @@ The main lessons were how to become productive quickly in an unfamiliar commerci
 
 Likely follow-up questions
 
-• What did the system do, and how did data flow through it?
-• What was your main language, and when did you work in JavaScript?
-• How did you keep parsed, stored and displayed values consistent?
-• How did you prove obsolete code was safe to remove?
-• How did you debug a defect that could sit in C++, MySQL or JavaScript?
-• How was quality assured with an external QA team?
-• How was the system deployed, and what was outside your role?
-• What would you improve in the test strategy today?
+- What did the system do, and how did data flow through it?
+- What was your main language, and when did you work in JavaScript?
+- How did you keep parsed, stored and displayed values consistent?
+- How did you prove obsolete code was safe to remove?
+- How did you debug a defect that could sit in C++, MySQL or JavaScript?
+- How was quality assured with an external QA team?
+- How was the system deployed, and what was outside your role?
+- What would you improve in the test strategy today?
 
 PROJECT 4. HOME ACCOUNTING SOFTWARE
 
@@ -544,16 +544,16 @@ The user runs it on a Windows desktop. Storage is a local SQLite file, so the ap
 
 System architecture, data flow and integrations
 
-• 3_GUI — FLTK windows: Window_Main, Window_AddAccount and three transaction windows for expense, income and transfer entry.
-• 2_BusinessLogic — one facade class, FinanceRepository: add, remove, get, set and find across every entity, find returning a tuple of outcome, index and object, plus SumExpenses and SumIncomes for today, this month and all time.
-• 1_DataAccess — a Database class per entity writing prepared SQL against the sqlite3 C API, a Repository class per entity above it, and a shared DatabaseManager that owns the connection.
-• 0_Models — twelve domain types on a common Model base: Account, Transaction, Currency, Category, Tag, Payee, Description, Comment, Status, Type and TimeDate among them.
-• SQLite — embedded relational storage with eight tables; Transactions carries fifteen columns and foreign keys into seven of them.
-• magic_enum — categories, currencies and transaction kinds convert to and from text without a hand-maintained lookup table.
-• graph and constants — the FLTK drawing layer from Stroustrup's PPP graphics library (Point, gui_main()), carried over from the book exercises, and shared constants.
-• plog — PLOG_INFO on database open and on each insert or lookup, PLOG_ERROR with the SQLite error text on failure.
-• GoogleTest 1.10 and CTest — a tests target fetched by the build and registered through gtest_discover_tests.
-• CMake — each layer is its own library target; runtime libraries are pinned as Git submodules, and GoogleTest is fetched with FetchContent.
+- 3_GUI — FLTK windows: Window_Main, Window_AddAccount and three transaction windows for expense, income and transfer entry.
+- 2_BusinessLogic — one facade class, FinanceRepository: add, remove, get, set and find across every entity, find returning a tuple of outcome, index and object, plus SumExpenses and SumIncomes for today, this month and all time.
+- 1_DataAccess — a Database class per entity writing prepared SQL against the sqlite3 C API, a Repository class per entity above it, and a shared DatabaseManager that owns the connection.
+- 0_Models — twelve domain types on a common Model base: Account, Transaction, Currency, Category, Tag, Payee, Description, Comment, Status, Type and TimeDate among them.
+- SQLite — embedded relational storage with eight tables; Transactions carries fifteen columns and foreign keys into seven of them.
+- magic_enum — categories, currencies and transaction kinds convert to and from text without a hand-maintained lookup table.
+- graph and constants — the FLTK drawing layer from Stroustrup's PPP graphics library (Point, gui_main()), carried over from the book exercises, and shared constants.
+- plog — PLOG_INFO on database open and on each insert or lookup, PLOG_ERROR with the SQLite error text on failure.
+- GoogleTest 1.10 and CTest — a tests target fetched by the build and registered through gtest_discover_tests.
+- CMake — each layer is its own library target; runtime libraries are pinned as Git submodules, and GoogleTest is fetched with FetchContent.
 
 Data flows from the user through an FLTK window to FinanceRepository, which works with domain models and calls the per-entity repositories; they in turn execute prepared statements through the Database classes on the single connection owned by DatabaseManager. main.cpp is seven lines: it constructs FinanceRepository, hands it to Window_Main as a shared_ptr and runs the FLTK loop.
 
@@ -565,7 +565,7 @@ Team composition and collaboration
 
 This was an independent project with a team size of one.
 
-• Alex (me) — sole designer and developer, working from Belarus; owned architecture, storage, interface, tests, logging and build.
+- Alex (me) — sole designer and developer, working from Belarus; owned architecture, storage, interface, tests, logging and build.
 
 There was no team, no code reviewer inside the project and no requirements from anyone else: every decision was mine, including the bad ones. The outside standard came from a structured C++ mentoring programme running alongside the project, with regular one-to-one sessions in which an experienced commercial C++ engineer reviewed my code and decisions, and chapter-by-chapter question-and-answer sessions on Stroustrup's Programming: Principles and Practice Using C++ covering class design, memory and ownership, copy and move semantics, RAII, exception safety and the STL model. In the final months I also attended a C++ laboratory course. The mentor gave direction and feedback but wrote no code and owned no project decisions. Working alone, I compensated by keeping the code reviewable: separable components, tests that document intent and a build anyone can run.
 
@@ -577,14 +577,14 @@ Outside the delivered scope were continuous integration, an installer or package
 
 Main contributions and engineering challenges
 
-• Designed a four-layer C++20 architecture in which each layer is a separate CMake library target.
-• Built the domain model of twelve types on a common Model base, including multi-currency accounts over a base currency.
-• Implemented a two-tier data-access layer over the sqlite3 C API with hand-written prepared statements and an eight-table schema.
-• Implemented FinanceRepository as the single facade the interface talks to, including expense and income sums and exchange-adjusted transfers.
-• Built FLTK windows for account management and for expense, income and transfer entry.
-• Introduced GoogleTest from the first feature and wired it into CTest, with a test file for each of seven model types.
-• Added plog logging concentrated in the data-access layer, where failures originate.
-• Made the CMake build reproducible from a clean checkout, with runtime libraries pinned as Git submodules.
+- Designed a four-layer C++20 architecture in which each layer is a separate CMake library target.
+- Built the domain model of twelve types on a common Model base, including multi-currency accounts over a base currency.
+- Implemented a two-tier data-access layer over the sqlite3 C API with hand-written prepared statements and an eight-table schema.
+- Implemented FinanceRepository as the single facade the interface talks to, including expense and income sums and exchange-adjusted transfers.
+- Built FLTK windows for account management and for expense, income and transfer entry.
+- Introduced GoogleTest from the first feature and wired it into CTest, with a test file for each of seven model types.
+- Added plog logging concentrated in the data-access layer, where failures originate.
+- Made the CMake build reproducible from a clean checkout, with runtime libraries pinned as Git submodules.
 
 The engineering challenges were mostly not about any single algorithm. Coming from MATLAB, my intuitions about memory, copying, ownership and lifetime had to be rebuilt rather than extended. Nothing forces quality on a personal project, so the discipline — tests from the first feature, logging as though someone else would run the program, a clean-checkout build — had to be self-imposed and treated as non-negotiable. Designing the whole system meant deciding where the boundaries go: what the interface knows, what the logic owns and what storage hides. Testing turned into a design tool: every component that was awkward to test was doing too much. And money across currencies carried the one genuinely tricky rule: a transfer is two amounts related by a rate, and an error shows up only as a balance that quietly disagrees with reality.
 
@@ -674,15 +674,15 @@ The main lessons were what separates research code from application code — mem
 
 Likely follow-up questions
 
-• What did the application do, and how was it structured?
-• Why FLTK rather than Qt?
-• Why the sqlite3 C API instead of an ORM, and why is an unused sqlite_orm submodule in the build?
-• How did multi-currency accounts and transfers work?
-• What did the GoogleTest suite cover, and what was left uncovered?
-• How did testing shape the architecture without a reviewer?
-• Where did plog log, and why there?
-• How was the build made reproducible?
-• What would you change in the project today?
+- What did the application do, and how was it structured?
+- Why FLTK rather than Qt?
+- Why the sqlite3 C API instead of an ORM, and why is an unused sqlite_orm submodule in the build?
+- How did multi-currency accounts and transfers work?
+- What did the GoogleTest suite cover, and what was left uncovered?
+- How did testing shape the architecture without a reviewer?
+- Where did plog log, and why there?
+- How was the build made reproducible?
+- What would you change in the project today?
 
 PROJECT 5. 3D RECONSTRUCTION SOFTWARE FOR INDUSTRIAL APPLICATIONS
 
@@ -702,14 +702,14 @@ The engagement was an informal commercial assignment without registered employme
 
 System architecture, data flow and integrations
 
-• The company's standard 2D laser profile scanners or recorded datasets supplied per-sensor profiles in local coordinate systems.
-• A C++17/Qt ingestion layer loaded profiles and preserved sensor identity and acquisition geometry.
-• A transformation stage applied externally supplied pose and calibration parameters to map every profile into a common 3D frame.
-• Point-cloud assembly accumulated transformed points in PCL structures.
-• The PCL pipeline performed filtering, voxel downsampling, outlier removal, alignment refinement, normal estimation and surface reconstruction.
-• Open3D provided a secondary comparison and visualization path on the same recorded datasets.
-• The Qt desktop interface exposed every intermediate stage, allowed sensors to be included or excluded and supported model and cloud export.
-• CMake and Visual Studio managed a dependency-heavy Windows build; source was maintained in Git/GitHub.
+- The company's standard 2D laser profile scanners or recorded datasets supplied per-sensor profiles in local coordinate systems.
+- A C++17/Qt ingestion layer loaded profiles and preserved sensor identity and acquisition geometry.
+- A transformation stage applied externally supplied pose and calibration parameters to map every profile into a common 3D frame.
+- Point-cloud assembly accumulated transformed points in PCL structures.
+- The PCL pipeline performed filtering, voxel downsampling, outlier removal, alignment refinement, normal estimation and surface reconstruction.
+- Open3D provided a secondary comparison and visualization path on the same recorded datasets.
+- The Qt desktop interface exposed every intermediate stage, allowed sensors to be included or excluded and supported model and cloud export.
+- CMake and Visual Studio managed a dependency-heavy Windows build; source was maintained in Git/GitHub.
 
 The pipeline kept observable boundaries between ingestion, transformation, assembly, processing and reconstruction. This made it possible to distinguish bad input, an incorrect sensor pose, aggressive filtering and a reconstruction-parameter problem instead of inferring the cause from the final mesh.
 
@@ -717,12 +717,12 @@ Team composition and collaboration
 
 The R&D effort involved approximately six people working from the company’s Belarus engineering location.
 
-• Dmitry — Senior R&D Lead; owned feasibility goals, reconstruction-method reviews and the decision about which approach to continue.
-• Igor — Senior Hardware and Optics Engineer; owned scanner behavior, physical mounting and calibration methodology.
-• Elena — Senior Algorithm and Research Engineer; owned geometric-method review and analysis of measurement quality.
-• Alex — C++ Software Engineer on his first commercial C++ assignment; owned the C++17/Qt application and the PCL-based pipeline.
-• Kirill — Middle Software Engineer; supported scanner-data integration and native dependency setup.
-• Marina — Domain Specialist; supplied requirements for the limited two-scanner medical configuration.
+- Dmitry — Senior R&D Lead; owned feasibility goals, reconstruction-method reviews and the decision about which approach to continue.
+- Igor — Senior Hardware and Optics Engineer; owned scanner behavior, physical mounting and calibration methodology.
+- Elena — Senior Algorithm and Research Engineer; owned geometric-method review and analysis of measurement quality.
+- Alex — C++ Software Engineer on his first commercial C++ assignment; owned the C++17/Qt application and the PCL-based pipeline.
+- Kirill — Middle Software Engineer; supported scanner-data integration and native dependency setup.
+- Marina — Domain Specialist; supplied requirements for the limited two-scanner medical configuration.
 
 I worked directly with Igor and Elena when a defect could originate in calibration, optics or software, and with Dmitry when comparing PCL and Open3D results. Hardware, firmware, mechanical mounting, calibration-method ownership and medical-domain decisions remained outside my responsibility.
 
@@ -732,14 +732,14 @@ My primary ownership covered the C++17/Qt application, multi-sensor profile inge
 
 Main contributions and engineering challenges
 
-• Implemented ingestion from several scanners and made sensor poses explicit data rather than embedded constants.
-• Transformed profiles into one absolute coordinate frame and assembled a common cloud.
-• Built a separable PCL pipeline for filtering, downsampling, outlier removal, normals, alignment refinement and reconstruction.
-• Evaluated PCL against Open3D on real recorded data instead of selecting a library by preference.
-• Built a Qt interface for loading datasets, inspecting stages, isolating sensors and exporting results.
-• Kept recorded datasets as a first-class input so regression checks did not depend on lab availability.
-• Managed CMake, Visual Studio and large third-party native dependencies.
-• Applied the pipeline to a limited two-scanner medical configuration and kept the contribution boundary explicit.
+- Implemented ingestion from several scanners and made sensor poses explicit data rather than embedded constants.
+- Transformed profiles into one absolute coordinate frame and assembled a common cloud.
+- Built a separable PCL pipeline for filtering, downsampling, outlier removal, normals, alignment refinement and reconstruction.
+- Evaluated PCL against Open3D on real recorded data instead of selecting a library by preference.
+- Built a Qt interface for loading datasets, inspecting stages, isolating sensors and exporting results.
+- Kept recorded datasets as a first-class input so regression checks did not depend on lab availability.
+- Managed CMake, Visual Studio and large third-party native dependencies.
+- Applied the pipeline to a limited two-scanner medical configuration and kept the contribution boundary explicit.
 
 Representative delivery story 1 — Diagnosing a doubled surface
 
@@ -827,15 +827,15 @@ The main lessons were to preserve absolute geometry over appearance, make every 
 
 Likely follow-up questions
 
-• How were sensor-local profiles mapped into a common frame?
-• How was a pose error distinguished from sensor noise or registration failure?
-• Which PCL stages were used, and how were their parameters selected?
-• Why was PCL the primary path and Open3D a secondary path?
-• How did recorded datasets support regression and hardware-independent work?
-• What did the Qt interface expose at each stage?
-• Which responsibilities belonged to hardware, optics and calibration engineers?
-• What was learned from the two-scanner medical configuration?
-• How were accuracy and interactivity balanced without inventing a performance metric?
+- How were sensor-local profiles mapped into a common frame?
+- How was a pose error distinguished from sensor noise or registration failure?
+- Which PCL stages were used, and how were their parameters selected?
+- Why was PCL the primary path and Open3D a secondary path?
+- How did recorded datasets support regression and hardware-independent work?
+- What did the Qt interface expose at each stage?
+- Which responsibilities belonged to hardware, optics and calibration engineers?
+- What was learned from the two-scanner medical configuration?
+- How were accuracy and interactivity balanced without inventing a performance metric?
 
 PROJECT 6. SOFTWARE MODULES FOR UAV
 
@@ -855,16 +855,16 @@ The direct users were the organization's own instrument designers, image-quality
 
 System architecture, data flow and integrations
 
-• UAV optical payload: Bayer-pattern sensor output; optics and detectors were given by the instrument design.
-• Debayering: reconstruction of full color from the color-filter array.
-• Stabilization: compensation of platform motion, which on a UAV is far more aggressive than on a satellite.
-• Image and sensor fusion: combination of frames or sensor outputs into imagery more informative than either source alone.
-• Format conversion: conversion of the processed imagery into the required output format.
-• IMU and navigation board: platform attitude and position, a hardware boundary owned by another group.
-• Frame-centre coordinate computation: combined the converted frames with navigation data and the calibrated IMU-to-camera alignment.
-• Payload software: the destination of the MATLAB-designed modules, owned by the flight-software group.
-• Flight-test campaigns: the final verification with the real instrument, platform and conditions.
-• Working environment: MATLAB as the primary algorithm environment and Git with GitHub for source; the department's PostgreSQL reference database existed alongside but was not part of the UAV chain.
+- UAV optical payload: Bayer-pattern sensor output; optics and detectors were given by the instrument design.
+- Debayering: reconstruction of full color from the color-filter array.
+- Stabilization: compensation of platform motion, which on a UAV is far more aggressive than on a satellite.
+- Image and sensor fusion: combination of frames or sensor outputs into imagery more informative than either source alone.
+- Format conversion: conversion of the processed imagery into the required output format.
+- IMU and navigation board: platform attitude and position, a hardware boundary owned by another group.
+- Frame-centre coordinate computation: combined the converted frames with navigation data and the calibrated IMU-to-camera alignment.
+- Payload software: the destination of the MATLAB-designed modules, owned by the flight-software group.
+- Flight-test campaigns: the final verification with the real instrument, platform and conditions.
+- Working environment: MATLAB as the primary algorithm environment and Git with GitHub for source; the department's PostgreSQL reference database existed alongside but was not part of the UAV chain.
 
 The chain was short and close to real time compared with satellite ground processing. Two boundaries mattered most. The handover from a MATLAB design to the payload software was the point where precision, memory and timing assumptions had to be stated explicitly. The relationship between the camera and the IMU was a trust boundary in its own right: a small angular misalignment between two correctly working subsystems became a large error on the ground.
 
@@ -872,12 +872,12 @@ Team composition and collaboration
 
 The organizing unit was the instrument, not a software project. An instrument brought together optical designers, electronics and mechanical engineers, software engineers and test specialists, all working in Minsk, Belarus. Algorithm work inside the research department was done individually or in pairs, and review happened through staged design approvals rather than code review in the software sense.
 
-• Sergei — Senior Systems Engineer in instrument system design; owned instrument-level requirements, sensor geometry and the image-quality targets the chain had to meet.
-• Natalia — Senior Research Engineer in the research department; occasional pair partner on algorithm work and reviewer at design-stage approvals.
-• Andrei — Engineer in the flight-software group; owned what ran on the payload and received the MATLAB modules for implementation.
-• Olga — Test Engineer; owned test benches, calibration setups, reference imagery and the known ground references used for validation.
-• Yuri — Flight Crew Lead; owned flight operations and the airframe during test campaigns.
-• Alex — Software Engineer in the research department; designed and implemented the processing modules and the frame-centre coordinate computation, calibrated the IMU against the camera and operated the optical payload during test flights.
+- Sergei — Senior Systems Engineer in instrument system design; owned instrument-level requirements, sensor geometry and the image-quality targets the chain had to meet.
+- Natalia — Senior Research Engineer in the research department; occasional pair partner on algorithm work and reviewer at design-stage approvals.
+- Andrei — Engineer in the flight-software group; owned what ran on the payload and received the MATLAB modules for implementation.
+- Olga — Test Engineer; owned test benches, calibration setups, reference imagery and the known ground references used for validation.
+- Yuri — Flight Crew Lead; owned flight operations and the airframe during test campaigns.
+- Alex — Software Engineer in the research department; designed and implemented the processing modules and the frame-centre coordinate computation, calibrated the IMU against the camera and operated the optical payload during test flights.
 
 I agreed requirements and acceptance criteria with Sergei, discussed algorithm choices with Natalia, specified the modules for Andrei so that the payload implementation would behave like the MATLAB design, and validated results against Olga's reference imagery and ground references. During campaigns I worked alongside Yuri's crew and the test engineers.
 
@@ -887,13 +887,13 @@ I owned algorithm design and implementation for the UAV chain: debayering, stabi
 
 Main contributions and engineering challenges
 
-• Implemented debayering that reconstructs full color from the Bayer array while avoiding the color fringes that naive interpolation invents at edges.
-• Implemented stabilization against aggressive UAV platform motion within a chain close to real time.
-• Implemented fusion of frames or sensor outputs to produce more informative imagery that supports target recognition.
-• Implemented format conversion of the processed imagery into the required output format for coordinate computation and downstream use.
-• Developed the frame-centre coordinate module and calibrated the actual IMU-to-camera alignment instead of trusting nominal values.
-• Operated the optical payload on more than thirty UAV test flights and fed real flight behavior back into the algorithms.
-• Wrote a short analytical conference text in April 2019 on integrated space monitoring systems as an evolution of geographic information systems, combining Earth remote sensing with GLONASS/GPS positioning and small-satellite constellations.
+- Implemented debayering that reconstructs full color from the Bayer array while avoiding the color fringes that naive interpolation invents at edges.
+- Implemented stabilization against aggressive UAV platform motion within a chain close to real time.
+- Implemented fusion of frames or sensor outputs to produce more informative imagery that supports target recognition.
+- Implemented format conversion of the processed imagery into the required output format for coordinate computation and downstream use.
+- Developed the frame-centre coordinate module and calibrated the actual IMU-to-camera alignment instead of trusting nominal values.
+- Operated the optical payload on more than thirty UAV test flights and fed real flight behavior back into the algorithms.
+- Wrote a short analytical conference text in April 2019 on integrated space monitoring systems as an evolution of geographic information systems, combining Earth remote sensing with GLONASS/GPS positioning and small-satellite constellations.
 
 The main challenges were errors that live between correct subsystems, a real-time-adjacent constraint for algorithms designed in MATLAB, scarce flight-test opportunities and the need to read every visible artifact back to its physical or algorithmic cause.
 
@@ -945,14 +945,14 @@ The UAV optical payload received a working chain of debayering, stabilization, f
 
 Likely follow-up questions
 
-• In which order did the UAV chain process imagery, and why?
-• Why is debayering hardest at edges?
-• What makes UAV stabilization harder than satellite processing?
-• What did fusion combine, and how did it support target recognition?
-• How did a small IMU-to-camera misalignment become a large ground error, and how was it calibrated?
-• How was the MATLAB design handed over to the flight-software group?
-• What did operating the payload on test flights change in the algorithms?
-• What was outside your responsibility?
+- In which order did the UAV chain process imagery, and why?
+- Why is debayering hardest at edges?
+- What makes UAV stabilization harder than satellite processing?
+- What did fusion combine, and how did it support target recognition?
+- How did a small IMU-to-camera misalignment become a large ground error, and how was it calibrated?
+- How was the MATLAB design handed over to the flight-software group?
+- What did operating the payload on test flights change in the algorithms?
+- What was outside your responsibility?
 
 PROJECT 7. REMOTE SENSING SATELLITES DATABASE
 
@@ -972,12 +972,12 @@ The users were the organization's own engineers: instrument designers, image-qua
 
 System architecture, data flow and integrations
 
-• Ruby on Rails web application: catalog, search and record views and the forms used to enter and maintain reference data.
-• PostgreSQL relational database: the shared store for missions, platforms, instruments, spectral bands and orbital parameters.
-• Department deployment: one Rails application over PostgreSQL serving the department, the only project of my period with a conventional deployment.
-• Downstream use: reference parameters for imaging planning with Systems Tool Kit and for analysis work.
-• MS Access: used in the organization for earlier and smaller internal databases, a separate tool rather than part of this system.
-• Source control: Git with GitHub.
+- Ruby on Rails web application: catalog, search and record views and the forms used to enter and maintain reference data.
+- PostgreSQL relational database: the shared store for missions, platforms, instruments, spectral bands and orbital parameters.
+- Department deployment: one Rails application over PostgreSQL serving the department, the only project of my period with a conventional deployment.
+- Downstream use: reference parameters for imaging planning with Systems Tool Kit and for analysis work.
+- MS Access: used in the organization for earlier and smaller internal databases, a separate tool rather than part of this system.
+- Source control: Git with GitHub.
 
 Data flowed from the existing documents and files into the relational model, and from there to users through the web interface. The important architectural decision was the relational model itself: it kept the relationships between a mission, its platform, the instruments on it, their spectral bands and its orbit, which flat documents had lost.
 
@@ -985,11 +985,11 @@ Team composition and collaboration
 
 The project sat inside the same research department in Minsk, Belarus, where work was normally done individually or in pairs. I designed and implemented the database and its interface myself; my colleagues were the source of the domain knowledge and the main users.
 
-• Sergei — Senior Systems Engineer in instrument system design; defined which mission, instrument and orbital parameters mattered for instrument-level work.
-• Irina — Research Engineer and image-quality specialist in the research department; contributed and checked reference data and terminology as one of the first users.
-• Pavel — Senior Test Engineer for flight tests and in-orbit testing; used the reference parameters for imaging planning with Systems Tool Kit.
-• Olga — Test Engineer; used the reference data when preparing test campaigns.
-• Alex — Software Engineer in the research department; designed the schema, implemented the Rails application and PostgreSQL database and maintained it within the department.
+- Sergei — Senior Systems Engineer in instrument system design; defined which mission, instrument and orbital parameters mattered for instrument-level work.
+- Irina — Research Engineer and image-quality specialist in the research department; contributed and checked reference data and terminology as one of the first users.
+- Pavel — Senior Test Engineer for flight tests and in-orbit testing; used the reference parameters for imaging planning with Systems Tool Kit.
+- Olga — Test Engineer; used the reference data when preparing test campaigns.
+- Alex — Software Engineer in the research department; designed the schema, implemented the Rails application and PostgreSQL database and maintained it within the department.
 
 I turned Sergei's and Irina's view of the domain into entities and relationships, checked with Pavel and Olga that the data answered their planning questions, and kept the database running for the department after delivery.
 
@@ -999,11 +999,11 @@ I owned the whole system: the relational schema, the Rails application, the Post
 
 Main contributions and engineering challenges
 
-• Designed a relational schema for missions, platforms, instruments, spectral bands and orbital parameters.
-• Implemented the Ruby on Rails web interface for searching, viewing and maintaining satellite records.
-• Consolidated reference data from scattered documents and engineers' files into one shared store.
-• Deployed the application over PostgreSQL to serve the department.
-• Learned an unfamiliar stack, completing Ruby on Rails training immediately before the project.
+- Designed a relational schema for missions, platforms, instruments, spectral bands and orbital parameters.
+- Implemented the Ruby on Rails web interface for searching, viewing and maintaining satellite records.
+- Consolidated reference data from scattered documents and engineers' files into one shared store.
+- Deployed the application over PostgreSQL to serve the department.
+- Learned an unfamiliar stack, completing Ruby on Rails training immediately before the project.
 
 The main engineering interest was the schema: the domain has a natural relational structure that spreadsheets flatten and lose. The main delivery challenge was investing setup effort and learning time in a new stack, in exchange for infrastructure that outlasted any single project.
 
@@ -1053,12 +1053,12 @@ The department received a shared, queryable database of remote-sensing satellite
 
 Likely follow-up questions
 
-• What problem did the database solve?
-• Which entities did the schema contain, and why relational?
-• Who used it, and for which tasks?
-• How was it deployed and maintained?
-• How did you learn Ruby on Rails for the project?
-• What was the relationship between this system and MS Access?
+- What problem did the database solve?
+- Which entities did the schema contain, and why relational?
+- Who used it, and for which tasks?
+- How was it deployed and maintained?
+- How did you learn Ruby on Rails for the project?
+- What was the relationship between this system and MS Access?
 
 PROJECT 8. SOFTWARE FOR PROCESSING AND ANALYSIS OF SATELLITE EARTH OBSERVATION IMAGES
 
@@ -1078,17 +1078,17 @@ The work served four points in that chain: instrument design and calibration, on
 
 System architecture, data flow and integrations
 
-• Focal plane with multiple detector arrays: produced raw image segments; optics and detectors were given by the instrument design.
-• Radiometric correction: gauge coefficients compensated per-detector response so that segments became comparable.
-• Onboard lossy compression of the ADPCM family: reduced data volume within the onboard computation budget; irreversible.
-• Image-type prediction and adaptive quantization: part of the compression chain, choosing quantization appropriate to the scene.
-• Downlink and ground decompression: reconstruction without introducing further error.
-• Frame-segment stitching: joined detector segments into one continuous image on the ground.
-• Linear resolution assessment: measured the achieved ground resolution from flight-test imagery.
-• Systems Tool Kit: orbit and access modelling for imaging planning during flight tests.
-• Reference data: the department's satellite database on PostgreSQL in later years; MS Access for earlier and smaller internal databases.
-• Onboard payload software: the destination of algorithms designed in MATLAB; the implementation side, including C++ code built with CMake and Visual Studio, belonged to the flight-software group, which I supported with reference models and verification.
-• Source control: Git with GitHub.
+- Focal plane with multiple detector arrays: produced raw image segments; optics and detectors were given by the instrument design.
+- Radiometric correction: gauge coefficients compensated per-detector response so that segments became comparable.
+- Onboard lossy compression of the ADPCM family: reduced data volume within the onboard computation budget; irreversible.
+- Image-type prediction and adaptive quantization: part of the compression chain, choosing quantization appropriate to the scene.
+- Downlink and ground decompression: reconstruction without introducing further error.
+- Frame-segment stitching: joined detector segments into one continuous image on the ground.
+- Linear resolution assessment: measured the achieved ground resolution from flight-test imagery.
+- Systems Tool Kit: orbit and access modelling for imaging planning during flight tests.
+- Reference data: the department's satellite database on PostgreSQL in later years; MS Access for earlier and smaller internal databases.
+- Onboard payload software: the destination of algorithms designed in MATLAB; the implementation side, including C++ code built with CMake and Visual Studio, belonged to the flight-software group, which I supported with reference models and verification.
+- Source control: Git with GitHub.
 
 The constraint gradient ran from severe to relaxed along the chain. Onboard, computation was expensive, small and radiation-tolerant by design, and decisions were irreversible after launch; on the ground, processing could be as sophisticated as the analysis warranted. The two most consequential boundaries were compression, after which everything works with what survived, and the handover from MATLAB to flight software, where precision, arithmetic and memory assumptions could change behavior.
 
@@ -1096,13 +1096,13 @@ Team composition and collaboration
 
 The organizing unit was the instrument. An imaging payload brought together optical designers, mechanical and electronics engineers, software engineers and test specialists, all in Minsk, Belarus. Algorithm projects such as stitching or compression were designed, implemented and verified by one engineer, sometimes in pairs, against instrument-level requirements, with review through staged design approvals rather than code review. Collaboration was strongest at the boundaries.
 
-• Sergei — Senior Systems Engineer in instrument system design; owned instrument-level requirements, the link and computation constraints passed to algorithm work and the image-quality targets.
-• Natalia — Senior Research Engineer in the research department; occasional pair partner and reviewer of algorithm designs at stage approvals.
-• Andrei — Engineer in the flight-software group; implemented algorithms onboard against my designs and owned what ran on the hardware.
-• Olga — Test Engineer; ran test benches and calibration setups, characterized detector response and maintained reference imagery.
-• Irina — Research Engineer and image-quality specialist; assessed perceptual quality, particularly compression artifacts, and had performed resolution analysis manually before it was automated.
-• Pavel — Senior Test Engineer for flight tests and in-orbit testing; planned test imaging with me in Systems Tool Kit and supplied flight-test imagery.
-• Alex — Software Engineer in the research department; designed, implemented and verified the algorithms in MATLAB and supported their handover.
+- Sergei — Senior Systems Engineer in instrument system design; owned instrument-level requirements, the link and computation constraints passed to algorithm work and the image-quality targets.
+- Natalia — Senior Research Engineer in the research department; occasional pair partner and reviewer of algorithm designs at stage approvals.
+- Andrei — Engineer in the flight-software group; implemented algorithms onboard against my designs and owned what ran on the hardware.
+- Olga — Test Engineer; ran test benches and calibration setups, characterized detector response and maintained reference imagery.
+- Irina — Research Engineer and image-quality specialist; assessed perceptual quality, particularly compression artifacts, and had performed resolution analysis manually before it was automated.
+- Pavel — Senior Test Engineer for flight tests and in-orbit testing; planned test imaging with me in Systems Tool Kit and supplied flight-test imagery.
+- Alex — Software Engineer in the research department; designed, implemented and verified the algorithms in MATLAB and supported their handover.
 
 I worked with Sergei on requirements and constraints, with Natalia on algorithm reviews, with Andrei on the onboard handover, with Olga on detector data and reference imagery, with Irina on expert quality assessment and with Pavel on test planning and flight-test analysis.
 
@@ -1112,12 +1112,12 @@ I owned algorithm design and implementation in MATLAB, verification on reference
 
 Main contributions and engineering challenges
 
-• Frame stitching: feature-based geometric alignment in the overlap region combined with radiometric matching across the seam, removing defects at the joins.
-• Onboard lossy compression of the ADPCM family: prediction, subtraction and adaptive quantization per sample, reaching a 3–4x ratio within the onboard computation budget.
-• Image-type prediction for adaptive quantization: classifying scene content such as open water, uniform agriculture, forest, urban texture and cloud, and adapting quantization to improve quality at matched ratios.
-• Linear resolution assessment: MATLAB software that replaced a manual expert analysis of flight-test imagery with a repeatable, operator-independent measurement.
-• Radiometric correction: work on gauge coefficients that suppress fixed-pattern noise, stripes and defective pixels.
-• Participation in image-sensor alignment in a common plane, imaging planning with Systems Tool Kit, satellite flight tests and in-orbit operation control, and design documentation.
+- Frame stitching: feature-based geometric alignment in the overlap region combined with radiometric matching across the seam, removing defects at the joins.
+- Onboard lossy compression of the ADPCM family: prediction, subtraction and adaptive quantization per sample, reaching a 3–4x ratio within the onboard computation budget.
+- Image-type prediction for adaptive quantization: classifying scene content such as open water, uniform agriculture, forest, urban texture and cloud, and adapting quantization to improve quality at matched ratios.
+- Linear resolution assessment: MATLAB software that replaced a manual expert analysis of flight-test imagery with a repeatable, operator-independent measurement.
+- Radiometric correction: work on gauge coefficients that suppress fixed-pattern noise, stripes and defective pixels.
+- Participation in image-sensor alignment in a common plane, imaging planning with Systems Tool Kit, satellite flight tests and in-orbit operation control, and design documentation.
 
 The engineering challenges were designing under an onboard computation budget, the irreversibility of onboard decisions, making an expert judgement measurable, defects that live between correct subsystems, physical reality as a non-negotiable input, the MATLAB-to-flight-software handover and scarce validation opportunities.
 
@@ -1205,14 +1205,14 @@ The work delivered seamless stitched imagery from a multi-detector focal plane, 
 
 Likely follow-up questions
 
-• Why was a computationally cheap compression family the right choice, and where did the design effort go?
-• How did image-type prediction improve quality at a fixed ratio, and how was that proven?
-• Why is a multi-detector seam both a geometric and a radiometric problem?
-• How did you turn expert resolution assessment into a repeatable measurement?
-• How were detector defects corrected, and why does that layer come first?
-• How was a MATLAB design handed over to the flight-software group and verified?
-• What changes when software cannot be patched after it ships?
-• What was outside your responsibility?
+- Why was a computationally cheap compression family the right choice, and where did the design effort go?
+- How did image-type prediction improve quality at a fixed ratio, and how was that proven?
+- Why is a multi-detector seam both a geometric and a radiometric problem?
+- How did you turn expert resolution assessment into a repeatable measurement?
+- How were detector defects corrected, and why does that layer come first?
+- How was a MATLAB design handed over to the flight-software group and verified?
+- What changes when software cannot be patched after it ships?
+- What was outside your responsibility?
 
 EXPANDED ANSWERS FOR PROJECT TASKS
 
@@ -1242,10 +1242,10 @@ The C++ services received a transport-neutral interface with JSON-RPC and gRPC a
 
 Edge cases and failure modes
 
-• Mixed versions during rollout: an older Kotlin client could call a newer C++ server, so CI contract tests ran the previous generated stubs against the new server and unknown fields were ignored rather than rejected.
-• Proto3 default values: zero and "not set" are indistinguishable for plain scalar fields, so fields where absence had a meaning, such as optional overrides, were declared as explicit optional fields.
-• Large job listings: one oversized response was replaced with a server-streaming call, which kept individual messages bounded.
-• Error semantics: JSON-RPC error codes were mapped to gRPC status codes with a typed error detail, and automatic retries were allowed only for idempotent methods on transient statuses.
+- Mixed versions during rollout: an older Kotlin client could call a newer C++ server, so CI contract tests ran the previous generated stubs against the new server and unknown fields were ignored rather than rejected.
+- Proto3 default values: zero and "not set" are indistinguishable for plain scalar fields, so fields where absence had a meaning, such as optional overrides, were declared as explicit optional fields.
+- Large job listings: one oversized response was replaced with a server-streaming call, which kept individual messages bounded.
+- Error semantics: JSON-RPC error codes were mapped to gRPC status codes with a typed error detail, and automatic retries were allowed only for idempotent methods on transient statuses.
 
 Validation and diagnostics
 
@@ -1275,10 +1275,10 @@ The tunable parameters were concurrency, queue depth, multipart threshold and pa
 
 Edge cases and failure modes
 
-• Small segments: multipart upload added operations and cost without a speed gain, so multipart was enabled only above a size threshold derived from the benchmark.
-• Throttling: under the minimum-latency profile, aggressive concurrency could trigger provider throttling, so throttling responses capped concurrency instead of causing more parallel retries.
-• Abandoned multipart uploads: cancelled jobs could leave incomplete parts that still cost money, so cancellation aborted them explicitly and storage lifecycle rules cleaned up the rest.
-• Unsuitable choice: a minimum-cost profile could be selected for a live output whose segment deadline it could not meet, so configuration validation rejected that combination with a clear message.
+- Small segments: multipart upload added operations and cost without a speed gain, so multipart was enabled only above a size threshold derived from the benchmark.
+- Throttling: under the minimum-latency profile, aggressive concurrency could trigger provider throttling, so throttling responses capped concurrency instead of causing more parallel retries.
+- Abandoned multipart uploads: cancelled jobs could leave incomplete parts that still cost money, so cancellation aborted them explicitly and storage lifecycle rules cleaned up the rest.
+- Unsuitable choice: a minimum-cost profile could be selected for a live output whose segment deadline it could not meet, so configuration validation rejected that combination with a clear message.
 
 Validation and diagnostics
 
@@ -1308,10 +1308,10 @@ Each attempt had a timeout shorter than the remaining deadline, so a stalled con
 
 Edge cases and failure modes
 
-• Tail latency from a single slow connection: the per-attempt timeout and retry on a new connection prevented one stalled socket from consuming the whole deadline.
-• Retry storms after recovery: jitter and a gradual concurrency ramp-up avoided a second load spike against a provider that had just recovered.
-• Honest accounting: a segment that missed its deadline was still uploaded for VOD completeness but recorded as a miss, so the metric could not be improved by hiding late segments.
-• Clock sources: deadlines were measured with the encoder's monotonic clock, not with storage-side timestamps, to avoid clock-skew artifacts.
+- Tail latency from a single slow connection: the per-attempt timeout and retry on a new connection prevented one stalled socket from consuming the whole deadline.
+- Retry storms after recovery: jitter and a gradual concurrency ramp-up avoided a second load spike against a provider that had just recovered.
+- Honest accounting: a segment that missed its deadline was still uploaded for VOD completeness but recorded as a miss, so the metric could not be improved by hiding late segments.
+- Clock sources: deadlines were measured with the encoder's monotonic clock, not with storage-side timestamps, to avoid clock-skew artifacts.
 
 Validation and diagnostics
 
@@ -1341,10 +1341,10 @@ Cardinality was enforced through the API itself: metric labels were a separate t
 
 Edge cases and failure modes
 
-• Backend outage: when the exporter buffer filled up, the oldest data was dropped and a dedicated drop counter was incremented instead of blocking the encoder.
-• Cardinality explosion: an attempt to use a segment identifier as a label failed at compile time, because the label type did not accept free-form values.
-• Shutdown: buffered telemetry was flushed with a timeout on process termination, so a pod restart neither lost the last interval nor hung.
-• Duplicate series: instance attributes from Kubernetes kept metrics from several encoder replicas distinguishable.
+- Backend outage: when the exporter buffer filled up, the oldest data was dropped and a dedicated drop counter was incremented instead of blocking the encoder.
+- Cardinality explosion: an attempt to use a segment identifier as a label failed at compile time, because the label type did not accept free-form values.
+- Shutdown: buffered telemetry was flushed with a timeout on process termination, so a pod restart neither lost the last interval nor hung.
+- Duplicate series: instance attributes from Kubernetes kept metrics from several encoder replicas distinguishable.
 
 Validation and diagnostics
 
@@ -1374,10 +1374,10 @@ The dashboards showed that several filters and queues retained more frames than 
 
 Edge cases and failure modes
 
-• Legitimate buffering: temporal filters such as deinterlacing need adjacent frames, so their minimum working window was preserved instead of forcing queues to zero.
-• PTS discontinuities on input switches: normalization was reset at discontinuity points, so latency was not calculated across unrelated timelines.
-• Dropped or duplicated frames: frame-rate conversion breaks one-to-one frame mapping, so measurements matched frames by PTS rather than by count.
-• Hot-path overhead: per-frame structured events were sampled, while aggregated histograms were always collected.
+- Legitimate buffering: temporal filters such as deinterlacing need adjacent frames, so their minimum working window was preserved instead of forcing queues to zero.
+- PTS discontinuities on input switches: normalization was reset at discontinuity points, so latency was not calculated across unrelated timelines.
+- Dropped or duplicated frames: frame-rate conversion breaks one-to-one frame mapping, so measurements matched frames by PTS rather than by count.
+- Hot-path overhead: per-frame structured events were sampled, while aggregated histograms were always collected.
 
 Validation and diagnostics
 
@@ -1407,10 +1407,10 @@ The skills used the code-knowledge index described in Task 8 instead of embeddin
 
 Edge cases and failure modes
 
-• Invented paths or symbols: a verification step checked that every cited file and symbol existed before the answer was returned.
-• Sensitive data: sources were restricted to authorized repositories and dashboards, and log excerpts were redacted before reaching the model.
-• Stale knowledge: skills queried the current index rather than relying on text written months earlier.
-• Unsafe actions: tool permissions for incident skills excluded any write operation against clusters or storage.
+- Invented paths or symbols: a verification step checked that every cited file and symbol existed before the answer was returned.
+- Sensitive data: sources were restricted to authorized repositories and dashboards, and log excerpts were redacted before reaching the model.
+- Stale knowledge: skills queried the current index rather than relying on text written months earlier.
+- Unsafe actions: tool permissions for incident skills excluded any write operation against clusters or storage.
 
 Validation and diagnostics
 
@@ -1440,10 +1440,10 @@ TTML output used IMSC-compatible regions and styles, and WebVTT output used cue 
 
 Edge cases and failure modes
 
-• Repeated control codes: CEA-608 transmits control codes twice for robustness, so exact duplicates were filtered before they could clear or redraw the screen twice.
-• Roll-up mode: continuously scrolling text had no natural cue boundaries, so a new cue was emitted on each row change.
-• Missing erase or end-of-caption commands: a timeout closed open cues so text did not stay on screen indefinitely.
-• Unsupported 708 features: window effects that WebVTT cannot express were approximated with the nearest supported positioning.
+- Repeated control codes: CEA-608 transmits control codes twice for robustness, so exact duplicates were filtered before they could clear or redraw the screen twice.
+- Roll-up mode: continuously scrolling text had no natural cue boundaries, so a new cue was emitted on each row change.
+- Missing erase or end-of-caption commands: a timeout closed open cues so text did not stay on screen indefinitely.
+- Unsupported 708 features: window effects that WebVTT cannot express were approximated with the nearest supported positioning.
 
 Validation and diagnostics
 
@@ -1471,10 +1471,10 @@ Indexing ran over the platform repositories with C++20, Java and Kotlin code, an
 
 Edge cases and failure modes
 
-• Stale index after merges: incremental re-indexing in CI kept retrieval aligned with the main branch.
-• Ambiguous names: identical symbol names in different services were qualified by repository and package.
-• Generated code: Protobuf stubs and other generated files dominated the results, so they were excluded from the index.
-• Security: the index covered only authorized repositories and excluded secrets and external directories.
+- Stale index after merges: incremental re-indexing in CI kept retrieval aligned with the main branch.
+- Ambiguous names: identical symbol names in different services were qualified by repository and package.
+- Generated code: Protobuf stubs and other generated files dominated the results, so they were excluded from the index.
+- Security: the index covered only authorized repositories and excluded secrets and external directories.
 
 Validation and diagnostics
 
@@ -1502,10 +1502,10 @@ C and C++ required pairing headers with source files, handling overloads through
 
 Edge cases and failure modes
 
-• Preprocessor code: C and C++ were parsed without preprocessing, so macros and conditional blocks produced partial trees; adapters tolerated error nodes and still extracted the valid symbols.
-• Overloads: functions with the same name received different identifiers through their signatures.
-• Incomplete code: work-in-progress files must not crash indexing, so parser errors were contained per file.
-• Upstream changes: merges that changed the chunk interface were caught by the language fixture tests before release.
+- Preprocessor code: C and C++ were parsed without preprocessing, so macros and conditional blocks produced partial trees; adapters tolerated error nodes and still extracted the valid symbols.
+- Overloads: functions with the same name received different identifiers through their signatures.
+- Incomplete code: work-in-progress files must not crash indexing, so parser errors were contained per file.
+- Upstream changes: merges that changed the chunk interface were caught by the language fixture tests before release.
 
 Validation and diagnostics
 
@@ -1535,10 +1535,10 @@ Idempotent object keys prevented duplicates, while queue overflow triggered an e
 
 Edge cases and failure modes
 
-• Ambiguous outcomes: a timeout after a request was sent did not tell whether the object was written, so the result was treated as unknown and resolved by an existence check or an idempotent rewrite.
-• Interrupted multipart uploads: incomplete parts were aborted and the object was restarted from the beginning after recovery.
-• Credential expiry during an outage: authentication errors were classified separately and triggered a credential refresh rather than endless retries.
-• Long outages: when the queue limit was reached, the configured policy either skipped segments with an explicit gap or stopped the output, and the decision was logged and alerted.
+- Ambiguous outcomes: a timeout after a request was sent did not tell whether the object was written, so the result was treated as unknown and resolved by an existence check or an idempotent rewrite.
+- Interrupted multipart uploads: incomplete parts were aborted and the object was restarted from the beginning after recovery.
+- Credential expiry during an outage: authentication errors were classified separately and triggered a credential refresh rather than endless retries.
+- Long outages: when the queue limit was reached, the configured policy either skipped segments with an explicit gap or stopped the output, and the decision was logged and alerted.
 
 Validation and diagnostics
 
@@ -1566,10 +1566,10 @@ On input removal the workflow stopped accepting new segments, waited for confirm
 
 Edge cases and failure modes
 
-• Removal in the middle of a segment: the partial last segment was handled identically in both formats, either finalized with its real duration or dropped at the previous boundary.
-• Low-latency outputs: LL-HLS parts and LL-DASH chunks that had not formed a complete segment were not promoted into the VOD manifests.
-• Failed last upload: finalization waited with a timeout and then published both manifests without that segment, so the formats stayed consistent.
-• Concurrent cleanup and duplicate events: cleanup read only from the published snapshot, and repeated input-removal events were idempotent.
+- Removal in the middle of a segment: the partial last segment was handled identically in both formats, either finalized with its real duration or dropped at the previous boundary.
+- Low-latency outputs: LL-HLS parts and LL-DASH chunks that had not formed a complete segment were not promoted into the VOD manifests.
+- Failed last upload: finalization waited with a timeout and then published both manifests without that segment, so the formats stayed consistent.
+- Concurrent cleanup and duplicate events: cleanup read only from the published snapshot, and repeated input-removal events were idempotent.
 
 Validation and diagnostics
 
@@ -1601,10 +1601,10 @@ Changes that could affect response time were checked through the affected workfl
 
 Edge cases and failure modes
 
-• Languages that already worked: Chinese and Korean scenarios were repeated after every change to the shared locale path.
-• Mixed-script page content: matching was checked on pages that combined ideographic and Latin text.
-• Last-page and empty-section output: pagination was verified at document ends, where blank pages had appeared.
-• Symptom in one service, cause in another: the fix went into the component that owned the fault, not the one that showed it.
+- Languages that already worked: Chinese and Korean scenarios were repeated after every change to the shared locale path.
+- Mixed-script page content: matching was checked on pages that combined ideographic and Latin text.
+- Last-page and empty-section output: pagination was verified at document ends, where blank pages had appeared.
+- Symptom in one service, cause in another: the fix went into the component that owned the fault, not the one that showed it.
 
 Validation and diagnostics
 
@@ -1634,10 +1634,10 @@ In other tasks I worked with request and response mapping between C and the Java
 
 Edge cases and failure modes
 
-• Records without the new value: the column displayed an empty value instead of failing the whole table.
-• Older behavior of existing fields: the existing fields kept their meaning and order, so other consumers were unaffected.
-• Error from the backend: the desktop workflow showed the error instead of displaying a partial row.
-• Mismatch between sides: cross-service logs showed whether the value was wrong when produced in C or when mapped in Java.
+- Records without the new value: the column displayed an empty value instead of failing the whole table.
+- Older behavior of existing fields: the existing fields kept their meaning and order, so other consumers were unaffected.
+- Error from the backend: the desktop workflow showed the error instead of displaying a partial row.
+- Mismatch between sides: cross-service logs showed whether the value was wrong when produced in C or when mapped in Java.
 
 Validation and diagnostics
 
@@ -1667,10 +1667,10 @@ More generally, I took my own features through to every component they touched a
 
 Edge cases and failure modes
 
-• Behavior outside the transition: the scenario was checked for ordinary dates as well, so the fix did not shift time handling elsewhere.
-• Both transition directions: the scenario covered the change itself and the dates around it.
-• Callers in other languages: Scala and Java consumers of the affected values were exercised through integrated workflows.
-• Review under time pressure: the change still required approval from every added reviewer, which made a minimal diff essential.
+- Behavior outside the transition: the scenario was checked for ordinary dates as well, so the fix did not shift time handling elsewhere.
+- Both transition directions: the scenario covered the change itself and the dates around it.
+- Callers in other languages: Scala and Java consumers of the affected values were exercised through integrated workflows.
+- Review under time pressure: the change still required approval from every added reviewer, which made a minimal diff essential.
 
 Validation and diagnostics
 
@@ -1700,10 +1700,10 @@ The Scala subsystem was owned by others, so my changes stayed targeted and follo
 
 Edge cases and failure modes
 
-• Errors raised in C: mapped to the API's existing error semantics rather than surfacing as an unexplained failure.
-• Empty or missing results: returned as a defined API response that matched the Swagger description.
-• Documentation drift: Swagger was updated in the same change as the request handling.
-• Behavior change in the C function later: the integration tests that invoked C exposed it on the Scala side.
+- Errors raised in C: mapped to the API's existing error semantics rather than surfacing as an unexplained failure.
+- Empty or missing results: returned as a defined API response that matched the Swagger description.
+- Documentation drift: Swagger was updated in the same change as the request handling.
+- Behavior change in the C function later: the integration tests that invoked C exposed it on the Scala side.
 
 Validation and diagnostics
 
@@ -1733,10 +1733,10 @@ The QA pool received builds independently, so Eva, John, Hanna and Levan validat
 
 Edge cases and failure modes
 
-• Problem visible only after integration: nightly deployment surfaced issues that a targeted build did not show.
-• Assigned machine stopped: the board started it before deploying the selected build.
-• Debug state leaking into validation: separate developer and QA machines kept them apart.
-• Native crash on a deployed build: core dumps were collected on the machine and analyzed with gdb over SSH.
+- Problem visible only after integration: nightly deployment surfaced issues that a targeted build did not show.
+- Assigned machine stopped: the board started it before deploying the selected build.
+- Debug state leaking into validation: separate developer and QA machines kept them apart.
+- Native crash on a deployed build: core dumps were collected on the machine and analyzed with gdb over SSH.
 
 Validation and diagnostics
 
@@ -1766,10 +1766,10 @@ Julia, Mark and Taras reviewed Java data-service changes, and Katarzyna confirme
 
 Edge cases and failure modes
 
-• Record served by a residual MySQL model: targeted regression covered that less-used path separately from PostgreSQL.
-• Field meaning changed between C and Java: request and response fields were checked to keep their meaning on both sides.
-• Missing data in the source: the workflow handled an absent value instead of failing the operation.
-• Symptom that looked like a database defect: traced from the C request first, because the cause was often in the mapping.
+- Record served by a residual MySQL model: targeted regression covered that less-used path separately from PostgreSQL.
+- Field meaning changed between C and Java: request and response fields were checked to keep their meaning on both sides.
+- Missing data in the source: the workflow handled an absent value instead of failing the operation.
+- Symptom that looked like a database defect: traced from the C request first, because the cause was often in the mapping.
 
 Validation and diagnostics
 
@@ -1799,10 +1799,10 @@ Validation on AWS machines and approval by every added reviewer took real time, 
 
 Edge cases and failure modes
 
-• Hidden cross-language work: discovered during the pre-grooming trace instead of mid-sprint.
-• Reviewer availability across companies: review was treated as a step with its own time, not as instant.
-• Defect that could not yet be reproduced: reproduction was planned first, and the fix was sized after the cause was known.
-• Fixed external date: time-critical work such as the DST fix was raised as a priority so the plan could move around it.
+- Hidden cross-language work: discovered during the pre-grooming trace instead of mid-sprint.
+- Reviewer availability across companies: review was treated as a step with its own time, not as instant.
+- Defect that could not yet be reproduced: reproduction was planned first, and the fix was sized after the cause was known.
+- Fixed external date: time-critical work such as the DST fix was raised as a priority so the plan could move around it.
 
 Validation and diagnostics
 
@@ -1832,10 +1832,10 @@ I supported newcomers as the team changed, presented at sprint demos to Robert, 
 
 Edge cases and failure modes
 
-• Change crossing into another team's subsystem: the owners of that subsystem were added as reviewers.
-• Disagreement between reviewers from the two companies: discussed in a technical session rather than resolved silently.
-• Urgent fix: the same approval rule applied, so the fix was kept minimal to review quickly.
-• New developer unfamiliar with C89 constraints: onboarding started from buffer handling and cross-language contracts.
+- Change crossing into another team's subsystem: the owners of that subsystem were added as reviewers.
+- Disagreement between reviewers from the two companies: discussed in a technical session rather than resolved silently.
+- Urgent fix: the same approval rule applied, so the fix was kept minimal to review quickly.
+- New developer unfamiliar with C89 constraints: onboarding started from buffer handling and cross-language contracts.
 
 Validation and diagnostics
 
@@ -1865,10 +1865,10 @@ The same principle applied to other refactoring: keep the contracts used by Scal
 
 Edge cases and failure modes
 
-• Text exactly at buffer capacity: checked so that the terminating null still fit.
-• Uninitialized buffer on an error path: initialization was verified on every path, not only the normal one.
-• Output format consumers relied on: preserved, so generated pages and other components saw the same layout.
-• Simply enlarging a buffer: rejected, because it moved the truncation point without fixing the contract.
+- Text exactly at buffer capacity: checked so that the terminating null still fit.
+- Uninitialized buffer on an error path: initialization was verified on every path, not only the normal one.
+- Output format consumers relied on: preserved, so generated pages and other components saw the same layout.
+- Simply enlarging a buffer: rejected, because it moved the truncation point without fixing the contract.
 
 Validation and diagnostics
 
@@ -1900,10 +1900,10 @@ Where the path contained logic that no longer contributed to supported behavior,
 
 Edge cases and failure modes
 
-• Invalid or incomplete input: handled without corrupting stored data or producing a misleading result.
-• Value correct in C++ but wrong when stored: checked by comparing the C++ result with the MySQL record.
-• Value correct in the database but displayed differently: checked in the JavaScript-visible output.
-• Simplification that changed behavior: existing workflows were exercised before and after the change.
+- Invalid or incomplete input: handled without corrupting stored data or producing a misleading result.
+- Value correct in C++ but wrong when stored: checked by comparing the C++ result with the MySQL record.
+- Value correct in the database but displayed differently: checked in the JavaScript-visible output.
+- Simplification that changed behavior: existing workflows were exercised before and after the change.
 
 Validation and diagnostics
 
@@ -1933,10 +1933,10 @@ Over the assignment I developed and integrated 4+ user-requested features this w
 
 Edge cases and failure modes
 
-• Ambiguous requirement from a distributed customer: clarified with Stefan or Thomas before implementation, with the expected result written down for QA.
-• Feature affecting existing data: existing records and application semantics were preserved.
-• Partial implementation at sprint end: avoided by sizing the change so it could be completed and demonstrated.
-• Different values in C++ and on screen: the JavaScript mapping was checked against the C++ result.
+- Ambiguous requirement from a distributed customer: clarified with Stefan or Thomas before implementation, with the expected result written down for QA.
+- Feature affecting existing data: existing records and application semantics were preserved.
+- Partial implementation at sprint end: avoided by sizing the change so it could be completed and demonstrated.
+- Different values in C++ and on screen: the JavaScript mapping was checked against the C++ result.
 
 Validation and diagnostics
 
@@ -1966,10 +1966,10 @@ When a task turned out larger than expected, I raised it early with the team so 
 
 Edge cases and failure modes
 
-• Hidden dependency in legacy code: discovered during tracing and planned as a separate step.
-• Task crossing into JavaScript: included in the plan from the start.
-• Delayed QA feedback across time zones: reproduction steps and expected behavior were prepared in advance to avoid round trips.
-• Unclear requirement: clarified with Stefan or Thomas before the task was sized.
+- Hidden dependency in legacy code: discovered during tracing and planned as a separate step.
+- Task crossing into JavaScript: included in the plan from the start.
+- Delayed QA feedback across time zones: reproduction steps and expected behavior were prepared in advance to avoid round trips.
+- Unclear requirement: clarified with Stefan or Thomas before the task was sized.
 
 Validation and diagnostics
 
@@ -1999,10 +1999,10 @@ Over the assignment I fixed 20+ defects across C++ and JavaScript this way. Wher
 
 Edge cases and failure modes
 
-• Symptom in the database, cause in processing: traced from the source value instead of patching the stored record.
-• Defect visible only in the user-facing layer: the JavaScript mapping was checked against the C++ value.
-• Fix that would hide the symptom: rejected in favor of correcting the owning layer.
-• Cleanup that changed behavior: existing workflows were exercised again before handoff to QA.
+- Symptom in the database, cause in processing: traced from the source value instead of patching the stored record.
+- Defect visible only in the user-facing layer: the JavaScript mapping was checked against the C++ value.
+- Fix that would hide the symptom: rejected in favor of correcting the owning layer.
+- Cleanup that changed behavior: existing workflows were exercised again before handoff to QA.
 
 Validation and diagnostics
 
@@ -2032,10 +2032,10 @@ Marek, Daria, Artem and Yana reviewed the removals, and I prepared regression no
 
 Edge cases and failure modes
 
-• Code that still had an indirect caller: found during dependency tracing and kept until the caller moved.
-• Data path that depended on the removed logic: checked against MySQL-backed workflows before removal.
-• User-visible behavior affected by the cleanup: compared before and after through the JavaScript-facing workflow.
-• Rare workflow outside my immediate change: included in the regression scope given to QA.
+- Code that still had an indirect caller: found during dependency tracing and kept until the caller moved.
+- Data path that depended on the removed logic: checked against MySQL-backed workflows before removal.
+- User-visible behavior affected by the cleanup: compared before and after through the JavaScript-facing workflow.
+- Rare workflow outside my immediate change: included in the regression scope given to QA.
 
 Validation and diagnostics
 
@@ -2067,10 +2067,10 @@ magic_enum converts categories, currencies and transaction kinds to and from tex
 
 Edge cases and failure modes
 
-• A transfer between accounts in different currencies is two amounts related by a rate, not one number subtracted and added; the facade applies the rate adjustment so both balances and every base-currency total stay right.
-• find reports a missing entity through the outcome element of its tuple rather than through an invalid object.
-• Enum values added later stay consistent with their text form because magic_enum derives the conversion from the enum itself.
-• The layering is a convention: the executable links all four targets flat, so a view could still bypass the facade.
+- A transfer between accounts in different currencies is two amounts related by a rate, not one number subtracted and added; the facade applies the rate adjustment so both balances and every base-currency total stay right.
+- find reports a missing entity through the outcome element of its tuple rather than through an invalid object.
+- Enum values added later stay consistent with their text form because magic_enum derives the conversion from the enum itself.
+- The layering is a convention: the executable links all four targets flat, so a view could still bypass the facade.
 
 Validation and diagnostics
 
@@ -2100,10 +2100,10 @@ The drawing layer is Stroustrup's PPP graphics library, with Point and gui_main(
 
 Edge cases and failure modes
 
-• The transfer window involves two accounts that may hold different currencies; the rate adjustment lives in the facade, not in the window.
-• Shared ownership of the facade through shared_ptr keeps it alive for as long as any window uses it.
-• Because the executable links all layers flat, a window could call the data-access layer directly; keeping it out depended on discipline.
-• Callbacks run on FLTK's event loop, so each operation is a direct facade call with no separate threading layer to coordinate.
+- The transfer window involves two accounts that may hold different currencies; the rate adjustment lives in the facade, not in the window.
+- Shared ownership of the facade through shared_ptr keeps it alive for as long as any window uses it.
+- Because the executable links all layers flat, a window could call the data-access layer directly; keeping it out depended on discipline.
+- Callbacks run on FLTK's event loop, so each operation is a direct facade call with no separate threading layer to coordinate.
 
 Validation and diagnostics
 
@@ -2133,10 +2133,10 @@ After eight entities of hand-written binding, the repetition was real enough tha
 
 Edge cases and failure modes
 
-• A failing statement is logged with PLOG_ERROR and the SQLite error text, so a bad query or binding surfaces in the log instead of as silently wrong data.
-• A transaction row references seven other tables, so its related account, currency and classification rows must exist before it is written.
-• Hand-written binding for every entity is repetitive and easy to get subtly wrong when columns change, which is the cost the ORM plan was meant to remove.
-• The unused sqlite_orm submodule is a statement of intent the code does not support.
+- A failing statement is logged with PLOG_ERROR and the SQLite error text, so a bad query or binding surfaces in the log instead of as silently wrong data.
+- A transaction row references seven other tables, so its related account, currency and classification rows must exist before it is written.
+- Hand-written binding for every entity is repetitive and easy to get subtly wrong when columns change, which is the cost the ORM plan was meant to remove.
+- The unused sqlite_orm submodule is a statement of intent the code does not support.
 
 Validation and diagnostics
 
@@ -2166,10 +2166,10 @@ The coverage stops short of the riskiest code. Transaction and the FinanceReposi
 
 Edge cases and failure modes
 
-• A wrong transfer or conversion would still render as plausible money, so only a test could detect it; that test does not exist yet.
-• Simple model types were easy to test and received coverage first, which inverted the priority.
-• Data-access tests need the SQL and binding code separated from the connection owned by DatabaseManager.
-• Excluding GUI from the tests target keeps the suite independent of the windowing layer.
+- A wrong transfer or conversion would still render as plausible money, so only a test could detect it; that test does not exist yet.
+- Simple model types were easy to test and received coverage first, which inverted the priority.
+- Data-access tests need the SQL and binding code separated from the connection owned by DatabaseManager.
+- Excluding GUI from the tests target keeps the suite independent of the windowing layer.
 
 Validation and diagnostics
 
@@ -2199,10 +2199,10 @@ Models, DataAccess, BusinessLogic, GUI, constants and graph are separate library
 
 Edge cases and failure modes
 
-• The log has to name the failing statement and its cause, because the reporter cannot reproduce the problem on demand.
-• A build that silently depends on state on my machine was caught by verifying from a clean checkout.
-• Two dependency mechanisms mean manual updates for pinned submodules.
-• /std:c++latest follows the compiler rather than pinning a standard.
+- The log has to name the failing statement and its cause, because the reporter cannot reproduce the problem on demand.
+- A build that silently depends on state on my machine was caught by verifying from a clean checkout.
+- Two dependency mechanisms mean manual updates for pinned submodules.
+- /std:c++latest follows the compiler rather than pinning a standard.
 
 Validation and diagnostics
 
@@ -2234,10 +2234,10 @@ When one surface appeared twice with a small offset, rendering each sensor separ
 
 Edge cases and failure modes
 
-• A small angular pose error appeared as a doubled surface in overlap regions; it was corrected in the geometry, not smoothed away.
-• A shifted patch pointed at one sensor's transformation and was confirmed by toggling that sensor.
-• Regions outside every sensor's line of sight produced holes, treated as missing data rather than filled as if measured.
-• Noise clouds from reflective or dark surfaces were recognized as triangulation limits and raised with the hardware side.
+- A small angular pose error appeared as a doubled surface in overlap regions; it was corrected in the geometry, not smoothed away.
+- A shifted patch pointed at one sensor's transformation and was confirmed by toggling that sensor.
+- Regions outside every sensor's line of sight produced holes, treated as missing data rather than filled as if measured.
+- Noise clouds from reflective or dark surfaces were recognized as triangulation limits and raised with the hardware side.
 
 Validation and diagnostics
 
@@ -2267,10 +2267,10 @@ Parameter choice was the substance of the work rather than the API calls. I comp
 
 Edge cases and failure modes
 
-• Downsampling that was too coarse erased thin features, detected by comparing known features before and after the stage.
-• Too little reduction left the cloud unmanageable and the reconstruction noisy, so reduction was tuned per stage.
-• Smoothing could merge two offset surfaces and hide a pose error; such results were traced back to the transformation.
-• Oblique surfaces and incomplete coverage were checked explicitly instead of judging by well-covered regions.
+- Downsampling that was too coarse erased thin features, detected by comparing known features before and after the stage.
+- Too little reduction left the cloud unmanageable and the reconstruction noisy, so reduction was tuned per stage.
+- Smoothing could merge two offset surfaces and hide a pose error; such results were traced back to the transformation.
+- Oblique surfaces and incomplete coverage were checked explicitly instead of judging by well-covered regions.
 
 Validation and diagnostics
 
@@ -2300,10 +2300,10 @@ Results were discussed with Dmitry, who owned the decision about which reconstru
 
 Edge cases and failure modes
 
-• Well-covered regions gave no discriminating information, so comparisons concentrated on edge cases.
-• Where coverage was incomplete, a method could interpolate plausibly — the wrong answer presented convincingly — so such regions were read as unmeasured.
-• Thin features and oblique surfaces exposed differences between implementations and were inspected against the physical object.
-• Overlapping third-party dependencies of PCL, Open3D and Qt had to coexist in one native build.
+- Well-covered regions gave no discriminating information, so comparisons concentrated on edge cases.
+- Where coverage was incomplete, a method could interpolate plausibly — the wrong answer presented convincingly — so such regions were read as unmeasured.
+- Thin features and oblique surfaces exposed differences between implementations and were inspected against the physical object.
+- Overlapping third-party dependencies of PCL, Open3D and Qt had to coexist in one native build.
 
 Validation and diagnostics
 
@@ -2333,10 +2333,10 @@ Early on I treated reconstruction as one end-to-end operation. The first wrong-l
 
 Edge cases and failure modes
 
-• A build that worked only on the author's workstation was a real risk; dependencies were resolved until the build reproduced on another workstation.
-• Large clouds could stop the prototype being interactive, so size was controlled at specific stages.
-• Hardware was not always available, so recorded datasets were a first-class debugging input.
-• A fix that improved appearance but changed geometry was treated as a regression, not an optimization.
+- A build that worked only on the author's workstation was a real risk; dependencies were resolved until the build reproduced on another workstation.
+- Large clouds could stop the prototype being interactive, so size was controlled at specific stages.
+- Hardware was not always available, so recorded datasets were a first-class debugging input.
+- A fix that improved appearance but changed geometry was treated as a regression, not an optimization.
 
 Validation and diagnostics
 
@@ -2366,10 +2366,10 @@ Each module was a MATLAB function taking a frame structure and parameters and re
 
 Edge cases and failure modes
 
-• Missing or inconsistent metadata, such as an unknown color-filter pattern: the frame was rejected with an explicit error instead of a guess.
-• Different bit depths across sensors: frames were held in floating point with the original range recorded.
-• Gaps between frames: stabilization restarted its motion history instead of smoothing across the gap.
-• Precision and memory assumptions at the handover: stated explicitly in the module specification, because a MATLAB design and an implementation on the payload are not the same artifact.
+- Missing or inconsistent metadata, such as an unknown color-filter pattern: the frame was rejected with an explicit error instead of a guess.
+- Different bit depths across sensors: frames were held in floating point with the original range recorded.
+- Gaps between frames: stabilization restarted its motion history instead of smoothing across the gap.
+- Precision and memory assumptions at the handover: stated explicitly in the module specification, because a MATLAB design and an implementation on the payload are not the same artifact.
 
 Validation and diagnostics
 
@@ -2397,10 +2397,10 @@ The color-filter pattern and its phase came from frame metadata. The MATLAB code
 
 Edge cases and failure modes
 
-• Frames cropped at an odd row or column: the pattern phase was derived from the crop origin, since a wrong phase swaps colors across the frame.
-• Saturated highlights: excluded from gradient decisions and marked in the mask.
-• Dark, noisy regions: a gradient threshold stopped noise from choosing the direction, with a fallback to averaging.
-• Frame borders: mirror padding prevented colored rims.
+- Frames cropped at an odd row or column: the pattern phase was derived from the crop origin, since a wrong phase swaps colors across the frame.
+- Saturated highlights: excluded from gradient decisions and marked in the mask.
+- Dark, noisy regions: a gradient threshold stopped noise from choosing the direction, with a fallback to averaging.
+- Frame borders: mirror padding prevented colored rims.
 
 Validation and diagnostics
 
@@ -2428,10 +2428,10 @@ The module mapped the internal frame structure to the required output format and
 
 Edge cases and failure modes
 
-• Target format with lower bit depth: recorded scaling, or refusal when lossless output was required.
-• Missing or inconsistent timestamps: the frame was flagged, because it could not be tied to navigation data.
-• Channel order differences between consumers: set explicitly on writing.
-• Metadata the target format cannot hold: written alongside the image instead of being dropped.
+- Target format with lower bit depth: recorded scaling, or refusal when lossless output was required.
+- Missing or inconsistent timestamps: the frame was flagged, because it could not be tied to navigation data.
+- Channel order differences between consumers: set explicitly on writing.
+- Metadata the target format cannot hold: written alongside the image instead of being dropped.
 
 Validation and diagnostics
 
@@ -2459,10 +2459,10 @@ Features were computed on a downscaled copy and the transform applied at full re
 
 Edge cases and failure modes
 
-• Low-texture scenes such as water, sky or uniform fields: with too few inliers, the last reliable correction decayed toward none instead of applying a random one.
-• Large moving objects: outlier rejection plus a requirement for inliers spread across the frame.
-• A sustained deliberate manoeuvre: the filter followed persistent motion instead of fighting it.
-• Gaps between frames: the trajectory filter restarted.
+- Low-texture scenes such as water, sky or uniform fields: with too few inliers, the last reliable correction decayed toward none instead of applying a random one.
+- Large moving objects: outlier rejection plus a requirement for inliers spread across the frame.
+- A sustained deliberate manoeuvre: the filter followed persistent motion instead of fighting it.
+- Gaps between frames: the trajectory filter restarted.
 
 Validation and diagnostics
 
@@ -2490,10 +2490,10 @@ The decomposition used image pyramids in MATLAB. Weights came from local varianc
 
 Edge cases and failure modes
 
-• Registration residual above the agreed limit: no fusion, fallback to the best input with an explicit flag.
-• One input saturated in part of the scene: that region excluded from its weights.
-• Flat, noisy areas: detail weights capped so noise was not presented as detail.
-• Inputs of different resolution: resampled to a common grid before decomposition.
+- Registration residual above the agreed limit: no fusion, fallback to the best input with an explicit flag.
+- One input saturated in part of the scene: that region excluded from its weights.
+- Flat, noisy areas: detail weights capped so noise was not presented as detail.
+- Inputs of different resolution: resampled to a common grid before decomposition.
 
 Validation and diagnostics
 
@@ -2523,10 +2523,10 @@ ActiveRecord models mirrored the relational schema and carried validations for m
 
 Edge cases and failure modes
 
-• A record entered twice under slightly different names: selection lists and uniqueness checks on names reduced duplicates, and suspected duplicates were resolved with the person who entered them.
-• Incomplete source documents: unknown values were left empty instead of filled with placeholders, so searches did not return false matches.
-• A related record removed while still referenced: blocked by the relationship, with an explanation in the interface.
-• Broad searches returning many records: pagination kept pages responsive and predictable.
+- A record entered twice under slightly different names: selection lists and uniqueness checks on names reduced duplicates, and suspected duplicates were resolved with the person who entered them.
+- Incomplete source documents: unknown values were left empty instead of filled with placeholders, so searches did not return false matches.
+- A related record removed while still referenced: blocked by the relationship, with an explanation in the interface.
+- Broad searches returning many records: pagination kept pages responsive and predictable.
 
 Validation and diagnostics
 
@@ -2554,10 +2554,10 @@ The schema was defined through Rails migrations so that it could be rebuilt iden
 
 Edge cases and failure modes
 
-• Instruments with several spectral bands, and platforms with several instruments: modelled as one-to-many relationships rather than repeated columns.
-• Parameters unknown for some satellites: kept as NULL instead of placeholder text.
-• Inconsistent naming of the same entity in different documents: one record per entity, with the spelling agreed with Irina.
-• Deleting a referenced entity: rejected by the foreign key.
+- Instruments with several spectral bands, and platforms with several instruments: modelled as one-to-many relationships rather than repeated columns.
+- Parameters unknown for some satellites: kept as NULL instead of placeholder text.
+- Inconsistent naming of the same entity in different documents: one record per entity, with the spelling agreed with Irina.
+- Deleting a referenced entity: rejected by the foreign key.
 
 Validation and diagnostics
 
@@ -2585,10 +2585,10 @@ Data from documents and files was mapped onto the entities of the schema: missio
 
 Edge cases and failure modes
 
-• The same satellite described differently in two sources: one record, with the conflict resolved by the colleague responsible for the data.
-• Values present in one document and missing in another: the known value kept, the gap not filled by assumption.
-• Characteristics that did not fit the schema: discussed with Sergei before adding an entity or field, instead of storing free text.
-• Colleagues still working from personal files: the documents remained available until the records had been checked.
+- The same satellite described differently in two sources: one record, with the conflict resolved by the colleague responsible for the data.
+- Values present in one document and missing in another: the known value kept, the gap not filled by assumption.
+- Characteristics that did not fit the schema: discussed with Sergei before adding an entity or field, instead of storing free text.
+- Colleagues still working from personal files: the documents remained available until the records had been checked.
 
 Validation and diagnostics
 
@@ -2618,10 +2618,10 @@ The work was done in MATLAB. Correction coefficients were derived from measureme
 
 Edge cases and failure modes
 
-• Overlap regions with little usable content, such as uniform water or cloud: the estimate was constrained to the calibrated response instead of fitting noise.
-• Saturated pixels in the overlap: excluded, because clipped values bias the radiometric match.
-• Clusters of defective elements: repaired only within a limited extent, larger defects reported rather than hidden.
-• Response drift of detectors: coefficients treated as measured data tied to their calibration, not as constants.
+- Overlap regions with little usable content, such as uniform water or cloud: the estimate was constrained to the calibrated response instead of fitting noise.
+- Saturated pixels in the overlap: excluded, because clipped values bias the radiometric match.
+- Clusters of defective elements: repaired only within a limited extent, larger defects reported rather than hidden.
+- Response drift of detectors: coefficients treated as measured data tied to their calibration, not as constants.
 
 Validation and diagnostics
 
@@ -2649,10 +2649,10 @@ I implemented the measurement in MATLAB. The software located the edge in a sele
 
 Edge cases and failure modes
 
-• Edge aligned with the pixel grid: insufficient oversampling, so the region was rejected.
-• Low contrast or high noise: a minimum contrast check before measurement.
-• Curved or broken edges: rejected when the line fit was poor.
-• Saturation on the bright side: rejected, because clipping makes an edge look sharper than it is.
+- Edge aligned with the pixel grid: insufficient oversampling, so the region was rejected.
+- Low contrast or high noise: a minimum contrast check before measurement.
+- Curved or broken edges: rejected when the line fit was poor.
+- Saturation on the bright side: rejected, because clipping makes an edge look sharper than it is.
 
 Validation and diagnostics
 
@@ -2680,10 +2680,10 @@ Candidate edge regions were scored on contrast, straightness and transition widt
 
 Edge cases and failure modes
 
-• Low-contrast or saturated regions: excluded, because they gave unstable values.
-• Noise inflating apparent detail: a noise estimate was taken into account before scoring.
-• Compression artifacts such as ringing near edges: recognized and excluded from edge measures.
-• Regions without a usable edge: reported as no data rather than as sharp or blurred.
+- Low-contrast or saturated regions: excluded, because they gave unstable values.
+- Noise inflating apparent detail: a noise estimate was taken into account before scoring.
+- Compression artifacts such as ringing near edges: recognized and excluded from edge measures.
+- Regions without a usable edge: reported as no data rather than as sharp or blurred.
 
 Validation and diagnostics
 
@@ -2711,10 +2711,10 @@ The analysis was done in MATLAB on reference Earth-observation imagery. I studie
 
 Edge cases and failure modes
 
-• Mixed scenes with several surface types: the prediction had to choose a safe quantization rather than one tuned for the minority content.
-• Bright surfaces such as cloud: the quantization had to avoid losing detail in the brightest values.
-• Low-contrast scenes: finer quantization where smooth regions would otherwise show steps.
-• Uncertain predictions: fall back to the general strategy instead of a specialized one.
+- Mixed scenes with several surface types: the prediction had to choose a safe quantization rather than one tuned for the minority content.
+- Bright surfaces such as cloud: the quantization had to avoid losing detail in the brightest values.
+- Low-contrast scenes: finer quantization where smooth regions would otherwise show steps.
+- Uncertain predictions: fall back to the general strategy instead of a specialized one.
 
 Validation and diagnostics
 
@@ -2742,10 +2742,10 @@ The selection logic was implemented and verified in MATLAB as the reference for 
 
 Edge cases and failure modes
 
-• Statistics near a class boundary: a stable decision rule so similar images did not flip between strategies.
-• Unusual content outside the trained types: fallback to the general strategy.
-• Arithmetic differences between MATLAB and onboard implementation: checked against the reference outputs.
-• Repeated runs on the same input: required to give an identical choice.
+- Statistics near a class boundary: a stable decision rule so similar images did not flip between strategies.
+- Unusual content outside the trained types: fallback to the general strategy.
+- Arithmetic differences between MATLAB and onboard implementation: checked against the reference outputs.
+- Repeated runs on the same input: required to give an identical choice.
 
 Validation and diagnostics
 
@@ -2773,10 +2773,10 @@ I designed and verified the algorithm in MATLAB, concentrating on the predictor 
 
 Edge cases and failure modes
 
-• Error accumulation: prevented by predicting from reconstructed values.
-• Sharp transitions overloading a fine quantizer: switched to a quantizer with a wider range.
-• Smooth regions: a finer quantizer avoided visible steps.
-• Difficult scenes: assessed explicitly as worst cases, since the mission must survive them too.
+- Error accumulation: prevented by predicting from reconstructed values.
+- Sharp transitions overloading a fine quantizer: switched to a quantizer with a wider range.
+- Smooth regions: a finer quantizer avoided visible steps.
+- Difficult scenes: assessed explicitly as worst cases, since the mission must survive them too.
 
 Validation and diagnostics
 

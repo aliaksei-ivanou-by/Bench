@@ -44,8 +44,8 @@ Replaced legacy JSON-RPC IPC with gRPC/Protobuf, reducing serialization overhead
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries (Main Components and Data Flow; Technical Ownership Boundaries); Contributions — REST / Local API Usage and Integration Boundaries; Contributions — Windows Autoprovisioning Manager — .NET 8 Migration.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries (Main Components and Data Flow; Technical Ownership Boundaries); Contributions — REST / Local API Usage and Integration Boundaries; Contributions — Windows Autoprovisioning Manager — .NET 8 Migration.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -63,10 +63,10 @@ The CV describes an inter-service protocol migration to gRPC and Protobuf with ~
 
 Relevant follow-up topics
 
-• How the .cuman format change was handled — the BinaryFormatter payload was replaced with JSON inside the AES container, and old files are explicitly rejected as incompatible rather than migrated.
-• How schema growth was managed — explicit Project DTOs meant every new field, such as Password/HA1 mode, backlight or microphone state, needed a deliberate mapping and a check of its generated-configuration effect.
-• How API compatibility was preserved on the phone — new SDK backup/active-server APIs were integrated with a fallback to the legacy backup_server parameter.
-• Whether gRPC or Protobuf was used — no; contract-compatibility principles can be discussed from the provisioning-archive work instead.
+- How the .cuman format change was handled — the BinaryFormatter payload was replaced with JSON inside the AES container, and old files are explicitly rejected as incompatible rather than migrated.
+- How schema growth was managed — explicit Project DTOs meant every new field, such as Password/HA1 mode, backlight or microphone state, needed a deliberate mapping and a check of its generated-configuration effect.
+- How API compatibility was preserved on the phone — new SDK backup/active-server APIs were integrated with a fallback to the legacy backup_server parameter.
+- Whether gRPC or Protobuf was used — no; contract-compatibility principles can be discussed from the provisioning-archive work instead.
 
 Responsibility 2 — Cloud connector cost and upload-speed optimization
 
@@ -78,9 +78,9 @@ Analyzed and optimized cost/upload speed ratio for cloud client connectors to ac
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Team, Role & Ownership — Role and Delivery Boundaries; Contributions — Network, Certificates and Security-Related Settings; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning.
-• Summary/Interview/Certificates and Continuing Education.md — Cloud: Badges, Not Certifications.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Team, Role & Ownership — Role and Delivery Boundaries; Contributions — Network, Certificates and Security-Related Settings; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning.
+- Summary/Interview/Certificates and Continuing Education.md — Cloud: Badges, Not Certifications.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -98,10 +98,10 @@ Summary contains no S3, GCS, Azure Blob Storage or Akamai connectors, no cost mo
 
 Relevant follow-up topics
 
-• Why TFTP was used for provisioning — it matched the managed-LAN workflow and device expectations, but as a trusted-network protocol it provides no end-to-end confidentiality or strong authentication.
-• How delivery failures were diagnosed — through adapter selection, provisioning address, discovery result, TFTP request arrival and presence of the MAC-specific archive.
-• Which cloud experience is real — AWS EC2 and Azure use on earlier projects and two AWS training badges; never "AWS Certified".
-• How a cost-versus-speed trade-off would be approached — answer as reasoning only, explicitly without claiming project measurements.
+- Why TFTP was used for provisioning — it matched the managed-LAN workflow and device expectations, but as a trusted-network protocol it provides no end-to-end confidentiality or strong authentication.
+- How delivery failures were diagnosed — through adapter selection, provisioning address, discovery result, TFTP request arrival and presence of the MAC-specific archive.
+- Which cloud experience is real — AWS EC2 and Azure use on earlier projects and two AWS training badges; never "AWS Certified".
+- How a cost-versus-speed trade-off would be approached — answer as reasoning only, explicitly without claiming project measurements.
 
 Responsibility 3 — Predictable segment-upload SLA
 
@@ -113,8 +113,8 @@ Improved predictable segment upload SLA from 90% to 99.9% for cloud storages.
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Context, Goals & Constraints — Success Criteria; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Contributions — Primary / Backup SIP Server Behavior; Outcomes, Impact & Evidence.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Context, Goals & Constraints — Success Criteria; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Contributions — Primary / Backup SIP Server Behavior; Outcomes, Impact & Evidence.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -132,10 +132,10 @@ The CV claims an SLA improvement for media-segment uploads to cloud storage from
 
 Relevant follow-up topics
 
-• How failover was tested — by reproducing primary loss and recovery with configured primary/backup accounts and checking SDK state, SIP logs, UI state, persisted configuration and authentication on target phones.
-• Why there is no reliability percentage — no automated SIP interoperability lab or soak metric existed; outcomes were scenario-based.
-• What would be added now — a small automated SIP lab covering primary loss, backup recovery, realm changes, 401/407 variants and network interruption.
-• Which adjacent states regression covered — hold, transfer, second call, video upgrade or downgrade, teardown and reboot persistence.
+- How failover was tested — by reproducing primary loss and recovery with configured primary/backup accounts and checking SDK state, SIP logs, UI state, persisted configuration and authentication on target phones.
+- Why there is no reliability percentage — no automated SIP interoperability lab or soak metric existed; outcomes were scenario-based.
+- What would be added now — a small automated SIP lab covering primary loss, backup recovery, realm changes, 401/407 variants and network interruption.
+- Which adjacent states regression covered — hold, transfer, second call, video upgrade or downgrade, teardown and reboot persistence.
 
 Responsibility 4 — Encoder instrumentation and monitoring framework
 
@@ -147,8 +147,8 @@ Architected C++ encoder instrumentation and monitoring framework supporting Goog
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Delivery, Testing & Quality — Observability and Debugging; Contributions — Testing and Debugging; Contributions — Primary / Backup SIP Server Behavior; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning; Tradeoffs, Lessons & Retrospective — What I Would Change Now.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Delivery, Testing & Quality — Observability and Debugging; Contributions — Testing and Debugging; Contributions — Primary / Backup SIP Server Behavior; Contributions — Windows Autoprovisioning Manager — DHCP / TFTP Provisioning; Tradeoffs, Lessons & Retrospective — What I Would Change Now.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -166,10 +166,10 @@ Summary contains no encoder, no metrics or tracing backend and no Google Cloud, 
 
 Relevant follow-up topics
 
-• How a cross-layer defect was localized — classification first (provisioning, Qt model, SDK, Linux runtime, network/SIP or media device), then following the data from its source to the final UI behavior.
-• What the active-proxy diagnostics showed — the server the SDK reported as active, so the UI and logs reflected SDK-owned state rather than local assumptions.
-• Which tools were used on target — Qt Creator remote kits, SSH deployment, gdb/gdbserver, Valgrind, logs and media statistics.
-• What would be improved — failover transition logs with reason codes and automated boot and readiness checks.
+- How a cross-layer defect was localized — classification first (provisioning, Qt model, SDK, Linux runtime, network/SIP or media device), then following the data from its source to the final UI behavior.
+- What the active-proxy diagnostics showed — the server the SDK reported as active, so the UI and logs reflected SDK-owned state rather than local assumptions.
+- Which tools were used on target — Qt Creator remote kits, SSH deployment, gdb/gdbserver, Valgrind, logs and media statistics.
+- What would be improved — failover transition logs with reason codes and automated boot and readiness checks.
 
 Responsibility 5 — FFmpeg libavfilter instrumentation and latency
 
@@ -181,8 +181,8 @@ Implemented instrumentation of FFmpeg libavfilter pipelines reducing end-to-end 
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Video and Conferencing; Linphone SDK Customization — Media and Compatibility Fixes; Yocto & Embedded Linux Platform Integration — Recipes and Image Integration; Key Engineering Challenges — Video / WebRTC Media on Embedded ARM64.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Video and Conferencing; Linphone SDK Customization — Media and Compatibility Fixes; Yocto & Embedded Linux Platform Integration — Recipes and Image Integration; Key Engineering Challenges — Video / WebRTC Media on Embedded ARM64.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -200,10 +200,10 @@ Summary contains no FFmpeg or libavfilter work, no pipeline instrumentation and 
 
 Relevant follow-up topics
 
-• How an established video call without a picture was diagnosed — by separating signaling, negotiated media, camera and native-window lifecycle, frame conversion and image dependencies.
-• What was personally changed in the SDK media code — only a small H.26x NAL-packer update.
-• How WebRTC was built for the device — libwebrtc cross-compiled for ARM64 with GN/Ninja in the Yocto toolchain, with libmediasoupclient on top.
-• What the server-side role was — a limited contribution to the initial Node.js mediasoup server, with ownership remaining on the phone-side integration.
+- How an established video call without a picture was diagnosed — by separating signaling, negotiated media, camera and native-window lifecycle, frame conversion and image dependencies.
+- What was personally changed in the SDK media code — only a small H.26x NAL-packer update.
+- How WebRTC was built for the device — libwebrtc cross-compiled for ARM64 with GN/Ninja in the Yocto toolchain, with libmediasoupclient on top.
+- What the server-side role was — a limited contribution to the initial Node.js mediasoup server, with ownership remaining on the phone-side integration.
 
 Responsibility 6 — AI skills for team workflows
 
@@ -215,7 +215,7 @@ Developed AI skills for the team allowing faster feature delivery and incident r
 
 Summary evidence
 
-• Summary/Interview/Certificates and Continuing Education.md — What These Credentials Are Worth; Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
+- Summary/Interview/Certificates and Continuing Education.md — What These Credentials Are Worth; Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
 
 Interview-ready response
 
@@ -233,10 +233,10 @@ Summary supports practical knowledge of skills-based AI workflows and one valida
 
 Relevant follow-up topics
 
-• How a skill differs from a prompt — a repeatable workflow with defined inputs, sources and outputs, as covered in the programme.
-• How AI-generated changes were controlled in the assignment — specification first, reproducible patches, independent review and full validation.
-• How the Catch2 --retry-failed extension was scoped — through a written specification before implementation and tests.
-• Whether the training is a certification — no; it is a certificate of completion for an internal employer programme.
+- How a skill differs from a prompt — a repeatable workflow with defined inputs, sources and outputs, as covered in the programme.
+- How AI-generated changes were controlled in the assignment — specification first, reproducible patches, independent review and full validation.
+- How the Catch2 --retry-failed extension was scoped — through a written specification before implementation and tests.
+- Whether the training is a certification — no; it is a certificate of completion for an internal employer programme.
 
 Responsibility 7 — CEA-608/708 subtitle conversion
 
@@ -248,8 +248,8 @@ Implemented end-to-end Cea608/708 to TTML (IMSC) and WebVTT subtitle conversion 
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Shipped Feature Surface; Contributions — Contacts, Phonebook and Call History; Contributions — Windows Autoprovisioning Manager — SIP Digest and HA1 Handling; Selected STAR / Debugging Stories — Make SIP Realm Discovery Tolerant of Real Authentication Challenges.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Shipped Feature Surface; Contributions — Contacts, Phonebook and Call History; Contributions — Windows Autoprovisioning Manager — SIP Digest and HA1 Handling; Selected STAR / Debugging Stories — Make SIP Realm Discovery Tolerant of Real Authentication Challenges.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -267,10 +267,10 @@ Summary contains no captions or subtitles, no CEA-608/708 decoding and no TTML, 
 
 Relevant follow-up topics
 
-• How the remote phonebook import handled bad data — validation, merge or replace, progress reporting and recovery from failed downloads.
-• How the realm parser tolerated different servers — both authentication headers, folded lines, quoted and bare values and no parameter-order assumptions.
-• Why a small tolerant parser was used for the probe — the required challenge fields were constrained; it is not an RFC-grade SIP stack, and fixtures must cover every accepted variation.
-• How contacts stayed linked to call history during merges — the import preserved the contact and call-history relationship instead of recreating entries.
+- How the remote phonebook import handled bad data — validation, merge or replace, progress reporting and recovery from failed downloads.
+- How the realm parser tolerated different servers — both authentication headers, folded lines, quoted and bare values and no parameter-order assumptions.
+- Why a small tolerant parser was used for the probe — the required challenge fields were constrained; it is not an RFC-grade SIP stack, and fixtures must cover every accepted variation.
+- How contacts stayed linked to call history during merges — the import preserved the contact and call-history relationship instead of recreating entries.
 
 Responsibility 8 — MCP and code-knowledge workflow integration
 
@@ -282,7 +282,7 @@ Integrated mcp-on-demand, graphify and rag-code-mcp into the AI workflows increa
 
 Summary evidence
 
-• Summary/Interview/Certificates and Continuing Education.md — Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
+- Summary/Interview/Certificates and Continuing Education.md — Summary Table — AI-assisted development; Programming, Engineering and Professional Education — Credentials; Answers to Expect.
 
 Interview-ready response
 
@@ -300,10 +300,10 @@ Summary supports MCP and context-engineering knowledge from training. It does no
 
 Relevant follow-up topics
 
-• What MCP is for — a standard way to expose tools and data sources to an AI agent, studied in the programme.
-• How context size affects quality and cost — covered by the context-engineering and model and cost selection modules, without project measurements.
-• Which tools are actually covered — AI coding agents from the programme and the Claude Code 101 course; not mcp-on-demand, graphify or rag-code-mcp.
-• How AI output was kept verifiable — specification, independent review and reproducible validation in the Catch2 assignment.
+- What MCP is for — a standard way to expose tools and data sources to an AI agent, studied in the programme.
+- How context size affects quality and cost — covered by the context-engineering and model and cost selection modules, without project measurements.
+- Which tools are actually covered — AI coding agents from the programme and the Claude Code 101 course; not mcp-on-demand, graphify or rag-code-mcp.
+- How AI output was kept verifiable — specification, independent review and reproducible validation in the Catch2 assignment.
 
 Responsibility 9 — Internal rag-code-mcp fork
 
@@ -315,9 +315,9 @@ Owned and maintained internal fork of rag-code-mcp with added support for C, C++
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Linphone SDK Customization; Tradeoffs, Lessons & Retrospective — Important Tradeoffs.
-• Summary/Interview/Certificates and Continuing Education.md — Programming, Engineering and Professional Education — Credentials.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Linphone SDK Customization; Tradeoffs, Lessons & Retrospective — Important Tradeoffs.
+- Summary/Interview/Certificates and Continuing Education.md — Programming, Engineering and Professional Education — Credentials.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -335,10 +335,10 @@ Summary contains no rag-code-mcp, no Go code and no language-support adapters fo
 
 Relevant follow-up topics
 
-• What was owned inside the customized SDK — the watchdog, failover and failback logic, the DomainBackup AuthInfo change and the NAL-packer update; not the rest of the fork.
-• What a customized SDK costs — dependency on non-upstream APIs and an ongoing maintenance and rebase burden.
-• How SDK and application changes were kept reviewable — separate SDK history and merged application integration, each with identifiable commits.
-• Whether Go was used — no project evidence; say so directly.
+- What was owned inside the customized SDK — the watchdog, failover and failback logic, the DomainBackup AuthInfo change and the NAL-packer update; not the rest of the fork.
+- What a customized SDK costs — dependency on non-upstream APIs and an ongoing maintenance and rebase burden.
+- How SDK and application changes were kept reviewable — separate SDK history and merged application integration, each with identifiable commits.
+- Whether Go was used — no project evidence; say so directly.
 
 Responsibility 10 — Encoder recovery after output outages
 
@@ -350,8 +350,8 @@ Implemented proper encoder recovery mechanism on output outages covering S3, GCS
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Primary / Backup SIP Server Behavior; Contributions — Authentication and Realm Handling; Key Engineering Challenges — Primary / Backup Registration and Authentication Context; Selected STAR / Debugging Stories — Replace Competing Qt Failover Logic with SDK-Owned State.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — Contributions — Primary / Backup SIP Server Behavior; Contributions — Authentication and Realm Handling; Key Engineering Challenges — Primary / Backup Registration and Authentication Context; Selected STAR / Debugging Stories — Replace Competing Qt Failover Logic with SDK-Owned State.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -369,11 +369,11 @@ This is recovery of SIP registration on a device, not encoder output recovery, a
 
 Relevant follow-up topics
 
-• Why the Qt-level loop was reverted — it duplicated registration state and created competing state machines; the state belongs beside registration in the SDK.
-• Why HA1 matters during failover — HA1 depends on username, realm and password, so a different backup realm invalidates the stored hash.
-• How failover was tested — primary loss and recovery on target phones, checking SDK state, SIP logs, UI, persisted configuration and authentication.
-• What the design cost — dependency on a customized SDK and its rebase burden.
-• What would be added now — transition logs, reason codes and deterministic timing tests for the state machine.
+- Why the Qt-level loop was reverted — it duplicated registration state and created competing state machines; the state belongs beside registration in the SDK.
+- Why HA1 matters during failover — HA1 depends on username, realm and password, so a different backup realm invalidates the stored hash.
+- How failover was tested — primary loss and recovery on target phones, checking SDK state, SIP logs, UI, persisted configuration and authentication.
+- What the design cost — dependency on a customized SDK and its rebase burden.
+- What would be added now — transition logs, reason codes and deterministic timing tests for the state machine.
 
 Responsibility 11 — HLS and DASH Live-to-VOD consistency
 
@@ -385,8 +385,8 @@ Diagnosed and resolved HLS and DASH manifest misalignments in Live to VOD workfl
 
 Summary evidence
 
-• Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries — State and Failure Boundaries; Contributions — Late-Project Call Architecture Refactor; Key Engineering Challenges — Asynchronous Call State and Runtime Ownership; Key Engineering Challenges — Configuration as a Cross-Layer Contract.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md — System Architecture & Integration Boundaries — State and Failure Boundaries; Contributions — Late-Project Call Architecture Refactor; Key Engineering Challenges — Asynchronous Call State and Runtime Ownership; Key Engineering Challenges — Configuration as a Cross-Layer Contract.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -404,10 +404,10 @@ Summary contains no streaming manifests, Live-to-VOD workflows, storage objects 
 
 Relevant follow-up topics
 
-• Where divergence came from — the same logical state existed in generated, persisted, SDK and UI representations.
-• Why snapshots were used instead of live SDK objects — presentation code should not depend on mutable SDK objects for every concern, which also simplifies teardown.
-• How the refactor was de-risked — small reviewable steps through adapters, keeping intermediate states buildable.
-• What its status was — completed internal architecture work, not released customer functionality.
+- Where divergence came from — the same logical state existed in generated, persisted, SDK and UI representations.
+- Why snapshots were used instead of live SDK objects — presentation code should not depend on mutable SDK objects for every concern, which also simplifies teardown.
+- How the refactor was de-risked — small reviewable steps through adapters, keeping intermediate states buildable.
+- What its status was — completed internal architecture work, not released customer functionality.
 
 PROJECT 2. LIBRARY SYSTEM
 
@@ -426,7 +426,7 @@ Optimized and maintained the existing codebase by resolving complex bugs and imp
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Representative C Defects and Output Paths; Reliability, Security and Performance Validation; Outcomes and Impact.
+- Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Representative C Defects and Output Paths; Reliability, Security and Performance Validation; Outcomes and Impact.
 
 Interview-ready response
 
@@ -444,11 +444,11 @@ Maintenance and resolution of complex defects are directly supported. "Performan
 
 Relevant follow-up topics
 
-• The US DST defect — an increment at the wrong point in a C function, moved to the correct control-flow location before the transition.
-• Fixed-size char array bugs — buffer capacity, content length, initialization and the terminating null handled as one contract.
-• Japanese search highlighting — segmentation appropriate to the writing system instead of whitespace-delimited words.
-• How native failures were diagnosed — service logs first, then SSH, gdb, core dumps and Valgrind on AWS Linux.
-• Performance claims — validated through the affected workflow, with no personal metric to quote.
+- The US DST defect — an increment at the wrong point in a C function, moved to the correct control-flow location before the transition.
+- Fixed-size char array bugs — buffer capacity, content length, initialization and the terminating null handled as one contract.
+- Japanese search highlighting — segmentation appropriate to the writing system instead of whitespace-delimited words.
+- How native failures were diagnosed — service logs first, then SSH, gdb, core dumps and Valgrind on AWS Linux.
+- Performance claims — validated through the affected workflow, with no personal metric to quote.
 
 Responsibility 2 — Socket-based backend and frontend features
 
@@ -460,7 +460,7 @@ Developed new backend and frontend features for socket-based communication.
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — System Architecture & Integration Boundaries (External Integrations; State, Failure and Trust Boundaries); Java Data Services and Desktop Application; Scala API and Swagger.
+- Summary/Interview/2022-2024. Integrated Library System.md — System Architecture & Integration Boundaries (External Integrations; State, Failure and Trust Boundaries); Java Data Services and Desktop Application; Scala API and Swagger.
 
 Interview-ready response
 
@@ -478,10 +478,10 @@ Summary supports cross-component backend and frontend feature work over the exis
 
 Relevant follow-up topics
 
-• What "frontend" meant here — the Java desktop application used by library staff, plus the Scala API for integrations.
-• How the desktop column worked — a Java table column whose mapping was aligned with data prepared on the C side.
-• How compatibility was protected — request and response fields treated as contracts, checked in cross-service logs, integrated scenarios and QA regression.
-• Why protocol details stay general — custom protocol fields are confidential; the answer stays at the service and contract level.
+- What "frontend" meant here — the Java desktop application used by library staff, plus the Scala API for integrations.
+- How the desktop column worked — a Java table column whose mapping was aligned with data prepared on the C side.
+- How compatibility was protected — request and response fields treated as contracts, checked in cross-service logs, integrated scenarios and QA regression.
+- Why protocol details stay general — custom protocol fields are confidential; the answer stays at the service and contract level.
 
 Responsibility 3 — C development leadership
 
@@ -493,7 +493,7 @@ Led development efforts as a key contributor in C language, driving the successf
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Team and Collaboration; Role Progression During This Project; Beyond the Codebase; C Backend Development; Role Boundaries.
+- Summary/Interview/2022-2024. Integrated Library System.md — Team and Collaboration; Role Progression During This Project; Beyond the Codebase; C Backend Development; Role Boundaries.
 
 Interview-ready response
 
@@ -511,10 +511,10 @@ The key-contributor part is supported: I delivered C features and fixes independ
 
 Relevant follow-up topics
 
-• How C ownership was split — shared across the whole C89 codebase by three developers, not module by module.
-• The promotion — from junior to middle grade in May 2022, during this project.
-• A time-critical delivery — the US DST fix completed before the transition.
-• Contribution beyond own tickets — code review, onboarding support, sprint demos and technical interviews for EPAM.
+- How C ownership was split — shared across the whole C89 codebase by three developers, not module by module.
+- The promotion — from junior to middle grade in May 2022, during this project.
+- A time-critical delivery — the US DST fix completed before the transition.
+- Contribution beyond own tickets — code review, onboarding support, sprint demos and technical interviews for EPAM.
 
 Responsibility 4 — Scala API refactoring
 
@@ -526,7 +526,7 @@ Refactored existing Scala API code to improve maintainability and scalability.
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Scala API and Swagger; Important Decisions and Tradeoffs; Representative Interview Stories (Add a Scala API Request Backed by C).
+- Summary/Interview/2022-2024. Integrated Library System.md — Scala API and Swagger; Important Decisions and Tradeoffs; Representative Interview Stories (Add a Scala API Request Backed by C).
 
 Interview-ready response
 
@@ -544,10 +544,10 @@ Summary supports targeted Scala API contribution: one new Swagger-documented req
 
 Relevant follow-up topics
 
-• Why reuse C from Scala — to avoid duplicating established domain logic, at the cost of cross-runtime complexity.
-• How errors and results were mapped — request, response and error semantics preserved across the Scala and C boundary.
-• Swagger as a contract — the operation was exposed and documented through Swagger.
-• How the change was tested — Scala-side integration automation invoking C, plus QA regression.
+- Why reuse C from Scala — to avoid duplicating established domain logic, at the cost of cross-runtime complexity.
+- How errors and results were mapped — request, response and error semantics preserved across the Scala and C boundary.
+- Swagger as a contract — the operation was exposed and documented through Swagger.
+- How the change was tested — Scala-side integration automation invoking C, plus QA regression.
 
 Responsibility 5 — AWS CI/CD automation
 
@@ -559,7 +559,7 @@ Worked with AWS pipelines, automating CI/CD processes for smoother deployments a
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Build and Deployment; Main Components and Data Flow; Ownership Boundaries; Technical Ownership.
+- Summary/Interview/2022-2024. Integrated Library System.md — Build and Deployment; Main Components and Data Flow; Ownership Boundaries; Technical Ownership.
 
 Interview-ready response
 
@@ -577,10 +577,10 @@ Summary confirms regular hands-on use of the established Jenkins and AWS build a
 
 Relevant follow-up topics
 
-• Nightly versus on-demand deployment — scheduled integration coverage versus faster targeted feedback.
-• Why separate developer and QA pools — independent validation did not share state with debugging work.
-• Debugging on deployed machines — SSH, logs, gdb and core dumps on AWS Linux.
-• What I would improve — automated representative deployment and smoke-test scenarios.
+- Nightly versus on-demand deployment — scheduled integration coverage versus faster targeted feedback.
+- Why separate developer and QA pools — independent validation did not share state with debugging work.
+- Debugging on deployed machines — SSH, logs, gdb and core dumps on AWS Linux.
+- What I would improve — automated representative deployment and smoke-test scenarios.
 
 Responsibility 6 — Database schema changes
 
@@ -592,8 +592,8 @@ Modified database tables to support new feature implementations, improving schem
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Technical Ownership; Ownership Boundaries; Role Boundaries; Following Database Requests Across Two Databases.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2022-2024. Integrated Library System.md — Technical Ownership; Ownership Boundaries; Role Boundaries; Following Database Requests Across Two Databases.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -611,10 +611,10 @@ The CV claims table modification and schema-design improvement. Summary records 
 
 Relevant follow-up topics
 
-• How C reached the database — through Java data services, not direct database access in C.
-• PostgreSQL versus MySQL — PostgreSQL primary after an earlier migration, with less-used models remaining in MySQL.
-• Diagnosing database-backed defects — identifying the owning data path before changing C, Java or SQL-facing behavior.
-• Why direct database access was not added to C — preserving the Java data-service boundary was an architectural decision.
+- How C reached the database — through Java data services, not direct database access in C.
+- PostgreSQL versus MySQL — PostgreSQL primary after an earlier migration, with less-used models remaining in MySQL.
+- Diagnosing database-backed defects — identifying the owning data path before changing C, Java or SQL-facing behavior.
+- Why direct database access was not added to C — preserving the Java data-service boundary was an architectural decision.
 
 Responsibility 7 — Estimation and resource allocation
 
@@ -626,7 +626,7 @@ Estimated tasks with precision, ensuring realistic timelines and efficient resou
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Development Process; Responsibilities; Beyond the Codebase.
+- Summary/Interview/2022-2024. Integrated Library System.md — Development Process; Responsibilities; Beyond the Codebase.
 
 Interview-ready response
 
@@ -644,10 +644,10 @@ Participation in team planning and grooming is supported. "Estimated tasks with 
 
 Relevant follow-up topics
 
-• The sprint process — two-week sprints, weekly grooming, stand-ups, demos and retrospectives.
-• Sizing changes for the release train — changes had to remain stable over a long period before release.
-• Cross-component tasks in planning — a feature often touched C, Java and Scala and had to be planned as one deliverable.
-• Resource allocation — not part of my role; my planning input covered the tasks I delivered.
+- The sprint process — two-week sprints, weekly grooming, stand-ups, demos and retrospectives.
+- Sizing changes for the release train — changes had to remain stable over a long period before release.
+- Cross-component tasks in planning — a feature often touched C, Java and Scala and had to be planned as one deliverable.
+- Resource allocation — not part of my role; my planning input covered the tasks I delivered.
 
 Responsibility 8 — Code reviews and knowledge sharing
 
@@ -659,7 +659,7 @@ Conducted thorough code reviews, ensuring code quality, adherence to standards, 
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — Beyond the Codebase; Development Process; Outcomes and Impact.
+- Summary/Interview/2022-2024. Integrated Library System.md — Beyond the Codebase; Development Process; Outcomes and Impact.
 
 Interview-ready response
 
@@ -677,10 +677,10 @@ The responsibility is directly supported. The confirmed scope is participation i
 
 Relevant follow-up topics
 
-• How review worked — EPAM and customer reviewers, approval required from every added reviewer.
-• Why review mattered here — it was the shared compatibility check in a system owned by several specialist groups.
-• Onboarding — supporting new developers as the team composition changed.
-• Working with the customer team — sprint demos and technical sessions with customer developers.
+- How review worked — EPAM and customer reviewers, approval required from every added reviewer.
+- Why review mattered here — it was the shared compatibility check in a system owned by several specialist groups.
+- Onboarding — supporting new developers as the team composition changed.
+- Working with the customer team — sprint demos and technical sessions with customer developers.
 
 Responsibility 9 — Legacy application refactoring
 
@@ -692,7 +692,7 @@ Refactored legacy application code to improve maintainability, scalability, and 
 
 Summary evidence
 
-• Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Important Decisions and Tradeoffs; Key Engineering Challenges (Working Safely in a Long-Lived C89 Codebase); Tradeoffs, Lessons & Retrospective.
+- Summary/Interview/2022-2024. Integrated Library System.md — C Backend Development; Important Decisions and Tradeoffs; Key Engineering Challenges (Working Safely in a Long-Lived C89 Codebase); Tradeoffs, Lessons & Retrospective.
 
 Interview-ready response
 
@@ -710,10 +710,10 @@ Focused refactoring for maintainability is supported. Summary does not measure s
 
 Relevant follow-up topics
 
-• Why no rewrite — compatibility obligations across a large installed base outweighed the benefit.
-• How refactoring was kept safe without C unit tests — reproduction, integration automation, QA regression and review.
-• Fixed-size buffers — reconstructing ownership and data flow before changing code.
-• What I would improve — C unit tests and contract tests for Scala-to-C and C-to-Java mappings.
+- Why no rewrite — compatibility obligations across a large installed base outweighed the benefit.
+- How refactoring was kept safe without C unit tests — reproduction, integration automation, QA regression and review.
+- Fixed-size buffers — reconstructing ownership and data flow before changing code.
+- What I would improve — C unit tests and contract tests for Scala-to-C and C-to-Java mappings.
 
 PROJECT 3. CORPORATE SYSTEM FOR THE OIL AND GAS INDUSTRY
 
@@ -732,7 +732,7 @@ Engineered efficient back-end software solutions, ensuring optimal performance f
 
 Summary evidence
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — C++17 Feature Development and Maintenance; Main Components and Data Flow; Database-Backed Workflows; Data and Failure Boundaries.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — C++17 Feature Development and Maintenance; Main Components and Data Flow; Database-Backed Workflows; Data and Failure Boundaries.
 
 Interview-ready response
 
@@ -750,10 +750,10 @@ Backend feature and defect work in C++17 is supported. "Efficient" and "ensuring
 
 Relevant follow-up topics
 
-• What the system did — processed industrial sensor data in C++17, stored results in MySQL and exposed them through the web layer.
-• Data correctness — keeping parsed, calculated, stored and displayed values describing the same operational event.
-• Debugging approach — trace one value from input through C++ processing and MySQL state to the user-facing layer.
-• Performance — no measured result to claim; the honest focus is correctness and maintainability.
+- What the system did — processed industrial sensor data in C++17, stored results in MySQL and exposed them through the web layer.
+- Data correctness — keeping parsed, calculated, stored and displayed values describing the same operational event.
+- Debugging approach — trace one value from input through C++ processing and MySQL state to the user-facing layer.
+- Performance — no measured result to claim; the honest focus is correctness and maintainability.
 
 Responsibility 2 — Core development contribution
 
@@ -765,7 +765,7 @@ Contributed as a core developer, implementing key functionalities and supporting
 
 Summary evidence
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Contributions (C++17 Feature Development and Maintenance; JavaScript Contributions; Distributed Delivery); Development Process.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Contributions (C++17 Feature Development and Maintenance; JavaScript Contributions; Distributed Delivery); Development Process.
 
 Interview-ready response
 
@@ -783,10 +783,10 @@ Direct contribution of features and fixes is supported. "Core developer" oversta
 
 Relevant follow-up topics
 
-• The team — five EPAM C++ developers, an external QA team in India and customer representatives in the United States.
-• My grade — Junior C++ Software Engineer on my first EPAM assignment.
-• Cross-layer work — C++ and JavaScript changes delivered and validated as one product workflow.
-• Delivery rhythm — sprints with bi-weekly demos to customer department heads.
+- The team — five EPAM C++ developers, an external QA team in India and customer representatives in the United States.
+- My grade — Junior C++ Software Engineer on my first EPAM assignment.
+- Cross-layer work — C++ and JavaScript changes delivered and validated as one product workflow.
+- Delivery rhythm — sprints with bi-weekly demos to customer department heads.
 
 Responsibility 3 — Task estimation
 
@@ -798,8 +798,8 @@ Provided accurate task estimations, enabling effective planning and resource man
 
 Summary evidence
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Development Process.
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Team, Role & Ownership; Development Process.
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -817,10 +817,10 @@ Accurate estimation and resource-management ownership are unsupported. The defen
 
 Relevant follow-up topics
 
-• How work arrived — customer-requested improvements and defects in an established system.
-• The sprint rhythm — bi-weekly demos to customer department heads favored completed, visible changes.
-• Keeping changes small — focused changes that could be reviewed, demonstrated and validated within a sprint.
-• Who planned resources — not my responsibility on this project.
+- How work arrived — customer-requested improvements and defects in an established system.
+- The sprint rhythm — bi-weekly demos to customer department heads favored completed, visible changes.
+- Keeping changes small — focused changes that could be reviewed, demonstrated and validated within a sprint.
+- Who planned resources — not my responsibility on this project.
 
 Responsibility 4 — Maintenance, performance, and technical debt
 
@@ -832,7 +832,7 @@ Maintained and enhanced the existing codebase by resolving bugs, optimizing perf
 
 Summary evidence
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; JavaScript Contributions; Debugging Approach; Outcomes and Impact.
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; JavaScript Contributions; Debugging Approach; Outcomes and Impact.
 
 Interview-ready response
 
@@ -850,10 +850,10 @@ Bug resolution, maintenance and technical-debt reduction are supported. "Optimiz
 
 Relevant follow-up topics
 
-• Debugging across layers — C++ processing, MySQL state and JavaScript behavior checked in order.
-• A database-backed defect — traced from the source value instead of being assumed to be a SQL problem.
-• What simplification meant — removing special cases and unused paths rather than adding to them.
-• Diagnostics — application logs; native tools available but no specific retained case.
+- Debugging across layers — C++ processing, MySQL state and JavaScript behavior checked in order.
+- A database-backed defect — traced from the source value instead of being assumed to be a SQL problem.
+- What simplification meant — removing special cases and unused paths rather than adding to them.
+- Diagnostics — application logs; native tools available but no specific retained case.
 
 Responsibility 5 — Removal of legacy components
 
@@ -865,7 +865,7 @@ Removed outdated legacy components, modernizing the system to improve reliabilit
 
 Summary evidence
 
-• Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; Important Decisions and Tradeoffs; Representative Interview Stories (Safe Modernization of an Inherited C++ Area).
+- Summary/Interview/2021. Oil and Gas Corporate System.md — Legacy-Code Simplification; Important Decisions and Tradeoffs; Representative Interview Stories (Safe Modernization of an Inherited C++ Area).
 
 Interview-ready response
 
@@ -883,10 +883,10 @@ This responsibility is directly supported. The confirmed boundary is removal of 
 
 Relevant follow-up topics
 
-• How removal was proven safe — dependency tracing, separating used from unused paths and external QA regression.
-• Why not leave unused code — it enlarged the maintenance surface of the affected areas.
-• Why not a rewrite — the short assignment and inherited architecture favored incremental, reviewable changes.
-• Tying cleanup to delivery — simplification done in the same area as a requested change.
+- How removal was proven safe — dependency tracing, separating used from unused paths and external QA regression.
+- Why not leave unused code — it enlarged the maintenance surface of the affected areas.
+- Why not a rewrite — the short assignment and inherited architecture favored incremental, reviewable changes.
+- Tying cleanup to delivery — simplification done in the same area as a requested change.
 
 PROJECT 4. HOME ACCOUNTING SOFTWARE
 
@@ -905,7 +905,7 @@ Developed a home accounting application to manage personal financial transaction
 
 Summary evidence
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Project Snapshot; System Architecture — Main Components; Contributions — Personal Finance Analytics Application.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Project Snapshot; System Architecture — Main Components; Contributions — Personal Finance Analytics Application.
 
 Interview-ready response
 
@@ -923,10 +923,10 @@ The responsibility is directly supported. The confirmed scope is a personal-fina
 
 Relevant follow-up topics
 
-• How the layers depended on each other — numbered library targets per layer, but the executable links all four flat, so the layering was a convention rather than something the build enforced.
-• How multi-currency balances worked — each account in its own currency over one base currency, with rate-adjusted transfers; this is also the part I would test first now.
-• Why such a simple domain — chosen deliberately so the difficulty sat in architecture, storage, testing and tooling.
-• What the facade's find operation returns — a tuple of outcome, index and object.
+- How the layers depended on each other — numbered library targets per layer, but the executable links all four flat, so the layering was a convention rather than something the build enforced.
+- How multi-currency balances worked — each account in its own currency over one base currency, with rate-adjusted transfers; this is also the part I would test first now.
+- Why such a simple domain — chosen deliberately so the difficulty sat in architecture, storage, testing and tooling.
+- What the facade's find operation returns — a tuple of outcome, index and object.
 
 Responsibility 2 — FLTK user interface
 
@@ -938,7 +938,7 @@ Utilized the FLTK C++ library to create a user-friendly graphical interface for 
 
 Summary evidence
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components, The Boundary That Mattered; Tech Stack & Technical Decisions — Decisions and Tradeoffs.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components, The Boundary That Mattered; Tech Stack & Technical Decisions — Decisions and Tradeoffs.
 
 Interview-ready response
 
@@ -956,10 +956,10 @@ The FLTK implementation is directly supported. "User-friendly" remains a qualita
 
 Relevant follow-up topics
 
-• Why FLTK rather than Qt — small and unopinionated for a solo architecture exercise; Qt is what I used in commercial work.
-• How the interface was kept thin — every view goes through FinanceRepository, and the tests target links everything except GUI.
-• What the graph library is — the PPP graphics layer from Stroustrup's book, reused in the application.
-• What I would change — make GUI link only BusinessLogic so the layering is enforced by the build.
+- Why FLTK rather than Qt — small and unopinionated for a solo architecture exercise; Qt is what I used in commercial work.
+- How the interface was kept thin — every view goes through FinanceRepository, and the tests target links everything except GUI.
+- What the graph library is — the PPP graphics layer from Stroustrup's book, reused in the application.
+- What I would change — make GUI link only BusinessLogic so the layering is enforced by the build.
 
 Responsibility 3 — SQLite persistence
 
@@ -971,7 +971,7 @@ Integrated SQLite for efficient database management of transaction records, ensu
 
 Summary evidence
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components; Tech Stack & Technical Decisions — Decisions and Tradeoffs; Contributions — Personal Finance Analytics Application.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — System Architecture — Main Components; Tech Stack & Technical Decisions — Decisions and Tradeoffs; Contributions — Personal Finance Analytics Application.
 
 Interview-ready response
 
@@ -989,10 +989,10 @@ Reliable relational storage through prepared statements is supported. "Efficient
 
 Relevant follow-up topics
 
-• Why the C API instead of an ORM — control and no heavy dependency, at the cost of repetitive hand-written binding.
-• Why an unused sqlite_orm submodule is in the build — a planned migration that was not completed; the right fix is to finish it or remove it.
-• How storage failures are reported — PLOG_ERROR with the SQLite error text from each Database class.
-• Why SQLite fits this application — embedded, single file, no server; concurrency is not a requirement.
+- Why the C API instead of an ORM — control and no heavy dependency, at the cost of repetitive hand-written binding.
+- Why an unused sqlite_orm submodule is in the build — a planned migration that was not completed; the right fix is to finish it or remove it.
+- How storage failures are reported — PLOG_ERROR with the SQLite error text from each Database class.
+- Why SQLite fits this application — embedded, single file, no server; concurrency is not a requirement.
 
 Responsibility 4 — Google Test coverage
 
@@ -1004,7 +1004,7 @@ Implemented robust testing practices using Google Test to ensure application rel
 
 Summary evidence
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Testing; Key Engineering Challenges — Testing as a Design Tool, Money That Has to Add Up Across Currencies; Tradeoffs, Lessons & Retrospective — What I Would Improve Today.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Testing; Key Engineering Challenges — Testing as a Design Tool, Money That Has to Add Up Across Currencies; Tradeoffs, Lessons & Retrospective — What I Would Improve Today.
 
 Interview-ready response
 
@@ -1022,10 +1022,10 @@ The Google Test practice is directly supported, but "robust" overstates it: cove
 
 Relevant follow-up topics
 
-• How testing shaped the architecture — the tests target excludes GUI, which forced logic out of the interface.
-• What I would test first today — Transaction, transfers and base-currency conversion, then the simple model types.
-• Why the data-access layer was not tested — the SQL and binding code first needs separating from connection handling to run against a fixture database.
-• How tests are discovered and run — FetchContent for GoogleTest and gtest_discover_tests into CTest.
+- How testing shaped the architecture — the tests target excludes GUI, which forced logic out of the interface.
+- What I would test first today — Transaction, transfers and base-currency conversion, then the simple model types.
+- Why the data-access layer was not tested — the SQL and binding code first needs separating from connection handling to run against a fixture database.
+- How tests are discovered and run — FetchContent for GoogleTest and gtest_discover_tests into CTest.
 
 Responsibility 5 — Logging and build automation
 
@@ -1037,7 +1037,7 @@ Employed plog for effective error logging and debugging, enhancing application r
 
 Summary evidence
 
-• Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Diagnostics, Build; Tech Stack & Technical Decisions — Decisions and Tradeoffs; System Architecture — Main Components.
+- Summary/Interview/2020-2021. Independent C++ Engineering Projects.md — Delivery, Testing & Quality — Diagnostics, Build; Tech Stack & Technical Decisions — Decisions and Tradeoffs; System Architecture — Main Components.
 
 Interview-ready response
 
@@ -1055,10 +1055,10 @@ This responsibility is directly supported. The confirmed boundary is logging con
 
 Relevant follow-up topics
 
-• Why logging sits in the data-access layer — that is where failures originate, and the log must identify the failing statement.
-• Why two dependency mechanisms — Git submodules for runtime libraries and FetchContent for GoogleTest, chosen over vcpkg or Conan to keep the checkout self-contained.
-• How C++20 was enabled — /std:c++latest in Visual Studio 2019; today I would pin /std:c++20.
-• What was missing from build automation — CI that verifies the clean-checkout build on every change.
+- Why logging sits in the data-access layer — that is where failures originate, and the log must identify the failing statement.
+- Why two dependency mechanisms — Git submodules for runtime libraries and FetchContent for GoogleTest, chosen over vcpkg or Conan to keep the checkout self-contained.
+- How C++20 was enabled — /std:c++latest in Visual Studio 2019; today I would pin /std:c++20.
+- What was missing from build automation — CI that verifies the clean-checkout build on every change.
 
 PROJECT 5. 3D RECONSTRUCTION SOFTWARE FOR INDUSTRIAL APPLICATIONS
 
@@ -1077,7 +1077,7 @@ Developed software for generating 3D models from data collected by multiple 2D l
 
 Summary evidence
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Multi-Sensor Profile Ingestion and Coordinate Transformation; System Architecture & Integration Boundaries — Main Components and Data Flow; Key Engineering Challenges — Error Propagation from Sensor Pose into Reconstruction; Representative Interview Stories — Diagnosing a Doubled Surface in the Merged Cloud.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Multi-Sensor Profile Ingestion and Coordinate Transformation; System Architecture & Integration Boundaries — Main Components and Data Flow; Key Engineering Challenges — Error Propagation from Sensor Pose into Reconstruction; Representative Interview Stories — Diagnosing a Doubled Surface in the Merged Cloud.
 
 Interview-ready response
 
@@ -1095,11 +1095,11 @@ The multi-sensor reconstruction software is directly supported. "Significantly e
 
 Relevant follow-up topics
 
-• How sensor-local profiles were placed in 3D — per-sensor pose and scan geometry as explicit data, applied before any registration.
-• How a pose error was told apart from sensor noise — consistent within each sensor but offset between sensors points at the pose.
-• Why registration was only a refinement — to keep absolute measurement meaning rather than a merely self-consistent cloud.
-• How holes were interpreted — as occlusion and coverage limits, i.e. missing data, not wrong data.
-• What the hardware and calibration side owned — scanners, optics, firmware, mounting and calibration methodology.
+- How sensor-local profiles were placed in 3D — per-sensor pose and scan geometry as explicit data, applied before any registration.
+- How a pose error was told apart from sensor noise — consistent within each sensor but offset between sensors points at the pose.
+- Why registration was only a refinement — to keep absolute measurement meaning rather than a merely self-consistent cloud.
+- How holes were interpreted — as occlusion and coverage limits, i.e. missing data, not wrong data.
+- What the hardware and calibration side owned — scanners, optics, firmware, mounting and calibration methodology.
 
 Responsibility 2 — PCL point-cloud processing
 
@@ -1111,7 +1111,7 @@ Utilized the Point Cloud Library (PCL) for efficient processing and manipulation
 
 Summary evidence
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Point-Cloud Processing Pipeline with PCL; Key Engineering Challenges — Filtering Parameters That Trade Measurement Value for Appearance; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — Point-Cloud Processing Pipeline with PCL; Key Engineering Challenges — Filtering Parameters That Trade Measurement Value for Appearance; Delivery, Testing & Quality — Reliability, Security & Performance Validation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs.
 
 Interview-ready response
 
@@ -1129,10 +1129,10 @@ PCL-based processing and data handling are directly supported. "Optimizing perfo
 
 Relevant follow-up topics
 
-• Which PCL stages were used — filtering, voxel downsampling, outlier removal, normals, alignment refinement and surface reconstruction.
-• How parameters were chosen — on known-geometry objects and fixed datasets, judged by measurable features rather than the render.
-• Why stages were separated — the first end-to-end version gave no clue about the cause of a bad model.
-• Why PCL rather than custom code — mature algorithms quickly, at the cost of a heavy dependency.
+- Which PCL stages were used — filtering, voxel downsampling, outlier removal, normals, alignment refinement and surface reconstruction.
+- How parameters were chosen — on known-geometry objects and fixed datasets, judged by measurable features rather than the render.
+- Why stages were separated — the first end-to-end version gave no clue about the cause of a bad model.
+- Why PCL rather than custom code — mature algorithms quickly, at the cost of a heavy dependency.
 
 Responsibility 3 — Open3D visualization and analysis
 
@@ -1144,7 +1144,7 @@ Integrated Open3D to facilitate advanced visualization and analysis of 3D models
 
 Summary evidence
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — 3D Model Reconstruction and Library Evaluation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs; Delivery, Testing & Quality — Test Strategy.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Contributions — 3D Model Reconstruction and Library Evaluation; Tech Stack & Technical Decisions — Important Decisions and Tradeoffs; Delivery, Testing & Quality — Test Strategy.
 
 Interview-ready response
 
@@ -1162,10 +1162,10 @@ Open3D integration for visualization and comparison is supported. "Advanced visu
 
 Relevant follow-up topics
 
-• Why PCL was primary and Open3D secondary — PCL for processing, Open3D to challenge and visualize its results.
-• Where the libraries differed — incomplete coverage, thin features and oblique surfaces.
-• Why interpolated surfaces are risky in metrology — a plausible fill is the wrong answer presented convincingly.
-• What the Qt interface exposed — intermediate stages, per-sensor inclusion, point counts and export.
+- Why PCL was primary and Open3D secondary — PCL for processing, Open3D to challenge and visualize its results.
+- Where the libraries differed — incomplete coverage, thin features and oblique surfaces.
+- Why interpolated surfaces are risky in metrology — a plausible fill is the wrong answer presented convincingly.
+- What the Qt interface exposed — intermediate stages, per-sensor inclusion, point counts and export.
 
 Responsibility 4 — Visual Studio development and optimization
 
@@ -1177,7 +1177,7 @@ Employed Visual Studio for coding, debugging, and optimizing performance, ensuri
 
 Summary evidence
 
-• Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Tech Stack & Technical Decisions; Delivery, Testing & Quality — Build and Deployment, Observability and Debugging; Key Engineering Challenges — Native Build Complexity with Heavy Dependencies; Contributions — Transition from Research Code to Commercial C++.
+- Summary/Interview/2020. Industrial 3D Scanning and Metrology Software.md — Tech Stack & Technical Decisions; Delivery, Testing & Quality — Build and Deployment, Observability and Debugging; Key Engineering Challenges — Native Build Complexity with Heavy Dependencies; Contributions — Transition from Research Code to Commercial C++.
 
 Interview-ready response
 
@@ -1195,10 +1195,10 @@ Visual Studio coding and debugging and the native build are directly supported. 
 
 Relevant follow-up topics
 
-• What made the build hard — PCL, Open3D and Qt together on Windows with CMake and Visual Studio.
-• How reconstruction was debugged — stage views, per-sensor isolation, recorded datasets and known-geometry objects.
-• How the move from MATLAB showed up in code — explicit memory management, large datasets, user-facing failures and a build others can run.
-• What I would do differently — reproducible dependency setup from day one and unit tests for the transformation mathematics.
+- What made the build hard — PCL, Open3D and Qt together on Windows with CMake and Visual Studio.
+- How reconstruction was debugged — stage views, per-sensor isolation, recorded datasets and known-geometry objects.
+- How the move from MATLAB showed up in code — explicit memory management, large datasets, user-facing failures and a build others can run.
+- What I would do differently — reproducible dependency setup from day one and unit tests for the transformation mathematics.
 
 PROJECT 6. SOFTWARE MODULES FOR UAV
 
@@ -1217,7 +1217,7 @@ Developed software modules for digital image processing systems used in Unmanned
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow, Technical Ownership; 02 Context, Goals & Constraints: Ownership Boundaries.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow, Technical Ownership; 02 Context, Goals & Constraints: Ownership Boundaries.
 
 Interview-ready response
 
@@ -1235,11 +1235,11 @@ The responsibility is confirmed within this boundary: MATLAB algorithm modules o
 
 Relevant follow-up topics
 
-• What the chain consisted of and in which order — debayering, stabilization, fusion and format conversion, feeding frame-centre coordinates.
-• Why MATLAB — it was the organization's algorithm environment; fast iteration and visualization of every intermediate stage.
-• What was outside my scope — optics, detectors, onboard electronics, flight software platform and airframe.
-• How the modules were validated — reference targets, visual and numeric inspection and, finally, UAV test flights where I operated the payload.
-• Adjacent geo-referencing work — IMU-to-camera calibration and why a small misalignment becomes a large ground error.
+- What the chain consisted of and in which order — debayering, stabilization, fusion and format conversion, feeding frame-centre coordinates.
+- Why MATLAB — it was the organization's algorithm environment; fast iteration and visualization of every intermediate stage.
+- What was outside my scope — optics, detectors, onboard electronics, flight software platform and airframe.
+- How the modules were validated — reference targets, visual and numeric inspection and, finally, UAV test flights where I operated the payload.
+- Adjacent geo-referencing work — IMU-to-camera calibration and why a small misalignment becomes a large ground error.
 
 Responsibility 2 — Debayer algorithm
 
@@ -1251,7 +1251,7 @@ Implemented a debayer algorithm to convert raw sensor data into full-color image
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Compatibility Matrix (Bayer sensor output → Debayering).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Compatibility Matrix (Bayer sensor output → Debayering).
 
 Interview-ready response
 
@@ -1269,10 +1269,10 @@ The algorithm and its purpose are directly supported. Summary does not record a 
 
 Relevant follow-up topics
 
-• Why edges are the difficult part of demosaicing — false color fringes appear where the image has the most information.
-• How quality was judged — reference targets and visual inspection against the requirement of no false detail at edges.
-• How a debayer artifact is recognized in later stages — false color affects feature matching and fusion.
-• Why there is no percentage improvement — none was measured or recorded; the claim is qualitative.
+- Why edges are the difficult part of demosaicing — false color fringes appear where the image has the most information.
+- How quality was judged — reference targets and visual inspection against the requirement of no false detail at edges.
+- How a debayer artifact is recognized in later stages — false color affects feature matching and fusion.
+- Why there is no percentage improvement — none was measured or recorded; the claim is qualitative.
 
 Responsibility 3 — Image-format conversion
 
@@ -1284,7 +1284,7 @@ Created image format conversion tools to support multiple formats, enhancing com
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow (Format Conversion → Frame Centre Coordinate Computation).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 03 System Architecture & Integration Boundaries: Main Components and Data Flow (Format Conversion → Frame Centre Coordinate Computation).
 
 Interview-ready response
 
@@ -1302,9 +1302,9 @@ Direct conversion work is supported. The CV's "tools" supporting "multiple forma
 
 Relevant follow-up topics
 
-• Where conversion sat in the chain — after fusion and before frame-centre coordinate computation.
-• What conversion must preserve — bit depth, channel order and timing needed by the next stage; I can discuss this as design reasoning, not as a format list.
-• Why the claim is narrow — Summary records one module, not a toolset or a set of target platforms.
+- Where conversion sat in the chain — after fusion and before frame-centre coordinate computation.
+- What conversion must preserve — bit depth, channel order and timing needed by the next stage; I can discuss this as design reasoning, not as a format list.
+- Why the claim is narrow — Summary records one module, not a toolset or a set of target platforms.
 
 Responsibility 4 — Image stabilization
 
@@ -1316,7 +1316,7 @@ Developed an image stabilization algorithm to reduce motion-induced distortions,
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Observability and Debugging; 02 Context, Goals & Constraints: Problem and Goals.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 06 Delivery, Testing & Quality: Observability and Debugging; 02 Context, Goals & Constraints: Problem and Goals.
 
 Interview-ready response
 
@@ -1334,10 +1334,10 @@ The algorithm and its motion-compensation purpose are supported. Summary describ
 
 Relevant follow-up topics
 
-• Why UAV stabilization is harder than satellite processing — far more aggressive platform motion.
-• What "close to real time" meant — a design constraint on the chain, not a measured guarantee.
-• How a stabilization defect looks — smearing along the flight direction, diagnosed with intermediate images.
-• How the result was checked — reference imagery, visual inspection and real flight-test data.
+- Why UAV stabilization is harder than satellite processing — far more aggressive platform motion.
+- What "close to real time" meant — a design constraint on the chain, not a measured guarantee.
+- How a stabilization defect looks — smearing along the flight direction, diagnosed with intermediate images.
+- How the result was checked — reference imagery, visual inspection and real flight-test data.
 
 Responsibility 5 — Multi-sensor image fusion
 
@@ -1349,7 +1349,7 @@ Designed an image fusion algorithm to combine data from multiple sensors, increa
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 12 Interview Answer Kit: Role-Specific Emphasis (Computer vision); Glossary (Image fusion).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: UAV Optical System Processing Modules; 12 Interview Answer Kit: Role-Specific Emphasis (Computer vision); Glossary (Image fusion).
 
 Interview-ready response
 
@@ -1367,10 +1367,10 @@ The core responsibility and its recognition purpose are directly supported. The 
 
 Relevant follow-up topics
 
-• What was fused — frames or outputs of different sensors of the same payload.
-• Why fusion comes after debayering and stabilization — errors in earlier stages limit fusion quality.
-• How usefulness for recognition was judged — reference imagery, visual review and flight-test data.
-• What is not claimed — no measured detail or contrast figures.
+- What was fused — frames or outputs of different sensors of the same payload.
+- Why fusion comes after debayering and stabilization — errors in earlier stages limit fusion quality.
+- How usefulness for recognition was judged — reference imagery, visual review and flight-test data.
+- What is not claimed — no measured detail or contrast figures.
 
 PROJECT 7. REMOTE SENSING SATELLITES DATABASE
 
@@ -1389,7 +1389,7 @@ Built a web-based interface using Ruby on Rails, enabling easy access and manipu
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 06 Delivery, Testing & Quality: Build and Deployment; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Reference data); 05 Team, Role & Ownership: Training During the Period.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 06 Delivery, Testing & Quality: Build and Deployment; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Reference data); 05 Team, Role & Ownership: Training During the Period.
 
 Interview-ready response
 
@@ -1407,10 +1407,10 @@ The responsibility is confirmed within this boundary: a department-internal Rail
 
 Relevant follow-up topics
 
-• Why a web application instead of shared spreadsheets — shared, consistent, queryable data versus scattered per-engineer copies.
-• Who used it — engineers in the department, for planning and analysis.
-• How it was deployed — a Rails application over PostgreSQL serving the department.
-• Learning a new stack — Rails training right before the project and a first substantial web-development effort.
+- Why a web application instead of shared spreadsheets — shared, consistent, queryable data versus scattered per-engineer copies.
+- Who used it — engineers in the department, for planning and analysis.
+- How it was deployed — a Rails application over PostgreSQL serving the department.
+- Learning a new stack — Rails training right before the project and a first substantial web-development effort.
 
 Responsibility 2 — PostgreSQL design and optimization
 
@@ -1422,7 +1422,7 @@ Designed and optimized a PostgreSQL database to handle large datasets with detai
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 04 Tech Stack & Technical Decisions: Tech Stack table (Database and web), Important Decisions and Tradeoffs.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Remote-Sensing Satellite Database; 04 Tech Stack & Technical Decisions: Tech Stack table (Database and web), Important Decisions and Tradeoffs.
 
 Interview-ready response
 
@@ -1440,10 +1440,10 @@ Schema design is directly supported. Summary does not establish large datasets, 
 
 Relevant follow-up topics
 
-• Which entities the schema contained — mission, platform, instrument, spectral band and orbital parameters.
-• Why relational rather than spreadsheets — relationships between instruments, bands and orbits are lost when flattened.
-• What "faster retrieval" means honestly — a query instead of manual reassembly, not a benchmarked speed-up.
-• What I would do for optimization today — read execution plans and index real query patterns; this is general knowledge, not a recorded result of this project.
+- Which entities the schema contained — mission, platform, instrument, spectral band and orbital parameters.
+- Why relational rather than spreadsheets — relationships between instruments, bands and orbits are lost when flattened.
+- What "faster retrieval" means honestly — a query instead of manual reassembly, not a benchmarked speed-up.
+- What I would do for optimization today — read execution plans and index real query patterns; this is general knowledge, not a recorded result of this project.
 
 Responsibility 3 — MS Access legacy-data integration
 
@@ -1455,8 +1455,8 @@ Integrated MS Access for legacy data support, ensuring smooth data migration and
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 03 System Architecture & Integration Boundaries: External Integrations (MS Access); 04 Tech Stack & Technical Decisions: Tech Stack table (Data management).
-• No supporting evidence in Summary for the CV-specific responsibility.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 03 System Architecture & Integration Boundaries: External Integrations (MS Access); 04 Tech Stack & Technical Decisions: Tech Stack table (Data management).
+- No supporting evidence in Summary for the CV-specific responsibility.
 
 Interview-ready response
 
@@ -1474,9 +1474,9 @@ The CV describes MS Access integration, legacy migration and compatibility with 
 
 Relevant follow-up topics
 
-• What Access was used for — earlier, smaller internal databases, as working use.
-• Where the satellite reference data came from — scattered documents and engineers' files, not an Access database.
-• How I would approach an Access migration — explicit field mapping, staged loads and count reconciliation, presented as an approach rather than past work on this project.
+- What Access was used for — earlier, smaller internal databases, as working use.
+- Where the satellite reference data came from — scattered documents and engineers' files, not an Access database.
+- How I would approach an Access migration — explicit field mapping, staged loads and count reconciliation, presented as an approach rather than past work on this project.
 
 PROJECT 8. SOFTWARE FOR PROCESSING AND ANALYSIS OF SATELLITE EARTH OBSERVATION IMAGES
 
@@ -1495,7 +1495,7 @@ Developed algorithms for standardizing brightness levels across multiple frames 
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Satellite Frame Stitching, Radiometric Correction of Detector Arrays; 09 Representative Interview Stories: A Seam That Was Not a Geometry Problem; 06 Delivery, Testing & Quality: Compatibility Matrix.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Satellite Frame Stitching, Radiometric Correction of Detector Arrays; 09 Representative Interview Stories: A Seam That Was Not a Geometry Problem; 06 Delivery, Testing & Quality: Compatibility Matrix.
 
 Interview-ready response
 
@@ -1513,10 +1513,10 @@ Radiometric matching and defect correction are directly supported. The CV's "mul
 
 Relevant follow-up topics
 
-• Why a seam remains after perfect alignment — different detectors respond differently to the same radiance.
-• How detector defects appear in imagery — fixed-pattern noise, stripes and bad pixels, and why correction comes before everything else.
-• How results were checked — uniform-illumination reference data and inspection across the seam.
-• The course correction — moving from a purely geometric view of the seam to treating radiometry as part of the problem.
+- Why a seam remains after perfect alignment — different detectors respond differently to the same radiance.
+- How detector defects appear in imagery — fixed-pattern noise, stripes and bad pixels, and why correction comes before everything else.
+- How results were checked — uniform-illumination reference data and inspection across the seam.
+- The course correction — moving from a purely geometric view of the seam to treating radiometry as part of the problem.
 
 Responsibility 2 — Linear-resolution analysis by the sharp-edge method
 
@@ -1528,7 +1528,7 @@ Designed and implemented software to analyze the linear resolution of satellite 
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 09 Representative Interview Stories: Turning a Flight-Test Bottleneck into Software; 08 Key Engineering Challenges: Making an Expert Judgement Measurable.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 09 Representative Interview Stories: Turning a Flight-Test Bottleneck into Software; 08 Key Engineering Challenges: Making an Expert Judgement Measurable.
 
 Interview-ready response
 
@@ -1546,10 +1546,10 @@ The automated resolution assessment is directly supported. Summary does not name
 
 Relevant follow-up topics
 
-• Why the criterion was the hard part — resolution is an acceptance specification, so the number must be defensible.
-• How the software was validated — known targets and comparison with the manual analysis it replaced.
-• What changed for flight tests — repeatable results independent of the operator and faster analysis in campaigns.
-• Which measurement method — I describe the defined criterion on targets and do not claim a specific sharp-edge implementation.
+- Why the criterion was the hard part — resolution is an acceptance specification, so the number must be defensible.
+- How the software was validated — known targets and comparison with the manual analysis it replaced.
+- What changed for flight tests — repeatable results independent of the operator and faster analysis in campaigns.
+- Which measurement method — I describe the defined criterion on targets and do not claim a specific sharp-edge implementation.
 
 Responsibility 3 — Sharpness and edge-clarity assessment
 
@@ -1561,7 +1561,7 @@ Created algorithms to assess image sharpness and edge clarity, ensuring precise 
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 12 Interview Answer Kit: Strongest Technical Deep Dives (repeatable automated measurement).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Linear Resolution Assessment from Imagery; 12 Interview Answer Kit: Strongest Technical Deep Dives (repeatable automated measurement).
 
 Interview-ready response
 
@@ -1579,9 +1579,9 @@ Edge-related resolution assessment is supported as part of one project. Summary 
 
 Relevant follow-up topics
 
-• How subjective sharpness became a measurement — a defined criterion on defined targets.
-• Why this is part of resolution assessment — the same software and the same validation.
-• What is not claimed — no separate sharpness algorithm suite and no precision figures.
+- How subjective sharpness became a measurement — a defined criterion on defined targets.
+- Why this is part of resolution assessment — the same software and the same validation.
+- What is not claimed — no separate sharpness algorithm suite and no precision figures.
 
 Responsibility 4 — Quantization-range prediction from albedo
 
@@ -1593,7 +1593,7 @@ Developed software to predict quantization ranges for remote sensing satellites 
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Improving Quality Without Asking for More Bandwidth.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Improving Quality Without Asking for More Bandwidth.
 
 Interview-ready response
 
@@ -1611,10 +1611,10 @@ Prediction driving quantization is directly supported. Summary does not establis
 
 Relevant follow-up topics
 
-• Why quantization was adapted instead of raising the ratio — the ratio was fixed by the link budget.
-• How scene types differ — smooth low-contrast regions versus dense high-frequency texture.
-• How the improvement was proven — comparison with the previous approach at matched ratios on reference imagery.
-• What is not claimed — albedo estimation and sensor-calibration outcomes.
+- Why quantization was adapted instead of raising the ratio — the ratio was fixed by the link budget.
+- How scene types differ — smooth low-contrast regions versus dense high-frequency texture.
+- How the improvement was proven — comparison with the previous approach at matched ratios on reference imagery.
+- What is not claimed — albedo estimation and sensor-calibration outcomes.
 
 Responsibility 5 — Quantization prediction automation
 
@@ -1626,7 +1626,7 @@ Automated the prediction of quantization ranges, streamlining workflows, and imp
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Improving compression).
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Image-Type Prediction for Adaptive Quantization; 04 Tech Stack & Technical Decisions: Important Decisions and Tradeoffs (Improving compression).
 
 Interview-ready response
 
@@ -1642,9 +1642,9 @@ Automated quantization selection is directly supported. Summary records the purp
 
 Relevant follow-up topics
 
-• What exactly was automated — choosing quantization from the predicted image type.
-• Why the goal was quality rather than speed — bandwidth was fixed and quality was the limiting factor.
-• What is not claimed — workflow time savings or efficiency metrics.
+- What exactly was automated — choosing quantization from the predicted image type.
+- Why the goal was quality rather than speed — bandwidth was fixed and quality was the limiting factor.
+- What is not claimed — workflow time savings or efficiency metrics.
 
 Responsibility 6 — ADPCM image compression
 
@@ -1656,7 +1656,7 @@ Designed and implemented a custom image compression algorithm using ADPCM with m
 
 Summary evidence
 
-• Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Onboard Lossy Compression (ADPCM Family), Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Choosing a Weaker Compression Algorithm on Purpose; 02 Context, Goals & Constraints: Ownership Boundaries.
+- Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md — 07 Contributions: Onboard Lossy Compression (ADPCM Family), Image-Type Prediction for Adaptive Quantization; 09 Representative Interview Stories: Choosing a Weaker Compression Algorithm on Purpose; 02 Context, Goals & Constraints: Ownership Boundaries.
 
 Interview-ready response
 
@@ -1674,11 +1674,11 @@ The ADPCM algorithm, adaptive quantization and the compression ratio are directl
 
 Relevant follow-up topics
 
-• Why a weaker algorithm family on purpose — the onboard compute budget was the binding constraint.
-• Where the design effort went — the predictor and quantization adaptation.
-• How quality was judged — reference imagery, worst-case scenes and expert artifact review.
-• The MATLAB-to-onboard handover — I owned the algorithm and verification, not the flight code.
-• Why irreversibility mattered — lossy onboard compression cannot be revised after launch.
+- Why a weaker algorithm family on purpose — the onboard compute budget was the binding constraint.
+- Where the design effort went — the predictor and quantization adaptation.
+- How quality was judged — reference imagery, worst-case scenes and expert artifact review.
+- The MATLAB-to-onboard handover — I owned the algorithm and verification, not the flight code.
+- Why irreversibility mattered — lossy onboard compression cannot be revised after launch.
 
 REAL EXPERIENCE MISSING OR UNDERSTATED IN THE CV
 
