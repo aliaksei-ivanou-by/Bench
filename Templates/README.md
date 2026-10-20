@@ -39,7 +39,7 @@ Do not create placeholder Request files for a CV-only package.
 ## Intro checklist
 
 - [ ] Opens with the candidate's name, experience and primary specialization.
-- [ ] Uses only the selected CV for candidate experience; no claim is imported from `Summary` or another CV.
+- [ ] Uses the selected CV for candidate experience; for a verified full-match project it uses the complete relevant `Summary` project record, and no claim is imported from another CV or from an unrelated project.
 - [ ] Groups experience by domains.
 - [ ] Gives representative project examples for every domain.
 - [ ] Expands the latest project in detail.
@@ -50,7 +50,7 @@ Do not create placeholder Request files for a CV-only package.
 ## Legend checklist
 
 - [ ] Uses every CV project in the original order.
-- [ ] Uses only the selected CV as its factual project basis; added narrative detail remains compatible with that CV.
+- [ ] Uses the selected CV as its project basis and, for every verified full-match project, the complete relevant `Summary` project record; added narrative detail remains compatible with both and keeps the CV title, period and role.
 - [ ] Where the CV is concise, completes architecture, implementation, team and situation details with a realistic, internally consistent narrative rather than leaving gaps or review notes.
 - [ ] Contains product and business context for every project.
 - [ ] Describes system architecture, components, data flow and integrations.
