@@ -28,6 +28,7 @@ The reusable source files are in `Templates/`.
 | `E474` | Senior Windows IoT Hardening Expert | Timspark | Final client is undisclosed | Full preparation package plus request and customer analysis |
 | `E482` | Senior Embedded C++ and Real-Time Graphics Engineer | BrightBox Group | Acron Aviation, according to the supplied account context | Full preparation package; the Intro combines the BrightBox pre-screen and the Acron customer interview in one stage-tagged question set; unsupported graphics, personal RTOS-platform, bus, sensor-fusion, and formal-compliance claims are explicitly bounded |
 | `E496` | GNC Engineer | Direct Samara Aerospace vacancy | Samara Aerospace | Full preparation package completed, including official customer research and requirement-to-evidence analysis; fit is weak for direct day-one GNC ownership and conditional for an adjacent aerospace algorithm and embedded C++ profile |
+| `fake1` | C++ Software Engineer, generic | No request provided | Not provided | English and Russian versions of Intro, Legend, and Responsibilities completed and synchronized; both Legends include production-ready expanded technical answers for all project tasks; no request was provided |
 
 ## Document roles
 
