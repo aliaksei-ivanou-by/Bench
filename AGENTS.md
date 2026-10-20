@@ -17,6 +17,7 @@ Each artifact has a fixed source boundary.
 - `Intro` starts from the selected CV in the current package. Do not use another CV or another request package. A verified full-match project from the sibling `Summary` repository is the only exception: use all relevant externally usable facts from that real project to enrich and reconcile the corresponding Intro material.
 - `Legend` starts from the same selected CV. For a verified full-match project, use all relevant externally usable information from the corresponding `Summary` project document, including context, architecture, data flow, team, personal scope, decisions, stories, testing, deployment, outcomes and limitations. For every other project, the Legend may expand concise CV statements into realistic technical narratives, team structures and project situations, but the expansion must remain compatible with that CV.
 - `Responsibilities` starts with every responsibility in the selected CV and checks it against the sibling `Summary` repository. Use `Summary/Interview/Career Overview.md` to locate the relevant period documents, then use those documents and their cited evidence to establish the candidate's real scope.
+- `Tech` covers every technology named in the selected CV and in the supplied request. It is general technical theory for interview preparation, not evidence of the candidate's experience; its section about the candidate's projects repeats only claims already made in Legend.
 - A supplied request is the only source for the target role, requested responsibilities, requirements and engagement conditions.
 - A request describes the opportunity; it does not prove that the candidate has a requested skill.
 - Do not borrow claims from another CV or Bench package.
@@ -32,7 +33,7 @@ For projects that are not verified full matches, `Summary` remains verification 
 
 ## Standard package
 
-The standard package contains the source CV and three bilingual artifact pairs:
+The standard package contains the source CV, three bilingual artifact pairs and a `Tech` folder with bilingual theory files:
 
 ```text
 <request-id>/
@@ -43,6 +44,11 @@ The standard package contains the source CV and three bilingual artifact pairs:
   <request-id>_Legend_<CandidateName>_RU.md
   <request-id>_Responsibilities_<CandidateName>.md
   <request-id>_Responsibilities_<CandidateName>_RU.md
+  Tech/
+    _Index.md
+    _Index_RU.md
+    <Technology>.md
+    <Technology>_RU.md
 ```
 
 When a request is supplied, add a bilingual Request pair:
@@ -192,7 +198,38 @@ Cover every request responsibility and requirement exactly once and cite the rel
 
 If no request exists, omit request-coverage statuses and prepare the line-by-line CV-versus-reality reconciliation only.
 
-### 6. Bilingual synchronization
+### 6. Tech
+
+Create the `Tech` folder inside the package directory after Responsibilities. It contains one English and one Russian theory file per technology, plus a bilingual index.
+
+Scope:
+
+- Cover every technology the selected CV names: the skills and tools sections, every project Environment list, project descriptions and responsibilities. When a request exists, also cover every technology it names, even if the CV does not mention it.
+- One technology per file. Tightly coupled variants of one standard may share the file of the base technology, for example HLS with LL-HLS, or CEA-608 with CEA-708. A cloud provider gets one file with a section per service named in the CV or request, for example AWS with EC2, S3, Lambda and CloudFront.
+- Do not create files for technologies that appear in neither the CV nor the request.
+- Reuse the same file names across packages so equivalent files are easy to compare, but write each package's files inside that package.
+
+File names:
+
+- Use the standard technology name with spaces replaced by hyphens, for example `C++.md`, `Qt-Model-View.md`, `MPEG-DASH.md`. Replace characters that Windows does not allow in file names (`/ \ : * ? " < > |`) with hyphens.
+- The Russian version uses the `_RU` suffix: `C++_RU.md`.
+- `_Index.md` and `_Index_RU.md` list every technology file grouped by category (languages, frameworks and libraries, build and tooling, databases, networking and protocols, media, cloud, embedded, processes), with the CV projects and request items in which each technology appears.
+
+Each technology file uses this structure:
+
+1. Technology name, category and the versions or standards relevant to the CV or request.
+2. What it is and which problem it solves.
+3. Core concepts and how it works internally, at the depth an interviewer may probe.
+4. Typical usage: main APIs, commands, configuration or workflow, with short examples written as plain text.
+5. Strengths, limitations and common alternatives, and when to choose each.
+6. Common pitfalls, failure modes, performance and security considerations.
+7. Use in the candidate's projects: the CV projects and request items that name the technology and a short summary consistent with Legend. Do not add new experience claims; for a request-only technology, state the connection to adjacent experience the way Responsibilities does.
+8. Likely interview questions, five to ten, each with a concise answer.
+9. Sources: official documentation or specification URLs used for version-specific or fast-changing facts, with the research date.
+
+Keep each file brief: a focused theory summary of roughly 500 to 1,000 words in English, not a tutorial. Technical facts must be accurate; verify version-specific details in official documentation rather than relying on memory. Tech files follow the same formatting and production-ready rules as the other artifacts.
+
+### 7. Bilingual synchronization
 
 English is the base filename. Russian uses the `_RU` suffix.
 
@@ -205,7 +242,8 @@ The two versions must have:
 - the same team composition and personal ownership;
 - the same project stories, reasoning and outcomes;
 - the same CV-evidence status for every responsibility;
-- the same coverage status for every request item.
+- the same coverage status for every request item;
+- the same set of Tech files, sections, examples and interview questions.
 
 After changing either language, update the other in the same task. A translation should read naturally in its own language while preserving meaning and level of detail.
 
@@ -248,9 +286,10 @@ Before finishing:
 7. When a request exists, count request responsibilities and requirements and confirm each has one reality-based coverage result in both languages.
 8. Search for unresolved placeholders, draft labels and human-review wording.
 9. Check that metrics, dates, roles, names and technologies match between languages.
-10. Confirm that every CV project has a recorded `FULL MATCH` or `NOT FULL MATCH` decision and that all `FULL MATCH` Intro and Legend sections use the complete relevant factual project record without borrowing from unrelated projects.
-11. Verify UTF-8 without BOM, CRLF line endings, no trailing spaces and no forbidden Markdown markers.
-12. Run `git diff --check` and inspect `git status`.
-13. Update the package row in the root `README.md`.
+10. Confirm that every technology named in the CV and request has a Tech file in both languages, that `_Index.md` and `_Index_RU.md` list exactly those files, and that no Tech file exists for a technology outside that scope.
+11. Confirm that every CV project has a recorded `FULL MATCH` or `NOT FULL MATCH` decision and that all `FULL MATCH` Intro and Legend sections use the complete relevant factual project record without borrowing from unrelated projects.
+12. Verify UTF-8 without BOM, CRLF line endings, no trailing spaces and no forbidden Markdown markers.
+13. Run `git diff --check` and inspect `git status`.
+14. Update the package row in the root `README.md`.
 
 Do not commit or push unless explicitly requested. Finish by summarizing the changed files and providing the candidate with the appropriate `git add` and `git commit` commands.
