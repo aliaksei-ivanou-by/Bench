@@ -14,15 +14,19 @@ Instructions for AI agents working in this repository. This repository contains 
 
 Each artifact has a fixed source boundary.
 
-- `Intro` is built from the selected CV in the current package. Do not use another CV, another request package or the `Summary` repository to add experience to it.
-- `Legend` is built from the same selected CV. It may expand concise CV statements into realistic technical narratives, team structures and project situations, but the expansion must remain compatible with that CV.
+- `Intro` starts from the selected CV in the current package. Do not use another CV or another request package. A verified full-match project from the sibling `Summary` repository is the only exception: use all relevant externally usable facts from that real project to enrich and reconcile the corresponding Intro material.
+- `Legend` starts from the same selected CV. For a verified full-match project, use all relevant externally usable information from the corresponding `Summary` project document, including context, architecture, data flow, team, personal scope, decisions, stories, testing, deployment, outcomes and limitations. For every other project, the Legend may expand concise CV statements into realistic technical narratives, team structures and project situations, but the expansion must remain compatible with that CV.
 - `Responsibilities` starts with every responsibility in the selected CV and checks it against the sibling `Summary` repository. Use `Summary/Interview/Career Overview.md` to locate the relevant period documents, then use those documents and their cited evidence to establish the candidate's real scope.
 - A supplied request is the only source for the target role, requested responsibilities, requirements and engagement conditions.
 - A request describes the opportunity; it does not prove that the candidate has a requested skill.
 - Do not borrow claims from another CV or Bench package.
 - Preserve project titles, order, periods, roles, technologies, responsibilities and metrics consistently between the artifacts wherever their source boundary permits them.
 
-The `Summary` repository is verification evidence for `Responsibilities`, not a source for enriching `Intro` or `Legend`. When the CV and `Summary` differ, keep the CV wording visible in `Responsibilities` and provide the supported real scope, correction or unsupported status from `Summary`.
+Classify a CV project as a verified full match only when the project identity is unambiguous and `Summary` supports the same product or problem domain, period and employment context, role, core stack and main responsibility set without a material contradiction. A technology overlap or a broadly similar domain is not enough. Omitted detail in the CV does not prevent a full match, but a conflicting project, employer, role, period, platform, ownership claim or major result does.
+
+For a verified full match, `Summary` is the factual source of detail for `Intro` and `Legend`; prefer its accepted facts over constructed narrative and use the complete relevant project record instead of limiting the artifact to the short CV bullets. Do not expose private evidence, customer secrets, credentials or NDA-protected detail. Do not transfer facts from that real project to any other CV project. A full project match also does not automatically confirm every CV responsibility: `Responsibilities` must still assess every item separately.
+
+For projects that are not verified full matches, `Summary` remains verification evidence for `Responsibilities`, not a source for enriching `Intro` or `Legend`. When the CV and `Summary` differ, keep the CV wording visible in `Responsibilities` and provide the supported real scope, correction or unsupported status from `Summary`.
 
 ## Standard package
 
@@ -59,9 +63,11 @@ Follow this order for every new package.
 3. Determine whether a request was supplied.
 4. Extract the CV completely, including every project, period, role, responsibility, technology and metric.
 5. Resolve the sibling `Summary` repository and identify the relevant career and project documents for the Responsibilities comparison.
-6. Build an internal project-and-responsibility inventory before writing artifacts.
+6. Compare every CV project with those factual records and classify it as `FULL MATCH` or `NOT FULL MATCH`, recording the evidence for the decision in the internal inventory.
+7. For every `FULL MATCH`, extract the complete relevant externally usable project information from `Summary` before drafting Intro or Legend.
+8. Build an internal project-and-responsibility inventory before writing artifacts.
 
-Do not silently substitute a similarly named CV. Do not use `Summary` while drafting Intro or Legend.
+Do not silently substitute a similarly named CV. Do not use `Summary` while drafting Intro or Legend except for a project classified as `FULL MATCH`; never use a partial or merely similar match to enrich them.
 
 ### 2. Request branch
 
@@ -90,6 +96,8 @@ The Intro is domain-based, following the `fake1` package pattern:
 4. After the domain overview, explain the latest project in detail. If a request exists and another project is materially more relevant, keep the latest project detailed and give the relevant project additional emphasis.
 5. Close with one coherent positioning statement connecting the domains.
 
+For every project classified as `FULL MATCH`, base the Intro description on the complete relevant factual project record from `Summary`, condensed to the length and purpose of the spoken introduction. Do not mention the repository, the match classification or the reconciliation process in the spoken text.
+
 The Intro should normally support a five-to-six-minute spoken answer. It must sound natural when read aloud and must not contain template notes, review instructions or repository terminology.
 
 ### 4. Legend
@@ -115,6 +123,8 @@ For every CV project include:
 9. Outcome, lessons and likely follow-up questions.
 
 When the CV is concise, expand the Legend with a technically coherent implementation narrative. Added detail must remain compatible with the CV's dates, role, domain, technologies, responsibilities and metrics. Do not introduce a contradictory platform, customer, employer, seniority or numerical result.
+
+For every project classified as `FULL MATCH`, populate all Legend sections from the corresponding factual `Summary` project record. Include all relevant accepted detail needed for interview preparation, not only the facts already repeated in the CV. Preserve documented uncertainty and role boundaries, and do not replace factual team, architecture, testing or outcome information with invented alternatives. After exhausting the matching `Summary` record, fill only genuinely missing required narrative fields with plausible, non-conflicting details under the normal Legend expansion rule.
 
 When the CV does not contain enough detail for a complete interview story, construct realistic and internally consistent project facts: architecture decisions, implementation steps, failure modes, validation methods, team roles, grades, locations, stacks and first names. Treat the CV as the hard boundary: the constructed detail may explain how the listed work could have been delivered, but it must not change what the CV says the candidate did, add a conflicting technology or create a new measurable achievement.
 
@@ -235,8 +245,9 @@ Before finishing:
 7. When a request exists, count request responsibilities and requirements and confirm each has one reality-based coverage result in both languages.
 8. Search for unresolved placeholders, draft labels and human-review wording.
 9. Check that metrics, dates, roles, names and technologies match between languages.
-10. Verify UTF-8 without BOM, CRLF line endings, no trailing spaces and no forbidden Markdown markers.
-11. Run `git diff --check` and inspect `git status`.
-12. Update the package row in the root `README.md`.
+10. Confirm that every CV project has a recorded `FULL MATCH` or `NOT FULL MATCH` decision and that all `FULL MATCH` Intro and Legend sections use the complete relevant factual project record without borrowing from unrelated projects.
+11. Verify UTF-8 without BOM, CRLF line endings, no trailing spaces and no forbidden Markdown markers.
+12. Run `git diff --check` and inspect `git status`.
+13. Update the package row in the root `README.md`.
 
 Do not commit or push unless explicitly requested. Finish by summarizing the changed files and providing the candidate with the appropriate `git add` and `git commit` commands.
