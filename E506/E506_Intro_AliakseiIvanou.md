@@ -8,37 +8,58 @@ Target role: Senior C++ Engineer / Hands-on Technical Lead
 CV source: E506 Aliaksei Ivanou (13, C++).pdf
 Source request: E506_Request_AliakseiIvanou.md
 Preparation language: English
-Delivery format: Intermediary screening version followed by a domain-based full version with a detailed latest-project section
-Estimated duration: 4–5 minutes for the screening version; 10–12 minutes for the full version
+Delivery format: Three spoken intro variants followed by a domain-based reference version with a detailed latest-project section
+Estimated duration: 45–60 seconds after a team-lead introduction; 75–90 seconds as a standalone intermediary intro; 2–3 minutes for the client technical discussion; 10–12 minutes for the detailed reference version
+Screening calibration: Actual intermediary group screening held on 2026-10-23
 Document status: Interview-ready
 
 PURPOSE
 
-This is a domain-based opening self-introduction for a Senior C++ Engineer interview. It presents the candidate’s experience through aerospace and embedded systems, telecommunications, industrial sensor processing, library platforms, and oil-and-gas software, then explains the latest satellite project in detail.
+This is a calibrated self-introduction package for a Senior C++ Engineer interview. The short variants match the intermediary’s observed preference for concise answers about C++ versus embedded C, testing levels and direct GoogleTest experience. The detailed reference version presents the candidate’s experience through aerospace and embedded systems, telecommunications, industrial sensor processing, library platforms, and oil-and-gas software, then explains the latest satellite project in detail.
 
 TARGET POSITIONING
 
 Aliaksei is a C/C++ software engineer with more than thirteen years of commercial experience and a strong focus on embedded systems, real-time behavior, hardware-software integration, and maintenance of established production codebases. C++ is his core engineering expertise. His product background includes onboard satellite communication software, UAV sensor-processing and 3D-reconstruction systems, embedded SIP desk phones and conferencing devices, long-lived library transaction platforms, and industrial telemetry systems. His most relevant strengths for this role are recent modern C++ work, requirements-based verification, GoogleTest and GoogleMock, GCOV and LCOV coverage analysis, Linux and RTOS development, cross-layer debugging, and disciplined work with code review and target hardware.
 
-INTERMEDIARY SCREENING SCRIPT
+OBSERVED INTERMEDIARY SCREENING PRIORITIES
 
-Hello, my name is Aliaksei Ivanou. I am a software engineer with more than thirteen years of commercial experience, and C++ is my core engineering expertise. I specialize in embedded, real-time, and hardware-integrated systems. Across my career I have worked on satellite and UAV software, embedded SIP and conferencing devices, a long-lived library transaction platform, and industrial telemetry products.
+- The team lead may introduce the candidate first. In that case, the candidate should add evidence rather than repeat the full career summary.
+- The intermediary wants a pragmatic first answer, not a long technical presentation.
+- The three highest-priority topics are whether the candidate leans toward C++ or embedded C, which testing levels and frameworks the candidate has used, and whether the GoogleTest experience is direct and hands-on.
+- The C++ versus embedded C question is also likely to appear in the final client interview.
+- A strong first response takes 45–90 seconds, names one relevant project and one testing example, and then stops for follow-up questions.
 
-The project that is most relevant to this opportunity is my current assignment, where I work as an Embedded Software Engineer on onboard communication software for an Earth-observation satellite. The software runs under VxWorks on a fault-tolerant LEON3FT SPARC V8 target. It processes mission-defined telecommands and telemetry and exchanges data with payload controllers over an internal CAN network.
+INTRO OPTION 1 — 45–60 SECONDS AFTER A TEAM-LEAD INTRODUCTION
 
-My personal scope includes C and C++ telecommand and telemetry components, CAN communication components, VxWorks tasks, and message-queue-based inter-task communication. I test timing behavior under simulated bus traffic because correctness depends not only on packet logic but also on task scheduling, queue behavior, and message arrival patterns.
+Thank you for the introduction. I am Aliaksei Ivanou, a software engineer with more than thirteen years of commercial experience. My experience leans clearly toward C++, although I also use C where the platform, ABI or low-level constraints make it the right tool.
 
-Verification is a major part of my work. For bounded behavior I use an SDD → TDD loop: requirement, technical specification and acceptance criteria, executable GoogleTest or GoogleMock contracts, implementation, and then coverage, review, traceability, and target evidence. I analyze line and branch coverage with GCOV and LCOV and trace cases to functional requirements in IBM DOORS and Jira.
+My most relevant current project is onboard communication software for an Earth-observation satellite. I develop C and C++ components under VxWorks for telecommand and telemetry processing, CAN communication, RTOS tasks and message queues.
 
-I keep test boundaries explicit. Unit tests cover parsing, state, validation, errors, and boundaries with external dependencies mocked. Component and integration tests cover queues, serialization, retries, timeouts, and real software interfaces. The hardware bench covers scheduler timing, bus load, and target integration. Electrical CAN behavior, payload firmware, VxWorks internals, and final system-safety acceptance require evidence outside the component’s unit-test boundary.
+Testing is a substantial part of my hands-on work. I use GoogleTest and GoogleMock for requirements-based unit and component tests, GCOV and LCOV for line and branch coverage, and integration and target-bench tests for task timing, bus traffic and hardware-dependent behavior. For this position, my strongest overlap is recent C++, practical GoogleTest, existing-code maintenance and disciplined verification of distributed real-time software.
 
-For compliance, the project uses ECSS practices, MISRA C++ rules, Coverity in GitLab CI, traceability, and target validation. Its requirements-to-design and matching unit-to-system verification flow follows V-model reasoning, although I do not claim direct ISO 26262, ISO 13849, IEC 61508, or ASPICE delivery. Under ISO 26262, ASIL must come from the item definition and HARA: a diagnostic-only function may be QM, while an erroneous steering or braking command in an S3, E4, C3 scenario can lead to an ASIL D safety goal.
+INTRO OPTION 2 — 75–90 SECOND STANDALONE INTERMEDIARY INTRO
 
-I also have strong experience maintaining large existing codebases rather than working only on greenfield development. On an embedded SIP desk-phone platform, I worked across C++17, Qt, Linphone SDK, Yocto Linux, and physical ARM64 devices, including asynchronous state, failover, provisioning, and difficult integration defects. On a long-lived library platform, I shared responsibility for a mature C backend and diagnosed issues across C, Java, Scala, databases, and Linux services.
+Hello, my name is Aliaksei Ivanou. I am a software engineer with more than thirteen years of commercial experience, focused on C and C++ for embedded, real-time and hardware-integrated systems. C++ is my primary language and the stronger side of my recent experience. I also work with C when required by the target platform or an established low-level codebase.
 
-My strongest positioning is as a hands-on senior engineer. I agree requirements and ownership boundaries early, split work into code, test, and evidence tasks, and surface assumptions, blockers, and interface risks in daily coordination. I reduce high-impact risks through a focused prototype or fault-injection test, a second reviewer, staged bench validation, and an explicit rollback or containment path. I can guide this work while remaining directly involved in C++ development and verification. The strongest overlap with this opportunity is modern C++, GoogleTest, requirements-based testing, coverage analysis, distributed real-time behavior, established-code maintenance, and disciplined verification.
+My most relevant project is my current assignment on onboard communication software for an Earth-observation satellite. The software runs under VxWorks on a fault-tolerant LEON3FT target. I implement C and C++ telecommand and telemetry processing, CAN communication with payload controllers, RTOS tasks and message-queue-based interaction.
 
-INTERVIEW SCRIPT
+I have direct hands-on GoogleTest and GoogleMock experience. I derive test cases from requirements and component contracts, cover normal, negative, boundary and error behavior, and use GCOV and LCOV to investigate line and branch coverage. Unit tests isolate time, RTOS, CAN and payload dependencies; component and integration tests exercise real interfaces; target-bench testing covers scheduler timing, bus load and hardware integration.
+
+My earlier work adds modern C++17 on an embedded Linux SIP platform and deep maintenance of a mature C backend. This makes me a strong fit for a role centered on C++, GoogleTest, existing-code correction, coverage and real-time-system verification.
+
+INTRO OPTION 3 — 2–3 MINUTE CLIENT TECHNICAL INTRO
+
+Hello, my name is Aliaksei Ivanou. I am a C and C++ software engineer with more than thirteen years of commercial experience. My core expertise is hands-on C++ development for embedded, real-time and hardware-integrated systems. I use C where a platform, ABI or mature low-level codebase requires it, but my recent experience and my preference for new application-level logic lean toward C++ because it gives stronger type safety, resource ownership, encapsulation and testability.
+
+The most relevant example is my current work on onboard communication software for an Earth-observation satellite. The system runs under VxWorks on a fault-tolerant LEON3FT SPARC V8 target. I implement C and C++ components for mission-defined telecommand and telemetry processing, CAN communication with payload controllers, RTOS tasks and bounded message queues. The difficult part is that correctness depends on packet logic, message ownership, queue capacity, task scheduling, timeouts and actual bus traffic together.
+
+Verification is part of my implementation work rather than a separate final phase. For bounded behavior, I refine the requirement into inputs, outputs, state transitions, timing assumptions, error behavior and acceptance criteria, and then express those contracts with GoogleTest and GoogleMock. Unit tests cover parsing, validation, state, boundary values and failure paths with RTOS, time, CAN and payload dependencies mocked. Component and integration tests cover real interfaces, serialization, queue behavior, retries, timeouts and response correlation. GCOV and LCOV provide line and branch coverage, while IBM DOORS and Jira maintain the link from requirements to implementation and evidence. Hardware-bench tests then cover scheduler timing, bus load and target-specific behavior that unit tests cannot prove.
+
+I also have experience with established codebases. On an embedded SIP desk-phone platform, I worked with C++17, Qt, Linphone SDK, Yocto Linux and physical ARM64 devices, including asynchronous state, failover and difficult cross-layer defects. Earlier, I shared responsibility for a mature C transaction engine and investigated problems across C, Java, Scala, databases and Linux services.
+
+My positioning for this role is a hands-on senior engineer who can understand an existing C++ system, connect requirements to tests, improve coverage, review changes and coordinate technical risks while continuing to write and verify code. The strongest overlap is modern C++, direct GoogleTest experience, distributed real-time behavior, formal verification discipline and maintenance of production code.
+
+DETAILED DOMAIN-BASED REFERENCE INTRO
 
 Hello, my name is Aliaksei Ivanou.
 
@@ -78,14 +99,29 @@ Across these domains, the common theme is hands-on C and C++ engineering in syst
 
 INTERMEDIARY SCREENING ANSWER STYLE
 
-- Start with the one project that has the strongest overlap instead of retelling the entire CV chronologically.
-- Give the product context in one or two sentences, then state personal ownership, tools, and verification evidence.
-- When asked about a project, include team structure and the exact boundary between personal work and adjacent work.
-- Use one concrete example for maintenance, testing, or debugging, then stop and let the interviewer choose the next level of detail.
-- Keep the first answer accessible to a delivery or recruitment manager; introduce low-level C++, RTOS, and testing detail only when it supports a specific point.
+- Give the conclusion first and keep the initial answer to approximately 20–45 seconds.
+- If the team lead has already introduced the project and domain, do not repeat them; add personal ownership, one tool and one piece of verification evidence.
+- For C++ versus embedded C, state the direction immediately: the profile leans toward C++; then explain where C remains the appropriate tool and give one recent example.
+- For testing, separate unit, component or integration, and target or system levels instead of saying only that the project had automated tests.
+- For GoogleTest, name the direct use: executable requirement contracts, mocks for external dependencies, negative and boundary cases, and coverage analysis.
+- Use one concrete example and stop. Add RTOS, CAN, coverage or safety-process detail only when the interviewer asks for it.
 - Distinguish direct experience from adjacent experience, especially for automotive standards and formal Technical Lead ownership.
 
-LIKELY INTERMEDIARY SCREENING QUESTIONS AND SHORT ANSWERS
+OBSERVED HIGH-PROBABILITY INTERMEDIARY QUESTIONS AND SHORT ANSWERS
+
+1. Would you position yourself more toward C++ or toward embedded C?
+
+My experience leans clearly toward C++. My current satellite work uses C and C++ under VxWorks, and my previous embedded SIP project used C++17, Qt and embedded Linux. I also have substantial C experience from low-level components and a mature C89 backend, so I am comfortable reading, debugging and changing both languages. For new user-space or application-level logic, I normally prefer C++ because its type system, RAII and abstractions make ownership and testing clearer; I choose C when the platform, ABI or existing low-level codebase requires it. For this role, C++ is my core expertise.
+
+2. What unit and integration testing have you done, and which frameworks did you use?
+
+On my current satellite project, I use GoogleTest and GoogleMock for requirements-based unit and component tests. Unit tests cover parsing, validation, state transitions, boundaries and error paths with time, RTOS, CAN and payload dependencies mocked. Component and integration tests cover real interfaces, queues, serialization, retries, timeouts and response correlation. GCOV and LCOV support line and branch coverage analysis, while target-bench tests cover scheduler timing, bus traffic and hardware integration that cannot be proven by host-side tests.
+
+3. Do you have direct hands-on experience with GoogleTest?
+
+Yes. I use GoogleTest directly to turn requirements and component contracts into executable cases before or alongside implementation. I use GoogleMock to isolate RTOS services, time, CAN access and payload dependencies, and I cover positive, negative, boundary and failure behavior. I then review GCOV and LCOV results, investigate uncovered branches and keep the test evidence linked to the originating requirement. GoogleTest is therefore part of my normal implementation and verification loop, not only a framework used by a separate QA team.
+
+LIKELY CLIENT TECHNICAL FOLLOW-UP QUESTIONS AND SHORT ANSWERS
 
 1. Which project is the most relevant to this opportunity?
 
