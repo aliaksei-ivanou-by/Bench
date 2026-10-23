@@ -151,63 +151,207 @@ Developed AI skills for the team, integrated mcp-on-demand, graphify and rag-cod
 
 Representative delivery story 1 — JSON-RPC to gRPC and Protobuf
 
-Situation: The distributed encoding platform used JSON-RPC for control-plane communication between C++, Java and Kotlin services. That approach had been practical while the system was smaller, but the contract surface expanded as we added job orchestration, encoder configuration, status reporting and output management. Similar payloads evolved differently in different services, repeated JSON field names increased message size, and type or compatibility mistakes were usually discovered only when two deployed versions communicated. String conversion and dynamic parsing also consumed CPU in the same path that had to start, reconfigure and recover live encoding jobs quickly. Because services were deployed independently across three availability zones, the migration also had to tolerate old and new versions running at the same time.
+Situation:
 
-Problem: I had to replace the most frequently used JSON-RPC calls with a smaller, typed and versionable contract while preserving their existing semantics, error behavior and operational visibility. A big-bang cutover was not acceptable: one incompatible method could prevent a job from starting or leave its state inconsistent, and coordinating a simultaneous release of every dependent service would have created an unnecessary operational risk.
+- The platform used JSON-RPC for control-plane communication between C++, Java and Kotlin services.
+- As the platform grew, we added job orchestration, encoder configuration, status reporting and output management. The number and complexity of contracts grew with it.
+- Similar messages evolved differently in different services. Type and compatibility errors were usually found only when two deployed versions communicated.
+- Repeated JSON field names, string conversion and dynamic parsing increased message size and CPU use in the path that starts and recovers live encoding jobs.
+- Services were deployed independently across three availability zones, so old and new versions had to work together during migration.
 
-Why it mattered: A control request passed through several services before the media pipeline could start or change state. Extra serialization cost was paid at every hop, but correctness was even more important than speed: a field interpreted differently by two versions could turn a valid encoder configuration into a runtime failure far from its source. Typed contracts would give each language the same model, make incompatible changes visible during build and review, and let teams evolve services without relying on tribal knowledge about JSON shapes.
+Problem:
 
-Alternatives: I compared three approaches. We could optimize the existing JSON-RPC implementation by reducing allocations and payload duplication; this had the lowest migration cost but retained runtime-only validation and informal versioning. We could build a custom binary protocol; it offered maximum control over the wire format but would make us responsible for schema evolution, code generation, tooling and cross-language interoperability. The third option was Protobuf schemas with gRPC-generated interfaces, accepting the work of introducing a second transport during migration in exchange for an established compatibility model and mature tooling.
+- Replace the most frequently used JSON-RPC calls with a smaller, typed and versionable contract.
+- Preserve the existing behavior, error semantics and monitoring signals while changing the transport.
+- Avoid a big-bang release. One incompatible method could stop a job from starting or leave its state inconsistent.
+- Support gradual rollout because releasing every dependent service at the same time would create unnecessary risk.
 
-Why gRPC and Protobuf were selected: Protobuf provided a compact representation, explicit optionality and a documented rule set for compatible schema evolution. gRPC generated matching client and server interfaces for C++, Java and Kotlin and provided one place to standardize status codes, deadlines, cancellation and metadata such as correlation identifiers. This moved many contract errors from production to compilation or automated tests. It also avoided creating and maintaining an internal protocol stack whose long-term cost would have outweighed the small potential gain in wire efficiency.
+Why it mattered:
 
-Actions: I first inventoried the real call graph and captured message variants from tests and representative workloads rather than designing schemas from documentation alone. I classified methods as read-only, idempotent commands or state-changing operations because that determined safe retry and rollback behavior. I then defined shared Protobuf types for job identifiers, encoder state, configuration and structured errors; established package and field-naming conventions; documented the meaning of absent and default values; and reserved removed field numbers so that they could never be reused accidentally. At the gRPC boundary I mapped domain failures to stable status codes, propagated deadlines and correlation identifiers, and kept transport types out of the core domain model through explicit conversion functions.
+- A control request passed through several services before the media pipeline could start or change state. Serialization overhead was repeated at every hop.
+- Correctness was more important than speed. If two versions interpreted one field differently, a valid encoder configuration could fail far from the service that created it.
+- Typed contracts would give C++, Java and Kotlin the same model and expose incompatible changes during build or review.
+- Teams could then change services independently instead of relying on informal knowledge about JSON message shapes.
 
-Actions continued: I implemented a dual-stack adapter so that JSON-RPC and gRPC could run side by side. Migration was controlled per method and per caller, beginning with read-only traffic, then idempotent commands, and only then state-changing operations. Daniel reviewed schema-evolution and cross-service decisions, Alex and the backend engineers migrated callers in their C++, Java and Kotlin services, Anna and Tomasz automated the mixed-version matrix, and Michael watched canary telemetry during each rollout step. For every method I sent the same golden requests through both paths, compared normalized responses and monitored latency, error rate and payload size before increasing traffic. Feature flags provided a quick rollback path, and the old endpoint was removed only after all known callers had moved and production telemetry showed no fallback traffic. Finally, I documented schema-review rules so that future changes preserved the compatibility guarantees introduced by the migration.
+Alternatives:
 
-Validation: The automated suite covered round trips, missing optional fields, default values, unknown fields, malformed messages, stable error mapping, cancellation and expired deadlines. Golden request sets were executed through both transports and their domain-level results were compared rather than comparing raw wire representations. A compatibility matrix exercised new clients against old servers and old clients against new servers, including rolling-restart scenarios. Load tests measured serialization CPU time, payload size and p50/p95/p99 request latency separately from network latency. During rollout, canary traffic and dashboards verified that error rates and state transitions matched the JSON-RPC baseline before each method was switched permanently.
+- Optimize JSON-RPC by reducing allocations and duplicated data. This was the cheapest change, but contracts would still be checked only at runtime and versioning would remain informal.
+- Build a custom binary protocol. It would give us full control over the wire format, but we would have to maintain schema evolution, code generation, tools and support for three languages ourselves.
+- Use Protobuf schemas with gRPC-generated interfaces. This required two transports during migration, but provided a standard compatibility model and mature tooling.
 
-Result: Serialization overhead fell by approximately forty percent and request size by approximately sixty percent. Just as importantly, the migration was completed incrementally without a coordinated platform shutdown: service contracts became typed and version-controlled, mixed deployments were an explicitly tested case, and later contract defects were easier to locate because transport errors, domain errors and deadline failures had distinct representations. The technical result came from combining a more efficient protocol with a rollout design that treated compatibility and reversibility as first-class requirements.
+Why gRPC and Protobuf were selected:
+
+- Protobuf gave us compact messages, explicit optional fields and documented rules for compatible schema changes.
+- gRPC generated matching client and server interfaces for C++, Java and Kotlin.
+- It also standardized status codes, deadlines, cancellation and metadata such as correlation IDs.
+- Many contract errors moved from production to compilation or automated tests.
+- The standard stack was easier to maintain than an internal binary protocol whose small efficiency gain would not justify its long-term cost.
+
+Actions:
+
+- Collected the real JSON-RPC methods and message variants from code, tests and representative traffic. I did not rely only on documentation because it did not describe every payload used in production.
+- Split the methods into three groups: read-only calls, idempotent commands and state-changing operations. This gave us a safe migration order and clear retry rules.
+- Designed shared Protobuf types for job IDs, encoder state, configuration and structured errors. I also defined naming rules, the meaning of missing and default values, and reserved removed field numbers so they could not be reused.
+- Mapped domain errors to stable gRPC status codes and propagated deadlines and correlation IDs. Explicit converters kept Protobuf transport objects out of the core business model.
+- Added a dual-stack adapter so JSON-RPC and gRPC could work in parallel. For every migrated method, the same request was sent through both paths and the normalized results were compared.
+- Migrated read-only methods first, idempotent commands second and state-changing operations last. Before increasing gRPC traffic, I checked latency, error rate, payload size and state transitions against the JSON-RPC baseline.
+- Coordinated the rollout across the team: Daniel reviewed schema compatibility, Alex and the backend engineers migrated C++, Java and Kotlin callers, Anna and Tomasz automated mixed-version tests, and Michael monitored canary telemetry.
+- Kept a feature-flag rollback for every migration step. The old endpoint was removed only after all callers had moved and telemetry showed no fallback traffic; I then documented the schema-review rules for future changes.
+
+Validation:
+
+- Covered round trips, missing optional fields, default values, unknown fields, malformed messages, error mapping, cancellation and expired deadlines.
+- Ran the same golden requests through JSON-RPC and gRPC and compared the resulting domain objects, not the raw bytes.
+- Tested new clients with old servers and old clients with new servers, including rolling restarts.
+- Measured serialization CPU time, payload size and p50/p95/p99 request latency separately from network latency.
+- Used canary traffic and dashboards to compare errors and state transitions with the JSON-RPC baseline before each permanent switch.
+
+Result:
+
+- Serialization overhead fell by approximately forty percent.
+- Request size fell by approximately sixty percent.
+- The migration was completed gradually without stopping the whole platform or coordinating one large release.
+- Contracts became typed and version-controlled, and mixed-version deployments became a normal tested scenario.
+- Later defects were easier to diagnose because transport errors, domain errors and deadline failures had separate representations.
+- The result came from both parts of the solution: a more efficient protocol and a rollout process designed for compatibility and rollback.
 
 Representative delivery story 2 — Cloud upload reliability
 
-Situation: The live encoding platform produced media segments continuously and delivered them to S3, Google Cloud Storage, Azure Blob Storage and Akamai. Although every destination exposed an object-upload operation, the providers differed in concurrency limits, connection reuse, write-confirmation semantics, throttling signals, request pricing and recovery after a broken transfer. Upload demand also came in short bursts because several representations completed the same segment interval at nearly the same time, so a configuration that looked stable at average load could build a queue during a brief network slowdown. A single aggressive worker setting accelerated one connector but raised throttling, retry volume and cost on another.
+Situation:
 
-Problem: I had to make the output layer deliver each segment before its publication deadline, with bounded memory and predictable recovery, while preserving one common platform interface. The design had to distinguish retryable failures from permanent configuration or authentication errors, survive process and network interruptions without losing ordering, and prevent a manifest from advertising an object that was not yet confirmed by its destination.
+- The live encoding platform continuously produced media segments and uploaded them to S3, Google Cloud Storage, Azure Blob Storage and Akamai.
+- The providers looked similar at the API level but behaved differently in concurrency, connection reuse, write confirmation, throttling, pricing and recovery after a broken transfer.
+- Upload demand arrived in short bursts because several representations completed the same segment interval at nearly the same time.
+- A configuration that worked at average load could build a queue during a short network slowdown.
+- One aggressive worker setting could speed up one provider while increasing throttling, retries and cost on another.
 
-Why it mattered: In a live stream the upload deadline was part of the playback contract. A player could request a segment as soon as its URI appeared in the manifest, so publishing too early created a visible gap even if the object arrived seconds later. Publishing too late increased end-to-end latency. An unbounded queue would hide the problem temporarily and then exhaust memory or make recovery impossible because stale segments competed with current ones. Therefore average upload time was not a useful success criterion; the design had to control tail latency, ordering and backpressure under failure.
+Problem:
 
-Alternatives: We compared a single global concurrency profile, fixed provider-specific profiles and a feedback-based controller. The global profile was simple to operate but could only be tuned for the least capable destination. Fixed profiles captured known provider differences but did not react to changing bandwidth, regional throttling or transient degradation. A fully unconstrained dynamic controller reacted quickly but could oscillate, amplify throttling and make request cost difficult to predict. The selected design therefore combined bounded adaptation with explicit provider policies and safety limits.
+- Deliver every segment before its publication deadline through one common platform interface.
+- Keep memory bounded when a provider or network became slow.
+- Recover predictably after a process restart or network interruption without losing segment order.
+- Retry temporary failures but stop immediately on permanent configuration or authentication errors.
+- Never publish a manifest entry before the destination confirmed the corresponding object.
 
-Why an adaptive design was selected: A common connector interface kept scheduling and manifest logic independent of a particular cloud, while provider adapters remained responsible for authentication, confirmation semantics, timeout policy and error classification. Within configured minimum and maximum limits, concurrency could respond to successful latency and throttling instead of assuming that yesterday's setting was still safe. Bounded queues made overload visible and forced backpressure rather than converting a temporary slowdown into memory growth. Exponential backoff with jitter spread retries over time, and a retry budget stopped a permanently failing destination from consuming all workers.
+Why it mattered:
 
-Actions: I first defined the SLA precisely as confirmed object availability before the corresponding manifest publication deadline, then split it into queue wait, connection/setup, transfer and provider-confirmation time. I modelled an upload as an explicit state machine: queued, in progress, awaiting confirmation, confirmed, retryable failure, deferred and terminal failure. Adapter errors were normalized into timeout, throttling, transport, authentication, quota and invalid-request classes so that only genuinely transient failures entered the retry path. Object keys and completion handling were made idempotent to make a repeated attempt safe.
+- In live streaming, the upload deadline was part of the playback contract.
+- If the manifest was published too early, the player could request an object that did not yet exist and show a playback gap.
+- If publication waited too long, end-to-end latency increased.
+- An unbounded queue only hid a slowdown until memory grew and old segments started competing with current work.
+- Average upload time was misleading; we had to control tail latency, ordering and backpressure during failures.
 
-Actions continued: I introduced bounded per-destination queues, provider-specific timeout and concurrency limits, adaptive increases after sustained success and conservative decreases after throttling or rising tail latency. Retries used exponential backoff, jitter and a deadline-aware budget: an attempt was not started when it could no longer complete usefully. During a short outage, segments were retained locally with their ordering metadata; after recovery, the scheduler restored the dependency order without allowing old work to starve current segments. Manifest generation waited on a confirmation barrier for all referenced media objects. Maya supplied the live and VOD priorities used to define acceptable deadlines and cost tradeoffs; Alex's group aligned the provider adapters and manifest code; Anna and Tomasz turned the fault matrix into repeatable regression scenarios; and Michael and I defined the operational dashboards and recovery alerts. I exposed queue age, retry reason, active concurrency, confirmation latency and deadline outcome so that operators could see whether a problem came from local scheduling, the network or the provider.
+Alternatives:
 
-Validation: I built the same fault matrix for every provider adapter: increased latency, restricted bandwidth, connection reset during transfer, timeout after upload, throttling responses, provider 5xx errors, invalid credentials, quota exhaustion, process restart and eventual recovery. Long-running and burst tests verified bounded memory, queue drainage and stable adaptation rather than only a short happy path. Dashboards tracked p50/p95/p99 confirmation latency, queue age, retries by class and the percentage of segments meeting the deadline. An invariant check rejected any manifest containing an unconfirmed object, while restart tests verified that retained segments resumed without duplicate publication, reordering or silent loss.
+- Use one global concurrency setting. It was simple, but it had to be safe for the weakest destination and wasted capacity elsewhere.
+- Use fixed settings for each provider. This captured known differences but could not react to changing bandwidth, regional throttling or temporary degradation.
+- Use a fully dynamic controller. It reacted quickly but could oscillate, increase throttling and make request cost unpredictable.
+- Combine limited adaptation with provider-specific rules and hard safety limits.
 
-Result: The proportion of segment uploads meeting the defined SLA improved from ninety percent to 99.9 percent. The platform recovered automatically from transient failures across every supported destination, kept memory bounded during degradation and preserved the object-before-manifest ordering required for uninterrupted playback. The improvement came not from one larger worker pool, but from making the deadline measurable, classifying failures correctly and coupling adaptive throughput with explicit backpressure and publication invariants.
+Why an adaptive design was selected:
+
+- One connector interface kept scheduling and manifest logic independent of a particular cloud.
+- Provider adapters still handled authentication, confirmation behavior, timeouts and error classification.
+- Concurrency could change within safe minimum and maximum limits based on recent latency and throttling.
+- Bounded queues turned overload into visible backpressure instead of silent memory growth.
+- Exponential backoff and jitter spread retries over time, while a retry budget prevented one failing destination from occupying all workers.
+
+Actions:
+
+- Defined the SLA in concrete terms: the object had to be confirmed by storage before the manifest publication deadline. I split total upload time into queue wait, connection setup, transfer and provider confirmation so we could see where a delay came from.
+- Represented each upload as a small state machine: queued, uploading, waiting for confirmation, confirmed, waiting for retry or permanently failed. This made recovery behavior explicit instead of spreading it across callbacks.
+- Put provider errors into clear groups: timeout, throttling, network failure, authentication, quota and invalid request. Only temporary errors were retried; configuration and authentication errors failed immediately with a clear reason.
+- Made object keys and completion handling idempotent. If a response was lost after the provider had stored the object, repeating the operation did not create a duplicate or corrupt the state.
+- Added bounded queues and separate timeout and concurrency limits for each destination. Concurrency increased slowly after stable success and decreased quickly when tail latency or throttling rose.
+- Added exponential backoff, jitter and a retry budget tied to the segment deadline. The scheduler did not start another attempt when there was no longer enough time for it to help playback.
+- Stored segments locally during short outages together with their ordering information. After recovery, the scheduler resumed them in dependency order without allowing old segments to block current work.
+- Added a publication barrier: the manifest could reference a segment only after every required object was confirmed. This protected the player from receiving a URI for an object that was not yet available.
+- Coordinated product, development, QA and operations work: Maya defined live and VOD priorities, Alex's group aligned adapters and manifest logic, Anna and Tomasz automated the failure matrix, and Michael and I created dashboards and recovery alerts.
+- Exposed queue age, retry reason, active concurrency, confirmation latency and deadline result. These signals showed whether a problem was in local scheduling, the network or the cloud provider.
+
+Validation:
+
+- Ran the same failure matrix for every provider: high latency, limited bandwidth, connection reset, timeout after upload, throttling, 5xx errors, invalid credentials, exhausted quota, process restart and recovery.
+- Used long-running and burst tests to verify bounded memory, stable adaptation and complete queue drainage.
+- Monitored p50/p95/p99 confirmation latency, queue age, retries by error class and the percentage of segments meeting the deadline.
+- Added an invariant check that rejected any manifest containing an unconfirmed object.
+- Verified after restart that retained segments resumed without duplicate publication, reordering or silent loss.
+
+Result:
+
+- The share of segment uploads meeting the SLA increased from ninety percent to 99.9 percent.
+- The platform recovered automatically from temporary failures for every supported destination.
+- Memory stayed bounded during degradation, and segment order was preserved after recovery.
+- The system maintained the object-before-manifest rule required for uninterrupted playback.
+- The improvement came from measurable deadlines, correct failure classification, adaptive throughput, backpressure and publication invariants—not from simply adding more workers.
 
 Representative delivery story 3 — FFmpeg latency and observability
 
-Situation: The encoder exposed one end-to-end latency value for a pipeline that included ingest, timestamp normalization, decoding, libavfilter graphs, frame queues, encoding, packaging and output. That aggregate number showed that the user-visible delay was too high, but it did not show whether time was spent executing a filter, waiting for a neighbouring frame, accumulating in an asynchronous queue or crossing a timestamp/synchronization boundary. CPU profiling highlighted expensive functions but treated waiting time as absence of work, while log timestamps from different components did not share consistent correlation or measurement points.
+Situation:
 
-Problem: I had to account for the accumulated four seconds stage by stage and remove avoidable delay without changing output correctness, audio/video synchronization or the minimum frame history required by temporal filters. The measurement itself also had to be cheap enough to remain enabled in production; otherwise we would diagnose a laboratory build rather than the system that actually exhibited the problem.
+- The encoder reported one end-to-end latency value for ingest, timestamp normalization, decoding, libavfilter, frame queues, encoding, packaging and output.
+- The number showed that latency was too high but did not show where the time was spent.
+- Possible causes included filter execution, waiting for neighbouring frames, queue growth and timestamp synchronization.
+- CPU profiling showed expensive functions but could not see time spent waiting in asynchronous queues.
+- Logs from different components did not use the same measurement points or correlation identifiers.
 
-Why it mattered: Additional buffering directly increased live-stream latency, slowed channel switching and extended recovery after a disruption. Simply shrinking every queue was unsafe: temporal filters, frame reordering and encoder look-ahead all required deliberate buffering, and removing it could produce frame loss, unstable throughput or synchronization defects. We needed to separate required algorithmic latency from accidental residence time so that the optimization improved the product rather than merely moving failures elsewhere.
+Problem:
 
-Alternatives: We considered relying on sampling profilers, adding coarse timers around the complete filter graph, increasing diagnostic logging, or introducing frame- and segment-level instrumentation at every significant boundary. Profilers were valuable for CPU hotspots but could not measure time spent waiting in queues. Coarse timers preserved low overhead but could not identify which internal stage accumulated frames. Verbose per-frame logs provided detail but generated too much I/O and were difficult to aggregate safely in production. Structured stage metrics with sampled traces required more design work but could represent both execution and waiting time.
+- Explain the accumulated four seconds of latency stage by stage.
+- Remove only avoidable delay while preserving output correctness and audio/video synchronization.
+- Keep the minimum frame history required by temporal filters and encoder look-ahead.
+- Make the instrumentation cheap enough to stay enabled in production, where the real problem occurred.
 
-Why stage-level instrumentation was selected: Stage instrumentation gave us a latency budget that could be reconciled: time observed at the pipeline boundary had to equal useful processing plus residence and hand-off time within a known tolerance. I used monotonic clocks for durations so that wall-clock adjustments could not corrupt measurements, while normalized PTS preserved the media timeline. Job, stream, segment and sampled frame identities connected measurements without turning every frame identifier into a high-cardinality metric label. Prometheus and Google Cloud Monitoring held bounded aggregate distributions, while OpenTelemetry traces supplied detailed causality for selected segments.
+Why it mattered:
 
-Actions: I defined entry and exit points for ingest, filter stages, queue boundaries, encode, package and output, and documented what each duration included. I then implemented a common C++ telemetry interface with scoped timers and asynchronous export so that the processing threads did not block on monitoring. Histograms were labelled only by stable dimensions such as stage and pipeline type; detailed identifiers stayed in sampled traces. Michael reviewed metric cardinality and exporter behavior, while Victor checked that the measurement boundaries matched the actual FFmpeg lifecycle rather than an assumed call sequence. Dashboards showed stage distributions beside queue depth and throughput, allowing us to distinguish slow computation from fast computation preceded by a long wait.
+- Extra buffering directly increased live-stream latency, channel-switch time and recovery time after a disruption.
+- Reducing every queue blindly was unsafe because temporal filters, frame reordering and encoder look-ahead needed some buffering.
+- Removing required buffers could cause frame loss, unstable throughput or synchronization defects.
+- We had to separate required algorithmic latency from accidental waiting time before changing the pipeline.
 
-Actions continued: The measurements showed that frames were accumulating before one graph boundary and then passing through an avoidable copy and synchronization step. I traced the accumulation to a queue policy that retained more frames than the downstream filter required, not to the filter's CPU cost. Victor and I identified the minimum working window for temporal filters, after which I reduced the queue to that safe limit and changed the graph configuration to remove the redundant copy/synchronization boundary. Anna and Tomasz added the affected live fixtures to regression, and the explicit queue limit ensured that a future slowdown produced backpressure instead of silent latency growth. Each change was introduced separately and measured before combining them, which preserved causal evidence for the final result.
+Alternatives:
 
-Validation: Baseline and modified builds processed the same recorded streams on the same hardware with identical encoder settings, measurement boundaries and warm-up periods. I compared p50/p95/p99 stage residence, total end-to-end timestamps, queue depth, throughput, CPU and memory rather than relying on a single average. Output checks covered frame count, timestamps, audio/video synchronization and visual/bitstream correctness so that lower latency could not be achieved by dropping work. Load and soak tests compared telemetry enabled and disabled, exercised exporter slowdown and confirmed that bounded asynchronous reporting did not create a new queue in the media path. Regression thresholds were then attached to the stage metrics so that a later build could be rejected before the full four-second accumulation returned.
+- Use sampling profilers. They found CPU hotspots but could not measure queue waiting time.
+- Add one timer around the whole filter graph. This had low overhead but still did not identify the internal stage causing the delay.
+- Enable detailed per-frame logging. It provided detail but generated too much I/O for continuous production use.
+- Add structured metrics at stage boundaries with sampled traces for selected frames and segments. This required more design work but measured both processing and waiting.
 
-Result: End-to-end latency fell by four seconds while preserving output correctness and synchronization. The reusable instrumentation remained in the platform, so later regressions could be localized to a stage or queue from production-safe metrics and sampled traces instead of reproducing the whole incident under a heavyweight debugger. The result was caused by measuring residence time as well as CPU time, identifying unnecessary buffering and removing one redundant data movement rather than indiscriminately shrinking every buffer.
+Why stage-level instrumentation was selected:
+
+- It produced a complete latency budget: total time had to equal processing, queue residence and hand-off time within a known tolerance.
+- Monotonic clocks measured elapsed time without being affected by wall-clock corrections.
+- Normalized PTS preserved the media timeline across components.
+- Stable aggregate labels kept Prometheus and Google Cloud Monitoring cardinality under control.
+- Sampled OpenTelemetry traces linked detailed events for one segment without storing every frame as a metric label.
+
+Actions:
+
+- Marked the entry and exit of ingest, filtering, queues, encoding, packaging and output. For every measurement, I documented exactly what started and stopped the timer.
+- Used a monotonic clock for elapsed time and normalized PTS for the media timeline. This prevented wall-clock corrections and input timestamp differences from corrupting latency measurements.
+- Implemented one C++ telemetry interface with lightweight scoped timers and asynchronous export. Media-processing threads therefore did not wait for the monitoring backend.
+- Kept metric labels low-cardinality: histograms used stable fields such as stage and pipeline type, while job, segment and frame details stayed in sampled traces. Michael reviewed the label set and exporter behavior.
+- Built dashboards that showed stage latency next to queue depth and throughput. Victor checked that the measurement points followed the real FFmpeg lifecycle rather than an assumed call sequence.
+- The data showed that frames waited before one graph boundary and then went through an unnecessary copy and synchronization step. The main delay was queue residence, not filter CPU time.
+- Victor and I established the minimum safe frame window for temporal filters. I reduced the queue to that limit and removed the redundant copy/synchronization boundary from the graph.
+- Introduced the changes one at a time and measured after each one, so we could show which change produced which part of the improvement. Anna and Tomasz added the affected live fixtures and queue limits to regression tests.
+- Left an explicit queue limit in the production configuration. A future slowdown would therefore create visible backpressure and alerts instead of silently adding seconds of latency.
+
+Validation:
+
+- Ran the baseline and modified builds on the same hardware, recorded streams, encoder settings, measurement points and warm-up period.
+- Compared p50/p95/p99 stage residence, end-to-end latency, queue depth, throughput, CPU and memory instead of one average value.
+- Checked frame count, timestamps, audio/video synchronization and visual and bitstream correctness so latency could not be reduced by dropping work.
+- Compared telemetry enabled and disabled under load and during long runs.
+- Slowed the exporter deliberately to verify that bounded asynchronous reporting did not create a new media-path queue.
+- Added regression thresholds so a later build would fail before the full four-second delay returned.
+
+Result:
+
+- End-to-end latency fell by four seconds without breaking output correctness or synchronization.
+- The instrumentation remained in the platform and could be used for future regressions.
+- Production-safe metrics and sampled traces showed which stage or queue introduced a delay without enabling a heavyweight debugger.
+- The improvement came from measuring queue residence as well as CPU time, removing unnecessary buffering and eliminating one redundant data movement.
+- Required buffering was preserved; the solution did not simply shrink every queue.
 
 Testing, validation, diagnostics, deployment and support
 
