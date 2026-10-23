@@ -187,6 +187,10 @@ Why gRPC and Protobuf were selected:
 - Many contract errors moved from production to compilation or automated tests.
 - The standard stack was easier to maintain than an internal binary protocol whose small efficiency gain would not justify its long-term cost.
 
+Graphical before-and-after diagram
+
+![JSON-RPC to gRPC migration: before and after](./Diagrams/01-json-rpc-to-grpc-en.svg)
+
 Actions:
 
 - Collected the real JSON-RPC methods and message variants from code, tests and representative traffic. I did not rely only on documentation because it did not describe every payload used in production.
@@ -256,6 +260,10 @@ Why an adaptive design was selected:
 - Bounded queues turned overload into visible backpressure instead of silent memory growth.
 - Exponential backoff and jitter spread retries over time, while a retry budget prevented one failing destination from occupying all workers.
 
+Graphical before-and-after diagram
+
+![Cloud upload reliability: before and after](./Diagrams/02-cloud-upload-reliability-en.svg)
+
 Actions:
 
 - Defined the SLA in concrete terms: the object had to be confirmed by storage before the manifest publication deadline. I split total upload time into queue wait, connection setup, transfer and provider confirmation so we could see where a delay came from.
@@ -324,6 +332,10 @@ Why stage-level instrumentation was selected:
 - Stable aggregate labels kept Prometheus and Google Cloud Monitoring cardinality under control.
 - Sampled OpenTelemetry traces linked detailed events for one segment without storing every frame as a metric label.
 
+Graphical before-and-after diagram
+
+![FFmpeg latency diagnosis: before and after](./Diagrams/03-ffmpeg-latency-en.svg)
+
 Actions:
 
 - Marked the entry and exit of ingest, filtering, queues, encoding, packaging and output. For every measurement, I documented exactly what started and stopped the timer.
@@ -353,9 +365,91 @@ Result:
 - The improvement came from measuring queue residence as well as CPU time, removing unnecessary buffering and eliminating one redundant data movement.
 - Required buffering was preserved; the solution did not simply shrink every queue.
 
+Representative delivery story 4 — Synchronizing encoder workers
+
+Situation:
+
+- Encoder workers ran as replaceable Kubernetes pods across three availability zones.
+- A live job could be reassigned after a pod restart, lost heartbeat or network interruption.
+- RabbitMQ used at-least-once delivery, so a command could be delivered again when an acknowledgement was lost.
+- gRPC calls could also be retried, delayed or arrive after the job had already moved to another worker.
+- Different workers could produce bitrate representations belonging to the same HLS or DASH presentation.
+- The workers therefore needed coordinated job ownership and media alignment without depending on direct worker-to-worker communication.
+
+Problem:
+
+- Guarantee one current owner for each encoding job while still allowing automatic failover.
+- Prevent an old worker from publishing state or media after another worker had taken over the job.
+- Make repeated start, stop and reconfigure commands safe.
+- Keep job-state transitions ordered even when messages were duplicated or delayed.
+- Align segment boundaries across representations before publishing a shared manifest.
+
+Why it mattered:
+
+- Two workers processing the same job could duplicate compute cost and write conflicting objects or state.
+- A recovered but stale worker could overwrite newer progress and create a split-brain condition.
+- A manifest containing segments from different job generations could produce gaps, discontinuities or incorrect playback.
+- RabbitMQ acknowledgement alone did not prove ownership because a message could be redelivered after a failure.
+- Media synchronization could not depend on wall-clock time; workers had to agree through segment index and normalized PTS.
+
+Alternatives:
+
+- Rely only on RabbitMQ competing consumers. This distributed work, but redelivery could still let two workers process the same logical job at different times.
+- Use a long-lived distributed lock. It was simple in the normal case but harder to recover safely after network partitions or stalled processes.
+- Let workers elect and coordinate with one another. This added membership, leader-election and recovery complexity to components that should remain replaceable.
+- Keep coordination in the orchestrator and combine a durable lease, generation-based fencing, idempotent commands and a separate manifest barrier.
+
+Why the orchestrated lease design was selected:
+
+- The orchestrator already owned the desired job state, so it was the natural coordination point.
+- Workers remained replaceable and did not need to discover or communicate directly with one another.
+- An atomic MySQL lease gave one worker temporary ownership and allowed recovery after expiry.
+- A monotonically increasing generation acted as a fencing token: state or output from an older generation was rejected.
+- RabbitMQ provided asynchronous delivery and redelivery, while idempotency handled its at-least-once semantics.
+- gRPC carried typed commands, deadlines and status updates between the orchestrator and the active worker.
+- A separate segment barrier aligned media outputs without mixing job ownership with manifest publication.
+
+Graphical before-and-after diagram
+
+![Encoder worker synchronization: before and after](./Diagrams/04-worker-synchronization-en.svg)
+
+Actions:
+
+- Added durable job-coordination fields in MySQL: desired state, current owner, lease expiry, state version and generation.
+- Used RabbitMQ competing consumers for work distribution, but treated delivery as at least once rather than assuming that every message appeared exactly once.
+- Required a worker to claim the job with one atomic conditional update. A successful claim assigned the owner and incremented the generation.
+- Made the worker renew its lease through heartbeats. If it could not renew the lease, it stopped producing publishable output instead of continuing with uncertain ownership.
+- Included job ID, command ID, expected state version, generation and deadline in gRPC control commands.
+- Stored processed command IDs and made state transitions idempotent, so repeated start, stop or reconfigure messages did not create a second pipeline or apply the same transition twice.
+- Attached the generation to state updates, temporary object keys and completion events. The control plane rejected old state, the manifest barrier ignored objects from older generations, and cleanup later removed those objects.
+- Emitted SegmentReady events with job ID, representation, segment index, normalized PTS range, discontinuity sequence, generation and storage-confirmation state.
+- Added a manifest barrier that waited for all required representations for one segment index. On deadline expiry, it followed the configured policy: wait, temporarily remove the late representation or move the job to degraded state.
+- Implemented Kubernetes draining: a terminating worker stopped accepting jobs, completed or checkpointed its current segment, reported final state and released the lease.
+- Coordinated the design across the team: Daniel reviewed ownership and fencing, Alex's group implemented queue, database and gRPC paths, Victor reviewed PTS and segment alignment, Michael handled Kubernetes and heartbeat behavior, and Anna and Tomasz automated failure scenarios.
+- Exposed owner, generation, lease age, heartbeat status, redelivery count, rejected stale updates and barrier wait time in metrics and traces.
+
+Validation:
+
+- Killed a worker in the middle of a segment and verified that another worker took over only after receiving a new generation.
+- Duplicated, delayed and reordered RabbitMQ and gRPC commands to verify idempotency and monotonic state transitions.
+- Delayed heartbeats and simulated a network partition, then reconnected the old worker to verify that its updates were rejected.
+- Restarted the orchestrator and scaled workers up and down to verify that durable ownership survived control-plane changes.
+- Delayed one representation and introduced PTS discontinuities to test barrier deadlines and manifest policies.
+- Lost an upload response after object creation to verify that retrying did not create duplicate publication.
+- Checked the invariants: one valid owner per generation, no second active pipeline, no accepted stale output, no manifest reference before storage confirmation, and aligned segment index and PTS across required representations.
+
+Result:
+
+- Each encoding job had one valid owner without permanent distributed locks or direct communication between workers.
+- Worker failure and Kubernetes rescheduling triggered automatic takeover through lease expiry and a new generation.
+- Late output from an old worker was excluded from the current manifest and cleaned up instead of corrupting current state or playback.
+- Repeated delivery was safe because commands and state transitions were idempotent.
+- HLS and DASH manifests used segments from the current generation with aligned segment indexes and PTS boundaries.
+- The design allowed the worker pool to scale independently while keeping ownership, recovery and media publication deterministic.
+
 Testing, validation, diagnostics, deployment and support
 
-Unit and component checks used GTest, code quality was controlled with SonarQube, and builds ran in GitHub Actions and CircleCI. Diagnosis used OpenTelemetry metrics and traces together with Grafana, Prometheus and Google Cloud Monitoring dashboards. Performance experiments used identical inputs and configurations, while cloud-output failures were reproduced with controlled network outages and bandwidth limits.
+Unit and component checks used GTest, code quality was controlled with SonarQube, and builds ran in GitHub Actions and CircleCI. Diagnosis used OpenTelemetry metrics and traces together with Grafana, Prometheus and Google Cloud Monitoring dashboards. Performance experiments used identical inputs and configurations, while cloud-output failures were reproduced with controlled network outages and bandwidth limits. Worker coordination was validated with duplicate delivery, heartbeat loss, pod termination, network partition, stale-generation recovery and delayed-representation scenarios.
 
 Outcome and main lesson
 
@@ -367,6 +461,7 @@ Operational characteristics
 - Performance was measured on reproducible media datasets with fixed measurement boundaries.
 - Observability combined metrics, traces and structured events across the encoder, filters and output connectors.
 - The architecture supported AWS, Azure, GCP, Akamai and on-premise infrastructure through shared service and output abstractions.
+- Job coordination used the orchestrator, RabbitMQ, MySQL leases and generations, and gRPC control messages; workers did not need to communicate directly.
 
 Likely follow-up questions
 
@@ -377,6 +472,9 @@ Likely follow-up questions
 - Where were latency measurement points placed in the FFmpeg pipeline?
 - How were HLS and DASH manifests becoming misaligned?
 - How did input removal create orphan segments?
+- Why was RabbitMQ acknowledgement insufficient to guarantee job ownership?
+- How did leases and generation-based fencing prevent split-brain between workers?
+- How were segment index and PTS aligned across representations before manifest publication?
 - What was added to the Go fork to support four languages?
 - Which architecture decisions were personally owned?
 
