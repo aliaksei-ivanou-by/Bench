@@ -3,7 +3,7 @@
 ИНФОРМАЦИЯ О ДОКУМЕНТЕ
 
 Идентификатор запроса: E506
-Кандидат: Aliaksei Ivanou
+Кандидат: Alex I.
 Целевая роль: Senior C++ Engineer / Hands-on Technical Lead
 Источник CV: E506 Aliaksei Ivanou (13, C++).pdf
 Источник реального опыта: записи проектов, Career Overview и Recruiter Brief в Summary

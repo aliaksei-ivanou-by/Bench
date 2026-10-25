@@ -3,7 +3,7 @@ RESPONSIBILITIES
 DOCUMENT INFORMATION
 
 Request ID: E506
-Candidate: Aliaksei Ivanou
+Candidate: Alex I.
 Target role: Senior C++ Engineer / Hands-on Technical Lead
 CV source: E506 Aliaksei Ivanou (13, C++).pdf
 Reality source: Summary/Interview project records, Career Overview and Recruiter Brief

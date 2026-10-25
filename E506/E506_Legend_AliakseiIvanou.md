@@ -3,7 +3,7 @@ PROJECT LEGEND
 DOCUMENT INFORMATION
 
 Request ID: E506
-Candidate: Aliaksei Ivanou
+Candidate: Alex I.
 Target role: Senior C++ Engineer / Hands-on Technical Lead
 CV source: E506 Aliaksei Ivanou (13, C++).pdf
 Source request: E506_Request_AliakseiIvanou.md
@@ -56,7 +56,7 @@ TEAM COMPOSITION AND COLLABORATION
 
 Approximate core team size: nine engineers, with additional payload and qualification specialists joining bench sessions.
 
-- Aliaksei, Software Engineer, distributed Central European team - C and C++ flight-software components; stack: VxWorks, PUS, CAN, GoogleTest, GoogleMock, GCOV, LCOV, Coverity, CMake; ownership: command and telemetry logic, communication components, automated tests, coverage analysis, and bench investigation.
+- Alex, Software Engineer, distributed Central European team - C and C++ flight-software components; stack: VxWorks, PUS, CAN, GoogleTest, GoogleMock, GCOV, LCOV, Coverity, CMake; ownership: command and telemetry logic, communication components, automated tests, coverage analysis, and bench investigation.
 - Viktor, Senior Embedded C++ Engineer and Technical Lead, Warsaw, Poland - architecture and review; stack: C++, VxWorks, SPARC toolchain, CMake, GitLab CI; ownership: task model, coding rules, review decisions, and integration planning.
 - Elena, Senior Systems and Requirements Engineer, Prague, Czech Republic - system behavior and traceability; stack: IBM DOORS, ECSS-E-ST-40C, ECSS-E-ST-70-41C PUS, Jira; ownership: requirement decomposition, interface definitions, and verification acceptance criteria.
 - Dmitry, Senior Board-Support and Driver Engineer, Bratislava, Slovakia - target platform; stack: C, VxWorks BSP, LEON3FT, JTAG, CAN driver; ownership: board bring-up, low-level timing, and driver-level diagnostics.
@@ -262,7 +262,7 @@ TEAM COMPOSITION AND COLLABORATION
 
 Delivery team size: three C++ engineers initially, later four. Customer team: a project manager, approximately two to four C++ developers, one web developer, and usually two to four QA engineers.
 
-- Aliaksei, Software Engineer, Warsaw, Poland - hands-on C++ and Qt engineer; stack: C++17, Qt 5.15, Linphone, SIP, RTP, Yocto, CMake, qmake, GDB, Qt Test, C# and WinForms; ownership: call and account integration, failover behavior, call architecture, provisioning tooling, firmware integration, and device debugging.
+- Alex, Software Engineer, Warsaw, Poland - hands-on C++ and Qt engineer; stack: C++17, Qt 5.15, Linphone, SIP, RTP, Yocto, CMake, qmake, GDB, Qt Test, C# and WinForms; ownership: call and account integration, failover behavior, call architecture, provisioning tooling, firmware integration, and device debugging.
 - Anton, Senior C++ Engineer and delivery technical coordinator, Warsaw, Poland - stack: C++17, Qt, SIP, GitLab; ownership: task decomposition, review, integration planning, and difficult telephony defects.
 - Denis, Middle C++ and Embedded Linux Engineer, Krakow, Poland - stack: C++, Yocto, BitBake, systemd, Wayland, i.MX; ownership: image recipes, services, hardware integration, and build troubleshooting.
 - Pavel, Senior C++ and Media Engineer, Gdansk, Poland - stack: Linphone, RTP, WebRTC, GStreamer, V4L2; ownership: media scenarios, codec and video integration, and compatibility investigation.
@@ -467,7 +467,7 @@ TEAM COMPOSITION AND COLLABORATION
 
 Approximate team size: eight people, with field operators joining individual campaigns.
 
-- Aliaksei, Software Engineer, Minsk, Belarus - C++ data-ingestion, conversion, simulation, and point-cloud processing; stack: C++, Linux, CMake, PCL, Open3D, RTK GNSS, IMU, EKF outputs, PPS, Git and Bitbucket.
+- Alex, Software Engineer, Minsk, Belarus - C++ data-ingestion, conversion, simulation, and point-cloud processing; stack: C++, Linux, CMake, PCL, Open3D, RTK GNSS, IMU, EKF outputs, PPS, Git and Bitbucket.
 - Sergey, Senior C++ Engineer and Technical Lead, Minsk, Belarus - architecture and integration; stack: C++, Linux, CMake, sensor interfaces; ownership: processing boundaries, reviews, delivery planning, and performance decisions.
 - Anna, Computer-Vision Engineer, Warsaw, Poland - optical processing and geometric quality; stack: C++, camera models, PCL and Open3D; ownership: image and cloud inspection, filtering, and reconstruction evaluation.
 - Tomasz, Senior Navigation Engineer, Gdansk, Poland - trajectory and timing; stack: RTK GNSS, IMU, EKF, PPS synchronization; ownership: navigation solution, timestamp semantics, and uncertainty analysis.
@@ -672,7 +672,7 @@ TEAM COMPOSITION AND COLLABORATION
 
 Delivery team: three C developers, three Java developers, four QA engineers, one Business Analyst, and one combined Project Manager and Scrum Master. Customer side: three developers initially, later four, a development manager, and a Product Owner.
 
-- Aliaksei, Software Engineer, Poland - C backend and cross-component tasks; stack: C89, Linux, GDB, Java, Scala, PostgreSQL, MySQL, Jenkins and Bitbucket; ownership: native features, defects, refactoring, review, and selected API and desktop changes.
+- Alex, Software Engineer, Poland - C backend and cross-component tasks; stack: C89, Linux, GDB, Java, Scala, PostgreSQL, MySQL, Jenkins and Bitbucket; ownership: native features, defects, refactoring, review, and selected API and desktop changes.
 - Andrei, Senior C Engineer, Georgia - stack: C89, Linux, custom protocols, GDB; ownership: core transaction modules, complex review, and native incident support.
 - Oleksandr, Middle C Engineer, Ukraine - stack: C89, generated output, multilingual text; ownership: backend features, document paths, and regression fixes.
 - Natalia, Senior Java Engineer, Poland - stack: Java 8 and 11, data services, PostgreSQL; ownership: service contracts and database access.
@@ -872,7 +872,7 @@ TEAM COMPOSITION AND COLLABORATION
 
 Development team: five C++ engineers. Additional participants: an external QA team in India and customer representatives in the United States.
 
-- Aliaksei, Software Engineer, Minsk, Belarus - C++ application development and cross-layer fixes; stack: C++17, JavaScript, HTML, jQuery, MySQL, Microsoft SQL Server, Nginx, Azure-hosted runtime; ownership: features, defects, refactoring, cleanup, and application-side data correctness.
+- Alex, Software Engineer, Minsk, Belarus - C++ application development and cross-layer fixes; stack: C++17, JavaScript, HTML, jQuery, MySQL, Microsoft SQL Server, Nginx, Azure-hosted runtime; ownership: features, defects, refactoring, cleanup, and application-side data correctness.
 - Sergey, Lead C++ Engineer, Minsk, Belarus - stack: C++17, architecture, Linux and database integration; ownership: technical direction, review, task decomposition, and customer-facing technical decisions.
 - Pavel, Senior C++ Engineer, Minsk, Belarus - stack: C++, parsers, data-processing algorithms, MySQL; ownership: ingestion and calculation areas.
 - Anton, C++ Engineer, Minsk, Belarus - stack: C++, JavaScript, jQuery, Nginx; ownership: cross-layer features and web integration.

@@ -3,7 +3,7 @@
 ИНФОРМАЦИЯ О ДОКУМЕНТЕ
 
 Идентификатор запроса: E506
-Кандидат: Aliaksei Ivanou
+Кандидат: Alex I.
 Целевая роль: Senior C++ Engineer / Hands-on Technical Lead
 Источник CV: E506 Aliaksei Ivanou (13, C++).pdf
 Источник запроса: E506_Request_AliakseiIvanou_RU.md
@@ -56,7 +56,7 @@ Definition of done включает не только корректный parse
 
 Основная команда — около девяти инженеров; на стендовые сессии подключались специалисты payload и qualification.
 
-- Aliaksei, Software Engineer, распределённая команда Центральной Европы — C/C++, VxWorks, PUS, CAN, GoogleTest, GoogleMock, GCOV, LCOV, Coverity, CMake; зона: command/telemetry logic, communication components, tests, coverage и bench investigation.
+- Alex, Software Engineer, распределённая команда Центральной Европы — C/C++, VxWorks, PUS, CAN, GoogleTest, GoogleMock, GCOV, LCOV, Coverity, CMake; зона: command/telemetry logic, communication components, tests, coverage и bench investigation.
 - Viktor, Senior Embedded C++ Engineer и Technical Lead, Варшава — архитектура, review, task model, coding rules, GitLab CI и integration planning.
 - Elena, Senior Systems and Requirements Engineer, Прага — IBM DOORS, ECSS-E-ST-40C, ECSS-E-ST-70-41C PUS, Jira; декомпозиция требований, interfaces и acceptance criteria.
 - Dmitry, Senior BSP and Driver Engineer, Братислава — C, VxWorks BSP, LEON3FT, JTAG, CAN driver; board bring-up и low-level diagnostics.
@@ -262,7 +262,7 @@ Pure parsing покрыт unit tests; компоненты тестируютс�
 
 Delivery team выросла с трёх до четырёх C++ инженеров; со стороны заказчика работали PM, два-четыре C++ инженера, один web engineer и два-четыре QA.
 
-- Aliaksei, Software Engineer, Польша — C++17, Qt 5.15, liblinphone, SIP/RTP, Yocto, CMake, C#/.NET 8, WinForms; call architecture, failover, provisioning и device integration.
+- Alex, Software Engineer, Польша — C++17, Qt 5.15, liblinphone, SIP/RTP, Yocto, CMake, C#/.NET 8, WinForms; call architecture, failover, provisioning и device integration.
 - Anton, Senior C++ Engineer, Польша — core call features, Qt и review.
 - Denis, C++ Engineer, Польша — device features, configuration и fixes.
 - Pavel, Embedded Linux Engineer, Польша — Yocto, BitBake, i.MX image и services.
@@ -461,7 +461,7 @@ Call behavior стал объяснимым через domain state, новые 
 
 СОСТАВ КОМАНДЫ И ВЗАИМОДЕЙСТВИЕ
 
-- Aliaksei, Software Engineer, Беларусь/Польша — C++, image acquisition, timestamps, PCL, Open3D, converters, SIL и diagnostics.
+- Alex, Software Engineer, Беларусь/Польша — C++, image acquisition, timestamps, PCL, Open3D, converters, SIL и diagnostics.
 - Sergey, Senior Computer Vision Engineer, Беларусь — reconstruction algorithms, camera models и calibration.
 - Anna, Navigation Engineer, Польша — RTK GNSS, IMU, EKF output и coordinate frames.
 - Tomasz, UAV Flight-Control Engineer, Польша — autopilot integration, flight envelopes и trajectory execution.
@@ -662,7 +662,7 @@ Algorithm tuning не создаёт отсутствующую информац
 
 Delivery team: три C, три Java, четыре QA, BA и PM/Scrum. Customer team: сначала три, затем четыре developers, development manager и Product Owner.
 
-- Aliaksei, C Software Engineer, Польша — C89, GDB, core dumps, Valgrind, domain workflows и integration.
+- Alex, C Software Engineer, Польша — C89, GDB, core dumps, Valgrind, domain workflows и integration.
 - Andrei и Oleksandr, Senior C Engineers, Польша/Украина — core architecture, review и legacy knowledge.
 - Natalia, Giorgi и Tomas, Java Engineers, Украина/Грузия/Литва — data services, PostgreSQL и integration.
 - Iryna, Maria, Emre и QA colleagues, Украина/Польша/Турция — functional и regression verification.
@@ -852,7 +852,7 @@ API переиспользовал established behavior. Вывод: legacy plat
 
 СОСТАВ КОМАНДЫ И ВЗАИМОДЕЙСТВИЕ
 
-- Aliaksei, Software Engineer, Минск — C++17, MySQL, MS SQL, JavaScript, HTML, jQuery, Nginx; features, defects, refactoring и diagnostics.
+- Alex, Software Engineer, Минск — C++17, MySQL, MS SQL, JavaScript, HTML, jQuery, Nginx; features, defects, refactoring и diagnostics.
 - Sergey, Senior C++ Engineer, Минск — backend architecture и review.
 - Pavel, C++ Engineer, Минск — processing и persistence integration.
 - Anton, Web Engineer, Минск — web workflows и frontend support.

@@ -5,7 +5,7 @@ DOCUMENT INFORMATION
 Request ID: E506
 Internal request reference: R-23859
 Internal project name: CV - InterVenture - ICher - RS - Embedded & C++ - 033623
-Candidate: Aliaksei Ivanou
+Candidate: Alex I.
 Target role: Senior C++ Engineer / Hands-on Technical Lead
 Request source: Internal bench request supplied for InterVenture
 Named customer: InterVenture
