@@ -39,13 +39,13 @@ Testing is a substantial part of my hands-on work. First, I use specification-dr
 
 INTRO OPTION 2 — 90–105 SECOND STANDALONE INTERMEDIARY INTRO
 
-Hello, my name is Alex. I am a software engineer with more than thirteen years of commercial experience, focused on C and C++ for embedded, real-time and hardware-integrated systems. C++ is my primary language and the stronger side of my recent experience. I also work with C when required by the target platform or an established low-level codebase.
+Hello, my name is Alex. I am a software engineer with more than thirteen years of commercial experience. My focus is C and C++ for embedded, real-time and hardware-integrated systems. C++ is my primary language and the main focus of my recent work. I also use the C language when the target platform, ABI or an established low-level codebase calls for it.
 
-My most relevant project is my current assignment on onboard communication software for an Earth-observation satellite. The software runs under VxWorks on a fault-tolerant LEON3FT target. I implement C and C++ telecommand and telemetry processing, CAN communication with payload controllers, RTOS tasks and message-queue-based interaction.
+My most relevant project is my current one. I work on onboard communication software for a satellite. It runs on VxWorks. In practical terms, I implement telecommand and telemetry processing in C and C++. My work also includes CAN communication with payload controllers, RTOS tasks and message-queue interaction. As for our development process, we follow European standards for space software and a project-approved MISRA C++ ruleset. We also use a V-model with requirements traceability.
 
-I have direct hands-on GoogleTest and GoogleMock experience. First, I use specification-driven development to refine a requirement into observable behavior, interfaces, state transitions, error handling and acceptance criteria. Then I use test-driven development: I write a test that initially fails because the behavior is not implemented, implement the minimum correct behavior, and refactor while keeping the test suite passing. GCOV and LCOV expose line and branch gaps; component, integration and target-bench tests cover real interfaces, scheduler timing, bus load and hardware integration.
+Testing is always an important part of my work. On the current project, I use GoogleTest and GoogleMock as part of our SDD and TDD workflow. GCOV and LCOV help us identify gaps in line and branch coverage.
 
-My earlier work adds C++17 on embedded Linux and maintenance of a mature C backend. The current project also uses European space-software standards, a project-approved MISRA C++ ruleset and V-model traceability from requirements to unit, integration and target-bench evidence.
+Before this project, I also worked with C++17 on embedded Linux. On another project, I shared ownership of a large, mature C backend for a long-running library management platform. My work there included feature development, native debugging with GDB and core dumps, and legacy-code refactoring.
 
 INTRO OPTION 3 — 3–4 MINUTE CLIENT TECHNICAL INTRO
 
