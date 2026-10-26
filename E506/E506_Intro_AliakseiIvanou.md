@@ -43,7 +43,7 @@ Hello, my name is Alex. I am a software engineer with more than thirteen years o
 
 My most relevant project is my current one. I work on onboard communication software for a satellite. It runs on VxWorks. In practical terms, I implement telecommand and telemetry processing in C and C++. My work also includes CAN communication with payload controllers, RTOS tasks and message-queue interaction. As for our development process, we follow European standards for space software and a project-approved MISRA C++ ruleset. We also use a V-model with requirements traceability.
 
-Testing is always an important part of my work. On the current project, I use GoogleTest and GoogleMock as part of our SDD and TDD workflow. GCOV and LCOV help us identify gaps in line and branch coverage.
+Testing is always an important part of my work. On the current project, I use GoogleTest and GoogleMock as part of our SDD and TDD workflow. On earlier projects, I used Qt Test and JUnit. GCOV and LCOV help us identify gaps in line and branch coverage.
 
 Before this project, I also worked with C++17 on embedded Linux. On another project, I shared ownership of a large, mature C backend for a long-running library management platform. My work there included feature development, native debugging with GDB and core dumps, and legacy-code refactoring.
 
