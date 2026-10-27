@@ -447,6 +447,86 @@ Result:
 - HLS and DASH manifests used segments from the current generation with aligned segment indexes and PTS boundaries.
 - The design allowed the worker pool to scale independently while keeping ownership, recovery and media publication deterministic.
 
+Cloud project interview questions and answers
+
+1. What did the platform do, and why was it built as a set of microservices?
+
+Answer:
+
+The platform encoded and delivered live and video-on-demand content. It separated the control plane from the media data plane: control services managed job state and orchestration, while replaceable C++ workers ran the encoding pipelines. This allowed the worker pool, APIs and cloud-output components to scale and deploy independently and limited the impact of a failure. The cost was distributed state, versioned contracts and more complex recovery, so ownership, idempotency and observability had to be designed explicitly.
+
+2. How were responsibilities divided among C++, Java and Kotlin services?
+
+Answer:
+
+C++20 handled the performance-critical data plane: encoder workers, FFmpeg pipelines, packaging, output adapters, recovery and low-overhead telemetry. Java was used mainly in mature control-plane services for job lifecycle, scheduling, persistence, RabbitMQ integration and REST-facing workflows. Kotlin was used for newer JVM services, configuration validation and asynchronous orchestration where concise domain models, null-safety and coroutines improved delivery speed. The separation followed workload requirements rather than a rule that each business capability belonged to one language, and all three stacks shared the same Protobuf contracts.
+
+3. What was your personal responsibility, and what belonged to other specialists?
+
+Answer:
+
+I personally owned major parts of the JSON-RPC-to-gRPC migration, cloud-output reliability, C++ encoder instrumentation, FFmpeg latency investigation, caption conversion, manifest diagnosis and recovery behavior. I implemented C++ paths and worked with the team on generated clients and adapters in Java and Kotlin. Daniel reviewed service topology and cross-service architecture, Victor owned deeper codec and media-format expertise, Michael owned Kubernetes operations and SRE concerns, and QA engineers automated failure and mixed-version scenarios. I coordinated those boundaries, but I would not claim sole ownership of every service or the Kubernetes platform.
+
+4. What happened from an API request to a published media segment?
+
+Answer:
+
+A Java or Kotlin control service validated the request, stored the desired job state in MySQL and published work through RabbitMQ. A worker claimed the job atomically, received a new generation and obtained the typed configuration through gRPC. The C++ worker created the FFmpeg pipeline, encoded and packaged media, and uploaded the segment through the selected provider adapter. Only after storage confirmation did it emit SegmentReady. The manifest barrier then checked generation, segment index and normalized PTS across the required representations before allowing the manifest to reference the segment.
+
+5. Why did you replace JSON-RPC with gRPC and Protobuf, and how did you avoid a risky big-bang migration?
+
+Answer:
+
+JSON-RPC had runtime-only contracts, repeated field parsing and inconsistent evolution across C++, Java and Kotlin services. Protobuf introduced one versioned schema and generated types, while gRPC standardized deadlines, cancellation, status codes and metadata. I kept both transports behind adapters, moved read-only operations first, then idempotent commands and finally state-changing calls. During the overlap, the same representative requests ran through both paths and normalized domain results were compared. Feature flags, mixed-version tests, canary metrics and a per-method rollback path allowed gradual deployment; measured serialization overhead fell by about forty percent and request size by about sixty percent.
+
+6. Why was a RabbitMQ acknowledgement not enough to guarantee one job owner?
+
+Answer:
+
+RabbitMQ provided at-least-once delivery. If an acknowledgement was lost, the same command could be delivered again even though the first worker had already started the job. An acknowledgement therefore proved message consumption, not current ownership. Ownership came from an atomic MySQL lease with a monotonically increasing generation. Commands carried an idempotency key and expected state version, workers renewed the lease through heartbeats, and state or output from an older generation was rejected.
+
+7. How did you prevent split-brain after a worker restart or network partition?
+
+Answer:
+
+The worker first claimed the job with a conditional database update that assigned the owner and incremented the generation. If it could not renew the lease, it stopped producing publishable output. Every state update, temporary object and completion event carried that generation. After failover, the new worker used a newer generation, so the control plane and manifest barrier rejected late updates from the old worker. Recovery tests deliberately reconnected a stale worker after a partition to verify that it could not overwrite current state or publish media.
+
+8. How were multiple bitrate representations synchronized before manifest publication?
+
+Answer:
+
+Workers did not synchronize by wall-clock time or direct communication. Each SegmentReady event contained the job ID, representation, segment index, normalized PTS range, discontinuity sequence, generation and storage-confirmation state. A separate manifest barrier waited for all mandatory representations for the same segment index and compatible PTS boundaries. If one representation missed its deadline, policy decided whether to wait, temporarily exclude it or move the job to degraded state. This kept ownership recovery separate from media alignment and prevented a shared manifest from combining different generations.
+
+9. What did the segment-upload SLA measure, and how did you improve it from ninety percent to 99.9 percent?
+
+Answer:
+
+The useful metric was not average upload time. It was the proportion of segments confirmed by the destination before their publication deadline, together with p95 and p99 latency, queue depth, retry count and throttling. I kept one common connector interface but moved provider-specific authentication, acknowledgement and error classification into adapters. Bounded queues exposed backpressure, retries were limited to transient failures with backoff and jitter, and concurrency adapted only inside safe provider-specific limits. A manifest entry was not published until storage confirmation, making the SLA reflect playable output rather than merely attempted uploads.
+
+10. How did you reduce end-to-end FFmpeg latency by four seconds without damaging output quality?
+
+Answer:
+
+I instrumented entry, exit and queue-residence time around the major libavfilter stages and compared p50, p95 and p99 values using the same hardware, source, encoder configuration and warm-up period. The measurements showed that much of the delay was waiting in queues rather than executing filters. I removed unnecessary buffering and one redundant data movement while preserving buffering required for correct processing. Frame counts, timestamps, audio-video synchronization, visual output and bitstream correctness were checked before accepting the result. I also compared telemetry enabled and disabled so the monitoring itself did not become the new bottleneck.
+
+11. Why did HLS and DASH manifests become misaligned, and how did input removal create orphan segments?
+
+Answer:
+
+Manifest state could diverge when representations restarted with different sequence or timestamp state, or when a stale completion event arrived after recovery. Input removal was asynchronous: an upload or completion callback could survive after the logical input had already been removed, leaving an object that no current manifest owned. I tied manifest updates to the job generation, normalized segment index and PTS, required storage confirmation before publication, and made removal cancel or drain outstanding work. Late events were rejected and unreferenced objects were scheduled for cleanup instead of being silently left behind.
+
+12. How did you observe and test a distributed media pipeline?
+
+Answer:
+
+OpenTelemetry propagated job, command, generation, representation and segment identifiers across service boundaries. Prometheus, Grafana and Google Cloud Monitoring showed latency percentiles, queue depth, retry and throttling rates, lease age, heartbeat state, rejected stale updates and manifest-barrier wait time. Unit and component checks used GTest, while integration tests duplicated, delayed and reordered messages and introduced provider timeouts, bandwidth limits, pod termination, heartbeat loss and network partitions. Builds ran in GitHub Actions and CircleCI, and controlled comparisons used identical inputs and configurations so a performance result remained reproducible.
+
+13. What did the claim of more than one hundred thousand concurrent users mean technically?
+
+Answer:
+
+It did not mean one encoder process per viewer. Viewer delivery was largely handled through storage and CDN paths, while the encoding platform scaled according to active input streams, representations, segment frequency and output destinations. Kubernetes scaled replaceable workers, the orchestrator kept durable desired state, and multi-zone deployment prevented one zone from owning all active work. During deployment or scale-down, draining stopped new assignments and let a worker complete or checkpoint its current segment before releasing the lease. Capacity planning therefore used media workload and event rates, not only the viewer count shown at the product level.
+
 Testing, validation, diagnostics, deployment and support
 
 Unit and component checks used GTest, code quality was controlled with SonarQube, and builds ran in GitHub Actions and CircleCI. Diagnosis used OpenTelemetry metrics and traces together with Grafana, Prometheus and Google Cloud Monitoring dashboards. Performance experiments used identical inputs and configurations, while cloud-output failures were reproduced with controlled network outages and bandwidth limits. Worker coordination was validated with duplicate delivery, heartbeat loss, pod termination, network partition, stale-generation recovery and delayed-representation scenarios.
@@ -462,21 +542,6 @@ Operational characteristics
 - Observability combined metrics, traces and structured events across the encoder, filters and output connectors.
 - The architecture supported AWS, Azure, GCP, Akamai and on-premise infrastructure through shared service and output abstractions.
 - Job coordination used the orchestrator, RabbitMQ, MySQL leases and generations, and gRPC control messages; workers did not need to communicate directly.
-
-Likely follow-up questions
-
-- How were serialization overhead and request size measured?
-- How were gRPC and Protobuf introduced without breaking existing services?
-- What exactly does predictable segment-upload SLA measure?
-- How did recovery differ across S3, GCS, Azure and Akamai?
-- Where were latency measurement points placed in the FFmpeg pipeline?
-- How were HLS and DASH manifests becoming misaligned?
-- How did input removal create orphan segments?
-- Why was RabbitMQ acknowledgement insufficient to guarantee job ownership?
-- How did leases and generation-based fencing prevent split-brain between workers?
-- How were segment index and PTS aligned across representations before manifest publication?
-- What was added to the Go fork to support four languages?
-- Which architecture decisions were personally owned?
 
 PROJECT 2. LIBRARY SYSTEM
 
