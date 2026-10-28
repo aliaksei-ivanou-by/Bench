@@ -248,6 +248,14 @@ The platform served managed enterprise-telephony scenarios such as offices, rece
 
 The system was not one application. A user-visible state could depend on the Qt UI, liblinphone, a SIP or PBX server, persisted settings, generated provisioning archives, Linux services, Yocto image contents, audio and camera hardware, and the device-local web configuration path. The main engineering risk was divergence between these representations.
 
+REQUIREMENTS AND FEATURE DEVELOPMENT
+
+For larger features, understanding what to build was a substantial part of the work. The expected behavior had to be assembled piece by piece: I traced the existing application, SDK interfaces and configuration paths, and discussed the intended behavior and edge cases with the team. This clarification took time because a change visible in one place could depend on state owned elsewhere.
+
+Primary and backup SIP-server support is a useful example. The feature involved server configuration, registration state, failover and failback, authentication context, active-server visibility and persistence. I worked through how those pieces interacted across liblinphone, the Qt application and provisioning before completing the implementation. The first application-level rotation approach duplicated registration state, so the behavior was moved into the customized SDK, closer to the state it controlled. I then integrated that behavior into the application and configuration paths and checked the resulting scenarios on physical devices.
+
+This was a practical specification-driven approach: clarify the expected behavior and boundaries, implement the change, and validate the relevant scenarios. It required gathering the details incrementally rather than starting with a complete, formal specification.
+
 SYSTEM ARCHITECTURE AND DATA FLOW
 
 - The C++17 and Qt application owned the touchscreen experience and mapped user actions and asynchronous SDK callbacks into call, account, contact, settings, and device models.
