@@ -14,6 +14,8 @@
 
 ## Комплект кода
 
+- [Инструкция для онлайн-компилятора](./OnlineCompiler_RU.md) и самостоятельный файл OnlineCompiler.cpp.
+
 - [Подробный ход рассуждений от получения задания до проверки](./Reasoning_RU.md).
 
 - `include/WheelSpeedMonitor.h` задаёт контракт state machine и его порты.

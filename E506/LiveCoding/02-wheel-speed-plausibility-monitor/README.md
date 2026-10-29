@@ -14,6 +14,8 @@ Suggested files:
 
 ## Code package
 
+- [Online compiler instructions](./OnlineCompiler.md) and standalone OnlineCompiler.cpp.
+
 - [Detailed reasoning from task intake to verification](./Reasoning.md).
 
 - `include/WheelSpeedMonitor.h` defines the state-machine contract and ports.
