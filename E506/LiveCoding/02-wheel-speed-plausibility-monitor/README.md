@@ -4,6 +4,18 @@
 
 Implement a cyclic state machine that compares primary and secondary wheel-speed inputs and exposes `Available` or `Degraded` status.
 
+## Business context and purpose
+
+Vehicle functions can use wheel-speed information to make decisions or inform the driver. If a reading is missing, stale or inconsistent with another reading of the same quantity, a consumer needs to know whether it can still rely on that input. Otherwise, it may continue operating with misleading information or stop a function unnecessarily.
+
+This exercise models a small availability monitor for two comparable measurements of the same wheel speed. It checks data quality and agreement, then tells a downstream component whether the input is `Available` or `Degraded`. For example, a missing sample causes an immediate degraded status; a brief disagreement is tolerated, while three consecutive disagreements cause degradation. Five consecutive plausible cycles are required for recovery. These thresholds are agreed exercise values, not universal vehicle requirements.
+
+For a product team, the potential value is a clear contract between sensor data and its consumers: failures become visible, transient discrepancies are less likely to trigger repeated state changes, and diagnostics can help investigation. The component can support decisions about availability and service, but the exercise does not establish actual business savings, fault-detection rates or vehicle-safety outcomes.
+
+The monitor does not identify which sensor is correct, produce a trusted speed estimate, repair a sensor or decide how braking, stability control or a dashboard should react. Its output is useful only if the consuming function has a defined response to both statuses. Agreement alone does not prove accuracy: both sensors can share the same error. In a real product, the sensor architecture, operating conditions, fault response and thresholds must be specified and validated at system level.
+
+For the interview, this is useful because a compact business problem leads to concrete engineering choices: input validation, freshness, consecutive-cycle counters, recovery, diagnostics, output behavior and tests. The exercise does not assign an ASIL to the monitor; that depends on the actual vehicle function, hazard and allocated safety requirements.
+
 Timebox: 60 minutes.
 
 Suggested files:
