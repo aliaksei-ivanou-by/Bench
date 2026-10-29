@@ -109,8 +109,8 @@ TEST_F(BatteryThermalSupervisorTest, TwoStaleSamplesRequestShutdown) {
 }
 
 TEST_F(BatteryThermalSupervisorTest, ExtremeTimestampsAreStaleWithoutOverflow) {
-    const auto oldest = std::numeric_limits<std::int64_t>::min();
-    const auto now = std::numeric_limits<std::int64_t>::max();
+    const std::int64_t oldest = std::numeric_limits<std::int64_t>::min();
+    const std::int64_t now = std::numeric_limits<std::int64_t>::max();
     expectSamples(sample(40.0, oldest), sample(42.0, oldest), now);
     EXPECT_CALL(diagnostics_, report(Diagnostic::SensorFault));
     EXPECT_CALL(shutdown_, setRequested(true));

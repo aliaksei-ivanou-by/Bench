@@ -66,7 +66,7 @@ TEST_F(ParkingAssistCoordinatorTest, FourClearSamplesPublishClearAndFull) {
 }
 
 TEST_F(ParkingAssistCoordinatorTest, NearestSampleWinsRegardlessOfIndex) {
-    auto samples = clearSamples();
+    std::array<DistanceSample, kSensorCount> samples = clearSamples();
     samples[2] = sample(0.25);
     expectCycle(samples);
     EXPECT_CALL(warnings_, publish(Warning::Critical));
@@ -79,7 +79,7 @@ class WarningBoundaryTest
       public ::testing::WithParamInterface<std::tuple<double, Warning>> {};
 
 TEST_P(WarningBoundaryTest, DistanceMapsToExpectedWarning) {
-    auto samples = clearSamples();
+    std::array<DistanceSample, kSensorCount> samples = clearSamples();
     samples[0] = sample(std::get<0>(GetParam()));
     expectCycle(samples);
     EXPECT_CALL(warnings_, publish(std::get<1>(GetParam())));
@@ -98,7 +98,7 @@ INSTANTIATE_TEST_SUITE_P(
                       std::make_tuple(1.5001, Warning::Clear)));
 
 TEST_F(ParkingAssistCoordinatorTest, PhysicalRangeBoundariesAreUsable) {
-    auto samples = clearSamples();
+    std::array<DistanceSample, kSensorCount> samples = clearSamples();
     samples[0] = sample(0.10);
     samples[1] = sample(5.00);
     expectCycle(samples);
@@ -108,7 +108,7 @@ TEST_F(ParkingAssistCoordinatorTest, PhysicalRangeBoundariesAreUsable) {
 }
 
 TEST_F(ParkingAssistCoordinatorTest, SampleAtFreshnessBoundaryIsUsable) {
-    auto samples = clearSamples();
+    std::array<DistanceSample, kSensorCount> samples = clearSamples();
     samples[0] = sample(0.25, 800);
     expectCycle(samples);
     EXPECT_CALL(warnings_, publish(Warning::Critical));
@@ -117,8 +117,8 @@ TEST_F(ParkingAssistCoordinatorTest, SampleAtFreshnessBoundaryIsUsable) {
 }
 
 TEST_F(ParkingAssistCoordinatorTest, ExtremeTimestampsAreStaleWithoutOverflow) {
-    auto samples = clearSamples();
-    for (auto& reading : samples) {
+    std::array<DistanceSample, kSensorCount> samples = clearSamples();
+    for (DistanceSample& reading : samples) {
         reading.timestamp_ms = std::numeric_limits<std::int64_t>::min();
     }
     expectCycle(samples, std::numeric_limits<std::int64_t>::max());
@@ -128,7 +128,7 @@ TEST_F(ParkingAssistCoordinatorTest, ExtremeTimestampsAreStaleWithoutOverflow) {
 }
 
 TEST_F(ParkingAssistCoordinatorTest, OneInvalidSensorKeepsWarningAndDegradesCoverage) {
-    auto samples = clearSamples();
+    std::array<DistanceSample, kSensorCount> samples = clearSamples();
     samples[0] = sample(0.05);
     expectCycle(samples);
     EXPECT_CALL(warnings_, publish(Warning::Clear));
@@ -137,8 +137,8 @@ TEST_F(ParkingAssistCoordinatorTest, OneInvalidSensorKeepsWarningAndDegradesCove
 }
 
 TEST_F(ParkingAssistCoordinatorTest, AllInvalidSensorsPublishUnknownNotClear) {
-    auto samples = clearSamples();
-    for (auto& value : samples) {
+    std::array<DistanceSample, kSensorCount> samples = clearSamples();
+    for (DistanceSample& value : samples) {
         value.acquisition_valid = false;
     }
     expectCycle(samples);
@@ -153,13 +153,13 @@ TEST_F(ParkingAssistCoordinatorTest, OutOfOrderSampleIsRejectedWithoutCorrupting
     EXPECT_CALL(coverage_, publish(Coverage::Full));
     coordinator_.evaluate();
 
-    auto older = clearSamples();
+    std::array<DistanceSample, kSensorCount> older = clearSamples();
     older[0] = sample(0.20, 899);
     expectCycle(older);
     EXPECT_CALL(coverage_, publish(Coverage::Degraded));
     coordinator_.evaluate();
 
-    auto recovered = clearSamples();
+    std::array<DistanceSample, kSensorCount> recovered = clearSamples();
     recovered[0] = sample(2.0, 901);
     expectCycle(recovered);
     EXPECT_CALL(coverage_, publish(Coverage::Full));
@@ -177,7 +177,7 @@ TEST_F(ParkingAssistCoordinatorTest, RepeatedStateProducesNoExtraOutputs) {
 }
 
 TEST_F(ParkingAssistCoordinatorTest, SensorRecoveryRestoresFullCoverage) {
-    auto degraded = clearSamples();
+    std::array<DistanceSample, kSensorCount> degraded = clearSamples();
     degraded[0].acquisition_valid = false;
     expectCycle(degraded);
     EXPECT_CALL(warnings_, publish(Warning::Clear));

@@ -116,15 +116,15 @@ Status WheelSpeedMonitor::status() const noexcept { return status_; }
 
 void WheelSpeedMonitor::tick() {
     // За этот цикл читаем основной сенсор ровно один раз.
-    const auto primary = primary_.read();
+    const std::optional<SpeedSample> primary = primary_.read();
     // Отдельно читаем резервный сенсор; порядок сравнения не делает его истинным.
-    const auto secondary = secondary_.read();
+    const std::optional<SpeedSample> secondary = secondary_.read();
     // Проверяем наличие обоих измерений до обращения к полям optional.
     if (!primary || !secondary) {
         return;
     }
     // Одно значение часов используется для согласованной проверки обоих timestamps.
-    const auto now = clock_.nowMs();
+    const std::int64_t now = clock_.nowMs();
     // В этом промежуточном шаге время читается, но пока не проверяется.
     static_cast<void>(now);
 }

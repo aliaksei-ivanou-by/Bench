@@ -141,9 +141,9 @@ void WheelSpeedMonitor::degradeImmediately(Diagnostic diagnostic) {
 
 void WheelSpeedMonitor::tick() {
     // За этот цикл читаем основной сенсор ровно один раз.
-    const auto primary = primary_.read();
+    const std::optional<SpeedSample> primary = primary_.read();
     // Отдельно читаем резервный сенсор; порядок сравнения не делает его истинным.
-    const auto secondary = secondary_.read();
+    const std::optional<SpeedSample> secondary = secondary_.read();
     // Проверяем наличие обоих измерений до обращения к полям optional.
     if (!primary || !secondary) {
         // Отсутствие хотя бы одного sample немедленно ухудшает статус и создаёт диагностику.
@@ -151,7 +151,7 @@ void WheelSpeedMonitor::tick() {
         return;
     }
     // Одно значение часов используется для согласованной проверки обоих timestamps.
-    const auto now = clock_.nowMs();
+    const std::int64_t now = clock_.nowMs();
     // Оба входа уже проверены; сравниваем абсолютное расхождение с порогом.
     const bool plausible = std::fabs(primary->speed_mps - secondary->speed_mps) <= 1.5;
     // В Available анализируем последовательность плохих, а не цикл восстановления.

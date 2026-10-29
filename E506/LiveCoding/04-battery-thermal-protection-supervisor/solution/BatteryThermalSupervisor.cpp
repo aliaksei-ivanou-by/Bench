@@ -50,7 +50,7 @@ void BatteryThermalSupervisor::evaluate() {
         return;
     }
 
-    const auto observation = observe();
+    const Observation observation = observe();
     if (observation.kind == ObservationKind::Fault) {
         diagnostics_.report(Diagnostic::SensorFault);
         transitionTo(State::ShutdownRequested);
@@ -60,7 +60,7 @@ void BatteryThermalSupervisor::evaluate() {
         diagnostics_.report(Diagnostic::DegradedSensing);
     }
 
-    const auto temperature = observation.temperature_celsius;
+    const double temperature = observation.temperature_celsius;
     if (temperature >= kShutdownC) {
         transitionTo(State::ShutdownRequested);
     } else if (temperature >= kCoolingEnterC) {
@@ -78,7 +78,7 @@ bool BatteryThermalSupervisor::reset() {
         return true;
     }
 
-    const auto observation = observe();
+    const Observation observation = observe();
     if (observation.kind != ObservationKind::PlausiblePair ||
         observation.temperature_celsius > kCoolingExitC) {
         diagnostics_.report(Diagnostic::ResetRejected);
@@ -94,9 +94,9 @@ State BatteryThermalSupervisor::state() const noexcept {
 }
 
 BatteryThermalSupervisor::Observation BatteryThermalSupervisor::observe() {
-    const auto first = first_sensor_.read();
-    const auto second = second_sensor_.read();
-    const auto now_ms = clock_.nowMs();
+    const TemperatureSample first = first_sensor_.read();
+    const TemperatureSample second = second_sensor_.read();
+    const std::int64_t now_ms = clock_.nowMs();
     const bool first_usable = isUsable(first, now_ms);
     const bool second_usable = isUsable(second, now_ms);
 

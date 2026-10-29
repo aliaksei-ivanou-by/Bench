@@ -158,8 +158,8 @@ TEST_F(SteeringCommandLimiterTest, ExtremeTimestampIsStaleWithoutOverflow) {
 }
 
 TEST_F(SteeringCommandLimiterTest, UnrepresentableElapsedTimeIsRejected) {
-    const auto first = std::numeric_limits<std::int64_t>::min();
-    const auto now = std::numeric_limits<std::int64_t>::max();
+    const std::int64_t first = std::numeric_limits<std::int64_t>::min();
+    const std::int64_t now = std::numeric_limits<std::int64_t>::max();
     SteeringCommandLimiter limiter(source_, clock_, actuator_, diagnostics_, first);
     expectCommand({1.0, now, false}, now);
     EXPECT_CALL(diagnostics_, report(Diagnostic::InvalidTime));

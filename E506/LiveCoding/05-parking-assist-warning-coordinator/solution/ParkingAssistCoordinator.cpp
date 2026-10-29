@@ -47,12 +47,12 @@ ParkingAssistCoordinator::ParkingAssistCoordinator(
       coverage_output_(coverage) {}
 
 void ParkingAssistCoordinator::evaluate() {
-    const auto now_ms = clock_.nowMs();
+    const std::int64_t now_ms = clock_.nowMs();
     double nearest_distance_m = std::numeric_limits<double>::infinity();
     std::size_t usable_count = 0U;
 
     for (std::size_t index = 0U; index < kSensorCount; ++index) {
-        const auto sample = sensors_.read(index);
+        const DistanceSample sample = sensors_.read(index);
         const bool timestamp_ordered =
             !last_accepted_timestamps_[index] ||
             sample.timestamp_ms >= *last_accepted_timestamps_[index];
@@ -76,10 +76,10 @@ void ParkingAssistCoordinator::evaluate() {
         }
     }
 
-    const auto next_warning = usable_count == 0U
+    const Warning next_warning = usable_count == 0U
                                   ? Warning::Unknown
                                   : warningFor(nearest_distance_m);
-    const auto next_coverage = usable_count == kSensorCount
+    const Coverage next_coverage = usable_count == kSensorCount
                                    ? Coverage::Full
                                    : Coverage::Degraded;
     publishIfChanged(next_warning, next_coverage);

@@ -39,13 +39,13 @@ SteeringCommandLimiter::SteeringCommandLimiter(
       last_accepted_time_ms_(initial_time_ms) {}
 
 void SteeringCommandLimiter::tick() {
-    const auto command = source_.read();
+    const std::optional<SteeringCommand> command = source_.read();
     if (!command) {
         diagnostics_.report(Diagnostic::MissingCommand);
         return;
     }
 
-    const auto now_ms = clock_.nowMs();
+    const std::int64_t now_ms = clock_.nowMs();
     if ((now_ms <= last_accepted_time_ms_) ||
         !elapsedFits(now_ms, last_accepted_time_ms_)) {
         diagnostics_.report(Diagnostic::InvalidTime);
@@ -66,9 +66,9 @@ void SteeringCommandLimiter::tick() {
 
     double limited_torque_nm = 0.0;
     if (!command->driver_override) {
-        const auto elapsed_seconds =
+        const double elapsed_seconds =
             static_cast<double>(now_ms - last_accepted_time_ms_) / 1000.0;
-        const auto maximum_delta_nm =
+        const double maximum_delta_nm =
             kMaximumTorqueRateNmPerSecond * elapsed_seconds;
         limited_torque_nm = std::clamp(
             command->requested_torque_nm,

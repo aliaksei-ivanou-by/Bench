@@ -42,13 +42,13 @@ AebRequestGate::AebRequestGate(IPerceptionSource& source,
       diagnostics_(diagnostics) {}
 
 void AebRequestGate::tick() {
-    const auto sample = source_.read();
+    const std::optional<PerceptionSample> sample = source_.read();
     if (!sample) {
         diagnostics_.report(Diagnostic::MissingSample);
         return;
     }
 
-    const auto now_ms = clock_.nowMs();
+    const std::int64_t now_ms = clock_.nowMs();
     if (sample->timestamp_ms > now_ms) {
         diagnostics_.report(Diagnostic::InvalidSample);
         return;
@@ -68,7 +68,7 @@ void AebRequestGate::tick() {
         return;
     }
 
-    const auto deceleration = std::clamp(
+    const double deceleration = std::clamp(
         sample->desired_deceleration_mps2, 0.0, kMaximumDecelerationMps2);
     if (!actuator_.requestDeceleration(deceleration)) {
         diagnostics_.report(Diagnostic::ActuatorRejected);

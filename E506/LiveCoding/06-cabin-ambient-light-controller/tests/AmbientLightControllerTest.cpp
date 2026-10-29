@@ -57,7 +57,7 @@ TEST_F(AmbientLightControllerTest, MissingPreferenceAppliesThenSavesDefault) {
 }
 
 TEST_F(AmbientLightControllerTest, UnsupportedStoredValueIsReplacedByDefault) {
-    const auto invalid = static_cast<Color>(99);
+    const Color invalid = static_cast<Color>(99);
     EXPECT_CALL(preferences_, load()).WillOnce(::testing::Return(invalid));
     EXPECT_CALL(diagnostics_, report(Diagnostic::UnsupportedValue));
     EXPECT_CALL(driver_, apply(Color::WarmWhite)).WillOnce(::testing::Return(true));

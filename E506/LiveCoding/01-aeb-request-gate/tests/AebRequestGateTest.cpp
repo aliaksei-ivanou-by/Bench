@@ -55,7 +55,7 @@ TEST_F(AebRequestGateTest, HazardousSampleRequestsBraking) {
 }
 
 TEST_F(AebRequestGateTest, ExactHazardThresholdsAreAccepted) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.speed_mps = 5.0;
     sample.confidence = 0.90;
     sample.time_to_collision_s = 1.20;
@@ -66,7 +66,7 @@ TEST_F(AebRequestGateTest, ExactHazardThresholdsAreAccepted) {
 }
 
 TEST_F(AebRequestGateTest, ValuesOutsideHazardThresholdsDoNotRequestBraking) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.speed_mps = 4.99;
     expectSample(sample);
     gate_.tick();
@@ -83,7 +83,7 @@ TEST_F(AebRequestGateTest, ValuesOutsideHazardThresholdsDoNotRequestBraking) {
 }
 
 TEST_F(AebRequestGateTest, DriverOverrideSuppressesActuatorInteraction) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.driver_override = true;
     expectSample(sample);
     gate_.tick();
@@ -96,7 +96,7 @@ TEST_F(AebRequestGateTest, MissingSampleReportsDiagnostic) {
 }
 
 TEST_F(AebRequestGateTest, SampleAtAgeLimitIsAccepted) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.timestamp_ms = 900;
     expectSample(sample);
     EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(::testing::Return(true));
@@ -104,7 +104,7 @@ TEST_F(AebRequestGateTest, SampleAtAgeLimitIsAccepted) {
 }
 
 TEST_F(AebRequestGateTest, SamplePastAgeLimitIsRejected) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.timestamp_ms = 899;
     expectSample(sample);
     EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));
@@ -112,7 +112,7 @@ TEST_F(AebRequestGateTest, SamplePastAgeLimitIsRejected) {
 }
 
 TEST_F(AebRequestGateTest, InvalidNumericInputIsRejected) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.confidence = std::numeric_limits<double>::quiet_NaN();
     expectSample(sample);
     EXPECT_CALL(diagnostics_, report(Diagnostic::InvalidSample));
@@ -132,7 +132,7 @@ TEST_F(AebRequestGateTest, InvalidNumericInputIsRejected) {
 }
 
 TEST_F(AebRequestGateTest, ExcessiveDecelerationIsClamped) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.desired_deceleration_mps2 = 12.0;
     expectSample(sample);
     EXPECT_CALL(actuator_, requestDeceleration(8.0)).WillOnce(::testing::Return(true));
@@ -147,7 +147,7 @@ TEST_F(AebRequestGateTest, ActuatorRejectionIsReported) {
 }
 
 TEST_F(AebRequestGateTest, ExtremeTimestampIsStaleWithoutOverflow) {
-    auto sample = hazardousSample();
+    PerceptionSample sample = hazardousSample();
     sample.timestamp_ms = std::numeric_limits<std::int64_t>::min();
     expectSample(sample, std::numeric_limits<std::int64_t>::max());
     EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));

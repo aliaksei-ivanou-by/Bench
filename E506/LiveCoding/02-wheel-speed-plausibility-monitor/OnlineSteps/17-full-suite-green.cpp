@@ -159,9 +159,9 @@ WheelSpeedMonitor::WheelSpeedMonitor(ISpeedSensor& primary,
 
 void WheelSpeedMonitor::tick() {
     // За этот цикл читаем основной сенсор ровно один раз.
-    const auto primary = primary_.read();
+    const std::optional<SpeedSample> primary = primary_.read();
     // Отдельно читаем резервный сенсор; порядок сравнения не делает его истинным.
-    const auto secondary = secondary_.read();
+    const std::optional<SpeedSample> secondary = secondary_.read();
     // Проверяем наличие обоих измерений до обращения к полям optional.
     if (!primary || !secondary) {
         // Отсутствие хотя бы одного sample немедленно ухудшает статус и создаёт диагностику.
@@ -170,7 +170,7 @@ void WheelSpeedMonitor::tick() {
     }
 
     // Одно значение часов используется для согласованной проверки обоих timestamps.
-    const auto now_ms = clock_.nowMs();
+    const std::int64_t now_ms = clock_.nowMs();
     // Будущий timestamp недопустим: нельзя считать его отрицательным возрастом.
     if (primary->timestamp_ms > now_ms || secondary->timestamp_ms > now_ms) {
         degradeImmediately(Diagnostic::InvalidSample);
@@ -501,7 +501,7 @@ TEST_F(WheelSpeedMonitorTest, RepeatedDegradedCyclesDoNotRepublishStatus) {
 
 // Крайние значения времени не должны вызывать переполнение при проверке возраста.
 TEST_F(WheelSpeedMonitorTest, ExtremeTimestampIsStaleWithoutOverflow) {
-    const auto now = std::numeric_limits<std::int64_t>::max();
+    const std::int64_t now = std::numeric_limits<std::int64_t>::max();
     expectCycle(sample(20.0, std::numeric_limits<std::int64_t>::min()),
                 sample(20.0, now), now);
     EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));

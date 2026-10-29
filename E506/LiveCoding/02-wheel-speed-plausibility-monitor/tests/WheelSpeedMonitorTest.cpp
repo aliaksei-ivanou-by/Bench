@@ -158,7 +158,7 @@ TEST_F(WheelSpeedMonitorTest, RepeatedDegradedCyclesDoNotRepublishStatus) {
 }
 
 TEST_F(WheelSpeedMonitorTest, ExtremeTimestampIsStaleWithoutOverflow) {
-    const auto now = std::numeric_limits<std::int64_t>::max();
+    const std::int64_t now = std::numeric_limits<std::int64_t>::max();
     expectCycle(sample(20.0, std::numeric_limits<std::int64_t>::min()),
                 sample(20.0, now), now);
     EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));

@@ -16,12 +16,12 @@ AmbientLightController::AmbientLightController(
       diagnostics_(diagnostics) {}
 
 bool AmbientLightController::initialize() {
-    const auto stored = preferences_.load();
+    const std::optional<Color> stored = preferences_.load();
     const bool use_default = !stored || !isSupported(*stored);
     if (stored && !isSupported(*stored)) {
         diagnostics_.report(Diagnostic::UnsupportedValue);
     }
-    const auto selected = use_default ? kDefaultColor : *stored;
+    const Color selected = use_default ? kDefaultColor : *stored;
 
     if (!driver_.apply(selected)) {
         setDriverFailure(true);

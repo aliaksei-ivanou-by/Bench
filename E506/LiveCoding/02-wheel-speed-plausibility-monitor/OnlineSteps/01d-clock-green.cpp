@@ -72,7 +72,7 @@ TEST(DataContract, StatusValuesAreDistinct) {
 TEST(Ports, SensorReturnsConfiguredSample) {
     ::testing::StrictMock<MockSensor> sensor;
     EXPECT_CALL(sensor, read()).WillOnce(::testing::Return(SpeedSample{20.0, 980}));
-    const auto result = sensor.read();
+    const std::optional<SpeedSample> result = sensor.read();
     ASSERT_TRUE(result.has_value());
     EXPECT_DOUBLE_EQ(result->speed_mps, 20.0);
 }

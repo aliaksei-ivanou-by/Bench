@@ -152,9 +152,9 @@ bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
 
 void WheelSpeedMonitor::tick() {
     // За этот цикл читаем основной сенсор ровно один раз.
-    const auto primary = primary_.read();
+    const std::optional<SpeedSample> primary = primary_.read();
     // Отдельно читаем резервный сенсор; порядок сравнения не делает его истинным.
-    const auto secondary = secondary_.read();
+    const std::optional<SpeedSample> secondary = secondary_.read();
     // Проверяем наличие обоих измерений до обращения к полям optional.
     if (!primary || !secondary) {
         // Отсутствие хотя бы одного sample немедленно ухудшает статус и создаёт диагностику.
@@ -162,7 +162,7 @@ void WheelSpeedMonitor::tick() {
         return;
     }
     // Одно значение часов используется для согласованной проверки обоих timestamps.
-    const auto now = clock_.nowMs();
+    const std::int64_t now = clock_.nowMs();
     // Будущий timestamp недопустим: нельзя считать его отрицательным возрастом.
     if (primary->timestamp_ms > now || secondary->timestamp_ms > now) {
         degradeImmediately(Diagnostic::InvalidSample);
@@ -175,7 +175,7 @@ void WheelSpeedMonitor::tick() {
         return;
     }
     // Сначала проверяем конечность и диапазон, затем можно сравнивать скорости.
-    const auto valid = [](double v) {
+    bool (*const valid)(double) = [](double v) {
         return std::isfinite(v) && v >= 0.0 && v <= 100.0;
     };
     if (!valid(primary->speed_mps) || !valid(secondary->speed_mps)) {

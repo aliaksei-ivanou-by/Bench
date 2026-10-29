@@ -38,14 +38,14 @@ WheelSpeedMonitor::WheelSpeedMonitor(ISpeedSensor& primary,
       diagnostics_(diagnostics) {}
 
 void WheelSpeedMonitor::tick() {
-    const auto primary = primary_.read();
-    const auto secondary = secondary_.read();
+    const std::optional<SpeedSample> primary = primary_.read();
+    const std::optional<SpeedSample> secondary = secondary_.read();
     if (!primary || !secondary) {
         degradeImmediately(Diagnostic::MissingSample);
         return;
     }
 
-    const auto now_ms = clock_.nowMs();
+    const std::int64_t now_ms = clock_.nowMs();
     if (primary->timestamp_ms > now_ms || secondary->timestamp_ms > now_ms) {
         degradeImmediately(Diagnostic::InvalidSample);
         return;
