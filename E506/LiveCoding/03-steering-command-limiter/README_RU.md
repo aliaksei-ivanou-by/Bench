@@ -14,6 +14,8 @@
 
 ## Комплект кода
 
+- [Подробный ход рассуждений от получения задания до проверки](./Reasoning_RU.md).
+
 - `include/SteeringCommandLimiter.h` задаёт команду, порты и наблюдаемое состояние.
 - `tests/SteeringCommandLimiterTest.cpp` покрывает абсолютное ограничение, скорость изменения, время и отказы.
 - `solution/SteeringCommandLimiter.cpp` содержит эталонное решение.

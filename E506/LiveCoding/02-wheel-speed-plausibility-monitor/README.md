@@ -14,6 +14,8 @@ Suggested files:
 
 ## Code package
 
+- [Detailed reasoning from task intake to verification](./Reasoning.md).
+
 - `include/WheelSpeedMonitor.h` defines the state-machine contract and ports.
 - `tests/WheelSpeedMonitorTest.cpp` covers thresholds, counters, failures and recovery.
 - `solution/WheelSpeedMonitor.cpp` contains the reference solution.

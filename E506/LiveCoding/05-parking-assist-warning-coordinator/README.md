@@ -14,6 +14,8 @@ Use a requirements-first GoogleTest and GoogleMock workflow. Keep this component
 
 ## Code package
 
+- [Detailed reasoning from task intake to verification](./Reasoning.md).
+
 - `include/ParkingAssistCoordinator.h` defines four-sensor input and two output states.
 - `tests/ParkingAssistCoordinatorTest.cpp` covers bands, freshness, ordering and recovery.
 - `solution/ParkingAssistCoordinator.cpp` contains the reference solution.

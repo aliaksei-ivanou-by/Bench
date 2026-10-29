@@ -14,6 +14,8 @@
 
 ## Комплект кода
 
+- [Подробный ход рассуждений от получения задания до проверки](./Reasoning_RU.md).
+
 - `include/ParkingAssistCoordinator.h` задаёт вход четырёх датчиков и два выходных состояния.
 - `tests/ParkingAssistCoordinatorTest.cpp` покрывает диапазоны, freshness, ordering и восстановление.
 - `solution/ParkingAssistCoordinator.cpp` содержит эталонное решение.

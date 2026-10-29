@@ -14,6 +14,8 @@
 
 ## Комплект кода
 
+- [Подробный ход рассуждений от получения задания до проверки](./Reasoning_RU.md).
+
 - `include/WheelSpeedMonitor.h` задаёт контракт state machine и его порты.
 - `tests/WheelSpeedMonitorTest.cpp` покрывает пороги, счётчики, отказы и восстановление.
 - `solution/WheelSpeedMonitor.cpp` содержит эталонное решение.

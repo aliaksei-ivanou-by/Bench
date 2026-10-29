@@ -14,6 +14,8 @@
 
 ## Комплект кода
 
+- [Подробный ход рассуждений от получения задания до проверки](./Reasoning_RU.md).
+
 - `include/BatteryThermalSupervisor.h` задаёт порты датчиков, выходов и диагностики.
 - `tests/BatteryThermalSupervisorTest.cpp` покрывает hysteresis, plausibility, latching и reset.
 - `solution/BatteryThermalSupervisor.cpp` содержит эталонное решение.

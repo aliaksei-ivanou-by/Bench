@@ -14,6 +14,8 @@ Use GoogleTest and GoogleMock to specify ordering, failure behavior and state co
 
 ## Code package
 
+- [Detailed reasoning from task intake to verification](./Reasoning.md).
+
 - `include/AmbientLightController.h` defines driver, storage and diagnostic ports.
 - `tests/AmbientLightControllerTest.cpp` verifies call order, state and partial failure.
 - `solution/AmbientLightController.cpp` contains the reference solution.

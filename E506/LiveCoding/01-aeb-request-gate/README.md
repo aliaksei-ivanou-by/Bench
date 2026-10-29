@@ -14,6 +14,8 @@ Suggested files:
 
 ## Code package
 
+- [Detailed reasoning from task intake to verification](./Reasoning.md).
+
 - `include/AebRequestGate.h` defines the contract and four dependency interfaces.
 - `tests/AebRequestGateTest.cpp` contains the executable requirement scenarios.
 - `solution/AebRequestGate.cpp` contains the reference solution.

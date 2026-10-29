@@ -14,6 +14,8 @@ The exercise is intended for a sixty-minute requirements-first session with Goog
 
 ## Code package
 
+- [Detailed reasoning from task intake to verification](./Reasoning.md).
+
 - `include/BatteryThermalSupervisor.h` defines sensor, output and diagnostic ports.
 - `tests/BatteryThermalSupervisorTest.cpp` covers hysteresis, plausibility, latching and reset.
 - `solution/BatteryThermalSupervisor.cpp` contains the reference solution.

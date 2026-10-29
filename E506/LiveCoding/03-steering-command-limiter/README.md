@@ -14,6 +14,8 @@ Suggested files:
 
 ## Code package
 
+- [Detailed reasoning from task intake to verification](./Reasoning.md).
+
 - `include/SteeringCommandLimiter.h` defines the command, ports and observable state.
 - `tests/SteeringCommandLimiterTest.cpp` covers absolute, rate, time and failure behavior.
 - `solution/SteeringCommandLimiter.cpp` contains the reference solution.

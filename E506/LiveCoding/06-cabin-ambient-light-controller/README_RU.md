@@ -14,6 +14,8 @@
 
 ## Комплект кода
 
+- [Подробный ход рассуждений от получения задания до проверки](./Reasoning_RU.md).
+
 - `include/AmbientLightController.h` задаёт порты драйвера, хранилища и диагностики.
 - `tests/AmbientLightControllerTest.cpp` проверяет порядок вызовов, состояние и частичный отказ.
 - `solution/AmbientLightController.cpp` содержит эталонное решение.

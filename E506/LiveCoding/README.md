@@ -12,7 +12,7 @@ This directory contains six self-contained C++ practice exercises for the E506 c
 6. Write positive, boundary, negative and failure tests.
 7. Implement only the agreed behavior.
 8. Finish by mapping requirements to tests and naming the missing integration and target evidence.
-9. Compare the result with the detailed guidance in the parent LiveCoding document.
+9. Compare your reasoning with the exercise’s bilingual Reasoning files and the detailed guidance in the parent LiveCoding document.
 
 ## Code layout
 
