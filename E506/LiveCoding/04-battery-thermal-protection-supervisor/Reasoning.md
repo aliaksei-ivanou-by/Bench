@@ -21,3 +21,24 @@ Start with Normal and exact 55 °C. Add 54 °C while cooling, exact 50 °C exit,
 5. EXPLAIN EVIDENCE
 
 Integration verifies units, timestamps and output protocol; target tests timing; system tests actual thermal response and shutdown. ASIL depends on the vehicle item and hazard. Production needs bounded timestamp values or overflow-safe age arithmetic.
+
+6. FROM THE INTERVIEW QUESTION TO A STATE MACHINE
+
+Restate the boundary and ask how to handle one failed sensor, two failed sensors, disagreement, cooling hysteresis, shutdown latch and reset. Confirm threshold inclusivity and whether output calls acknowledge success. Draw Normal, CoolingRequested and ShutdownRequested; record arrows before implementation. At 54 °C the prior state matters: Normal stays Normal, CoolingRequested stays cooling. At 70 °C shutdown takes priority. The existing void output interface cannot report transport failure.
+
+7. WHY THE EXISTING TESTS EXIST AND WHAT THEY DRIVE
+
+This is a learning sequence, not a claim about commit history. The tests are in BatteryThermalSupervisorTest.cpp and the code is in the reference solution.
+
+- CoolPlausiblePairKeepsNormalState establishes the initial state and avoids unnecessary hardware commands. Read the pair, classify it usable and leave Normal unchanged.
+- CoolingUsesEnterAndExitHysteresis checks 55 °C entry, retained cooling between thresholds and exit at 50 °C. Add explicit state-dependent branches; a single threshold would chatter and fail the intermediate case.
+- ShutdownThresholdIsInclusive checks priority and the exact 70 °C boundary. Evaluate shutdown before cooling and transition to ShutdownRequested at >= 70.
+- SingleUsableSensorReportsDegradedSensing checks that one failure is different from two. In observation classify usable sensors independently, select the survivor and report DegradedSensing instead of automatically shutting down.
+- SampleAtFreshnessLimitIsUsable and TwoStaleSamplesRequestShutdown check 250 ms and the two-unusable path. Include age <= 250 in isUsable; if neither reading passes, return Fault and report SensorFault before shutdown.
+- FiveDegreeDisagreementIsAccepted and LargerDisagreementRequestsShutdown distinguish the inclusive 5 °C boundary. Compare only usable pairs and choose the higher reading when they agree; otherwise return Fault.
+- LatchedShutdownIgnoresNormalEvaluation prevents an ordinary cool sample from silently clearing shutdown. Return early from evaluate while latched. ResetIsRejectedAboveSafeTemperature requires a fresh reset observation and rejects a maximum temperature above 50 °C; ValidResetClearsShutdownLatch requires a plausible pair at or below 50 and clears the output once.
+- RepeatedCoolingStateDoesNotRepeatOutput protects against repeated hardware commands. Put output changes in transitionTo and return when the state is unchanged. The current test names do not by themselves prove every reset failure mode; add targeted cases for stale and disagreement where needed.
+
+8. RED–GREEN AND VERIFICATION
+
+Start with a valid cool pair, add 55/50 hysteresis, then shutdown at 70. Add usability and disagreement, then latch and reset, finally duplicate-output protection. Run each new failing test, explain the missing branch, implement the smallest change and rerun. Where a previous change already satisfies the test, keep it as evidence without inventing an edit. Integration must still check real sensor units, output acknowledgement and timing; system testing must check actual thermal behavior.

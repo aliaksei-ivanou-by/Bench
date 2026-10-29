@@ -19,3 +19,26 @@ Use the given source, clock, actuator and diagnostics interfaces. Read the comma
 5. DISCUSS VERIFICATION
 
 Integration checks units and actuator protocol; target tests check jitter and deadlines; HIL or vehicle tests check override and real steering response. Discuss ASIL only with an item and hazard. Production time handling needs bounded timestamps or checked subtraction: monotonic time alone does not prevent signed overflow.
+
+6. FROM TASK TO FIRST IMPLEMENTATION
+
+Say: “I will first define how elapsed time and previous accepted output affect the command.” Draw source → limiter → actuator, with clock and diagnostics injected. Ask whether a rejected actuator request advances the stored command or time, whether override bypasses the rate limit, whether future timestamps are invalid, and what initial value and time to use. Record the agreed answers before touching the code.
+
+Sketch one tick: read command; reject absence; obtain now; require now > last accepted time; reject future, stale or non-finite command; calculate delta = 50 × (now - last accepted time) / 1000.0; clamp relative to last accepted torque, then to ±3.0. For override, send zero after validation. Update accepted torque and time only after a true actuator result. For example 20 ms permits 1 Nm change; name units to avoid treating milliseconds as seconds.
+
+7. WHY THE EXISTING TESTS EXIST AND WHAT THEY DRIVE
+
+This is a proposed learning order, not commit history. Tests are in SteeringCommandLimiterTest.cpp and the described branches are in the reference solution.
+
+- OrdinaryCommandPassesBothLimits establishes a successful call and accepted state. Wire dependencies and implement the accepted path; otherwise an implementation that rejects everything could pass negative tests.
+- ExactAbsoluteBoundariesAreAccepted checks that ±3 are allowed. AbsoluteLimitClampsLargeCommand checks values beyond the limit. Add std::clamp with -3 and 3; arrange sufficient elapsed time in these tests so the rate limit does not hide the absolute limit.
+- PositiveAndNegativeRateAreLimited checks both directions from the previous accepted torque. Add a symmetric interval based on maximum delta. VariableElapsedTimeChangesAllowedDelta verifies conversion from milliseconds to seconds and prevents a fixed-per-tick limit.
+- ZeroElapsedTimeIsRejected and NegativeElapsedTimeIsRejected protect against division or rate calculations using a nonpositive interval. Compare now with last accepted time, report InvalidTime and return without actuator interaction.
+- NonFiniteTorqueIsRejected is parameterized for non-finite inputs. Add std::isfinite before clamping, report InvalidCommand and return. Verify which values the parameter list actually supplies.
+- FreshnessBoundaryIsInclusive and CommandPastFreshnessBoundaryIsRejected distinguish 50 from 51 ms. Reject age > 50; separately reject timestamps in the future. The two freshness tests alone do not prove the future branch.
+- DriverOverrideCommandsImmediateZero requires bypassing the rate clamp and sending zero even when that is a larger change than the usual limit. It still occurs after time and input validation.
+- ActuatorFailurePreservesAcceptedState forces false from the actuator and checks retained state. Report ActuatorRejected and move both state assignments after the success check. A second tick can further prove the old state remains the reference.
+
+8. RED–GREEN AND VERIFICATION
+
+Begin with the ordinary command, then add absolute limits, rate limits and elapsed-time boundaries. Add invalid inputs and freshness, then override and actuator failure. For each failing test identify the violated observable behavior, make the smallest change, run again and refactor while green. If an earlier change already passes a new case, keep it as regression evidence. After the suite, explain that unit mocks do not prove actuator transport, actual handover, target deadlines or vehicle steering behavior.
