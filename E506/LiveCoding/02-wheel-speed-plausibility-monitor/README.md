@@ -96,7 +96,18 @@ The public header and tests remain unchanged while the implementation is replace
 
 The [step-by-step guide](./OnlineSteps/Guide.md) maps the stages below to runnable files: questions and requirements come before code, 01a–02 build data and mocks progressively, and 03–17 alternate tests with implementation. After the final step, discuss V-model verification levels separately.
 
-## Step 1: Ask before coding
+## Workflow boundaries: SDD → TDD → implementation
+
+1. SDD — specification-driven development. Start when the interviewer describes the problem. Clarify the component boundary, inputs, outputs, timing, failure behavior and exact thresholds; agree the examples and REQ-WSP-001–009. This phase ends for the first implementation increment when its behavior and acceptance conditions are explicit enough to test. A later ambiguity sends us back to the specification and any affected tests.
+2. Test preparation. Derive the test matrix and define minimal ports and mocks from the agreed specification. A mock is a test boundary; it does not itself prove the monitor's business behavior. The environment and scaffolding in OnlineSteps 00–02 are preparation, not evidence that the decision logic is complete.
+3. TDD — test-driven development. For one small agreed behavior, write a test of an observable outcome and run it against the current implementation. The red phase begins when the test is added and ends when it fails for the expected missing behavior; a compile or setup error is not the intended failure.
+4. Implement the same increment. Add the smallest production change required for that test, rerun it and the existing tests until they pass, then refactor while keeping them green. This is the green/refactor part of the TDD cycle, not a separate implementation phase after all tests have been written. The increment ends when its tests pass and the behavior can be traced back to the agreed requirement.
+5. Repeat TDD and implementation for the next behavior. For example, in OnlineSteps, 03 is red and 04 is green; 05 is red and 06 is green. Steps 01a–02 include passing setup or demonstration tests, not a demonstrated red-to-green implementation cycle. Step 17 switches to the complete reference and existing suite; it is a final comparison, not a recorded red-to-green sequence for every remaining case.
+6. Verification and handoff. Once the agreed unit scenarios pass, review requirement coverage and test gaps, then identify integration, target and vehicle evidence. The 20 ms scheduling requirement cannot be proved by calling `tick()` directly in a unit test.
+
+The order for each increment is: agreed specification → failing test → implementation → passing tests and refactoring. Do not invent missing safety behavior merely to make a test pass.
+
+## Step 1: SDD — ask before coding
 
 - What are the units and physical range?
 - What is the maximum acceptable disagreement?
@@ -108,7 +119,7 @@ The [step-by-step guide](./OnlineSteps/Guide.md) maps the stages below to runnab
 - Should repeated status notifications be suppressed?
 - Which downstream vehicle function consumes the result?
 
-## Step 2: Agreed requirements
+## Step 2: SDD — agree requirements and finish the initial specification
 
 - REQ-WSP-001: `tick()` runs every 20 ms.
 - REQ-WSP-002: Values are valid in the inclusive range 0.0–100.0 m/s.
@@ -120,7 +131,7 @@ The [step-by-step guide](./OnlineSteps/Guide.md) maps the stages below to runnab
 - REQ-WSP-008: Five consecutive plausible cycles recover `Available`.
 - REQ-WSP-009: Status is emitted only when the observable state changes.
 
-## Step 3: Define mocks
+## Step 3: Test preparation — define mocks
 
 - Primary sensor port.
 - Secondary sensor port.
@@ -128,7 +139,7 @@ The [step-by-step guide](./OnlineSteps/Guide.md) maps the stages below to runnab
 - Status output port.
 - Diagnostic sink.
 
-## Step 4: Build the test matrix
+## Step 4: TDD preparation — build the test matrix
 
 1. Equal valid values keep `Available`.
 2. Difference exactly 1.5 m/s remains plausible.
@@ -141,7 +152,7 @@ The [step-by-step guide](./OnlineSteps/Guide.md) maps the stages below to runnab
 9. Recovery happens on the fifth consecutive plausible cycle, not the fourth.
 10. No repeated output occurs while state remains unchanged.
 
-## Step 5: Implement explicitly
+## Step 5: TDD green and refactor — implement one behavior at a time
 
 - Validate each input before comparing values.
 - Keep bad and recovery counters separate.
@@ -149,7 +160,7 @@ The [step-by-step guide](./OnlineSteps/Guide.md) maps the stages below to runnab
 - Update counters only after the cycle is classified.
 - Avoid hidden wall-clock access.
 
-## Step 6: Close the V-model loop
+## Step 6: Verification — close the V-model loop
 
 - Unit tests verify counters, thresholds and transitions.
 - Integration tests must verify real sensor messages and timestamp conversion.

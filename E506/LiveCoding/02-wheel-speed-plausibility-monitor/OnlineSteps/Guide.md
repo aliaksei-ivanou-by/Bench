@@ -14,6 +14,24 @@ Red means the code builds and a test intentionally fails; a nonzero run exit is 
 
 Before coding, restate the boundary: the component compares two speed readings and reports Available or Degraded; it does not select the true speed. Clarify units, range, data age, exact disagreement boundary, numbers of consecutive bad and recovery cycles, missing input behavior and publication rules. The agreed practice requirements are in the exercise README.md. If the interviewer changes a condition, agree a new test before changing implementation.
 
+SDD → TDD → IMPLEMENTATION: START AND END OF EACH PHASE
+
+SDD starts with the interviewer's task and ends for the first increment after questions, boundary, examples and REQ-WSP-001–009 are agreed in README steps 1–2. The exercise then prepares ports, mocks and a test matrix: 00–02 check the environment and scaffold. Their passing demonstration tests do not establish a red–green cycle for the monitor's decision logic.
+
+For each increment the TDD red phase starts when the new test is written and ends only when it fails for the expected behavior. The implementation phase starts in the next green snapshot: implement the minimum change and run the new and previous tests until green; then refactor with tests passing. In TDD, green and refactor are part of the same cycle. An unexpected compilation or dependency failure is not red evidence.
+
+- 03 → 04: test equal inputs and dependency reads, then implement the read path.
+- 05 → 06: test degradation on the third disagreement, then implement the bad-cycle counter and transition.
+- 07 → 08: test interruption of the bad sequence, then reset the counter on a plausible input.
+- 09 → 10: test missing input, then add immediate diagnosis and degradation.
+- 11 → 12: test stale input, then add timestamp and freshness checks.
+- 13 → 14: test NaN, then add numeric validation.
+- 15 → 16: test recovery on the fifth good pair, then implement the recovery counter.
+
+Each red file is a starting test plus the previous implementation; each green file is the corresponding implementation increment. The exercise does not show a separate refactor snapshot for each pair: refactor after green where useful, and rerun tests. Step 17 replaces the teaching implementation and tests with the complete reference and existing suite; the remaining tests are not individually demonstrated as red first. It is a final comparison and unit verification point, not proof of target timing or system safety.
+
+If a requirement becomes unclear during a cycle, pause implementation, return to SDD to agree the behavior, and update affected tests. After the full suite, close with requirement coverage and integration, target and vehicle verification as described in README step 6.
+
 HOW FILE NUMBERS MAP TO THE EXERCISE README
 
 - README step 1: ask the questions before running 00-empty.cpp. The file does not answer questions on the interviewer's behalf.
