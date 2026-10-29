@@ -9,8 +9,6 @@
 namespace e506::wheel_speed {
 namespace {
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 class MockSensor : public ISpeedSensor {
 public:
@@ -19,7 +17,7 @@ public:
 
 class MockClock : public IMonotonicClock {
 public:
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 class MockStatusOutput : public IStatusOutput {
@@ -36,23 +34,23 @@ class WheelSpeedMonitorTest : public ::testing::Test {
 protected:
     void expectCycle(std::optional<SpeedSample> primary,
                      std::optional<SpeedSample> secondary,
-                     Milliseconds now = 1000) {
-        EXPECT_CALL(primary_, read()).WillOnce(Return(primary));
-        EXPECT_CALL(secondary_, read()).WillOnce(Return(secondary));
+                     std::int64_t now = 1000) {
+        EXPECT_CALL(primary_, read()).WillOnce(::testing::Return(primary));
+        EXPECT_CALL(secondary_, read()).WillOnce(::testing::Return(secondary));
         if (primary && secondary) {
-            EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
+            EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
         }
     }
 
-    SpeedSample sample(double value, Milliseconds timestamp = 980) const {
+    SpeedSample sample(double value, std::int64_t timestamp = 980) const {
         return {value, timestamp};
     }
 
-    StrictMock<MockSensor> primary_;
-    StrictMock<MockSensor> secondary_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockStatusOutput> output_;
-    StrictMock<MockDiagnosticSink> diagnostics_;
+    ::testing::StrictMock<MockSensor> primary_;
+    ::testing::StrictMock<MockSensor> secondary_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockStatusOutput> output_;
+    ::testing::StrictMock<MockDiagnosticSink> diagnostics_;
     WheelSpeedMonitor monitor_{primary_, secondary_, clock_, output_, diagnostics_};
 };
 
@@ -157,6 +155,21 @@ TEST_F(WheelSpeedMonitorTest, RepeatedDegradedCyclesDoNotRepublishStatus) {
     expectCycle(std::nullopt, sample(20.0));
     EXPECT_CALL(diagnostics_, report(Diagnostic::MissingSample));
     monitor_.tick();
+}
+
+TEST_F(WheelSpeedMonitorTest, ExtremeTimestampIsStaleWithoutOverflow) {
+    const auto now = std::numeric_limits<std::int64_t>::max();
+    expectCycle(sample(20.0, std::numeric_limits<std::int64_t>::min()),
+                sample(20.0, now), now);
+    EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));
+    EXPECT_CALL(output_, publish(Status::Degraded));
+    monitor_.tick();
+}
+
+TEST_F(WheelSpeedMonitorTest, NegativeTimestampAgeBoundaryIsInclusive) {
+    expectCycle(sample(20.0, -50), sample(20.0, -50), 0);
+    monitor_.tick();
+    EXPECT_EQ(monitor_.status(), Status::Available);
 }
 
 }  // namespace

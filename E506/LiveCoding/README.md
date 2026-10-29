@@ -52,6 +52,14 @@ cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems
 5. [Parking-Assist Warning Coordinator](./05-parking-assist-warning-coordinator/README.md)
 6. [Cabin Ambient-Light Controller](./06-cabin-ambient-light-controller/README.md)
 
+## Coding guidelines and verification scope
+
+The [coding-guideline review](./MISRA-Review.md) records the changes, evidence and remaining audit scope.
+
+The exercises use C++17 and are reviewed against selected concerns relevant to MISRA C++:2023. Production component code now checks timestamp-age arithmetic without signed overflow, and the steering limiter rejects elapsed intervals that cannot be represented. The ambient-light color switch handles an unsupported value explicitly. Online learning snapshots use compound bodies for single-line selection statements. These changes improve specific properties; they are not a claim of full MISRA compliance.
+
+A compliance claim requires the applicable guideline set, project configuration, qualified enforcement and documented deviations. The licensed MISRA rule text, a configured MISRA checker, compiler and target-specific library evidence were not available for this exercise. Google Test, Google Mock and test-only snapshot code are host-side training infrastructure, not assessed production components. Interfaces, standard-library use, exceptions, time-source assumptions and any other applicable rules still require review under the actual project's ruleset. MISRA Compliance:2020: https://www.misra.org.uk/app/uploads/2021/06/MISRA-Compliance-2020.pdf
+
 ## Scope rule
 
 ASIL values are discussion exercises, not candidate-experience claims. A real ASIL comes from item-level HARA and allocated safety requirements. The exercise may provide assumptions, but the candidate should never classify a C++ class from its name alone.

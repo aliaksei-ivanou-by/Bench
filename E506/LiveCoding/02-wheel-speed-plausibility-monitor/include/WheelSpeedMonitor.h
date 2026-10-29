@@ -5,11 +5,10 @@
 
 namespace e506::wheel_speed {
 
-using Milliseconds = std::int64_t;
 
 struct SpeedSample {
     double speed_mps;
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
 };
 
 enum class Status {
@@ -32,7 +31,7 @@ public:
 class IMonotonicClock {
 public:
     virtual ~IMonotonicClock() = default;
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 class IStatusOutput {
@@ -68,8 +67,8 @@ private:
     IStatusOutput& output_;
     IDiagnosticSink& diagnostics_;
     Status status_{Status::Available};
-    unsigned bad_cycles_{0};
-    unsigned recovery_cycles_{0};
+    std::uint32_t bad_cycles_{0U};
+    std::uint32_t recovery_cycles_{0U};
 };
 
 }  // namespace e506::wheel_speed

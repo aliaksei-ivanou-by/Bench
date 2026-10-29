@@ -70,14 +70,18 @@ std::optional<Color> AmbientLightController::activeColor() const noexcept {
 }
 
 bool AmbientLightController::isSupported(Color color) noexcept {
+    bool supported = false;
     switch (color) {
         case Color::WarmWhite:
         case Color::White:
         case Color::Blue:
         case Color::Red:
-            return true;
+            supported = true;
+            break;
+        default:
+            break;
     }
-    return false;
+    return supported;
 }
 
 void AmbientLightController::setDriverFailure(bool active) {

@@ -20,7 +20,7 @@ Start with four clear samples and expect the first publication on both ports. Va
 
 5. STATE THE LIMITS
 
-Integration checks indexing, units and timestamps; target tests scheduling; vehicle tests check sensor geometry and driver perception. Classification depends on the actual function and hazard, not the name parking assist. Production needs bounded timestamps or checked subtraction to avoid signed overflow.
+Integration checks indexing, units and timestamps; target tests scheduling; vehicle tests check sensor geometry and driver perception. Classification depends on the actual function and hazard, not the name parking assist. The reference freshness check avoids signed overflow for extreme timestamps.
 
 6. TURN THE REQUEST INTO DECISIONS
 

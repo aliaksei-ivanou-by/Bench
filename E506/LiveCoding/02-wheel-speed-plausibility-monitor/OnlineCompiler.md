@@ -4,7 +4,7 @@ RUNNING WHEEL SPEED MONITOR IN AN ONLINE COMPILER
 
 The exercise uses C++17, Google Test and Google Mock. Pasting the test file alone into an empty online compiler is insufficient: it also needs the component header, implementation and linked libraries. The adjacent OnlineCompiler.cpp combines the current WheelSpeedMonitor.h, reference WheelSpeedMonitor.cpp, WheelSpeedMonitorTest.cpp and a main function that runs the tests.
 
-On 29 October 2026 this file was checked through Compiler Explorer using x86-64 GCC 13.2, -std=c++17 and Google Test trunk: all 13 tests ran and passed. Trunk changes over time; library availability and the site's interface can change too.
+On 29 October 2026 this file was checked through Compiler Explorer using x86-64 GCC 13.2, -std=c++17 and Google Test trunk: all 15 tests ran and passed. Trunk changes over time; library availability and the site's interface can change too.
 
 2. RUN IN COMPILER EXPLORER
 
@@ -14,7 +14,7 @@ On 29 October 2026 this file was checked through Compiler Explorer using x86-64 
 4. In the execution pane select x86-64 GCC 13.2 and enter -std=c++17 in Compiler options.
 5. In the same pane open Libraries, find Google Test and select trunk. It includes Google Test and Google Mock headers and libraries. Wait for the library setup. If a separate compiler pane is open, its library selection may not apply to the execution pane.
 6. Use the compile or execute control in the Executor pane if automatic execution is disabled. Wait for Compiler output and program output. The tests do not need stdin.
-7. Check the program output for [  PASSED  ] 13 tests. Four are separate invocations of one parameterized test. A zero exit code means success; if you see [  FAILED  ], inspect the test message.
+7. Check the program output for [  PASSED  ] 15 tests. Four are separate invocations of one parameterized test. A zero exit code means success; if you see [  FAILED  ], inspect the test message.
 
 3. HOW TO PRACTISE
 

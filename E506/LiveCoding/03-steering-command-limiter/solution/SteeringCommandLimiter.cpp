@@ -2,13 +2,27 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 
 namespace e506::steering {
 namespace {
 
 constexpr double kMaximumAbsoluteTorqueNm = 3.0;
 constexpr double kMaximumTorqueRateNmPerSecond = 50.0;
-constexpr Milliseconds kMaximumCommandAgeMs = 50;
+constexpr std::int64_t kMaximumCommandAgeMs = 50;
+
+// Предусловие: timestamp_ms <= now_ms, а max_age_ms неотрицателен.
+bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
+             std::int64_t max_age_ms) noexcept {
+    return (timestamp_ms >= 0) ? ((now_ms - timestamp_ms) > max_age_ms)
+                               : (now_ms > (timestamp_ms + max_age_ms));
+}
+
+// Вызывающая сторона уже проверила условие now_ms > previous_ms.
+bool elapsedFits(std::int64_t now_ms, std::int64_t previous_ms) noexcept {
+    return (previous_ms >= 0) ||
+           (now_ms <= (std::numeric_limits<std::int64_t>::max() + previous_ms));
+}
 
 }  // namespace
 
@@ -17,7 +31,7 @@ SteeringCommandLimiter::SteeringCommandLimiter(
     const IMonotonicClock& clock,
     ISteeringActuator& actuator,
     IDiagnosticSink& diagnostics,
-    Milliseconds initial_time_ms)
+    std::int64_t initial_time_ms)
     : source_(source),
       clock_(clock),
       actuator_(actuator),
@@ -32,7 +46,8 @@ void SteeringCommandLimiter::tick() {
     }
 
     const auto now_ms = clock_.nowMs();
-    if (now_ms <= last_accepted_time_ms_) {
+    if ((now_ms <= last_accepted_time_ms_) ||
+        !elapsedFits(now_ms, last_accepted_time_ms_)) {
         diagnostics_.report(Diagnostic::InvalidTime);
         return;
     }
@@ -40,7 +55,7 @@ void SteeringCommandLimiter::tick() {
         diagnostics_.report(Diagnostic::InvalidCommand);
         return;
     }
-    if (now_ms - command->timestamp_ms > kMaximumCommandAgeMs) {
+    if (isStale(now_ms, command->timestamp_ms, kMaximumCommandAgeMs)) {
         diagnostics_.report(Diagnostic::StaleCommand);
         return;
     }
@@ -78,7 +93,7 @@ double SteeringCommandLimiter::lastAcceptedTorqueNm() const noexcept {
     return last_accepted_torque_nm_;
 }
 
-Milliseconds SteeringCommandLimiter::lastAcceptedTimeMs() const noexcept {
+std::int64_t SteeringCommandLimiter::lastAcceptedTimeMs() const noexcept {
     return last_accepted_time_ms_;
 }
 

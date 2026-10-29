@@ -1,4 +1,4 @@
-// Standalone copy of the header, reference implementation and tests.
+// Самостоятельная копия заголовка, эталонной реализации и тестов.
 
 
 #include <cstdint>
@@ -6,11 +6,10 @@
 
 namespace e506::wheel_speed {
 
-using Milliseconds = std::int64_t;
 
 struct SpeedSample {
     double speed_mps;
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
 };
 
 enum class Status {
@@ -33,7 +32,7 @@ public:
 class IMonotonicClock {
 public:
     virtual ~IMonotonicClock() = default;
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 class IStatusOutput {
@@ -69,8 +68,8 @@ private:
     IStatusOutput& output_;
     IDiagnosticSink& diagnostics_;
     Status status_{Status::Available};
-    unsigned bad_cycles_{0};
-    unsigned recovery_cycles_{0};
+    std::uint32_t bad_cycles_{0U};
+    std::uint32_t recovery_cycles_{0U};
 };
 
 }  // namespace e506::wheel_speed
@@ -84,9 +83,16 @@ namespace {
 constexpr double kMinimumSpeedMps = 0.0;
 constexpr double kMaximumSpeedMps = 100.0;
 constexpr double kMaximumDifferenceMps = 1.5;
-constexpr Milliseconds kMaximumSampleAgeMs = 50;
-constexpr unsigned kBadCyclesBeforeDegraded = 3;
-constexpr unsigned kGoodCyclesBeforeRecovery = 5;
+constexpr std::int64_t kMaximumSampleAgeMs = 50;
+constexpr std::uint32_t kBadCyclesBeforeDegraded = 3U;
+constexpr std::uint32_t kGoodCyclesBeforeRecovery = 5U;
+
+// Предусловие: timestamp_ms <= now_ms, а max_age_ms неотрицателен.
+bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
+             std::int64_t max_age_ms) noexcept {
+    return (timestamp_ms >= 0) ? ((now_ms - timestamp_ms) > max_age_ms)
+                               : (now_ms > (timestamp_ms + max_age_ms));
+}
 
 bool isValidValue(double value) {
     return std::isfinite(value) && value >= kMinimumSpeedMps &&
@@ -119,8 +125,8 @@ void WheelSpeedMonitor::tick() {
         degradeImmediately(Diagnostic::InvalidSample);
         return;
     }
-    if (now_ms - primary->timestamp_ms > kMaximumSampleAgeMs ||
-        now_ms - secondary->timestamp_ms > kMaximumSampleAgeMs) {
+    if (isStale(now_ms, primary->timestamp_ms, kMaximumSampleAgeMs) ||
+        isStale(now_ms, secondary->timestamp_ms, kMaximumSampleAgeMs)) {
         degradeImmediately(Diagnostic::StaleSample);
         return;
     }
@@ -135,27 +141,27 @@ void WheelSpeedMonitor::tick() {
         kMaximumDifferenceMps;
 
     if (status_ == Status::Available) {
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         if (plausible) {
-            bad_cycles_ = 0;
+            bad_cycles_ = 0U;
             return;
         }
         ++bad_cycles_;
         if (bad_cycles_ >= kBadCyclesBeforeDegraded) {
-            bad_cycles_ = 0;
+            bad_cycles_ = 0U;
             enter(Status::Degraded);
         }
         return;
     }
 
-    bad_cycles_ = 0;
+    bad_cycles_ = 0U;
     if (!plausible) {
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         return;
     }
     ++recovery_cycles_;
     if (recovery_cycles_ >= kGoodCyclesBeforeRecovery) {
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         enter(Status::Available);
     }
 }
@@ -173,8 +179,8 @@ void WheelSpeedMonitor::enter(Status next) {
 }
 
 void WheelSpeedMonitor::degradeImmediately(Diagnostic diagnostic) {
-    bad_cycles_ = 0;
-    recovery_cycles_ = 0;
+    bad_cycles_ = 0U;
+    recovery_cycles_ = 0U;
     diagnostics_.report(diagnostic);
     enter(Status::Degraded);
 }
@@ -191,8 +197,6 @@ void WheelSpeedMonitor::degradeImmediately(Diagnostic diagnostic) {
 namespace e506::wheel_speed {
 namespace {
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 class MockSensor : public ISpeedSensor {
 public:
@@ -201,7 +205,7 @@ public:
 
 class MockClock : public IMonotonicClock {
 public:
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 class MockStatusOutput : public IStatusOutput {
@@ -218,23 +222,23 @@ class WheelSpeedMonitorTest : public ::testing::Test {
 protected:
     void expectCycle(std::optional<SpeedSample> primary,
                      std::optional<SpeedSample> secondary,
-                     Milliseconds now = 1000) {
-        EXPECT_CALL(primary_, read()).WillOnce(Return(primary));
-        EXPECT_CALL(secondary_, read()).WillOnce(Return(secondary));
+                     std::int64_t now = 1000) {
+        EXPECT_CALL(primary_, read()).WillOnce(::testing::Return(primary));
+        EXPECT_CALL(secondary_, read()).WillOnce(::testing::Return(secondary));
         if (primary && secondary) {
-            EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
+            EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
         }
     }
 
-    SpeedSample sample(double value, Milliseconds timestamp = 980) const {
+    SpeedSample sample(double value, std::int64_t timestamp = 980) const {
         return {value, timestamp};
     }
 
-    StrictMock<MockSensor> primary_;
-    StrictMock<MockSensor> secondary_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockStatusOutput> output_;
-    StrictMock<MockDiagnosticSink> diagnostics_;
+    ::testing::StrictMock<MockSensor> primary_;
+    ::testing::StrictMock<MockSensor> secondary_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockStatusOutput> output_;
+    ::testing::StrictMock<MockDiagnosticSink> diagnostics_;
     WheelSpeedMonitor monitor_{primary_, secondary_, clock_, output_, diagnostics_};
 };
 
@@ -339,6 +343,21 @@ TEST_F(WheelSpeedMonitorTest, RepeatedDegradedCyclesDoNotRepublishStatus) {
     expectCycle(std::nullopt, sample(20.0));
     EXPECT_CALL(diagnostics_, report(Diagnostic::MissingSample));
     monitor_.tick();
+}
+
+TEST_F(WheelSpeedMonitorTest, ExtremeTimestampIsStaleWithoutOverflow) {
+    const auto now = std::numeric_limits<std::int64_t>::max();
+    expectCycle(sample(20.0, std::numeric_limits<std::int64_t>::min()),
+                sample(20.0, now), now);
+    EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));
+    EXPECT_CALL(output_, publish(Status::Degraded));
+    monitor_.tick();
+}
+
+TEST_F(WheelSpeedMonitorTest, NegativeTimestampAgeBoundaryIsInclusive) {
+    expectCycle(sample(20.0, -50), sample(20.0, -50), 0);
+    monitor_.tick();
+    EXPECT_EQ(monitor_.status(), Status::Available);
 }
 
 }  // namespace

@@ -20,7 +20,7 @@ Start with equal inputs and no status publication; add the exact 1.5 boundary. F
 
 5. EXPLAIN THE BOUNDARY
 
-Unit tests check the decision given samples. Integration must establish sensor identity, units and timestamp conversion; target tests cover scheduling and sensor rates. The consumer and hazardous event must be known before discussing ASIL. For extreme timestamps, production code also needs bounded clock values or checked subtraction to prevent signed overflow.
+Unit tests check the decision given samples. Integration must establish sensor identity, units and timestamp conversion; target tests cover scheduling and sensor rates. The consumer and hazardous event must be known before discussing ASIL. The reference freshness check avoids signed overflow even for extreme timestamps.
 
 6. FIRST CONVERSATION WITH THE INTERVIEWER
 

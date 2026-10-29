@@ -49,7 +49,7 @@ ctest --test-dir build --output-on-failure
 - REQ-SCL-003: Absolute torque ограничивается диапазоном ±3,0 Nm.
 - REQ-SCL-004: Скорость изменения ограничивается 50,0 Nm/s по monotonic elapsed time.
 - REQ-SCL-005: Driver override запрашивает 0,0 Nm assistance.
-- REQ-SCL-006: Нулевое или отрицательное elapsed time не вызывает actuator и сообщает `InvalidTime`.
+- REQ-SCL-006: Нулевое или отрицательное elapsed time, а также положительный интервал, который невозможно представить типом `std::int64_t`, не вызывает actuator и сообщает `InvalidTime`.
 - REQ-SCL-007: Stale или invalid input не вызывает actuator и сообщает fault.
 - REQ-SCL-008: Последняя принятая команда меняется только после успешного actuator call.
 

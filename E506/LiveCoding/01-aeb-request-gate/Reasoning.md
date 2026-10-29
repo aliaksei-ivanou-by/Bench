@@ -20,7 +20,7 @@ Start with one valid hazardous sample and an expectation of one actuator call. A
 
 5. EXPLAIN LIMITATIONS
 
-Integration and target tests must cover timestamp origin, transport, scheduling and actuator behavior; vehicle tests establish physical response. Unintended braking and failure to brake are different hazards. ASIL requires item-level HARA and allocated requirements. In production, constrain the timestamp range or use checked subtraction to avoid signed overflow; do not treat the exercise's missing-data behavior as universally safe.
+Integration and target tests must cover timestamp origin, transport, scheduling and actuator behavior; vehicle tests establish physical response. Unintended braking and failure to brake are different hazards. ASIL requires item-level HARA and allocated requirements. The reference freshness check avoids signed overflow for extreme timestamps; do not treat the exercise's missing-data behavior as universally safe.
 
 6. WALK THROUGH THE FIRST MINUTES
 

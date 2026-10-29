@@ -4,11 +4,10 @@
 
 namespace e506::battery {
 
-using Milliseconds = std::int64_t;
 
 struct TemperatureSample {
     double celsius;
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
     bool acquisition_valid;
 };
 
@@ -33,7 +32,7 @@ public:
 class IMonotonicClock {
 public:
     virtual ~IMonotonicClock() = default;
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 class ICoolingControl {

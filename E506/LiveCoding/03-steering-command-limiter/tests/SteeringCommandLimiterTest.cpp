@@ -9,9 +9,6 @@
 namespace e506::steering {
 namespace {
 
-using ::testing::DoubleNear;
-using ::testing::Return;
-using ::testing::StrictMock;
 
 class MockCommandSource : public ICommandSource {
 public:
@@ -20,7 +17,7 @@ public:
 
 class MockClock : public IMonotonicClock {
 public:
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 class MockSteeringActuator : public ISteeringActuator {
@@ -35,61 +32,61 @@ public:
 
 class SteeringCommandLimiterTest : public ::testing::Test {
 protected:
-    void expectCommand(const SteeringCommand& command, Milliseconds now) {
-        EXPECT_CALL(source_, read()).WillOnce(Return(command));
-        EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
+    void expectCommand(const SteeringCommand& command, std::int64_t now) {
+        EXPECT_CALL(source_, read()).WillOnce(::testing::Return(command));
+        EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
     }
 
-    StrictMock<MockCommandSource> source_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockSteeringActuator> actuator_;
-    StrictMock<MockDiagnosticSink> diagnostics_;
+    ::testing::StrictMock<MockCommandSource> source_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockSteeringActuator> actuator_;
+    ::testing::StrictMock<MockDiagnosticSink> diagnostics_;
     SteeringCommandLimiter limiter_{source_, clock_, actuator_, diagnostics_};
 };
 
 TEST_F(SteeringCommandLimiterTest, OrdinaryCommandPassesBothLimits) {
     expectCommand({2.0, 100, false}, 100);
-    EXPECT_CALL(actuator_, applyTorque(2.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(2.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
     EXPECT_DOUBLE_EQ(limiter_.lastAcceptedTorqueNm(), 2.0);
 }
 
 TEST_F(SteeringCommandLimiterTest, ExactAbsoluteBoundariesAreAccepted) {
     expectCommand({3.0, 100, false}, 100);
-    EXPECT_CALL(actuator_, applyTorque(3.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(3.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
 
     expectCommand({-3.0, 220, false}, 220);
-    EXPECT_CALL(actuator_, applyTorque(-3.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(-3.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
 }
 
 TEST_F(SteeringCommandLimiterTest, AbsoluteLimitClampsLargeCommand) {
     expectCommand({10.0, 100, false}, 100);
-    EXPECT_CALL(actuator_, applyTorque(3.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(3.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
 }
 
 TEST_F(SteeringCommandLimiterTest, PositiveAndNegativeRateAreLimited) {
     expectCommand({3.0, 20, false}, 20);
-    EXPECT_CALL(actuator_, applyTorque(DoubleNear(1.0, 1e-12)))
-        .WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(::testing::DoubleNear(1.0, 1e-12)))
+        .WillOnce(::testing::Return(true));
     limiter_.tick();
 
     expectCommand({-3.0, 40, false}, 40);
-    EXPECT_CALL(actuator_, applyTorque(DoubleNear(0.0, 1e-12)))
-        .WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(::testing::DoubleNear(0.0, 1e-12)))
+        .WillOnce(::testing::Return(true));
     limiter_.tick();
 }
 
 TEST_F(SteeringCommandLimiterTest, VariableElapsedTimeChangesAllowedDelta) {
     expectCommand({1.0, 20, false}, 20);
-    EXPECT_CALL(actuator_, applyTorque(1.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(1.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
 
     expectCommand({3.0, 50, false}, 50);
-    EXPECT_CALL(actuator_, applyTorque(DoubleNear(2.5, 1e-12)))
-        .WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(::testing::DoubleNear(2.5, 1e-12)))
+        .WillOnce(::testing::Return(true));
     limiter_.tick();
 }
 
@@ -124,7 +121,7 @@ INSTANTIATE_TEST_SUITE_P(
 
 TEST_F(SteeringCommandLimiterTest, FreshnessBoundaryIsInclusive) {
     expectCommand({2.0, 50, false}, 100);
-    EXPECT_CALL(actuator_, applyTorque(2.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(2.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
 }
 
@@ -136,22 +133,38 @@ TEST_F(SteeringCommandLimiterTest, CommandPastFreshnessBoundaryIsRejected) {
 
 TEST_F(SteeringCommandLimiterTest, DriverOverrideCommandsImmediateZero) {
     expectCommand({3.0, 20, true}, 20);
-    EXPECT_CALL(actuator_, applyTorque(0.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(0.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
 }
 
 TEST_F(SteeringCommandLimiterTest, ActuatorFailurePreservesAcceptedState) {
     expectCommand({2.0, 100, false}, 100);
-    EXPECT_CALL(actuator_, applyTorque(2.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, applyTorque(2.0)).WillOnce(::testing::Return(true));
     limiter_.tick();
 
     expectCommand({3.0, 120, false}, 120);
-    EXPECT_CALL(actuator_, applyTorque(3.0)).WillOnce(Return(false));
+    EXPECT_CALL(actuator_, applyTorque(3.0)).WillOnce(::testing::Return(false));
     EXPECT_CALL(diagnostics_, report(Diagnostic::ActuatorRejected));
     limiter_.tick();
 
     EXPECT_DOUBLE_EQ(limiter_.lastAcceptedTorqueNm(), 2.0);
     EXPECT_EQ(limiter_.lastAcceptedTimeMs(), 100);
+}
+
+TEST_F(SteeringCommandLimiterTest, ExtremeTimestampIsStaleWithoutOverflow) {
+    expectCommand({1.0, std::numeric_limits<std::int64_t>::min(), false}, 100);
+    EXPECT_CALL(diagnostics_, report(Diagnostic::StaleCommand));
+    limiter_.tick();
+}
+
+TEST_F(SteeringCommandLimiterTest, UnrepresentableElapsedTimeIsRejected) {
+    const auto first = std::numeric_limits<std::int64_t>::min();
+    const auto now = std::numeric_limits<std::int64_t>::max();
+    SteeringCommandLimiter limiter(source_, clock_, actuator_, diagnostics_, first);
+    expectCommand({1.0, now, false}, now);
+    EXPECT_CALL(diagnostics_, report(Diagnostic::InvalidTime));
+    limiter.tick();
+    EXPECT_EQ(limiter.lastAcceptedTimeMs(), first);
 }
 
 }  // namespace

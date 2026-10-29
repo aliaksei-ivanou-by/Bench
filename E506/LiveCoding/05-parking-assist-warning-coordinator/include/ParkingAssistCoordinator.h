@@ -7,12 +7,11 @@
 
 namespace e506::parking {
 
-using Milliseconds = std::int64_t;
-inline constexpr std::size_t kSensorCount = 4;
+inline constexpr std::size_t kSensorCount = 4U;
 
 struct DistanceSample {
     double distance_m;
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
     bool acquisition_valid;
 };
 
@@ -38,7 +37,7 @@ public:
 class IMonotonicClock {
 public:
     virtual ~IMonotonicClock() = default;
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 class IWarningOutput {
@@ -71,7 +70,7 @@ private:
     const IMonotonicClock& clock_;
     IWarningOutput& warnings_;
     ICoverageOutput& coverage_output_;
-    std::array<std::optional<Milliseconds>, kSensorCount>
+    std::array<std::optional<std::int64_t>, kSensorCount>
         last_accepted_timestamps_{};
     std::optional<Warning> last_published_warning_;
     std::optional<Coverage> last_published_coverage_;

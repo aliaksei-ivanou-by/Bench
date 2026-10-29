@@ -5,14 +5,13 @@
 
 namespace e506::aeb {
 
-using Milliseconds = std::int64_t;
 
 struct PerceptionSample {
     double speed_mps;
     double confidence;
     double time_to_collision_s;
     double desired_deceleration_mps2;
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
     bool driver_override;
 };
 
@@ -32,7 +31,7 @@ public:
 class IMonotonicClock {
 public:
     virtual ~IMonotonicClock() = default;
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 class IBrakeActuator {

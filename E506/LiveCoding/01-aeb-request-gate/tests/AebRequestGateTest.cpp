@@ -9,8 +9,6 @@
 namespace e506::aeb {
 namespace {
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 class MockPerceptionSource : public IPerceptionSource {
 public:
@@ -19,7 +17,7 @@ public:
 
 class MockClock : public IMonotonicClock {
 public:
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 class MockBrakeActuator : public IBrakeActuator {
@@ -38,21 +36,21 @@ protected:
         return {20.0, 0.95, 0.8, 6.0, 950, false};
     }
 
-    void expectSample(const PerceptionSample& sample, Milliseconds now = 1000) {
-        EXPECT_CALL(source_, read()).WillOnce(Return(sample));
-        EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
+    void expectSample(const PerceptionSample& sample, std::int64_t now = 1000) {
+        EXPECT_CALL(source_, read()).WillOnce(::testing::Return(sample));
+        EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
     }
 
-    StrictMock<MockPerceptionSource> source_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockBrakeActuator> actuator_;
-    StrictMock<MockDiagnosticSink> diagnostics_;
+    ::testing::StrictMock<MockPerceptionSource> source_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockBrakeActuator> actuator_;
+    ::testing::StrictMock<MockDiagnosticSink> diagnostics_;
     AebRequestGate gate_{source_, clock_, actuator_, diagnostics_};
 };
 
 TEST_F(AebRequestGateTest, HazardousSampleRequestsBraking) {
     expectSample(hazardousSample());
-    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(::testing::Return(true));
     gate_.tick();
 }
 
@@ -63,7 +61,7 @@ TEST_F(AebRequestGateTest, ExactHazardThresholdsAreAccepted) {
     sample.time_to_collision_s = 1.20;
     sample.timestamp_ms = 900;
     expectSample(sample);
-    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(::testing::Return(true));
     gate_.tick();
 }
 
@@ -92,7 +90,7 @@ TEST_F(AebRequestGateTest, DriverOverrideSuppressesActuatorInteraction) {
 }
 
 TEST_F(AebRequestGateTest, MissingSampleReportsDiagnostic) {
-    EXPECT_CALL(source_, read()).WillOnce(Return(std::nullopt));
+    EXPECT_CALL(source_, read()).WillOnce(::testing::Return(std::nullopt));
     EXPECT_CALL(diagnostics_, report(Diagnostic::MissingSample));
     gate_.tick();
 }
@@ -101,7 +99,7 @@ TEST_F(AebRequestGateTest, SampleAtAgeLimitIsAccepted) {
     auto sample = hazardousSample();
     sample.timestamp_ms = 900;
     expectSample(sample);
-    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(::testing::Return(true));
     gate_.tick();
 }
 
@@ -137,14 +135,22 @@ TEST_F(AebRequestGateTest, ExcessiveDecelerationIsClamped) {
     auto sample = hazardousSample();
     sample.desired_deceleration_mps2 = 12.0;
     expectSample(sample);
-    EXPECT_CALL(actuator_, requestDeceleration(8.0)).WillOnce(Return(true));
+    EXPECT_CALL(actuator_, requestDeceleration(8.0)).WillOnce(::testing::Return(true));
     gate_.tick();
 }
 
 TEST_F(AebRequestGateTest, ActuatorRejectionIsReported) {
     expectSample(hazardousSample());
-    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(Return(false));
+    EXPECT_CALL(actuator_, requestDeceleration(6.0)).WillOnce(::testing::Return(false));
     EXPECT_CALL(diagnostics_, report(Diagnostic::ActuatorRejected));
+    gate_.tick();
+}
+
+TEST_F(AebRequestGateTest, ExtremeTimestampIsStaleWithoutOverflow) {
+    auto sample = hazardousSample();
+    sample.timestamp_ms = std::numeric_limits<std::int64_t>::min();
+    expectSample(sample, std::numeric_limits<std::int64_t>::max());
+    EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));
     gate_.tick();
 }
 

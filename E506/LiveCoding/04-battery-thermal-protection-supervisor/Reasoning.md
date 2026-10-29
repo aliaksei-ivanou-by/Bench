@@ -20,7 +20,7 @@ Start with Normal and exact 55 °C. Add 54 °C while cooling, exact 50 °C exit,
 
 5. EXPLAIN EVIDENCE
 
-Integration verifies units, timestamps and output protocol; target tests timing; system tests actual thermal response and shutdown. ASIL depends on the vehicle item and hazard. Production needs bounded timestamp values or overflow-safe age arithmetic.
+Integration verifies units, timestamps and output protocol; target tests timing; system tests actual thermal response and shutdown. ASIL depends on the vehicle item and hazard. The reference freshness check avoids signed overflow for extreme timestamps.
 
 6. FROM THE INTERVIEW QUESTION TO A STATE MACHINE
 

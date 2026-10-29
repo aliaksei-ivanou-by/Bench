@@ -1,7 +1,7 @@
 // GREEN: полная эталонная реализация и исходный набор тестов упражнения.
 // Комментарии описывают учебное поведение данного снимка, не весь готовый продукт.
 
-// Standalone copy of the header, reference implementation and tests.
+// Самостоятельная копия заголовка, эталонной реализации и тестов.
 
 
 // Фиксированный целочисленный тип используется для времени в миллисекундах.
@@ -11,15 +11,14 @@
 
 namespace e506::wheel_speed {
 
-// Явно называем единицу времени, чтобы не спутать миллисекунды и секунды.
-using Milliseconds = std::int64_t;
+// Время хранится в std::int64_t; суффикс _ms обозначает миллисекунды.
 
 // Одно измерение: сама скорость и момент получения в той же системе часов.
 struct SpeedSample {
     // Скорость выражена в метрах в секунду; диапазон проверяется в tick.
     double speed_mps;
     // Timestamp нужен для проверки возраста и должен использовать источник времени clock.
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
 };
 
 // Публичное состояние: данные доступны либо работа деградировала.
@@ -50,7 +49,7 @@ public:
     // Виртуальный деструктор нужен для корректного удаления через интерфейс.
     virtual ~IMonotonicClock() = default;
     // Время читается через зависимость; метод const не меняет её интерфейсное состояние.
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 // Через этот порт компонент сообщает об изменении доступности.
@@ -105,9 +104,9 @@ private:
     // Начальное Available задано учебным контрактом; это не универсальная политика для автомобиля.
     Status status_{Status::Available};
     // Считаем последовательные неправдоподобные пары до деградации.
-    unsigned bad_cycles_{0};
+    std::uint32_t bad_cycles_{0U};
     // Отдельно считаем последовательные хорошие пары после деградации.
-    unsigned recovery_cycles_{0};
+    std::uint32_t recovery_cycles_{0U};
 };
 
 }  // namespace e506::wheel_speed
@@ -125,13 +124,21 @@ constexpr double kMaximumSpeedMps = 100.0;
 // Разница ровно 1,5 допустима; больше порога считается расхождением.
 constexpr double kMaximumDifferenceMps = 1.5;
 // Граница свежести в миллисекундах; ровно 50 ms ещё допустимы.
-constexpr Milliseconds kMaximumSampleAgeMs = 50;
+constexpr std::int64_t kMaximumSampleAgeMs = 50;
 // Для обычного расхождения требуется три последовательных плохих цикла.
-constexpr unsigned kBadCyclesBeforeDegraded = 3;
+constexpr std::uint32_t kBadCyclesBeforeDegraded = 3U;
 // Для восстановления требуется пять последовательных хороших циклов.
-constexpr unsigned kGoodCyclesBeforeRecovery = 5;
+constexpr std::uint32_t kGoodCyclesBeforeRecovery = 5U;
 
 // Проверяем число до вычисления разницы: NaN и infinity нельзя считать измерениями.
+// Предусловие: timestamp_ms <= now_ms, а max_age_ms неотрицателен.
+// Исключаем знаковое переполнение даже при крайних значениях времени.
+bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
+             std::int64_t max_age_ms) noexcept {
+    return (timestamp_ms >= 0) ? ((now_ms - timestamp_ms) > max_age_ms)
+                               : (now_ms > (timestamp_ms + max_age_ms));
+}
+
 bool isValidValue(double value) {
     return std::isfinite(value) && value >= kMinimumSpeedMps &&
            value <= kMaximumSpeedMps;
@@ -170,8 +177,8 @@ void WheelSpeedMonitor::tick() {
         return;
     }
     // Возраст больше 50 ms недопустим; ровно 50 ms допускается учебным контрактом.
-    if (now_ms - primary->timestamp_ms > kMaximumSampleAgeMs ||
-        now_ms - secondary->timestamp_ms > kMaximumSampleAgeMs) {
+    if (isStale(now_ms, primary->timestamp_ms, kMaximumSampleAgeMs) ||
+        isStale(now_ms, secondary->timestamp_ms, kMaximumSampleAgeMs)) {
         degradeImmediately(Diagnostic::StaleSample);
         return;
     }
@@ -189,10 +196,10 @@ void WheelSpeedMonitor::tick() {
     // В Available анализируем последовательность плохих, а не цикл восстановления.
     if (status_ == Status::Available) {
         // Прерываем восстановление: хорошие циклы потребуется накопить заново.
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         if (plausible) {
             // Прерываем последовательность плохих циклов: старая история больше не действует.
-            bad_cycles_ = 0;
+            bad_cycles_ = 0U;
             return;
         }
         // Увеличиваем счётчик только для плохой пригодной пары.
@@ -200,17 +207,17 @@ void WheelSpeedMonitor::tick() {
         // На третьем подряд расхождении меняем статус и очищаем серию.
         if (bad_cycles_ >= kBadCyclesBeforeDegraded) {
             // Прерываем последовательность плохих циклов: старая история больше не действует.
-            bad_cycles_ = 0;
+            bad_cycles_ = 0U;
             enter(Status::Degraded);
         }
         return;
     }
 
     // Прерываем последовательность плохих циклов: старая история больше не действует.
-    bad_cycles_ = 0;
+    bad_cycles_ = 0U;
     if (!plausible) {
         // Прерываем восстановление: хорошие циклы потребуется накопить заново.
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         return;
     }
     // Считаем только последовательные хорошие циклы в состоянии Degraded.
@@ -218,7 +225,7 @@ void WheelSpeedMonitor::tick() {
     // Пятая хорошая пара завершает восстановление и публикует Available.
     if (recovery_cycles_ >= kGoodCyclesBeforeRecovery) {
         // Прерываем восстановление: хорошие циклы потребуется накопить заново.
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         enter(Status::Available);
     }
 }
@@ -240,9 +247,9 @@ void WheelSpeedMonitor::enter(Status next) {
 // Отдельный путь для отсутствующих, устаревших и некорректных данных.
 void WheelSpeedMonitor::degradeImmediately(Diagnostic diagnostic) {
     // Прерываем последовательность плохих циклов: старая история больше не действует.
-    bad_cycles_ = 0;
+    bad_cycles_ = 0U;
     // Прерываем восстановление: хорошие циклы потребуется накопить заново.
-    recovery_cycles_ = 0;
+    recovery_cycles_ = 0U;
     // Сообщаем причину сбоя независимо от того, изменится ли статус.
     diagnostics_.report(diagnostic);
     enter(Status::Degraded);
@@ -264,8 +271,6 @@ void WheelSpeedMonitor::degradeImmediately(Diagnostic diagnostic) {
 namespace e506::wheel_speed {
 namespace {
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 // Тестовая замена соответствующего порта: реальные I/O здесь не выполняются.
 class MockSensor : public ISpeedSensor {
@@ -278,7 +283,7 @@ public:
 class MockClock : public IMonotonicClock {
 public:
     // gMock создаёт переопределение, поведение и ожидаемые вызовы задаются в тесте.
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 // Тестовая замена соответствующего порта: реальные I/O здесь не выполняются.
@@ -301,29 +306,29 @@ protected:
     // Вспомогательная настройка ожидает чтение обоих сенсоров и, при наличии данных, часов.
     void expectCycle(std::optional<SpeedSample> primary,
                      std::optional<SpeedSample> secondary,
-                     Milliseconds now = 1000) {
+                     std::int64_t now = 1000) {
         // Ожидаем один read и возвращаем значение, заданное конкретным циклом теста.
-        EXPECT_CALL(primary_, read()).WillOnce(Return(primary));
+        EXPECT_CALL(primary_, read()).WillOnce(::testing::Return(primary));
         // Аналогично задаём независимое значение второго сенсора.
-        EXPECT_CALL(secondary_, read()).WillOnce(Return(secondary));
+        EXPECT_CALL(secondary_, read()).WillOnce(::testing::Return(secondary));
         if (primary && secondary) {
             // Часы возвращают известный now; в тесте не зависит от реального времени.
-            EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
+            EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
         }
     }
 
     // Создаём компактный sample; по умолчанию его возраст при now = 1000 равен 20 ms.
-    SpeedSample sample(double value, Milliseconds timestamp = 980) const {
+    SpeedSample sample(double value, std::int64_t timestamp = 980) const {
         return {value, timestamp};
     }
 
     // StrictMock превращает неожиданные вызовы основного сенсора в ошибку теста.
-    StrictMock<MockSensor> primary_;
+    ::testing::StrictMock<MockSensor> primary_;
     // Второй экземпляр mock представляет независимый резервный вход.
-    StrictMock<MockSensor> secondary_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockStatusOutput> output_;
-    StrictMock<MockDiagnosticSink> diagnostics_;
+    ::testing::StrictMock<MockSensor> secondary_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockStatusOutput> output_;
+    ::testing::StrictMock<MockDiagnosticSink> diagnostics_;
     // Собираем проверяемый компонент из уже созданных mocks; их время жизни достаточно.
     WheelSpeedMonitor monitor_{primary_, secondary_, clock_, output_, diagnostics_};
 };
@@ -492,6 +497,23 @@ TEST_F(WheelSpeedMonitorTest, RepeatedDegradedCyclesDoNotRepublishStatus) {
     EXPECT_CALL(diagnostics_, report(Diagnostic::MissingSample));
     // Выполняем один цикл монитора на заранее настроенных mock-входах.
     monitor_.tick();
+}
+
+// Крайние значения времени не должны вызывать переполнение при проверке возраста.
+TEST_F(WheelSpeedMonitorTest, ExtremeTimestampIsStaleWithoutOverflow) {
+    const auto now = std::numeric_limits<std::int64_t>::max();
+    expectCycle(sample(20.0, std::numeric_limits<std::int64_t>::min()),
+                sample(20.0, now), now);
+    EXPECT_CALL(diagnostics_, report(Diagnostic::StaleSample));
+    EXPECT_CALL(output_, publish(Status::Degraded));
+    monitor_.tick();
+}
+
+// Отрицательный timestamp на границе 50 ms остаётся допустимым.
+TEST_F(WheelSpeedMonitorTest, NegativeTimestampAgeBoundaryIsInclusive) {
+    expectCycle(sample(20.0, -50), sample(20.0, -50), 0);
+    monitor_.tick();
+    EXPECT_EQ(monitor_.status(), Status::Available);
 }
 
 }  // namespace

@@ -43,7 +43,7 @@ HOW FILE NUMBERS MAP TO THE EXERCISE README
 
 ADDITIONAL SUBSTEPS AFTER 01-GTEST-SMOKE.CPP
 
-01a-sample-green.cpp adds Milliseconds and SpeedSample with speed and timestamp. SampleStoresSpeedAndTimestamp checks that data can be created and read. This is a teaching test of the data structure, not the algorithm. Two tests pass including the smoke test.
+01a-sample-green.cpp adds SpeedSample with speed and a std::int64_t timestamp in milliseconds. SampleStoresSpeedAndTimestamp checks that data can be created and read. This is a teaching test of the data structure, not the algorithm. Two tests pass including the smoke test.
 
 01b-status-green.cpp adds Status and Diagnostic enums. StatusValuesAreDistinct shows two distinct statuses. Three tests pass; monitor behavior is not yet tested.
 
@@ -89,7 +89,7 @@ These demonstration tests introduce the interfaces incrementally. The next file,
 
 11-stale-red.cpp adds FiftyOneMillisecondSampleIsStale: at now = 1000, timestamp 949 is 51 ms old. The previous code does not yet validate freshness, so the test fails.
 
-12-stale-green.cpp reads the clock once and checks future timestamps and both sample ages: age over 50 ms gives StaleSample and future time gives InvalidSample. Six tests pass. The new test checks 51 ms; the exact 50 ms boundary arrives in the full suite at step 17. This code assumes timestamps are in a safe range; production needs an agreed range or checked subtraction without overflow.
+12-stale-green.cpp reads the clock once and checks future timestamps and both sample ages: age over 50 ms gives StaleSample and future time gives InvalidSample. Six tests pass. The new test checks 51 ms; the exact 50 ms boundary arrives in the full suite at step 17. The freshness check avoids signed overflow even for extreme timestamp values; the clock origin and units still need a system-level contract.
 
 13-invalid-red.cpp adds the teaching test NaNDegradesImmediately. NaN must not be considered usable and must cause InvalidSample and Degraded. The previous implementation does not check finiteness, so the test fails.
 
@@ -101,7 +101,7 @@ These demonstration tests introduce the interfaces incrementally. The next file,
 
 16-recovery-green.cpp adds a separate recovery_cycles_ and its reset on an immediate fault: while Degraded, good pairs increment the counter, a bad pair resets it and the fifth good pair enters Available. Eight tests pass. The original complete solution also explicitly resets counters in the corresponding transitions.
 
-17-full-suite-green.cpp is a separate copy of OnlineCompiler.cpp with the original contract, complete reference solution and original tests. Expect 13 passing tests: nine ordinary tests and four parameterized runs. This snapshot replaces the teaching implementation with the reference, adds the remaining existing tests and removes the teaching tests InitialStateIsAvailable and NaNDegradesImmediately; it is therefore not just added lines on step 16. Compare it with 16 and inspect named constants and complete validation.
+17-full-suite-green.cpp is a separate copy of OnlineCompiler.cpp with the original contract, complete reference solution and original tests. Expect 15 passing tests: eleven ordinary tests and four parameterized runs, including two timestamp-arithmetic cases. This snapshot replaces the teaching implementation with the reference, adds the remaining existing tests and removes the teaching tests InitialStateIsAvailable and NaNDegradesImmediately; it is therefore not just added lines on step 16. Compare it with 16 and inspect named constants and complete validation.
 
 7. WORKING WITH RED AND GREEN
 

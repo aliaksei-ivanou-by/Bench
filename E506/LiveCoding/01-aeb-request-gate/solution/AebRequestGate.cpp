@@ -10,7 +10,15 @@ constexpr double kMinimumSpeedMps = 5.0;
 constexpr double kMinimumConfidence = 0.90;
 constexpr double kMaximumTimeToCollisionS = 1.20;
 constexpr double kMaximumDecelerationMps2 = 8.0;
-constexpr Milliseconds kMaximumSampleAgeMs = 100;
+constexpr std::int64_t kMaximumSampleAgeMs = 100;
+
+// Предусловие: timestamp_ms <= now_ms, а max_age_ms неотрицателен.
+// Исключаем знаковое переполнение даже при крайних значениях времени.
+bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
+             std::int64_t max_age_ms) noexcept {
+    return (timestamp_ms >= 0) ? ((now_ms - timestamp_ms) > max_age_ms)
+                               : (now_ms > (timestamp_ms + max_age_ms));
+}
 
 bool isValid(const PerceptionSample& sample) {
     return std::isfinite(sample.speed_mps) && sample.speed_mps >= 0.0 &&
@@ -45,7 +53,7 @@ void AebRequestGate::tick() {
         diagnostics_.report(Diagnostic::InvalidSample);
         return;
     }
-    if (now_ms - sample->timestamp_ms > kMaximumSampleAgeMs) {
+    if (isStale(now_ms, sample->timestamp_ms, kMaximumSampleAgeMs)) {
         diagnostics_.report(Diagnostic::StaleSample);
         return;
     }

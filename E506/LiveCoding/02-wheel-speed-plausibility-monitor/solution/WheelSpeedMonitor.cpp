@@ -8,9 +8,16 @@ namespace {
 constexpr double kMinimumSpeedMps = 0.0;
 constexpr double kMaximumSpeedMps = 100.0;
 constexpr double kMaximumDifferenceMps = 1.5;
-constexpr Milliseconds kMaximumSampleAgeMs = 50;
-constexpr unsigned kBadCyclesBeforeDegraded = 3;
-constexpr unsigned kGoodCyclesBeforeRecovery = 5;
+constexpr std::int64_t kMaximumSampleAgeMs = 50;
+constexpr std::uint32_t kBadCyclesBeforeDegraded = 3U;
+constexpr std::uint32_t kGoodCyclesBeforeRecovery = 5U;
+
+// Предусловие: timestamp_ms <= now_ms, а max_age_ms неотрицателен.
+bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
+             std::int64_t max_age_ms) noexcept {
+    return (timestamp_ms >= 0) ? ((now_ms - timestamp_ms) > max_age_ms)
+                               : (now_ms > (timestamp_ms + max_age_ms));
+}
 
 bool isValidValue(double value) {
     return std::isfinite(value) && value >= kMinimumSpeedMps &&
@@ -43,8 +50,8 @@ void WheelSpeedMonitor::tick() {
         degradeImmediately(Diagnostic::InvalidSample);
         return;
     }
-    if (now_ms - primary->timestamp_ms > kMaximumSampleAgeMs ||
-        now_ms - secondary->timestamp_ms > kMaximumSampleAgeMs) {
+    if (isStale(now_ms, primary->timestamp_ms, kMaximumSampleAgeMs) ||
+        isStale(now_ms, secondary->timestamp_ms, kMaximumSampleAgeMs)) {
         degradeImmediately(Diagnostic::StaleSample);
         return;
     }
@@ -59,27 +66,27 @@ void WheelSpeedMonitor::tick() {
         kMaximumDifferenceMps;
 
     if (status_ == Status::Available) {
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         if (plausible) {
-            bad_cycles_ = 0;
+            bad_cycles_ = 0U;
             return;
         }
         ++bad_cycles_;
         if (bad_cycles_ >= kBadCyclesBeforeDegraded) {
-            bad_cycles_ = 0;
+            bad_cycles_ = 0U;
             enter(Status::Degraded);
         }
         return;
     }
 
-    bad_cycles_ = 0;
+    bad_cycles_ = 0U;
     if (!plausible) {
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         return;
     }
     ++recovery_cycles_;
     if (recovery_cycles_ >= kGoodCyclesBeforeRecovery) {
-        recovery_cycles_ = 0;
+        recovery_cycles_ = 0U;
         enter(Status::Available);
     }
 }
@@ -97,8 +104,8 @@ void WheelSpeedMonitor::enter(Status next) {
 }
 
 void WheelSpeedMonitor::degradeImmediately(Diagnostic diagnostic) {
-    bad_cycles_ = 0;
-    recovery_cycles_ = 0;
+    bad_cycles_ = 0U;
+    recovery_cycles_ = 0U;
     diagnostics_.report(diagnostic);
     enter(Status::Degraded);
 }

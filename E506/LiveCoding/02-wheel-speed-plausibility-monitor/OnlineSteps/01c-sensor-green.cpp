@@ -1,7 +1,7 @@
 // Добавляем интерфейс сенсора и mock, возвращающий управляемое тестом значение.
 // Комментарии описывают учебное поведение данного снимка, не весь готовый продукт.
 
-// Teaching snapshot: this is not a complete monitor.
+// Учебный снимок: монитор ещё не завершён.
 // Фиксированный целочисленный тип используется для времени в миллисекундах.
 #include <cstdint>
 // optional позволяет представить отсутствующий sample без фиктивной скорости.
@@ -11,15 +11,12 @@
 // Google Test предоставляет TEST, проверки EXPECT и запуск набора тестов.
 #include <gtest/gtest.h>
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 namespace e506::wheel_speed {
 
-// Явно называем единицу времени, чтобы не спутать миллисекунды и секунды.
-using Milliseconds = std::int64_t;
+// Время хранится в std::int64_t; суффикс _ms обозначает миллисекунды.
 // Одно измерение: сама скорость и момент получения в той же системе часов.
-struct SpeedSample { double speed_mps; Milliseconds timestamp_ms; };
+struct SpeedSample { double speed_mps; std::int64_t timestamp_ms; };
 
 // Публичное состояние: данные доступны либо работа деградировала.
 enum class Status { Available, Degraded };
@@ -58,8 +55,8 @@ TEST(DataContract, StatusValuesAreDistinct) {
 
 // Пример настройки mock: здесь сенсор вызывается тестом напрямую.
 TEST(Ports, SensorReturnsConfiguredSample) {
-    StrictMock<MockSensor> sensor;
-    EXPECT_CALL(sensor, read()).WillOnce(Return(SpeedSample{20.0, 980}));
+    ::testing::StrictMock<MockSensor> sensor;
+    EXPECT_CALL(sensor, read()).WillOnce(::testing::Return(SpeedSample{20.0, 980}));
     const auto result = sensor.read();
     ASSERT_TRUE(result.has_value());
     EXPECT_DOUBLE_EQ(result->speed_mps, 20.0);

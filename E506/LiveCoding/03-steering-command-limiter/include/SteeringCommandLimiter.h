@@ -5,11 +5,10 @@
 
 namespace e506::steering {
 
-using Milliseconds = std::int64_t;
 
 struct SteeringCommand {
     double requested_torque_nm;
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
     bool driver_override;
 };
 
@@ -30,7 +29,7 @@ public:
 class IMonotonicClock {
 public:
     virtual ~IMonotonicClock() = default;
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 class ISteeringActuator {
@@ -51,11 +50,11 @@ public:
                            const IMonotonicClock& clock,
                            ISteeringActuator& actuator,
                            IDiagnosticSink& diagnostics,
-                           Milliseconds initial_time_ms = 0);
+                           std::int64_t initial_time_ms = 0);
 
     void tick();
     double lastAcceptedTorqueNm() const noexcept;
-    Milliseconds lastAcceptedTimeMs() const noexcept;
+    std::int64_t lastAcceptedTimeMs() const noexcept;
 
 private:
     ICommandSource& source_;
@@ -63,7 +62,7 @@ private:
     ISteeringActuator& actuator_;
     IDiagnosticSink& diagnostics_;
     double last_accepted_torque_nm_{0.0};
-    Milliseconds last_accepted_time_ms_;
+    std::int64_t last_accepted_time_ms_;
 };
 
 }  // namespace e506::steering

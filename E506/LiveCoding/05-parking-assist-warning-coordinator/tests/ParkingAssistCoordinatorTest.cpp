@@ -4,13 +4,12 @@
 #include <gtest/gtest.h>
 
 #include <array>
+#include <limits>
 #include <tuple>
 
 namespace e506::parking {
 namespace {
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 class MockSensorProvider : public IDistanceSensorProvider {
 public:
@@ -19,7 +18,7 @@ public:
 
 class MockClock : public IMonotonicClock {
 public:
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 class MockWarningOutput : public IWarningOutput {
@@ -35,16 +34,16 @@ public:
 class ParkingAssistCoordinatorTest : public ::testing::Test {
 protected:
     DistanceSample sample(double distance,
-                          Milliseconds timestamp = 900,
+                          std::int64_t timestamp = 900,
                           bool valid = true) const {
         return {distance, timestamp, valid};
     }
 
     void expectCycle(const std::array<DistanceSample, kSensorCount>& samples,
-                     Milliseconds now = 1000) {
-        EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
-        for (std::size_t index = 0; index < kSensorCount; ++index) {
-            EXPECT_CALL(sensors_, read(index)).WillOnce(Return(samples[index]));
+                     std::int64_t now = 1000) {
+        EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
+        for (std::size_t index = 0U; index < kSensorCount; ++index) {
+            EXPECT_CALL(sensors_, read(index)).WillOnce(::testing::Return(samples[index]));
         }
     }
 
@@ -52,10 +51,10 @@ protected:
         return {sample(2.0), sample(2.5), sample(3.0), sample(4.0)};
     }
 
-    StrictMock<MockSensorProvider> sensors_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockWarningOutput> warnings_;
-    StrictMock<MockCoverageOutput> coverage_;
+    ::testing::StrictMock<MockSensorProvider> sensors_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockWarningOutput> warnings_;
+    ::testing::StrictMock<MockCoverageOutput> coverage_;
     ParkingAssistCoordinator coordinator_{sensors_, clock_, warnings_, coverage_};
 };
 
@@ -114,6 +113,17 @@ TEST_F(ParkingAssistCoordinatorTest, SampleAtFreshnessBoundaryIsUsable) {
     expectCycle(samples);
     EXPECT_CALL(warnings_, publish(Warning::Critical));
     EXPECT_CALL(coverage_, publish(Coverage::Full));
+    coordinator_.evaluate();
+}
+
+TEST_F(ParkingAssistCoordinatorTest, ExtremeTimestampsAreStaleWithoutOverflow) {
+    auto samples = clearSamples();
+    for (auto& reading : samples) {
+        reading.timestamp_ms = std::numeric_limits<std::int64_t>::min();
+    }
+    expectCycle(samples, std::numeric_limits<std::int64_t>::max());
+    EXPECT_CALL(warnings_, publish(Warning::Unknown));
+    EXPECT_CALL(coverage_, publish(Coverage::Degraded));
     coordinator_.evaluate();
 }
 

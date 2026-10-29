@@ -12,14 +12,21 @@ constexpr double kMaximumDisagreementC = 5.0;
 constexpr double kCoolingEnterC = 55.0;
 constexpr double kCoolingExitC = 50.0;
 constexpr double kShutdownC = 70.0;
-constexpr Milliseconds kMaximumSampleAgeMs = 250;
+constexpr std::int64_t kMaximumSampleAgeMs = 250;
 
-bool isUsable(const TemperatureSample& sample, Milliseconds now_ms) {
+// Предусловие: timestamp_ms <= now_ms, а max_age_ms неотрицателен.
+bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
+             std::int64_t max_age_ms) noexcept {
+    return (timestamp_ms >= 0) ? ((now_ms - timestamp_ms) > max_age_ms)
+                               : (now_ms > (timestamp_ms + max_age_ms));
+}
+
+bool isUsable(const TemperatureSample& sample, std::int64_t now_ms) {
     return sample.acquisition_valid && std::isfinite(sample.celsius) &&
            sample.celsius >= kMinimumTemperatureC &&
            sample.celsius <= kMaximumTemperatureC &&
            sample.timestamp_ms <= now_ms &&
-           now_ms - sample.timestamp_ms <= kMaximumSampleAgeMs;
+           !isStale(now_ms, sample.timestamp_ms, kMaximumSampleAgeMs);
 }
 
 }  // namespace

@@ -6,7 +6,7 @@ I restate the task: accept a requested steering-assistance torque and send a lim
 
 2. RECORD THE CONTRACT
 
-Torque must be finite and at most 50 ms old. The absolute limit is ±3.0 Nm and the rate limit is 50 Nm/s using monotonic elapsed time. Nonpositive elapsed time, future or stale data and invalid torque cause a diagnostic and no actuator call. After validation, driver override sends zero assistance without rate limiting. This is the agreed exercise behavior, not a universal steering safety rule. Initial accepted torque is zero; the constructor receives initial time. Only actuator success updates accepted torque and time.
+Torque must be finite and at most 50 ms old. The absolute limit is ±3.0 Nm and the rate limit is 50 Nm/s using monotonic elapsed time. Nonpositive elapsed time, a positive interval not representable as std::int64_t, future or stale data and invalid torque cause a diagnostic and no actuator call. After validation, driver override sends zero assistance without rate limiting. This is the agreed exercise behavior, not a universal steering safety rule. Initial accepted torque is zero; the constructor receives initial time. Only actuator success updates accepted torque and time.
 
 3. DERIVE THE CALCULATION
 
@@ -18,7 +18,7 @@ Use the given source, clock, actuator and diagnostics interfaces. Read the comma
 
 5. DISCUSS VERIFICATION
 
-Integration checks units and actuator protocol; target tests check jitter and deadlines; HIL or vehicle tests check override and real steering response. Discuss ASIL only with an item and hazard. Production time handling needs bounded timestamps or checked subtraction: monotonic time alone does not prevent signed overflow.
+Integration checks units and actuator protocol; target tests check jitter and deadlines; HIL or vehicle tests check override and real steering response. Discuss ASIL only with an item and hazard. The reference checks the elapsed-time range and avoids signed overflow in freshness calculation; monotonic time alone does not provide that protection.
 
 6. FROM TASK TO FIRST IMPLEMENTATION
 

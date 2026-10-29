@@ -3,11 +3,11 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <limits>
+
 namespace e506::battery {
 namespace {
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 class MockTemperatureSensor : public ITemperatureSensor {
 public:
@@ -16,7 +16,7 @@ public:
 
 class MockClock : public IMonotonicClock {
 public:
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 class MockCoolingControl : public ICoolingControl {
@@ -37,25 +37,25 @@ public:
 class BatteryThermalSupervisorTest : public ::testing::Test {
 protected:
     TemperatureSample sample(double value,
-                             Milliseconds timestamp = 900,
+                             std::int64_t timestamp = 900,
                              bool valid = true) const {
         return {value, timestamp, valid};
     }
 
     void expectSamples(const TemperatureSample& first,
                        const TemperatureSample& second,
-                       Milliseconds now = 1000) {
-        EXPECT_CALL(first_sensor_, read()).WillOnce(Return(first));
-        EXPECT_CALL(second_sensor_, read()).WillOnce(Return(second));
-        EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
+                       std::int64_t now = 1000) {
+        EXPECT_CALL(first_sensor_, read()).WillOnce(::testing::Return(first));
+        EXPECT_CALL(second_sensor_, read()).WillOnce(::testing::Return(second));
+        EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
     }
 
-    StrictMock<MockTemperatureSensor> first_sensor_;
-    StrictMock<MockTemperatureSensor> second_sensor_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockCoolingControl> cooling_;
-    StrictMock<MockShutdownControl> shutdown_;
-    StrictMock<MockDiagnosticSink> diagnostics_;
+    ::testing::StrictMock<MockTemperatureSensor> first_sensor_;
+    ::testing::StrictMock<MockTemperatureSensor> second_sensor_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockCoolingControl> cooling_;
+    ::testing::StrictMock<MockShutdownControl> shutdown_;
+    ::testing::StrictMock<MockDiagnosticSink> diagnostics_;
     BatteryThermalSupervisor supervisor_{
         first_sensor_, second_sensor_, clock_, cooling_, shutdown_, diagnostics_};
 };
@@ -106,6 +106,16 @@ TEST_F(BatteryThermalSupervisorTest, TwoStaleSamplesRequestShutdown) {
     EXPECT_CALL(diagnostics_, report(Diagnostic::SensorFault));
     EXPECT_CALL(shutdown_, setRequested(true));
     supervisor_.evaluate();
+}
+
+TEST_F(BatteryThermalSupervisorTest, ExtremeTimestampsAreStaleWithoutOverflow) {
+    const auto oldest = std::numeric_limits<std::int64_t>::min();
+    const auto now = std::numeric_limits<std::int64_t>::max();
+    expectSamples(sample(40.0, oldest), sample(42.0, oldest), now);
+    EXPECT_CALL(diagnostics_, report(Diagnostic::SensorFault));
+    EXPECT_CALL(shutdown_, setRequested(true));
+    supervisor_.evaluate();
+    EXPECT_EQ(supervisor_.state(), State::ShutdownRequested);
 }
 
 TEST_F(BatteryThermalSupervisorTest, FiveDegreeDisagreementIsAccepted) {

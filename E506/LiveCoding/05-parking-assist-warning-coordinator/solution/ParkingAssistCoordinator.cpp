@@ -12,7 +12,14 @@ constexpr double kMaximumDistanceM = 5.00;
 constexpr double kCriticalMaximumM = 0.30;
 constexpr double kNearMaximumM = 0.80;
 constexpr double kCautionMaximumM = 1.50;
-constexpr Milliseconds kMaximumSampleAgeMs = 200;
+constexpr std::int64_t kMaximumSampleAgeMs = 200;
+
+// Предусловие: timestamp_ms <= now_ms, а max_age_ms неотрицателен.
+bool isStale(std::int64_t now_ms, std::int64_t timestamp_ms,
+             std::int64_t max_age_ms) noexcept {
+    return (timestamp_ms >= 0) ? ((now_ms - timestamp_ms) > max_age_ms)
+                               : (now_ms > (timestamp_ms + max_age_ms));
+}
 
 Warning warningFor(double nearest_distance_m) {
     if (nearest_distance_m <= kCriticalMaximumM) {
@@ -42,9 +49,9 @@ ParkingAssistCoordinator::ParkingAssistCoordinator(
 void ParkingAssistCoordinator::evaluate() {
     const auto now_ms = clock_.nowMs();
     double nearest_distance_m = std::numeric_limits<double>::infinity();
-    std::size_t usable_count = 0;
+    std::size_t usable_count = 0U;
 
-    for (std::size_t index = 0; index < kSensorCount; ++index) {
+    for (std::size_t index = 0U; index < kSensorCount; ++index) {
         const auto sample = sensors_.read(index);
         const bool timestamp_ordered =
             !last_accepted_timestamps_[index] ||
@@ -54,7 +61,7 @@ void ParkingAssistCoordinator::evaluate() {
             sample.distance_m >= kMinimumDistanceM &&
             sample.distance_m <= kMaximumDistanceM &&
             sample.timestamp_ms <= now_ms &&
-            now_ms - sample.timestamp_ms <= kMaximumSampleAgeMs &&
+            !isStale(now_ms, sample.timestamp_ms, kMaximumSampleAgeMs) &&
             timestamp_ordered;
 
         if (!usable) {
@@ -69,7 +76,7 @@ void ParkingAssistCoordinator::evaluate() {
         }
     }
 
-    const auto next_warning = usable_count == 0
+    const auto next_warning = usable_count == 0U
                                   ? Warning::Unknown
                                   : warningFor(nearest_distance_m);
     const auto next_coverage = usable_count == kSensorCount

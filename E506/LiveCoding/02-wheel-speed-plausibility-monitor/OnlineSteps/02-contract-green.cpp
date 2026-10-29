@@ -1,7 +1,7 @@
 // Собираем общую fixture и проверяем только начальный статус; tick пока пуст.
 // Комментарии описывают учебное поведение данного снимка, не весь готовый продукт.
 
-// Teaching snapshot: incomplete stages are intentionally not production code.
+// Учебный снимок: незавершённые этапы не предназначены для production.
 
 
 // Фиксированный целочисленный тип используется для времени в миллисекундах.
@@ -11,15 +11,14 @@
 
 namespace e506::wheel_speed {
 
-// Явно называем единицу времени, чтобы не спутать миллисекунды и секунды.
-using Milliseconds = std::int64_t;
+// Время хранится в std::int64_t; суффикс _ms обозначает миллисекунды.
 
 // Одно измерение: сама скорость и момент получения в той же системе часов.
 struct SpeedSample {
     // Скорость выражена в метрах в секунду; диапазон проверяется в tick.
     double speed_mps;
     // Timestamp нужен для проверки возраста и должен использовать источник времени clock.
-    Milliseconds timestamp_ms;
+    std::int64_t timestamp_ms;
 };
 
 // Публичное состояние: данные доступны либо работа деградировала.
@@ -50,7 +49,7 @@ public:
     // Виртуальный деструктор нужен для корректного удаления через интерфейс.
     virtual ~IMonotonicClock() = default;
     // Время читается через зависимость; метод const не меняет её интерфейсное состояние.
-    virtual Milliseconds nowMs() const = 0;
+    virtual std::int64_t nowMs() const = 0;
 };
 
 // Через этот порт компонент сообщает об изменении доступности.
@@ -116,7 +115,7 @@ WheelSpeedMonitor::WheelSpeedMonitor(ISpeedSensor& primary, ISpeedSensor& second
 Status WheelSpeedMonitor::status() const noexcept { return status_; }
 
 void WheelSpeedMonitor::tick() {
-    // The first interaction test will expose this empty implementation.
+    // Первый тест взаимодействия обнаружит пустую реализацию.
 }
 }
 
@@ -134,8 +133,6 @@ void WheelSpeedMonitor::tick() {
 namespace e506::wheel_speed {
 namespace {
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 // Тестовая замена соответствующего порта: реальные I/O здесь не выполняются.
 class MockSensor : public ISpeedSensor {
@@ -148,7 +145,7 @@ public:
 class MockClock : public IMonotonicClock {
 public:
     // gMock создаёт переопределение, поведение и ожидаемые вызовы задаются в тесте.
-    MOCK_METHOD(Milliseconds, nowMs, (), (const, override));
+    MOCK_METHOD(std::int64_t, nowMs, (), (const, override));
 };
 
 // Тестовая замена соответствующего порта: реальные I/O здесь не выполняются.
@@ -171,29 +168,29 @@ protected:
     // Вспомогательная настройка ожидает чтение обоих сенсоров и, при наличии данных, часов.
     void expectCycle(std::optional<SpeedSample> primary,
                      std::optional<SpeedSample> secondary,
-                     Milliseconds now = 1000) {
+                     std::int64_t now = 1000) {
         // Ожидаем один read и возвращаем значение, заданное конкретным циклом теста.
-        EXPECT_CALL(primary_, read()).WillOnce(Return(primary));
+        EXPECT_CALL(primary_, read()).WillOnce(::testing::Return(primary));
         // Аналогично задаём независимое значение второго сенсора.
-        EXPECT_CALL(secondary_, read()).WillOnce(Return(secondary));
+        EXPECT_CALL(secondary_, read()).WillOnce(::testing::Return(secondary));
         if (primary && secondary) {
             // Часы возвращают известный now; в тесте не зависит от реального времени.
-            EXPECT_CALL(clock_, nowMs()).WillOnce(Return(now));
+            EXPECT_CALL(clock_, nowMs()).WillOnce(::testing::Return(now));
         }
     }
 
     // Создаём компактный sample; по умолчанию его возраст при now = 1000 равен 20 ms.
-    SpeedSample sample(double value, Milliseconds timestamp = 980) const {
+    SpeedSample sample(double value, std::int64_t timestamp = 980) const {
         return {value, timestamp};
     }
 
     // StrictMock превращает неожиданные вызовы основного сенсора в ошибку теста.
-    StrictMock<MockSensor> primary_;
+    ::testing::StrictMock<MockSensor> primary_;
     // Второй экземпляр mock представляет независимый резервный вход.
-    StrictMock<MockSensor> secondary_;
-    StrictMock<MockClock> clock_;
-    StrictMock<MockStatusOutput> output_;
-    StrictMock<MockDiagnosticSink> diagnostics_;
+    ::testing::StrictMock<MockSensor> secondary_;
+    ::testing::StrictMock<MockClock> clock_;
+    ::testing::StrictMock<MockStatusOutput> output_;
+    ::testing::StrictMock<MockDiagnosticSink> diagnostics_;
     // Собираем проверяемый компонент из уже созданных mocks; их время жизни достаточно.
     WheelSpeedMonitor monitor_{primary_, secondary_, clock_, output_, diagnostics_};
 };

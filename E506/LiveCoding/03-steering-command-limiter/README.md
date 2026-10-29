@@ -49,7 +49,7 @@ The test suite observes both actuator calls and the state retained after rejecti
 - REQ-SCL-003: Absolute torque is clamped to ±3.0 Nm.
 - REQ-SCL-004: Rate of change is limited to 50.0 Nm/s using monotonic elapsed time.
 - REQ-SCL-005: Driver override requests 0.0 Nm assistance.
-- REQ-SCL-006: Zero or negative elapsed time produces no actuator call and reports `InvalidTime`.
+- REQ-SCL-006: Zero or negative elapsed time, or a positive elapsed interval not representable as `std::int64_t`, produces no actuator call and reports `InvalidTime`.
 - REQ-SCL-007: Stale or invalid input produces no actuator call and reports a fault.
 - REQ-SCL-008: The last accepted command changes only after actuator success.
 

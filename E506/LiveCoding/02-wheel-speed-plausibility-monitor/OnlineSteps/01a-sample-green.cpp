@@ -1,7 +1,7 @@
 // Добавляем данные измерения: скорость и timestamp с явными единицами.
 // Комментарии описывают учебное поведение данного снимка, не весь готовый продукт.
 
-// Teaching snapshot: this is not a complete monitor.
+// Учебный снимок: монитор ещё не завершён.
 // Фиксированный целочисленный тип используется для времени в миллисекундах.
 #include <cstdint>
 // optional позволяет представить отсутствующий sample без фиктивной скорости.
@@ -11,15 +11,12 @@
 // Google Test предоставляет TEST, проверки EXPECT и запуск набора тестов.
 #include <gtest/gtest.h>
 
-using ::testing::Return;
-using ::testing::StrictMock;
 
 namespace e506::wheel_speed {
 
-// Явно называем единицу времени, чтобы не спутать миллисекунды и секунды.
-using Milliseconds = std::int64_t;
+// Время хранится в std::int64_t; суффикс _ms обозначает миллисекунды.
 // Одно измерение: сама скорость и момент получения в той же системе часов.
-struct SpeedSample { double speed_mps; Milliseconds timestamp_ms; };
+struct SpeedSample { double speed_mps; std::int64_t timestamp_ms; };
 
 // Проверяем тестовый runner; этот тест ничего не доказывает о мониторе.
 TEST(Environment, TestFrameworkRuns) { EXPECT_EQ(1 + 1, 2); }
