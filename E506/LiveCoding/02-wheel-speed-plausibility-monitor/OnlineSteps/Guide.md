@@ -2,9 +2,11 @@ STEP-BY-STEP WHEEL SPEED MONITOR PRACTICE IN COMPILER EXPLORER
 
 1. HOW TO USE THESE FILES
 
-Imagine that the interviewer has described the task and the project editor is empty. This folder contains 18 standalone source snapshots, from an empty program to the existing full test suite. Each .cpp contains everything needed for one run. This is a teaching sequence, not actual commit history.
+Imagine that the interviewer has described the task and the project editor is empty. This folder contains 25 standalone source snapshots, from an empty program to the existing full test suite. Each .cpp contains everything needed for one run. This is a teaching sequence, not actual commit history.
 
 Set up Compiler Explorer using the adjacent OnlineCompiler.md: C++ language, Executor pane, x86-64 GCC 13.2, -std=c++17 and Google Test trunk. Open files in number order and replace the entire online editor contents each time. Compare adjacent files in your IDE to see the edits. Each red/green pair contains the same tests; green adds behavior that fixes the expected failure.
+
+All C++ snapshots contain Russian comments explaining the purpose of types, ports, mocks, assertions and branches. Read them alongside the step description; a branch comment describes the current teaching snapshot.
 
 Red means the code builds and a test intentionally fails; a nonzero run exit is expected. Green means every test in that snapshot passes. A compile failure, missing library or a program that never runs is not the expected red. A passing intermediate snapshot proves only the tests added so far, not the entire specification.
 
@@ -12,13 +14,40 @@ Red means the code builds and a test intentionally fails; a nonzero run exit is 
 
 Before coding, restate the boundary: the component compares two speed readings and reports Available or Degraded; it does not select the true speed. Clarify units, range, data age, exact disagreement boundary, numbers of consecutive bad and recovery cycles, missing input behavior and publication rules. The agreed practice requirements are in the exercise README.md. If the interviewer changes a condition, agree a new test before changing implementation.
 
+HOW FILE NUMBERS MAP TO THE EXERCISE README
+
+- README step 1: ask the questions before running 00-empty.cpp. The file does not answer questions on the interviewer's behalf.
+- README step 2: agree REQ-WSP-001–009 before development. Steps 00 and 01 check the environment, not implementation of those requirements.
+- README step 3: files 01a–01g gradually introduce data, four port types and mocks; two separate instances of the sensor mock represent primary and secondary. 02-contract-green.cpp assembles the complete fixture.
+- README step 4: test-matrix scenarios are introduced progressively together with implementation in steps 03–17. For example, 03/04 covers equal values, 05/06 the third disagreement, 07/08 counter reset, 09/10 missing input, 11/12 stale data, 13/14 NaN and 15/16 recovery. Remaining existing cases appear in 17; useful additional checks are discussed at the end of the guide.
+- README step 5: implementation is added in green files after the corresponding red test. Therefore steps 4 and 5 alternate instead of being completed once as large separate blocks.
+- README step 6: after 17, map unit evidence to requirements and identify integration, target and vehicle-level checks. These are not automatically performed by the online compiler.
+
+ADDITIONAL SUBSTEPS AFTER 01-GTEST-SMOKE.CPP
+
+01a-sample-green.cpp adds Milliseconds and SpeedSample with speed and timestamp. SampleStoresSpeedAndTimestamp checks that data can be created and read. This is a teaching test of the data structure, not the algorithm. Two tests pass including the smoke test.
+
+01b-status-green.cpp adds Status and Diagnostic enums. StatusValuesAreDistinct shows two distinct statuses. Three tests pass; monitor behavior is not yet tested.
+
+01c-sensor-green.cpp adds ISpeedSensor with read() returning optional<SpeedSample>, and MockSensor. SensorReturnsConfiguredSample configures and reads the mock directly to demonstrate the interface and EXPECT_CALL. Four tests pass. Two instances of the same mock class will later represent the two physical inputs.
+
+01d-clock-green.cpp adds IMonotonicClock and MockClock. ClockReturnsConfiguredTime sets and checks a fixed time of 1000 ms. Five tests pass. This prepares controlled time; it does not yet check sample freshness.
+
+01e-status-output-green.cpp adds IStatusOutput and MockStatusOutput. StatusOutputObservesPublication demonstrates an expectation for publish(Degraded). Six tests pass. In this demonstration the output is called manually, not by the monitor.
+
+01f-diagnostics-green.cpp adds IDiagnosticSink and MockDiagnosticSink. DiagnosticSinkObservesFault demonstrates an expectation for report(MissingSample). Seven tests pass. As in the previous substep, this checks mock setup.
+
+01g-component-green.cpp adds a minimal WheelSpeedMonitor: the constructor stores references to five dependencies, status returns initial Available and tick is empty. Monitor.InitialStateIsAvailable creates two separate sensor mocks and the other dependencies; eight tests pass. Those mocks are not called by this test.
+
+These demonstration tests introduce the interfaces incrementally. The next file, 02-contract-green.cpp, replaces them with a shared fixture and a separate initial-state test, so the test count returns to one. This is a deliberate restructuring of teaching code, not a loss of tests for a completed algorithm.
+
 3. STEPS 00–02: EMPTY ENVIRONMENT AND CONTRACT
 
 00-empty.cpp is the starting point: only main returning 0. Run it: exit code 0, no tests yet. This checks the compiler, not the product.
 
 01-gtest-smoke.cpp adds Google Test and Google Mock includes, one Environment.TestFrameworkRuns test and main with InitGoogleMock and RUN_ALL_TESTS. Expect one passing test. It checks the environment, not the monitor.
 
-02-contract-green.cpp adds SpeedSample, Status and Diagnostic, ports for two sensors, clock, output and diagnostics, the WheelSpeedMonitor class, mocks and test fixture. tick is still empty. InitialStateIsAvailable checks only initial status, does not call tick and passes. The contract is added together for convenient copying; discuss it with the interviewer before this step instead of assuming it was provided.
+02-contract-green.cpp combines the types, ports and mocks introduced in 01a–01g into a WheelSpeedMonitorTest fixture with expectCycle and sample. There are no counters or enter/degradeImmediately helpers yet: they are added alongside the behavior that needs them. tick is empty. InitialStateIsAvailable checks only initial status and passes.
 
 4. STEPS 03–08: CYCLES AND RESET
 
@@ -38,7 +67,7 @@ Before coding, restate the boundary: the component compares two speed readings a
 
 09-missing-red.cpp adds MissingSensorDegradesImmediately. The previous guard returns without a diagnostic or publication; the test requires MissingSample and Degraded and fails without intentionally dereferencing an empty optional.
 
-10-missing-green.cpp calls degradeImmediately when either input is absent: both counters reset, MissingSample is reported and enter publishes Degraded only on change. Five tests pass. The enter and degradeImmediately scaffolding was declared earlier with the contract; the path is now actually used.
+10-missing-green.cpp calls degradeImmediately when either input is absent: both counters reset, MissingSample is reported and enter publishes Degraded only on change. Five tests pass. The enter helper appeared at step 06; degradeImmediately is added now. The recovery counter arrives later, so only bad_cycles_ is reset at this point.
 
 11-stale-red.cpp adds FiftyOneMillisecondSampleIsStale: at now = 1000, timestamp 949 is 51 ms old. The previous code does not yet validate freshness, so the test fails.
 
@@ -52,7 +81,7 @@ Before coding, restate the boundary: the component compares two speed readings a
 
 15-recovery-red.cpp adds FifthPlausibleCycleRecovers. After immediate degradation, four good pairs must keep Degraded and the fifth must publish Available once. Recovery was not implemented, so the final expectation fails.
 
-16-recovery-green.cpp adds a separate recovery_cycles_: while Degraded, good pairs increment it, a bad pair resets it and the fifth good pair enters Available. Eight tests pass. The original complete solution also explicitly resets counters in the corresponding transitions.
+16-recovery-green.cpp adds a separate recovery_cycles_ and its reset on an immediate fault: while Degraded, good pairs increment the counter, a bad pair resets it and the fifth good pair enters Available. Eight tests pass. The original complete solution also explicitly resets counters in the corresponding transitions.
 
 17-full-suite-green.cpp is a separate copy of OnlineCompiler.cpp with the original contract, complete reference solution and original tests. Expect 13 passing tests: nine ordinary tests and four parameterized runs. This snapshot replaces the teaching implementation with the reference, adds the remaining existing tests and removes the teaching tests InitialStateIsAvailable and NaNDegradesImmediately; it is therefore not just added lines on step 16. Compare it with 16 and inspect named constants and complete validation.
 

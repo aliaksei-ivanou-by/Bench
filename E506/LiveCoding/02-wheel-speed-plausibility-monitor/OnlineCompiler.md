@@ -18,7 +18,7 @@ On 29 October 2026 this file was checked through Compiler Explorer using x86-64 
 
 3. HOW TO PRACTISE
 
-To start from an empty project, open OnlineSteps/Guide.md: it describes 18 snapshots that add tests and logic in sequence. Each snapshot can be pasted into Executor as a complete file.
+To start from an empty project, open OnlineSteps/Guide.md: it describes 25 snapshots that add tests and logic in sequence. Each snapshot can be pasted into Executor as a complete file.
 
 OnlineCompiler.cpp contains the contract first, then implementation, tests and main. For practice, change only the WheelSpeedMonitor implementation in the online editor and rerun the tests. For example, temporarily change the 1.5 threshold to 1.0: the exact-boundary test alone may not detect that error in a single cycle, so inspect which checks actually fail and discuss the missing coverage. Restore the original value after the experiment.
 

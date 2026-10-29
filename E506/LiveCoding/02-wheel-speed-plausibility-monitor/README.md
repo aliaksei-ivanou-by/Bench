@@ -33,6 +33,10 @@ ctest --test-dir build --output-on-failure
 
 The public header and tests remain unchanged while the implementation is replaced.
 
+## How the README maps to OnlineSteps
+
+The [step-by-step guide](./OnlineSteps/Guide.md) maps the stages below to runnable files: questions and requirements come before code, 01a–02 build data and mocks progressively, and 03–17 alternate tests with implementation. After the final step, discuss V-model verification levels separately.
+
 ## Step 1: Ask before coding
 
 - What are the units and physical range?
