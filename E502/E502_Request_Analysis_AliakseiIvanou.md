@@ -41,7 +41,7 @@ Recommendation: QUALIFY BEFORE PROCEEDING; do not present the candidate as Ceph-
 
 The candidate has a defensible base as a C and C++ engineer on Linux: two years as a C89 backend developer on a large production library platform running on AWS EC2 Linux hosts, with log-first cross-service diagnosis, gdb, core dumps and Valgrind; a short C++17 assignment on an Azure-hosted industrial-data system; and fifteen months of C++17 and Qt work on an embedded Linux product, including a customized fork of an open-source SIP SDK, Yocto images, systemd services and target debugging on ARM64 hardware. He also has fourteen years across software engineering and R&D, strong cross-layer diagnosis habits and, since October 2025, People Lead responsibilities for an internal engineering sub-group.
 
-The request's distinguishing core is not supported. Summary contains no evidence of Ceph in any form, NetApp, Kubernetes, Rook, Ceph CSI, Prometheus, Grafana, OpenStack, S3 or Swift object-storage integration, storage performance work, upstream open-source contribution or production Python. The CV project that carries all of these claims, Remote Sensing Satellites Database, corresponds in Summary to a Ruby on Rails and PostgreSQL satellite reference database built at PELENG in 2015 and 2016; the Ceph, Kubernetes, C++ ingestion, Python and monitoring content is a CV-only claim, and the CV period of April 2022 to April 2024 is the period of the real library-system assignment at EPAM.
+The request's distinguishing core is not supported. Summary contains no evidence of Ceph in any form, NetApp, Kubernetes, Rook, Ceph CSI, Prometheus, Grafana, OpenStack, S3 or Swift object-storage integration, storage performance work, upstream open-source contribution or production Python. The CV project that carries the Ceph, Kubernetes, Python and monitoring claims, Remote Sensing Satellites Database, corresponds in Summary to a Ruby on Rails and PostgreSQL satellite reference database built at PELENG in 2015 and 2016; the Ceph, Kubernetes, C++ ingestion, Python and monitoring content is a CV-only claim, and the CV period of April 2022 to April 2024 falls within the real library-system assignment at EPAM, which ran from March 2022 to April 2024.
 
 The revised request shifts the emphasis from Ceph core development to a versatile developer with "some Ceph experience", which makes the general C++, Linux and diagnosis profile more relevant. It introduces NetApp alongside Ceph and retains Kubernetes, which was already in the original description. Hands-on experience in these storage and orchestration technologies is not supported. Ceph architecture and Kubernetes storage integration are reasonable preparation priorities, but the interview format and question order are unknown. Proceed only if the intermediary confirms that the client will consider a strong C and C++ Linux engineer who learns Ceph and Kubernetes on the project, and submit a CV that does not claim hands-on Ceph operation.
 
@@ -49,7 +49,7 @@ REQUEST FACTS
 
 Role: Ceph Developer, revised to a very strong versatile developer with Ceph or NetApp, Kubernetes, C++ development and infrastructure experience and some Ceph experience
 Seniority: Senior
-Industry and domain: Information technologies; OpenStack-based public cloud infrastructure, distributed storage, Kubernetes
+Industry and domain: Information technologies; OpenStack-based cloud infrastructure, distributed storage, Kubernetes
 Delivery context: GCID PlusOne Central Engineering team developing and operating external SAP Cloud Infrastructure services
 Engagement: Start as soon as possible; end on 31 December 2026 or later with a very likely extension; three to six months in the administrative field
 Capacity: 40 hours per week desired, 30 hours per week minimum
@@ -81,7 +81,7 @@ CUSTOMER AND DOMAIN CONTEXT
   Interview implication: Maintaining internal changes on top of an open-source codebase is directly analogous to the candidate's work in a customized Linphone SDK, where he implemented a registration watchdog and primary/backup failover and failback. This is a transferable fork-maintenance story, not Ceph experience.
   Source: E502_Request_AliakseiIvanou.md, Role summary; Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, section 01
 
-- Inference: The changed requirements suggest that the client could not find enough specialist Ceph developers and has widened the search to strong systems and infrastructure engineers. Ceph exposure still differentiates candidates, and NetApp may indicate that part of the storage estate is outside Ceph.
+- Request fact: The revised description widens the profile to a strong developer across several technical areas, retaining some Ceph experience and naming NetApp alongside Ceph. The reason for the change and the products actually deployed are not established by the request.
 
 ROLE OUTCOME
 
@@ -100,7 +100,7 @@ Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.
 
 Project 2. Remote Sensing Satellites Database
 CV period and role: April 2022 – April 2024; Software Engineer
-Summary record: PELENG satellite reference database with a web interface, Ruby on Rails and PostgreSQL, February 2015 – February 2016, designed and implemented by the candidate; April 2022 – April 2024 is the period of the Sierra library-system assignment at EPAM
+Summary record: PELENG satellite reference database with a web interface, Ruby on Rails and PostgreSQL, February 2015 – February 2016, designed and implemented by the candidate; April 2022 – April 2024 falls within the Sierra library-system assignment at EPAM, March 2022 – April 2024
 Classification: NOT FULL MATCH
 Request relevance: The CV's C++ ingestion, POSIX streaming I/O, multithreaded validation, Ceph RGW through S3 API, Rook, Ceph CSI and RBD, Ceph performance investigation, Python scripts and Prometheus and Grafana monitoring are CV-only claims. Only the Ruby on Rails and PostgreSQL catalogue work is supported, at a different time and employer.
 Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md, sections 01 and 13; no Ceph, Kubernetes, Rook, Prometheus, Grafana or S3 evidence anywhere in Summary/Interview
@@ -254,7 +254,7 @@ Interview response: I have not run workloads or storage on Kubernetes in a proje
 
 Request item 14. Senior engineering level
 
-Type: MUST-HAVE, ORIGINAL
+Type: MUST-HAVE, SHARED VACANCY CONDITION
 Coverage: PARTIALLY COVERED
 Related CV item: Professional summary
 Summary evidence: Summary/Interview/Recruiter Brief.md, sections 06 and 07; Summary/Interview/Career Overview.md, section 02
@@ -266,7 +266,7 @@ Request item 15. Strong proficiency in C++ and Python, five or more years
 Type: MUST-HAVE, ORIGINAL
 Coverage: PARTIALLY COVERED
 Related CV item: Skills matrix: C++ 11 years, Python 2 years
-Summary evidence: Summary/Interview/Recruiter Brief.md, section 07; Python only as occasional use in Summary/Interview/Vacancy Preparation
+Summary evidence: Summary/Interview/Recruiter Brief.md, section 07; occasional Python use in Summary/Interview/Vacancy Preparation/Vacancy Preparation. FinDev Senior C++ Engineer, Electronic Bond Trading/Vacancy Preparation. FinDev Senior C++ Engineer, Electronic Bond Trading.md, section 03
 Assessment: C++17 work on the embedded and oil-and-gas projects and an independent C++20 application are directly supported. The C89 backend assignment is relevant systems-programming experience, but combining C and C++ duration does not by itself demonstrate five years of proficiency specifically in C++. Five years of Python proficiency and production Python are not established, so the combined requirement is not fully met.
 Interview response: C and C++ are my primary languages with more than six years of practice. Python I have used occasionally for scripts, not as a production language.
 
@@ -326,7 +326,7 @@ Interview response: I have not used Prometheus or Grafana in a project.
 
 Request item 22. English at B2+ level
 
-Type: MUST-HAVE, ORIGINAL
+Type: MUST-HAVE, SHARED VACANCY CONDITION
 Coverage: PARTIALLY COVERED
 Related CV item: Language proficiency: English B2+
 Summary evidence: Summary/Interview/Recruiter Brief.md, section 03
@@ -335,7 +335,7 @@ Interview response: English has been my daily working language since 2021, inclu
 
 Request item 23. EU location, CET working hours and at least 30 hours per week
 
-Type: MUST-HAVE, ORIGINAL
+Type: MUST-HAVE, SHARED VACANCY CONDITION
 Coverage: PARTIALLY COVERED
 Related CV item: No direct match
 Summary evidence: Summary/Interview/Recruiter Brief.md, sections 02 and 07; Summary/Interview/Career Overview.md, section 02
@@ -386,7 +386,7 @@ COVERAGE SUMMARY
 - NOT COVERED: 12 — items 1, 2, 4, 5, 6, 12, 13, 16, 18, 21, 24 and 27.
 - Revised must-haves: one covered, two partially covered, two not covered; both uncovered items, Ceph or NetApp and Kubernetes, define the role.
 
-The current-profile assessment is based primarily on items 9 to 13: breadth across technical areas is PARTIALLY COVERED; C++ development is COVERED; infrastructure experience is PARTIALLY COVERED; Ceph or NetApp with some Ceph experience is NOT COVERED; Kubernetes is NOT COVERED. The original specialist criteria explain possible technical interview topics, but their continued use as selection requirements is not established.
+The current technical-profile assessment is based primarily on items 9 to 13: breadth across technical areas is PARTIALLY COVERED; C++ development is COVERED; infrastructure experience is PARTIALLY COVERED; Ceph or NetApp with some Ceph experience is NOT COVERED; Kubernetes is NOT COVERED. Seniority, English and EU location, CET hours and capacity remain separate vacancy constraints assessed in items 14, 22 and 23, all PARTIALLY COVERED. The original specialist criteria explain possible technical interview topics, but their continued use as selection requirements is not established.
 
 RELEVANT STRENGTHS
 

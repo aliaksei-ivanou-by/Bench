@@ -28,7 +28,7 @@ FIT SUMMARY FOR THIS REQUEST
 
 Overall fit: WEAK for the original Ceph Developer request; WEAK TO PARTIAL for the revised versatile C++ and infrastructure profile, relevant only if the client accepts a strong systems developer who learns Ceph and Kubernetes on the project.
 
-The current fit assessment prioritizes the five revised requirements: C++ development is covered; technical breadth and infrastructure experience are partially covered; Ceph or NetApp with some Ceph experience and Kubernetes are not covered. The original specialist requirements remain technical context, with their continued applicability to the revised role not established.
+The current fit assessment prioritizes the five revised technical requirements: C++ development is covered; technical breadth and infrastructure experience are partially covered; Ceph or NetApp with some Ceph experience and Kubernetes are not covered. Seniority, English and EU location, CET hours and capacity remain separate vacancy constraints, each partially covered in Request Analysis. The original specialist requirements remain technical context, with their continued applicability to the revised role not established.
 
 Strongest matches:
 
@@ -176,7 +176,7 @@ UNSUPPORTED CLAIMS
 
 - Claim: Integrated Ceph RGW through the S3 API, including pre-signed URLs.
   Status: UNSUPPORTED
-  Required handling: Do not claim; no Ceph or S3 evidence exists in Summary.
+  Required handling: Do not claim project use; Summary has no project evidence for Ceph or S3 integration. AWS coursework is a separate learning record.
 
 - Claim: Deployed and maintained Ceph services in Kubernetes using Rook Operator.
   Status: UNSUPPORTED

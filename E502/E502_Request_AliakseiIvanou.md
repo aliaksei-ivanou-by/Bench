@@ -65,9 +65,9 @@ Revised requirements that define the current target profile:
 4. Ceph or NetApp storage experience, including some Ceph experience.
 5. Kubernetes experience.
 
-Original required skills retained as the detailed technical scope:
+Requirements retained from the initial description and the engagement fields:
 
-These describe the original specialist profile. Their continued applicability to the revised role has not been established; they are retained as technical context rather than treated as separately confirmed current requirements.
+Item 6 records seniority from the vacancy fields; items 14 and 15 record shared language and engagement constraints. These remain part of the vacancy assessment alongside the five revised technical requirements. Items 7 to 13 describe the original specialist profile; their continued applicability to the revised role has not been established, so they are retained as technical context.
 
 6. Senior engineering level.
 7. Strong proficiency in C++ and Python, five or more years.
