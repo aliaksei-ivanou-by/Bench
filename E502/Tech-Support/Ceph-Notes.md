@@ -250,6 +250,6 @@ Useful links from the source:
 - https://www.youtube.com/watch?v=O7zWbuH-XWc
 - https://docs.ceph.com/en/latest/rados/
 
-Architecture figure: Ceph-Architecture.svg.
+Architecture figure: Ceph-Architecture-EN.svg.
 
-![Ceph interfaces and RADOS placement](Ceph-Architecture.svg)
+![Ceph interfaces and RADOS placement](Ceph-Architecture-EN.svg)

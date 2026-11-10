@@ -134,9 +134,11 @@ CRUSH MAP
 
 Чтобы снизить риск одновременных отказов, реплики могут размещаться на устройствах, находящихся в разных полках, стойках, физических локациях или использующих разные блоки питания и контроллеры.
 
-Исходная схема CRUSH: Ceph-CRUSH-Source.png. Корень root default содержит хосты host foo и host bar; у первого — osd.0 и osd.1, у второго — osd.2 и osd.3.
+Original CRUSH diagram: Ceph-CRUSH-Source.png.
 
-![Исходная иерархия CRUSH](Ceph-CRUSH-Source.png)
+Корень root default содержит хосты host foo и host bar; у первого — osd.0 и osd.1, у второго — osd.2 и osd.3.
+
+![Original CRUSH hierarchy from the source](Ceph-CRUSH-Source.png)
 
 Правила:
 - Расположение.
@@ -250,6 +252,6 @@ ceph-csi или Rook: PVC направляется непосредственн�
 - https://www.youtube.com/watch?v=O7zWbuH-XWc
 - https://docs.ceph.com/en/latest/rados/
 
-Схема архитектуры: Ceph-Architecture.svg.
+Architecture diagram: Ceph-Architecture-EN.svg.
 
-![Интерфейсы Ceph и размещение данных в RADOS](Ceph-Architecture.svg)
+![Ceph interfaces and RADOS placement](Ceph-Architecture-EN.svg)
