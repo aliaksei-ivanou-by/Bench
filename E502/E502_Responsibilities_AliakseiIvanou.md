@@ -1,402 +1,702 @@
 RESPONSIBILITIES: CV AND FACTUAL EXPERIENCE
 
 CV source: E502 Aliaksei Ivanou (13, C++).pdf
-Factual source: Summary/Interview/Career Overview.md and the project documents cited for each item.
-Source request: E502_Request_AliakseiIvanou.md
 
-1. CV RESPONSIBILITY RECONCILIATION
+1. PROJECT IDENTITY AND FACTUAL CORRECTIONS
 
 1. SIP Desk Phone Platform for Audio and Video Communication
+
+Classification: FULL MATCH
+
 PROJECT FACTUAL CORRECTION
 CV: May 2024–present, Software Engineer. Summary: May 2025–August 2026 on the SIP project; middle C++ engineer, with a separate internal People Lead role from October 2025.
 Evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md; Summary/Interview/Career Overview.md
 
-1.1. Refactored SIP call handling toward a cleaner MVC/MVVM-style architecture by separating UI rendering from call state, user actions, media negotiation, and Linphone-SDK integration logic.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I refactored Qt call handling into sessions, services, adapters and presentation boundaries. The larger refactor was completed as internal architecture work.
-Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
-Gap: The CV does not distinguish internal architecture work from released functionality.
-Follow-up topics: Qt, asynchronous state, SDK integration
-
-1.2. Incrementally decomposed legacy Qt Widgets call-flow code into clearer domain, presentation, and SDK-integration boundaries while preserving existing UI behavior and QObject signal compatibility.
-Status: CONFIRMED
-Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I decomposed inherited Qt call handling into clearer boundaries while maintaining existing interaction patterns and signal connections.
-Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
-Gap: No material gap in the stated incremental refactoring.
-Follow-up topics: QObject signals, controllers, regression
-
-1.3. Hardened video-call and conference UI behavior for edge cases such as held calls, second-line calls, remote hangups, stale overlays, and active video stream switching.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I worked on call and conference UI, hold, second calls, remote hangups and video state; these were validated as adjacent device scenarios.
-Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
-Gap: The complete list of individual UI fixes and outcomes is broader than the specifically evidenced cases.
-Follow-up topics: Hold, teardown, video state
-
-1.4. Extended and customized Linphone-SDK (liblinphone) backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
-Status: CONFIRMED
-Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I implemented a registration watchdog and primary/backup failover/failback in the customized liblinphone SDK and integrated its APIs into the phone application.
-Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
-Gap: The work was in the project-specific SDK, not upstream Linphone.
-Follow-up topics: Registration, failover, authentication
-
-1.5. Developed WebRTC video-conferencing UI and signaling flows: conference creation/join, incoming invite screens, participant roster, SIP/IP/phonebook add dialogs, status strip, control panel, video tile layout, and audio/video device controls.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I integrated and debugged the phone-side WebRTC/mediasoup conference path, with a limited contribution to the initial Node.js server.
-Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
-Gap: The CV lists a broad set of UI and signaling flows; Summary does not establish sole ownership of every listed flow or the later server rewrite.
-Follow-up topics: Conference lifecycle, media, ownership
-
-1.6. Autoprovisioning tooling: migrated a WinForms-based configuration utility from .NET Framework 4.8 to .NET 8, unified project file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I migrated the inherited WinForms tool to .NET 8 and developed configuration and discovery workflows using SNMP, DHCP, TFTP and SQLite.
-Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
-Gap: The old encrypted BinaryFormatter format is incompatible with the later JSON reader; supported project formats must not be described as universally backward compatible.
-Follow-up topics: Format migration, device discovery, provisioning
-
-1.7. Collaborated on Yocto/BitBake customization, i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
-Status: CONFIRMED
-Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I adapted inherited Yocto/BitBake recipes, packages and startup services and debugged integration on i.MX devices.
-Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
-Gap: I worked within an inherited platform; I did not create the Yocto platform.
-Follow-up topics: BitBake, systemd, target debugging
-
 2. Remote Sensing Satellites Database
+
+Classification: NOT FULL MATCH
+
 PROJECT FACTUAL CORRECTION
 CV: April 2022–April 2024, Software Engineer. Summary: a Rails/PostgreSQL satellite reference database in 2015–2016; the described Ceph-based archive system is not the same full project.
 Evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md; Summary/Interview/Career Overview.md
 
-2.1. Developed Ruby on Rails web interfaces and workflows for satellite catalogues, metadata, dataset search, and archive access.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I built a Rails and PostgreSQL reference database for remote-sensing satellites and their parameters during 2015–2016.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: The CV presents a different 2022–2024 system and archive platform; Summary supports the earlier reference database, not that complete platform.
-Follow-up topics: Rails, PostgreSQL, reference data
-
-2.2. Developed C++ ingestion components with POSIX streaming I/O and optimized memory buffers for large imagery and telemetry archives.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I can discuss the Rails/PostgreSQL reference database and MATLAB image-processing work.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: Summary has no evidence of C++ ingestion, POSIX streaming or archive buffer optimization on this project.
-Follow-up topics: C++ I/O theory, reference database
-
-2.3. Implemented multithreaded data validation, checksum calculation, and file preparation for bulk ingestion.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I designed and verified imaging algorithms in MATLAB; I do not claim a multithreaded archive-ingestion pipeline.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: No evidence of parallel archive validation, checksums or bulk ingestion.
-Follow-up topics: Validation and checksum theory
-
-2.4. Integrated Ceph RGW via S3 API for satellite data storage and retrieval, including pre-signed URLs for secure file access.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I worked on a Rails/PostgreSQL satellite reference database; I have not integrated Ceph RGW or S3 in that work.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: No evidence for Ceph, S3 object storage or pre-signed URLs.
-Follow-up topics: Object storage and S3 theory
-
-2.5. Deployed and maintained Ceph services in Kubernetes using Rook Operator.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: My supported system work includes Linux device integration and application debugging, not Kubernetes or Ceph operations.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: No evidence of Kubernetes, Rook or Ceph deployment.
-Follow-up topics: Kubernetes and Rook theory
-
-2.6. Configured Ceph CSI for RBD, enabling dynamic persistent volume provisioning.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I have not configured Ceph CSI or RBD; I can discuss deployment integration on the embedded Linux project.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: No supporting evidence for CSI, RBD or dynamic volume provisioning.
-Follow-up topics: CSI, RBD and volume theory
-
-2.7. Investigated Ceph performance issues, analyzing I/O latency, throughput, OSD behavior, and BlueStore utilization.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: My diagnosis experience is in application and target behavior, including logs, gdb and Valgrind.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: No evidence of Ceph performance, OSD or BlueStore investigation.
-Follow-up topics: Performance diagnosis versus storage tuning
-
-2.8. Developed Python scripts for storage health checks, deployment validation, data integrity, and performance testing.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: My supported automation includes MATLAB algorithm evaluation; storage-health and benchmark scripting is not evidenced.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: No supporting evidence for production Python storage-health or performance scripts.
-Follow-up topics: Python and storage test theory
-
-2.9. Monitored storage infrastructure with Prometheus and Grafana, identifying bottlenecks and resource issues.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I used application and system logs to diagnose the library and phone products.
-Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
-Gap: No evidence of Prometheus or Grafana monitoring.
-Follow-up topics: Logs, metrics and observability
-
 3. Software Modules for UAV
+
+Classification: FULL MATCH
+
 PROJECT FACTUAL CORRECTION
 CV: March 2020–March 2022, Software Engineer. Summary: optical-system algorithm work within August 2012–January 2020, as a design and research engineer.
 Evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md; Summary/Interview/Career Overview.md
 
-3.1. Developed digital image processing modules for UAV optical sensor systems, combining MATLAB algorithm development with C++ implementation of performance-critical components.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I developed UAV imaging algorithms in MATLAB, including debayering, stabilization and fusion.
-Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
-Gap: C++ implementation of performance-critical UAV modules is not supported.
-Follow-up topics: MATLAB, image pipeline
-
-3.2. Prototyped and evaluated debayering algorithms in MATLAB and implemented C++ processing modules to convert raw Bayer sensor data into full-color images.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I designed and evaluated debayering algorithms in MATLAB on optical sensor data.
-Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
-Gap: C++ Bayer conversion implementation is not supported.
-Follow-up topics: Bayer pattern, image validation
-
-3.3. Developed C++ image format conversion and preprocessing components to support different sensor output formats and ensure compatibility across processing pipelines.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I worked on image format conversion as part of the MATLAB UAV processing work.
-Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
-Gap: The record does not support C++ conversion-component ownership.
-Follow-up topics: Formats, pipeline interfaces
-
-3.4. Optimized image frame processing in C++, focusing on efficient memory buffer management and reducing unnecessary data copying during image operations.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I evaluated imaging algorithms in MATLAB; C++ buffer optimization on this project is not evidenced.
-Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
-Gap: No evidence of C++ frame-buffer ownership or copy optimization.
-Follow-up topics: Buffers and memory theory
-
-3.5. Developed and evaluated image stabilization algorithms using MATLAB, implementing selected processing operations in C++ for integration into image processing workflows.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I developed and evaluated UAV stabilization algorithms in MATLAB.
-Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
-Gap: A C++ implementation of selected operations is not supported.
-Follow-up topics: Stabilization, representative data
-
-3.6. Designed and validated multi-sensor image fusion algorithms in MATLAB and integrated the resulting processing modules into the software pipeline.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I designed and verified image-fusion algorithms in MATLAB for the UAV optical system.
-Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
-Gap: Summary supports algorithm design, but not the asserted software-pipeline integration scope.
-Follow-up topics: Fusion, reference imagery
-
-3.7. Tested image processing modules using representative sensor datasets, analyzing output quality, processing accuracy, and performance.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I verified imaging algorithms using reference imagery and participated in real UAV flight testing as payload operator.
-Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
-Gap: The CV implies testing C++ modules and performance; Summary supports algorithm and flight validation instead.
-Follow-up topics: Reference imagery, flight testing
-
 4. Software for Processing and Analysis of Satellite Earth Observation Images
+
+Classification: FULL MATCH
+
 PROJECT FACTUAL CORRECTION
 CV: January 2018–February 2020, Software Engineer. Summary: satellite imaging work within August 2012–January 2020, as a design and research engineer.
 Evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md; Summary/Interview/Career Overview.md
 
-4.1. Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects, improving the overall quality and consistency of satellite imagery.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I designed MATLAB frame-stitching and radiometric matching algorithms to remove visible brightness differences between detector segments.
-Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
-Gap: Summary describes radiometric matching and stitching; it does not establish every possible optical-defect correction.
-Follow-up topics: Radiometry, stitching, seams
-
-4.2. Designed and implemented software to analyze the linear resolution of satellite images using the sharp edge method, enhancing the accuracy of imaging performance evaluation.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I developed automated linear-resolution assessment in MATLAB using flight-test imagery.
-Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
-Gap: The sharp-edge method is named in the CV but not established by the cited Summary record.
-Follow-up topics: Sharp-edge method, ground truth
-
-4.3. Created algorithms to assess image sharpness and edge clarity, ensuring precise resolution measurements for remote sensing applications and contributing to reliable data interpretation.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I automated image-resolution assessment and validated results against reference targets and repeatability.
-Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
-Gap: Summary establishes automated resolution assessment, but does not document separate edge-clarity algorithms.
-Follow-up topics: Edge clarity, repeatability
-
-4.4. Developed software to predict quantization ranges for remote sensing satellites by analyzing Earth observation data and estimating the albedo range, improving sensor calibration and minimizing data loss.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I predicted image type and adapted quantization to improve image quality at a given compression ratio.
-Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
-Gap: The evidence describes image-type prediction, not a documented albedo-range estimation workflow.
-Follow-up topics: Image type, quantization, compression
-
-4.5. Automated the prediction of quantization ranges, streamlining workflows, and improving operational efficiency.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I implemented image-type prediction and adaptive quantization in MATLAB and compared quality at matched compression ratios.
-Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
-Gap: Automation of an albedo-based range-prediction workflow is not documented.
-Follow-up topics: Adaptive quantization, comparison
-
-4.6. Designed and implemented a custom image compression algorithm using ADPCM with multiple quantizers, achieving optimized compression ratios and enhanced flexibility for different data sizes.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
-Interview answer: I designed an ADPCM-family lossy compression algorithm in MATLAB and verified it against hardware and image-quality constraints.
-Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
-Gap: Multiple distinct quantizers and C++ implementation are not established; flight-software implementation was another team’s responsibility.
-Follow-up topics: ADPCM, compute budget, validation
-
 5. Library System
+
+Classification: FULL MATCH
+
 PROJECT FACTUAL CORRECTION
 CV: January 2015–December 2017, Software Engineer. Summary: March 2022–April 2024 on the library project, primarily C89 backend development.
 Evidence: Summary/Interview/2022-2024. Integrated Library System.md; Summary/Interview/Career Overview.md
 
-5.1. Developed and maintained backend modules in C for library catalogue management and digital collection workflows, focusing on data processing, validation, and core business logic.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I shared C89 backend responsibility with two other C developers, implementing features, fixes and refactoring for library workflows.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: Digital-object collection processing as stated in the CV is not specifically supported.
-Follow-up topics: C89, library workflows, diagnostics
-
-5.2. Designed and optimized socket-based communication components in C and Java to support concurrent client sessions and data exchange between distributed backend services.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I debugged and changed C, Java and Scala components across inherited custom service interfaces.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: Design and optimization ownership of socket-based components and concurrent sessions is not supported.
-Follow-up topics: Cross-service logs, protocol boundaries
-
-5.3. Extended service APIs and Scala endpoints to support evolving catalogue workflows and integration with existing application modules.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I made occasional Scala API and Swagger changes, including requests that invoked C-side behavior.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: This was secondary, task-specific work, not primary ownership of all API endpoints.
-Follow-up topics: Scala, Swagger, C integration
-
-5.4. Integrated AWS S3 object storage through the S3 API to persist digital collection assets, including scanned manuscripts and other large media files, while maintaining bibliographic metadata and object references in relational databases.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I worked with C backend behavior and Java data services using PostgreSQL and MySQL.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: No evidence of AWS S3 object-storage integration or digital-object reference ownership.
-Follow-up topics: Relational services, object-storage theory
-
-5.5. Implemented streaming upload and byte-range download mechanisms for large digital objects, reducing memory consumption and avoiding unnecessary loading of complete files into application memory.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I developed and debugged the C89 backend and followed service requests through logs.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: No evidence of streaming S3 upload or byte-range download implementation.
-Follow-up topics: Native diagnostics, streaming theory
-
-5.6. Updated MySQL and PostgreSQL schemas and optimized database queries to improve data retrieval performance when handling large library catalogues.
-Status: NOT SUPPORTED
-Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I integrated application behavior with Java services accessing PostgreSQL and residual MySQL models.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: Schema updates and query optimization ownership are not evidenced; the migration predated the assignment.
-Follow-up topics: Service/database boundary, migrations
-
-5.7. Improved backend data-processing workflows and maintained compatibility with existing legacy application components.
-Status: CONFIRMED
-Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I implemented focused C backend changes and refactoring while preserving compatibility with Java, Scala and existing workflows.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: The underlying compatibility work is directly supported.
-Follow-up topics: C89, compatibility, regression
-
-5.8. Participated in release preparation, deployment workflow improvements, and code reviews to maintain application stability and code quality.
-Status: PARTIALLY CONFIRMED
-Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
-Interview answer: I participated in mandatory code review and used Jenkins builds and existing nightly or on-demand deployments for validation.
-Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
-Gap: Ownership of deployment workflow improvements is not established; infrastructure administration was outside my role.
-Follow-up topics: Reviews, Jenkins, QA
-
 6. Corporate System for the Oil and Gas Industry
+
+Classification: FULL MATCH
+
 PROJECT FACTUAL CORRECTION
 CV: August 2012–December 2014, Software Engineer, C++11. Summary: October 2021–January 2022, Junior C++ Software Engineer, C++17.
 Evidence: Summary/Interview/2021. Oil and Gas Corporate System.md; Summary/Interview/Career Overview.md
 
+2. CV RESPONSIBILITY RECONCILIATION
+
+1. SIP Desk Phone Platform for Audio and Video Communication
+
+1.1. Refactored SIP call handling toward a cleaner MVC/MVVM-style architecture by separating UI rendering from call state, user actions, media negotiation, and Linphone-SDK integration logic.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+
+Interview answer: I refactored Qt call handling into sessions, services, adapters and presentation boundaries. The larger refactor was completed as internal architecture work.
+
+Actual implementation, reasoning and validation: Inherited Qt call handling mixed presentation, SDK callbacks and lifecycle state. I incrementally extracted sessions, services and adapters with explicit QObject/thread ownership. Late callbacks and teardown required focused tests and repeated call transitions. The broader refactor was completed as internal architecture work, not released functionality.
+
+Gap: The CV does not distinguish internal architecture work from released functionality.
+
+Follow-up topics: Qt, asynchronous state, SDK integration
+
+1.2. Incrementally decomposed legacy Qt Widgets call-flow code into clearer domain, presentation, and SDK-integration boundaries while preserving existing UI behavior and QObject signal compatibility.
+
+Status: CONFIRMED
+
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+
+Interview answer: I decomposed inherited Qt call handling into clearer boundaries while maintaining existing interaction patterns and signal connections.
+
+Actual implementation, reasoning and validation: I moved behavior across domain, presentation and SDK-integration boundaries while preserving signal contracts. Signal signatures, queued delivery and object lifetime constrain extraction; changing one consumer at a time reduces migration risk. Focused tests and original call scenarios checked preserved behavior, without asserting that every internal change shipped.
+
+Gap: No material gap in the stated incremental refactoring.
+
+Follow-up topics: QObject signals, controllers, regression
+
+1.3. Hardened video-call and conference UI behavior for edge cases such as held calls, second-line calls, remote hangups, stale overlays, and active video stream switching.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+
+Interview answer: I worked on call and conference UI, hold, second calls, remote hangups and video state; these were validated as adjacent device scenarios.
+
+Actual implementation, reasoning and validation: I worked on phone-side C++/Qt video and conference integration. A visible defect could originate in signaling, SDK parameters, rendering or device readiness. Physical-phone scenarios and logs separated these layers. The record supports this broader work, not an individually retained incident proving every edge case named in the CV.
+
+Gap: The complete list of individual UI fixes and outcomes is broader than the specifically evidenced cases.
+
+Follow-up topics: Hold, teardown, video state
+
+1.4. Extended and customized Linphone-SDK (liblinphone) backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
+
+Status: CONFIRMED
+
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+
+Interview answer: I implemented a registration watchdog and primary/backup failover/failback in the customized liblinphone SDK and integrated its APIs into the phone application.
+
+Actual implementation, reasoning and validation: I reverted an initial Qt rotation attempt, implemented watchdog/failover/failback in customized liblinphone and integrated active/backup APIs. Authentication realm, persisted configuration and UI had to follow SDK-owned state. I added a backup-domain AuthInfo change and validated primary loss/recovery through SIP logs, runtime state and real phones.
+
+Gap: The work was in the project-specific SDK, not upstream Linphone.
+
+Follow-up topics: Registration, failover, authentication
+
+1.5. Developed WebRTC video-conferencing UI and signaling flows: conference creation/join, incoming invite screens, participant roster, SIP/IP/phonebook add dialogs, status strip, control panel, video tile layout, and audio/video device controls.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+
+Interview answer: I integrated and debugged the phone-side WebRTC/mediasoup conference path, with a limited contribution to the initial Node.js server.
+
+Actual implementation, reasoning and validation: My main ownership was phone-side Qt/Linphone and WebRTC/mediasoup integration and debugging. I contributed only to the initial Node.js server, not its later rewrite. Session establishment, device selection and rendered media were checked separately. This supports conferencing work without claiming independently evidenced ownership of every listed dialog.
+
+Gap: The CV lists a broad set of UI and signaling flows; Summary does not establish sole ownership of every listed flow or the later server rewrite.
+
+Follow-up topics: Conference lifecycle, media, ownership
+
+1.6. Autoprovisioning tooling: migrated a WinForms-based configuration utility from .NET Framework 4.8 to .NET 8, unified project file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+
+Interview answer: I migrated the inherited WinForms tool to .NET 8 and developed configuration and discovery workflows using SNMP, DHCP, TFTP and SQLite.
+
+Actual implementation, reasoning and validation: I migrated WinForms from .NET Framework 4.8 to .NET 8 and built explicit project-state persistence, discovery and provisioning with SQLite, SNMP, DHCP and TFTP. Supported Project/JSON round trips were checked against generated files and devices. Earlier Framework binary payloads were incompatible; this was not universal backward compatibility or a secret vault.
+
+Gap: The old encrypted BinaryFormatter format is incompatible with the later JSON reader; supported project formats must not be described as universally backward compatible.
+
+Follow-up topics: Format migration, device discovery, provisioning
+
+1.7. Collaborated on Yocto/BitBake customization, i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
+
+Status: CONFIRMED
+
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+
+Interview answer: I adapted inherited Yocto/BitBake recipes, packages and startup services and debugged integration on i.MX devices.
+
+Actual implementation, reasoning and validation: I adapted inherited Yocto Kirkstone/BitBake recipes, installed package contents and systemd startup on ARM64. Weston/Wayland, services and media readiness could cause application symptoms. Image builds, boot scenarios, logs and remote debugging validated integration; I did not introduce Yocto or own all firmware.
+
+Gap: I worked within an inherited platform; I did not create the Yocto platform.
+
+Follow-up topics: BitBake, systemd, target debugging
+
+2. Remote Sensing Satellites Database
+
+2.1. Developed Ruby on Rails web interfaces and workflows for satellite catalogues, metadata, dataset search, and archive access.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I built a Rails and PostgreSQL reference database for remote-sensing satellites and their parameters during 2015–2016.
+
+Actual implementation, reasoning and validation: The real project was a satellite reference database and web interface in Rails/PostgreSQL. I modeled queryable satellite and mission parameters for the department. Shared reference data is supported; the later archive platform, distributed storage and exact dataset-access workflows in the CV are not established by that work.
+
+Gap: The CV presents a different 2022–2024 system and archive platform; Summary supports the earlier reference database, not that complete platform.
+
+Follow-up topics: Rails, PostgreSQL, reference data
+
+2.2. Developed C++ ingestion components with POSIX streaming I/O and optimized memory buffers for large imagery and telemetry archives.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I can discuss the Rails/PostgreSQL reference database and MATLAB image-processing work.
+
+Actual implementation, reasoning and validation: The actual database used Rails/PostgreSQL and imaging used MATLAB. Neither establishes C++ ingestion, POSIX streaming or optimized archive buffers. No benchmark or memory bound can be attributed here. Streaming can be explained as theory; the personal answer stays with the reference database and algorithms.
+
+Gap: Summary has no evidence of C++ ingestion, POSIX streaming or archive buffer optimization on this project.
+
+Follow-up topics: C++ I/O theory, reference database
+
+2.3. Implemented multithreaded data validation, checksum calculation, and file preparation for bulk ingestion.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I designed and verified imaging algorithms in MATLAB; I do not claim a multithreaded archive-ingestion pipeline.
+
+Actual implementation, reasoning and validation: No project evidence supports a multithreaded archive validator, checksum pipeline or bulk-ingestion preparation. MATLAB image verification and relational reference data have different execution and data models. Queue bounds and checksum failures are theory topics, not delivered implementations or validation outcomes from this project.
+
+Gap: No evidence of parallel archive validation, checksums or bulk ingestion.
+
+Follow-up topics: Validation and checksum theory
+
+2.4. Integrated Ceph RGW via S3 API for satellite data storage and retrieval, including pre-signed URLs for secure file access.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I worked on a Rails/PostgreSQL satellite reference database; I have not integrated Ceph RGW or S3 in that work.
+
+Actual implementation, reasoning and validation: The supported database was relational reference software, not an RGW/S3 archive integration. Pre-signed URLs, Ceph credentials and object lifecycle ownership are unsupported. AWS coursework is separate learning evidence. No upload, retrieval or security-validation result for Ceph can be attributed to this database.
+
+Gap: No evidence for Ceph, S3 object storage or pre-signed URLs.
+
+Follow-up topics: Object storage and S3 theory
+
+2.5. Deployed and maintained Ceph services in Kubernetes using Rook Operator.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: My supported system work includes Linux device integration and application debugging, not Kubernetes or Ceph operations.
+
+Actual implementation, reasoning and validation: There is no supported Ceph cluster or Kubernetes/Rook operation by the candidate. The Rails database cannot prove upgrades, recovery or distributed-storage maintenance. Operator reconciliation and failure domains remain preparation topics; no production cluster, availability result or operational duty is inferred.
+
+Gap: No evidence of Kubernetes, Rook or Ceph deployment.
+
+Follow-up topics: Kubernetes and Rook theory
+
+2.6. Configured Ceph CSI for RBD, enabling dynamic persistent volume provisioning.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I have not configured Ceph CSI or RBD; I can discuss deployment integration on the embedded Linux project.
+
+Actual implementation, reasoning and validation: Ceph CSI, RBD and dynamic volumes have no project evidence. SIP-device provisioning is adjacent systems work but a different mechanism from Kubernetes volume provisioning. No PVC, mount or recovery scenario is invented for the reference database; the answer identifies the practical gap directly.
+
+Gap: No supporting evidence for CSI, RBD or dynamic volume provisioning.
+
+Follow-up topics: CSI, RBD and volume theory
+
+2.7. Investigated Ceph performance issues, analyzing I/O latency, throughput, OSD behavior, and BlueStore utilization.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: My diagnosis experience is in application and target behavior, including logs, gdb and Valgrind.
+
+Actual implementation, reasoning and validation: No supported assignment involved Ceph OSD/BlueStore, storage latency or throughput benchmarks. Real native debugging belongs to library and SIP systems and does not establish storage-engine tuning. gdb/Valgrind use cannot justify a Ceph benchmark or numerical performance result.
+
+Gap: No evidence of Ceph performance, OSD or BlueStore investigation.
+
+Follow-up topics: Performance diagnosis versus storage tuning
+
+2.8. Developed Python scripts for storage health checks, deployment validation, data integrity, and performance testing.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: My supported automation includes MATLAB algorithm evaluation; storage-health and benchmark scripting is not evidenced.
+
+Actual implementation, reasoning and validation: Occasional Python use is recorded, but no production storage-health, integrity or deployment suite is established. Rails and MATLAB cannot prove pytest automation. Python/pytest exercises can demonstrate learning separately; no project test suite, run history or operational outcome is inferred from preparation material.
+
+Gap: No supporting evidence for production Python storage-health or performance scripts.
+
+Follow-up topics: Python and storage test theory
+
+2.9. Monitored storage infrastructure with Prometheus and Grafana, identifying bottlenecks and resource issues.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I used application and system logs to diagnose the library and phone products.
+
+Actual implementation, reasoning and validation: The factual diagnostic record uses logs in other projects. No Prometheus metrics, Grafana dashboards, exporters or storage alerts are recorded for this database. Log-based isolation is transferable adjacent experience, not metrics-platform ownership; no monitoring discovery or dashboard outcome is claimed.
+
+Gap: No evidence of Prometheus or Grafana monitoring.
+
+Follow-up topics: Logs, metrics and observability
+
+3. Software Modules for UAV
+
+3.1. Developed digital image processing modules for UAV optical sensor systems, combining MATLAB algorithm development with C++ implementation of performance-critical components.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I developed UAV imaging algorithms in MATLAB, including debayering, stabilization and fusion.
+
+Actual implementation, reasoning and validation: I designed MATLAB modules for debayering, conversion, stabilization and fusion, verified reference/real imagery and coordinated target integration. Input sensor models and intermediate representations matter as much as final appearance. The supported result is a MATLAB processing chain, not personally implemented C++ flight components.
+
+Gap: C++ implementation of performance-critical UAV modules is not supported.
+
+Follow-up topics: MATLAB, image pipeline
+
+3.2. Prototyped and evaluated debayering algorithms in MATLAB and implemented C++ processing modules to convert raw Bayer sensor data into full-color images.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I designed and evaluated debayering algorithms in MATLAB on optical sensor data.
+
+Actual implementation, reasoning and validation: Debayering reconstructs missing colours from a Bayer pattern. I evaluated this behavior in MATLAB with inspectable intermediate images. Edges expose false colours and interpolation errors, so raw reference targets and representative frames matter. This supports algorithm development, not an evidenced personal C++ port.
+
+Gap: C++ Bayer conversion implementation is not supported.
+
+Follow-up topics: Bayer pattern, image validation
+
+3.3. Developed C++ image format conversion and preprocessing components to support different sensor output formats and ensure compatibility across processing pipelines.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I worked on image format conversion as part of the MATLAB UAV processing work.
+
+Actual implementation, reasoning and validation: I implemented MATLAB conversions so sensor output could feed downstream processing coherently. Dimensions, channel interpretation and value ranges were checked through intermediate arrays and representative images. The work supports conversion algorithms and interface reasoning, not a retained production C++ conversion implementation.
+
+Gap: The record does not support C++ conversion-component ownership.
+
+Follow-up topics: Formats, pipeline interfaces
+
+3.4. Optimized image frame processing in C++, focusing on efficient memory buffer management and reducing unnecessary data copying during image operations.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I evaluated imaging algorithms in MATLAB; C++ buffer optimization on this project is not evidenced.
+
+Actual implementation, reasoning and validation: Algorithm design under instrument constraints is supported; C++ copy elimination and buffer-lifetime optimization are not. MATLAB verification must remain separate from a hypothetical native optimization. No allocation profile, benchmark or quantified C++ speedup is recorded; the defensible answer concerns resource-aware algorithms.
+
+Gap: No evidence of C++ frame-buffer ownership or copy optimization.
+
+Follow-up topics: Buffers and memory theory
+
+3.5. Developed and evaluated image stabilization algorithms using MATLAB, implementing selected processing operations in C++ for integration into image processing workflows.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I developed and evaluated UAV stabilization algorithms in MATLAB.
+
+Actual implementation, reasoning and validation: I developed MATLAB stabilization for imagery affected by UAV motion. Real/reference sequences and intermediate visualization help distinguish compensation artifacts from acquisition or platform behavior. This supports the algorithmic work and its validation, while the CV's selected C++ operations are not established personal implementation scope.
+
+Gap: A C++ implementation of selected operations is not supported.
+
+Follow-up topics: Stabilization, representative data
+
+3.6. Designed and validated multi-sensor image fusion algorithms in MATLAB and integrated the resulting processing modules into the software pipeline.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I designed and verified image-fusion algorithms in MATLAB for the UAV optical system.
+
+Actual implementation, reasoning and validation: I designed MATLAB fusion modules to combine useful image information, collaborating with instrument/software colleagues on integration. Alignment and scene motion determine whether fusion adds detail or artifacts. Reference and real-image comparisons support validation, without implying ownership of the complete target software pipeline.
+
+Gap: Summary supports algorithm design, but not the asserted software-pipeline integration scope.
+
+Follow-up topics: Fusion, reference imagery
+
+3.7. Tested image processing modules using representative sensor datasets, analyzing output quality, processing accuracy, and performance.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I verified imaging algorithms using reference imagery and participated in real UAV flight testing as payload operator.
+
+Actual implementation, reasoning and validation: I checked algorithms on reference/real imagery and participated in optical-payload flight testing. Synthetic cases isolate transformations and known targets provide physical references; flights include actual motion and acquisition. This supports image-quality validation and instrument feedback, not an invented C++ performance campaign.
+
+Gap: The CV implies testing C++ modules and performance; Summary supports algorithm and flight validation instead.
+
+Follow-up topics: Reference imagery, flight testing
+
+4. Software for Processing and Analysis of Satellite Earth Observation Images
+
+4.1. Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects, improving the overall quality and consistency of satellite imagery.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I designed MATLAB frame-stitching and radiometric matching algorithms to remove visible brightness differences between detector segments.
+
+Actual implementation, reasoning and validation: I designed MATLAB stitching with feature-based overlap alignment and radiometric matching. Geometry alone leaves brightness steps because detectors respond differently. Synthetic offsets, uniform scenes and seam inspection separate geometric and radiometric problems; the delivered result was continuous imagery with corrected joins.
+
+Gap: Summary describes radiometric matching and stitching; it does not establish every possible optical-defect correction.
+
+Follow-up topics: Radiometry, stitching, seams
+
+4.2. Designed and implemented software to analyze the linear resolution of satellite images using the sharp edge method, enhancing the accuracy of imaging performance evaluation.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I developed automated linear-resolution assessment in MATLAB using flight-test imagery.
+
+Actual implementation, reasoning and validation: I automated MATLAB linear-resolution assessment from flight-test imagery. Defining a repeatable criterion and suitable target interpretation came before computation. Known targets and repeated runs made measurements comparable across operators. The precise sharp-edge estimator in the CV is not independently established by the factual record.
+
+Gap: The sharp-edge method is named in the CV but not established by the cited Summary record.
+
+Follow-up topics: Sharp-edge method, ground truth
+
+4.3. Created algorithms to assess image sharpness and edge clarity, ensuring precise resolution measurements for remote sensing applications and contributing to reliable data interpretation.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I automated image-resolution assessment and validated results against reference targets and repeatability.
+
+Actual implementation, reasoning and validation: I turned expert-driven resolution analysis into a defined MATLAB measurement workflow. Noise, target choice and image conditions affect interpretation, so repeatability against references matters more than one attractive number. This supports automated quality assessment, not an additional separately documented edge-clarity algorithm.
+
+Gap: Summary establishes automated resolution assessment, but does not document separate edge-clarity algorithms.
+
+Follow-up topics: Edge clarity, repeatability
+
+4.4. Developed software to predict quantization ranges for remote sensing satellites by analyzing Earth observation data and estimating the albedo range, improving sensor calibration and minimizing data loss.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I predicted image type and adapted quantization to improve image quality at a given compression ratio.
+
+Actual implementation, reasoning and validation: I implemented image-type prediction and adaptive quantization to improve reconstruction quality at matched compression ratios. Smooth and textured scenes place different demands on quantization. The supported mechanism is scene-dependent adaptation; a separate albedo-range estimator and sensor-calibration ownership are not established.
+
+Gap: The evidence describes image-type prediction, not a documented albedo-range estimation workflow.
+
+Follow-up topics: Image type, quantization, compression
+
+4.5. Automated the prediction of quantization ranges, streamlining workflows, and improving operational efficiency.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I implemented image-type prediction and adaptive quantization in MATLAB and compared quality at matched compression ratios.
+
+Actual implementation, reasoning and validation: Prediction/adaptation software made compression behavior repeatable across scene types in MATLAB. Reference scenes and matched-ratio reconstruction comparisons validate that work. No separate time-saving metric or exact albedo-based planning pipeline supports the CV's broader automation wording.
+
+Gap: Automation of an albedo-based range-prediction workflow is not documented.
+
+Follow-up topics: Adaptive quantization, comparison
+
+4.6. Designed and implemented a custom image compression algorithm using ADPCM with multiple quantizers, achieving optimized compression ratios and enhanced flexibility for different data sizes.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+
+Interview answer: I designed an ADPCM-family lossy compression algorithm in MATLAB and verified it against hardware and image-quality constraints.
+
+Actual implementation, reasoning and validation: I designed an ADPCM-family MATLAB reference with prediction and adaptive quantization, achieving 3–4x compression within a hard compute budget. A stronger transform codec did not fit. Reference/difficult scenes, error inspection and expert review checked reconstruction before handover to onboard implementers; extra multiple-quantizer details are not invented.
+
+Gap: Multiple distinct quantizers and C++ implementation are not established; flight-software implementation was another team’s responsibility.
+
+Follow-up topics: ADPCM, compute budget, validation
+
+5. Library System
+
+5.1. Developed and maintained backend modules in C for library catalogue management and digital collection workflows, focusing on data processing, validation, and core business logic.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I shared C89 backend responsibility with two other C developers, implementing features, fixes and refactoring for library workflows.
+
+Actual implementation, reasoning and validation: I shared the C89 backend with two other C engineers, implementing features, fixes and refactoring across modules. Scala invoked C behavior and C used Java data services. Logs, integrated builds, review and QA checked user-visible behavior; added S3/digital-object workflows are outside this supported scope.
+
+Gap: Digital-object collection processing as stated in the CV is not specifically supported.
+
+Follow-up topics: C89, library workflows, diagnostics
+
+5.2. Designed and optimized socket-based communication components in C and Java to support concurrent client sessions and data exchange between distributed backend services.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I debugged and changed C, Java and Scala components across inherited custom service interfaces.
+
+Actual implementation, reasoning and validation: I used inherited custom protocols across Scala, C and Java and traced faults through them. A consumer symptom could originate in a C payload or data-service path. Correlated logs and native inspection found the owning layer; design of sockets and concurrent-session architecture is not supported.
+
+Gap: Design and optimization ownership of socket-based components and concurrent sessions is not supported.
+
+Follow-up topics: Cross-service logs, protocol boundaries
+
+5.3. Extended service APIs and Scala endpoints to support evolving catalogue workflows and integration with existing application modules.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I made occasional Scala API and Swagger changes, including requests that invoked C-side behavior.
+
+Actual implementation, reasoning and validation: I added a Scala API request backed by existing C processing and updated Swagger documentation. Reuse avoided duplicated domain logic but required coherent request mapping, return values and errors. Integrated validation and review protected this interface; Scala work remained secondary and task-specific.
+
+Gap: This was secondary, task-specific work, not primary ownership of all API endpoints.
+
+Follow-up topics: Scala, Swagger, C integration
+
+5.4. Integrated AWS S3 object storage through the S3 API to persist digital collection assets, including scanned manuscripts and other large media files, while maintaining bibliographic metadata and object references in relational databases.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I worked with C backend behavior and Java data services using PostgreSQL and MySQL.
+
+Actual implementation, reasoning and validation: Persistence used Java services reaching PostgreSQL and residual MySQL. AWS EC2 provided Linux build/runtime hosts. Neither establishes S3 objects, digital collections or object/reference coordination. No upload, pre-signed access or object-lifecycle result can be attributed; the answer describes actual service/database interaction.
+
+Gap: No evidence of AWS S3 object-storage integration or digital-object reference ownership.
+
+Follow-up topics: Relational services, object-storage theory
+
+5.5. Implemented streaming upload and byte-range download mechanisms for large digital objects, reducing memory consumption and avoiding unnecessary loading of complete files into application memory.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I developed and debugged the C89 backend and followed service requests through logs.
+
+Actual implementation, reasoning and validation: Native buffer corrections and diagnostics are supported, but large-object streaming uploads and byte-range downloads are different unrecorded tasks. gdb/Valgrind explain actual memory work without establishing S3 transfer protocols, retry semantics or measured reduction of transfer memory.
+
+Gap: No evidence of streaming S3 upload or byte-range download implementation.
+
+Follow-up topics: Native diagnostics, streaming theory
+
+5.6. Updated MySQL and PostgreSQL schemas and optimized database queries to improve data retrieval performance when handling large library catalogues.
+
+Status: NOT SUPPORTED
+
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I integrated application behavior with Java services accessing PostgreSQL and residual MySQL models.
+
+Actual implementation, reasoning and validation: Database migration predated my assignment and administration belonged elsewhere. I connected C behavior with Java data services for PostgreSQL/MySQL and traced persistence symptoms through those interfaces. Personal schema changes, indexes and query-performance improvements are not supported and no speed metric is added.
+
+Gap: Schema updates and query optimization ownership are not evidenced; the migration predated the assignment.
+
+Follow-up topics: Service/database boundary, migrations
+
+5.7. Improved backend data-processing workflows and maintained compatibility with existing legacy application components.
+
+Status: CONFIRMED
+
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I implemented focused C backend changes and refactoring while preserving compatibility with Java, Scala and existing workflows.
+
+Actual implementation, reasoning and validation: I changed C89 code while preserving custom inter-service expectations and library workflows. Focused refactoring improved maintainability without assuming a platform rewrite. Original reproduction, adjacent integration/QA scenarios and approval from all added reviewers checked compatibility and the corrected user-visible result.
+
+Gap: The underlying compatibility work is directly supported.
+
+Follow-up topics: C89, compatibility, regression
+
+5.8. Participated in release preparation, deployment workflow improvements, and code reviews to maintain application stability and code quality.
+
+Status: PARTIALLY CONFIRMED
+
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+
+Interview answer: I participated in mandatory code review and used Jenkins builds and existing nightly or on-demand deployments for validation.
+
+Actual implementation, reasoning and validation: I used Bitbucket review, Jenkins builds on AWS Linux and nightly/on-demand deployment to developer/QA hosts. All added reviewers approved changes and QA provided regression feedback. This supports release participation and workflow use, not Jenkins administration, infrastructure ownership or evidenced deployment-process redesign.
+
+Gap: Ownership of deployment workflow improvements is not established; infrastructure administration was outside my role.
+
+Follow-up topics: Reviews, Jenkins, QA
+
+6. Corporate System for the Oil and Gas Industry
+
 6.1. Developed and maintained backend components in C++11 for internal corporate workflows and operational data processing in the oil and gas domain.
+
 Status: FACTUAL CORRECTION
+
 Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I implemented and maintained C++17 application features for an oil-and-gas data system during October 2021–January 2022.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: I delivered C++17 application changes with occasional JavaScript and MySQL-backed work. Representative input was followed through processing and displayed output, then external QA checked regression. C++11 and the CV's dates/employment framing are factual corrections, not the supported language standard and assignment history.
+
 Gap: The CV says C++11 and 2012–2014; the supported period, standard and junior role differ.
+
 Follow-up topics: C++17, legacy application
 
 6.2. Integrated LevelDB as an embedded, disk-backed key-value storage engine into C++ backend services to persist and index high-frequency telemetry and sensor events locally on disk, complementing relational storage in Microsoft SQL Server.
+
 Status: NOT SUPPORTED
+
 Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I worked on C++17 application logic and MySQL-backed sensor-data workflows.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: The supported persistence path was relational, especially MySQL. LevelDB integration, local telemetry indexes and embedded key-value ownership are not established. No durability, index or cross-engine coordination test can be claimed; the defensible explanation follows C++ processing and actual relational application behavior.
+
 Gap: No evidence of LevelDB integration, disk-backed indexing or key-value ownership.
+
 Follow-up topics: MySQL, data flow, LevelDB theory
 
 6.3. Optimized LevelDB storage performance by tuning block cache configuration and compaction settings to improve write throughput and maintain efficient data access under sustained ingestion workloads.
+
 Status: NOT SUPPORTED
+
 Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I implemented application features and focused legacy-code changes in C++17.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: No supported record describes LevelDB cache, compaction or ingestion-throughput tuning. Safe legacy changes and defect fixes are different work. No benchmark, setting or measured gain is invented; storage-engine concepts remain theory rather than evidence of this assignment.
+
 Gap: No evidence of LevelDB block-cache or compaction tuning.
+
 Follow-up topics: Performance measurement theory
 
 6.4. Developed and maintained database access layers, supporting interaction between embedded key-value storage and relational database systems.
+
 Status: PARTIALLY CONFIRMED
+
 Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I worked with C++ application behavior backed by MySQL and traced values across application layers.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: I maintained C++ processing and MySQL-backed behavior, following values through storage and retrieval. Dedicated LevelDB/SQL abstraction or atomic coordination between engines is unsupported. Complete workflow reproduction and external QA validated relational behavior without claiming a cross-engine architecture.
+
 Gap: A dedicated key-value/relational access-layer implementation and LevelDB ownership are not supported.
+
 Follow-up topics: C++, MySQL, data flow
 
 6.5. Maintained MySQL persistence components for auxiliary operational data and application metadata, while Microsoft SQL Server remained the primary relational database for corporate business records.
+
 Status: PARTIALLY CONFIRMED
+
 Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I worked with MySQL-backed processing workflows; Microsoft SQL Server was also part of the system environment.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: MySQL supported the processing workflows I worked on; SQL Server belonged to the wider relational landscape. I checked processed/stored/displayed values, but the exact primary-versus-auxiliary split and independent database-component ownership in the CV are not established by that application work.
+
 Gap: Personal ownership of the MySQL persistence components and the CV’s division of database roles are broader than the record.
+
 Follow-up topics: MySQL, SQL Server, role boundaries
 
 6.6. Supported integration between backend services and the web interface implemented using JavaScript, HTML, and jQuery.
+
 Status: CONFIRMED
+
 Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I occasionally changed JavaScript when a task crossed C++ processing and the user-facing workflow.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: I changed JavaScript when a task crossed native processing and presentation. C++ values, MySQL state and displayed behavior formed one workflow, so fixing only one layer was insufficient. Representative input and final output were checked together, followed by external QA regression.
+
 Gap: This was secondary to C++ work.
+
 Follow-up topics: JavaScript, C++ integration
 
 6.7. Refactored existing C++ components, resolved defects, and removed outdated code to improve application reliability and maintainability.
+
 Status: CONFIRMED
+
 Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I implemented C++17 features, corrected defects, refactored inherited code and removed obsolete components.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: I simplified C++17 paths and removed obsolete code after reconstructing dependencies. Small changes kept customer workflows reviewable within a sprint. Regression followed original/adjacent C++, MySQL and JavaScript behavior; the outcome was corrected behavior and reduced maintenance surface without an invented reliability percentage.
+
 Gap: The supported work uses C++17, not the CV’s C++11.
+
 Follow-up topics: Legacy refactoring, QA
 
 6.8. Participated in technical task estimation, code reviews, and development planning to support predictable delivery of project functionality.
+
 Status: PARTIALLY CONFIRMED
+
 Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+
 Interview answer: I worked on assigned C++ changes in an established review and QA process.
-Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+
+Actual implementation, reasoning and validation: I participated in sprint delivery, sized assigned changes and supported reproducible handoff to external QA and bi-weekly customer demos. This supports participation rather than team-level planning ownership or every review activity in the CV. No project-management or predictive-delivery metric is claimed.
+
 Gap: Specific ownership of estimation and development planning on this short assignment is not directly documented.
+
 Follow-up topics: Task scope, review, delivery
 
-2. REQUEST RESPONSIBILITY AND REQUIREMENT COVERAGE
+3. REQUEST RESPONSIBILITY AND REQUIREMENT COVERAGE
 
 Request item 1. Design and implement new features in Ceph, including RGW, RADOS, RBD and CephFS
 
