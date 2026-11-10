@@ -67,6 +67,14 @@ A satellite catalogue and archive platform connecting metadata, file ingestion a
 ARCHITECTURE AND DATA FLOW
 Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
 
+ARCHITECTURAL RATIONALE: CEPH
+
+Ceph was chosen to provide S3-compatible object access through RGW for large archives and, on the same storage platform, RBD block volumes for Kubernetes through CSI. PostgreSQL remains appropriate for structured catalogue metadata and searches. The cluster can be scaled and configured for fault tolerance, but this comes with operational work: monitoring OSDs, capacity, recovery and the network.
+
+Alternatives include managed S3-compatible object storage plus a separate Kubernetes block-storage provider, or operating only the storage interface the application actually needs. A managed service can reduce cluster administration, but its suitability depends on deployment constraints and access requirements.
+
+For an interview discussion, distinguish object access through RGW from block volumes through RBD; CSI is a Kubernetes integration, not the path for S3 object requests. Check object upload and retrieval, metadata-to-object references, volume provisioning, and failure and recovery behavior. These are possible verification scenarios, not claimed project test results.
+
 TEAM AND PERSONAL SCOPE
 The CV describes the Software Engineer’s personal responsibilities. Development, validation and integration are useful functional boundaries for discussion; the CV does not establish team size, locations or individual roles.
 
@@ -294,6 +302,14 @@ An internal oil-and-gas information system processes operational data and expose
 
 ARCHITECTURE AND DATA FLOW
 C++11 services process business and sensor data. LevelDB stores selected local key-value data; Microsoft SQL Server and MySQL provide relational persistence. JavaScript and jQuery support the web interface.
+
+ARCHITECTURAL RATIONALE: LEVELDB
+
+LevelDB was chosen to keep selected telemetry and event records in an embedded persistent key-value store accessed by the C++ process without a separate database server. Relational databases remain suitable for structured corporate records and SQL queries. Key-based access and ordered iteration can fit a defined local access pattern, but this does not establish that LevelDB was the fastest option or that a measured performance target was achieved.
+
+Alternatives include keeping the data in the existing relational database or using another embedded store. LevelDB does not provide a relational schema or SQL and has no built-in client-server service; a particular database can be opened by one process at a time. Cache and compaction tuning require measurement under the actual read/write workload.
+
+For an interview discussion, consider write durability, interrupted writes, local disk failure, compaction effects, and consistency between the local store and relational records. LevelDB does not automatically make a cross-database update atomic; any coordination strategy would be part of the application design. These are possible checks and design considerations, not asserted implementations or test outcomes.
 
 TEAM AND PERSONAL SCOPE
 The CV describes the Software Engineer’s personal responsibilities. Development, validation and integration are useful functional boundaries for discussion; the CV does not establish team size, locations or individual roles.
