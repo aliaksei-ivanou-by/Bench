@@ -1,478 +1,642 @@
-RESPONSIBILITIES AND REQUEST COVERAGE
+RESPONSIBILITIES: CV AND FACTUAL EXPERIENCE
 
-Source: E502 Aliaksei Ivanou (13, C++).pdf
-This assessment uses only the CV and the E502 request. CV NOT VERIFIED identifies a CV claim, not independent confirmation.
+CV source: E502 Aliaksei Ivanou (13, C++).pdf
+Factual source: Summary/Interview/Career Overview.md and the project documents cited for each item.
+Source request: E502_Request_AliakseiIvanou.md
 
-1. CV RESPONSIBILITIES
+1. CV RESPONSIBILITY RECONCILIATION
 
 1. SIP Desk Phone Platform for Audio and Video Communication
-Period: 05.2024 – present; Software Engineer
+PROJECT FACTUAL CORRECTION
+CV: May 2024–present, Software Engineer. Summary: May 2025–August 2026 on the SIP project; middle C++ engineer, with a separate internal People Lead role from October 2025.
+Evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md; Summary/Interview/Career Overview.md
 
-1.1. Refactored SIP call handling toward a cleaner MVC/MVVM-style architecture by separating UI rendering from call state, user actions, media negotiation, and Linphone-SDK integration logic
-Status: CV NOT VERIFIED
-Source: CV, page 3
-CV-based answer: Refactored SIP call handling toward a cleaner MVC/MVVM-style architecture by separating UI rendering from call state, user actions, media negotiation, and Linphone-SDK integration logic.
-Follow-up topics: Separate call state, UI events and SDK callbacks; preserve existing signals and exercise call transitions.
-Illustrative edge case and validation: A callback arriving after a screen transition can expose stale state; compare UI state before and after the same call sequence. The lesson is to keep one clear source for call state.
+1.1. Refactored SIP call handling toward a cleaner MVC/MVVM-style architecture by separating UI rendering from call state, user actions, media negotiation, and Linphone-SDK integration logic.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+Interview answer: I refactored Qt call handling into sessions, services, adapters and presentation boundaries. The larger refactor was completed as internal architecture work.
+Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
+Gap: The CV does not distinguish internal architecture work from released functionality.
+Follow-up topics: Qt, asynchronous state, SDK integration
 
-1.2. Incrementally decomposed legacy Qt Widgets call-flow code into clearer domain, presentation, and SDK-integration boundaries while preserving existing UI behavior and QObject signal compatibility
-Status: CV NOT VERIFIED
-Source: CV, page 3
-CV-based answer: Incrementally decomposed legacy Qt Widgets call-flow code into clearer domain, presentation, and SDK-integration boundaries while preserving existing UI behavior and QObject signal compatibility.
-Follow-up topics: Move responsibilities incrementally across Qt boundaries; check QObject connections and previous UI behavior.
-Illustrative edge case and validation: Changing a signal signature can break existing slots; exercise connected UI flows after each incremental change. The lesson is to preserve interface contracts while moving behavior.
+1.2. Incrementally decomposed legacy Qt Widgets call-flow code into clearer domain, presentation, and SDK-integration boundaries while preserving existing UI behavior and QObject signal compatibility.
+Status: CONFIRMED
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+Interview answer: I decomposed inherited Qt call handling into clearer boundaries while maintaining existing interaction patterns and signal connections.
+Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
+Gap: No material gap in the stated incremental refactoring.
+Follow-up topics: QObject signals, controllers, regression
 
-1.3. Hardened video-call and conference UI behavior for edge cases such as held calls, second-line calls, remote hangups, stale overlays, and active video stream switching
-Status: CV NOT VERIFIED
-Source: CV, page 3
-CV-based answer: Hardened video-call and conference UI behavior for edge cases such as held calls, second-line calls, remote hangups, stale overlays, and active video stream switching.
-Follow-up topics: Exercise hold, second-line, hangup and video-switch sequences; check overlays and active stream after asynchronous events.
-Illustrative edge case and validation: A remote hangup while a call is held can leave an obsolete overlay; replay event sequences and inspect displayed controls. The lesson is to validate event order, not only isolated screens.
+1.3. Hardened video-call and conference UI behavior for edge cases such as held calls, second-line calls, remote hangups, stale overlays, and active video stream switching.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+Interview answer: I worked on call and conference UI, hold, second calls, remote hangups and video state; these were validated as adjacent device scenarios.
+Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
+Gap: The complete list of individual UI fixes and outcomes is broader than the specifically evidenced cases.
+Follow-up topics: Hold, teardown, video state
 
-1.4. Extended and customized Linphone-SDK (liblinphone) backend logic to implement SIP failover and backup-server connectivity for improved device reliability
-Status: CV NOT VERIFIED
-Source: CV, page 3
-CV-based answer: Extended and customized Linphone-SDK (liblinphone) backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
-Follow-up topics: Connect backup-server behavior to liblinphone registration; verify failure, reconnect and interaction with application configuration.
-Illustrative edge case and validation: A primary-server failure during registration can leave connection state inconsistent; test recovery and state shown by the application. The lesson is to align failover with registration state.
+1.4. Extended and customized Linphone-SDK (liblinphone) backend logic to implement SIP failover and backup-server connectivity for improved device reliability.
+Status: CONFIRMED
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+Interview answer: I implemented a registration watchdog and primary/backup failover/failback in the customized liblinphone SDK and integrated its APIs into the phone application.
+Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
+Gap: The work was in the project-specific SDK, not upstream Linphone.
+Follow-up topics: Registration, failover, authentication
 
-1.5. Developed WebRTC video-conferencing UI and signaling flows: conference creation/join, incoming invite screens, participant roster, SIP/IP/phonebook add dialogs, status strip, control panel, video tile layout, and audio/video device controls
-Status: CV NOT VERIFIED
-Source: CV, page 3
-CV-based answer: Developed WebRTC video-conferencing UI and signaling flows: conference creation/join, incoming invite screens, participant roster, SIP/IP/phonebook add dialogs, status strip, control panel, video tile layout, and audio/video device controls.
-Follow-up topics: Connect conference signaling to roster, invitations and media controls; verify join, leave and changing participant state.
-Illustrative edge case and validation: A participant leaving during media changes can leave a stale tile; exercise join and leave with device controls and roster updates. The lesson is to synchronize signaling and presentation.
+1.5. Developed WebRTC video-conferencing UI and signaling flows: conference creation/join, incoming invite screens, participant roster, SIP/IP/phonebook add dialogs, status strip, control panel, video tile layout, and audio/video device controls.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+Interview answer: I integrated and debugged the phone-side WebRTC/mediasoup conference path, with a limited contribution to the initial Node.js server.
+Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
+Gap: The CV lists a broad set of UI and signaling flows; Summary does not establish sole ownership of every listed flow or the later server rewrite.
+Follow-up topics: Conference lifecycle, media, ownership
 
-1.6. Autoprovisioning tooling: migrated a WinForms-based configuration utility from .NET Framework 4.8 to .NET 8, unified project file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite
-Status: CV NOT VERIFIED
-Source: CV, page 3
-CV-based answer: Autoprovisioning tooling: migrated a WinForms-based configuration utility from .NET Framework 4.8 to .NET 8, unified project file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
-Follow-up topics: Migrate the WinForms utility to .NET 8, preserve project files and validate SNMP, DHCP, TFTP and SQLite workflows.
-Illustrative edge case and validation: Old project files or unreachable devices can interrupt provisioning; validate migration and failure handling for each protocol. The lesson is to retain configuration compatibility across tool versions.
+1.6. Autoprovisioning tooling: migrated a WinForms-based configuration utility from .NET Framework 4.8 to .NET 8, unified project file formats across the device ecosystem, and implemented provisioning workflows using SNMP, DHCP, TFTP, and SQLite.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+Interview answer: I migrated the inherited WinForms tool to .NET 8 and developed configuration and discovery workflows using SNMP, DHCP, TFTP and SQLite.
+Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
+Gap: The old encrypted BinaryFormatter format is incompatible with the later JSON reader; supported project formats must not be described as universally backward compatible.
+Follow-up topics: Format migration, device discovery, provisioning
 
-1.7. Collaborated on Yocto/BitBake customization, i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration
-Status: CV NOT VERIFIED
-Source: CV, page 3
-CV-based answer: Collaborated on Yocto/BitBake customization, i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
-Follow-up topics: Coordinate Yocto/BitBake changes, i.MX integration and service configuration; verify the assembled image and device startup.
-Illustrative edge case and validation: A missing service or package can appear only on the target; inspect image contents and startup on i.MX. The lesson is to validate integration at the device boundary.
+1.7. Collaborated on Yocto/BitBake customization, i.MX embedded Linux target integration, and device-side service configuration for hardware-software integration.
+Status: CONFIRMED
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
+Interview answer: I adapted inherited Yocto/BitBake recipes, packages and startup services and debugged integration on i.MX devices.
+Supported context: Relevant project context: the Qt application, customized liblinphone and provisioning tool were tested through focused tests and device scenarios; the late architecture refactor remained internal work.
+Gap: I worked within an inherited platform; I did not create the Yocto platform.
+Follow-up topics: BitBake, systemd, target debugging
 
 2. Remote Sensing Satellites Database
-Period: 04.2022 – 04.2024; Software Engineer
+PROJECT FACTUAL CORRECTION
+CV: April 2022–April 2024, Software Engineer. Summary: a Rails/PostgreSQL satellite reference database in 2015–2016; the described Ceph-based archive system is not the same full project.
+Evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md; Summary/Interview/Career Overview.md
 
-2.1. Developed Ruby on Rails web interfaces and workflows for satellite catalogues, metadata, dataset search, and archive access
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Developed Ruby on Rails web interfaces and workflows for satellite catalogues, metadata, dataset search, and archive access.
-Follow-up topics: Connect Rails catalogue screens and metadata workflows to PostgreSQL; check search and access paths.
-Illustrative edge case and validation: Search results can diverge from metadata when records change; exercise catalogue updates and retrieval. The lesson is to keep catalogue and search behavior consistent.
+2.1. Developed Ruby on Rails web interfaces and workflows for satellite catalogues, metadata, dataset search, and archive access.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I built a Rails and PostgreSQL reference database for remote-sensing satellites and their parameters during 2015–2016.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: The CV presents a different 2022–2024 system and archive platform; Summary supports the earlier reference database, not that complete platform.
+Follow-up topics: Rails, PostgreSQL, reference data
 
-2.2. Developed C++ ingestion components with POSIX streaming I/O and optimized memory buffers for large imagery and telemetry archives
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Developed C++ ingestion components with POSIX streaming I/O and optimized memory buffers for large imagery and telemetry archives.
-Follow-up topics: Stream large files through POSIX I/O with bounded buffers; check partial reads, errors and memory use.
-Illustrative edge case and validation: A short read or interrupted stream can truncate an archive; check read results and bounded memory on large files. The lesson is to treat I/O as incremental.
+2.2. Developed C++ ingestion components with POSIX streaming I/O and optimized memory buffers for large imagery and telemetry archives.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I can discuss the Rails/PostgreSQL reference database and MATLAB image-processing work.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: Summary has no evidence of C++ ingestion, POSIX streaming or archive buffer optimization on this project.
+Follow-up topics: C++ I/O theory, reference database
 
-2.3. Implemented multithreaded data validation, checksum calculation, and file preparation for bulk ingestion
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Implemented multithreaded data validation, checksum calculation, and file preparation for bulk ingestion.
-Follow-up topics: Coordinate parallel validation, checksums and file preparation; check corrupted inputs and consistent results.
-Illustrative edge case and validation: Worker failures or corrupted inputs can produce incomplete preparation; compare checksums and completion status. The lesson is to make validation outcomes explicit.
+2.3. Implemented multithreaded data validation, checksum calculation, and file preparation for bulk ingestion.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I designed and verified imaging algorithms in MATLAB; I do not claim a multithreaded archive-ingestion pipeline.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: No evidence of parallel archive validation, checksums or bulk ingestion.
+Follow-up topics: Validation and checksum theory
 
-2.4. Integrated Ceph RGW via S3 API for satellite data storage and retrieval, including pre-signed URLs for secure file access
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Integrated Ceph RGW via S3 API for satellite data storage and retrieval, including pre-signed URLs for secure file access.
-Follow-up topics: Use S3 API with Ceph RGW for object upload and retrieval; check permissions, pre-signed URL expiry and access errors.
-Illustrative edge case and validation: An expired URL or missing object must not be mistaken for successful retrieval; test access failures and metadata references. The lesson is to treat authorization and storage failures separately.
+2.4. Integrated Ceph RGW via S3 API for satellite data storage and retrieval, including pre-signed URLs for secure file access.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I worked on a Rails/PostgreSQL satellite reference database; I have not integrated Ceph RGW or S3 in that work.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: No evidence for Ceph, S3 object storage or pre-signed URLs.
+Follow-up topics: Object storage and S3 theory
 
-2.5. Deployed and maintained Ceph services in Kubernetes using Rook Operator
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Deployed and maintained Ceph services in Kubernetes using Rook Operator.
-Follow-up topics: Maintain Ceph resources through Rook in Kubernetes; inspect service health and recovery after deployment changes.
-Illustrative edge case and validation: A resource change may leave storage unavailable; inspect Kubernetes and operator status during reconciliation. The lesson is to check both orchestration and storage health.
+2.5. Deployed and maintained Ceph services in Kubernetes using Rook Operator.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: My supported system work includes Linux device integration and application debugging, not Kubernetes or Ceph operations.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: No evidence of Kubernetes, Rook or Ceph deployment.
+Follow-up topics: Kubernetes and Rook theory
 
-2.6. Configured Ceph CSI for RBD, enabling dynamic persistent volume provisioning
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Configured Ceph CSI for RBD, enabling dynamic persistent volume provisioning.
-Follow-up topics: Configure a Ceph CSI storage class for RBD; check claim provisioning, attachment and persistent data.
-Illustrative edge case and validation: A pending volume claim can block a workload; inspect CSI and claim status and verify data after reattachment. The lesson is to test the complete provisioning path.
+2.6. Configured Ceph CSI for RBD, enabling dynamic persistent volume provisioning.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I have not configured Ceph CSI or RBD; I can discuss deployment integration on the embedded Linux project.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: No supporting evidence for CSI, RBD or dynamic volume provisioning.
+Follow-up topics: CSI, RBD and volume theory
 
-2.7. Investigated Ceph performance issues, analyzing I/O latency, throughput, OSD behavior, and BlueStore utilization
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Investigated Ceph performance issues, analyzing I/O latency, throughput, OSD behavior, and BlueStore utilization.
-Follow-up topics: Compare latency and throughput with OSD and BlueStore indicators; isolate the storage bottleneck before changing settings.
-Illustrative edge case and validation: A high latency value alone does not identify the bottleneck; correlate latency, throughput, OSD and BlueStore indicators. The lesson is to diagnose before tuning.
+2.7. Investigated Ceph performance issues, analyzing I/O latency, throughput, OSD behavior, and BlueStore utilization.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: My diagnosis experience is in application and target behavior, including logs, gdb and Valgrind.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: No evidence of Ceph performance, OSD or BlueStore investigation.
+Follow-up topics: Performance diagnosis versus storage tuning
 
-2.8. Developed Python scripts for storage health checks, deployment validation, data integrity, and performance testing
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Developed Python scripts for storage health checks, deployment validation, data integrity, and performance testing.
-Follow-up topics: Automate health, deployment, integrity and performance checks in Python; report failed checks with actionable context.
-Illustrative edge case and validation: A health check may miss partial failure or report inconsistent data; validate script outputs against the monitored state. The lesson is to make checks repeatable.
+2.8. Developed Python scripts for storage health checks, deployment validation, data integrity, and performance testing.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: My supported automation includes MATLAB algorithm evaluation; storage-health and benchmark scripting is not evidenced.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: No supporting evidence for production Python storage-health or performance scripts.
+Follow-up topics: Python and storage test theory
 
-2.9. Monitored storage infrastructure with Prometheus and Grafana, identifying bottlenecks and resource issues
-Status: CV NOT VERIFIED
-Source: CV, page 5
-CV-based answer: Monitored storage infrastructure with Prometheus and Grafana, identifying bottlenecks and resource issues.
-Follow-up topics: Observe Prometheus metrics in Grafana; correlate resource pressure with latency and throughput.
-Illustrative edge case and validation: A single metric can hide resource pressure elsewhere; compare related Grafana views with observed latency. The lesson is to correlate signals instead of relying on one chart.
+2.9. Monitored storage infrastructure with Prometheus and Grafana, identifying bottlenecks and resource issues.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I used application and system logs to diagnose the library and phone products.
+Supported context: Relevant project context: the real reference database stored satellite and mission parameters in Rails/PostgreSQL; its record does not describe a distributed-storage platform.
+Gap: No evidence of Prometheus or Grafana monitoring.
+Follow-up topics: Logs, metrics and observability
 
 3. Software Modules for UAV
-Period: 03.2020 – 03.2022; Software Engineer
+PROJECT FACTUAL CORRECTION
+CV: March 2020–March 2022, Software Engineer. Summary: optical-system algorithm work within August 2012–January 2020, as a design and research engineer.
+Evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md; Summary/Interview/Career Overview.md
 
-3.1. Developed digital image processing modules for UAV optical sensor systems, combining MATLAB algorithm development with C++ implementation of performance-critical components
-Status: CV NOT VERIFIED
-Source: CV, page 6
-CV-based answer: Developed digital image processing modules for UAV optical sensor systems, combining MATLAB algorithm development with C++ implementation of performance-critical components.
-Follow-up topics: Prototype image processing in MATLAB and implement performance-sensitive paths in C++; compare outputs.
-Illustrative edge case and validation: A C++ implementation can differ from the MATLAB prototype; compare representative outputs before integrating. The lesson is to preserve numerical behavior across implementations.
+3.1. Developed digital image processing modules for UAV optical sensor systems, combining MATLAB algorithm development with C++ implementation of performance-critical components.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I developed UAV imaging algorithms in MATLAB, including debayering, stabilization and fusion.
+Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
+Gap: C++ implementation of performance-critical UAV modules is not supported.
+Follow-up topics: MATLAB, image pipeline
 
-3.2. Prototyped and evaluated debayering algorithms in MATLAB and implemented C++ processing modules to convert raw Bayer sensor data into full-color images
-Status: CV NOT VERIFIED
-Source: CV, page 6
-CV-based answer: Prototyped and evaluated debayering algorithms in MATLAB and implemented C++ processing modules to convert raw Bayer sensor data into full-color images.
-Follow-up topics: Evaluate Bayer-to-color reconstruction in MATLAB and C++; compare output for representative raw frames.
-Illustrative edge case and validation: Incorrect Bayer pattern handling changes reconstructed colors; compare channels and output against known input frames. The lesson is to test sensor-format assumptions.
+3.2. Prototyped and evaluated debayering algorithms in MATLAB and implemented C++ processing modules to convert raw Bayer sensor data into full-color images.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I designed and evaluated debayering algorithms in MATLAB on optical sensor data.
+Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
+Gap: C++ Bayer conversion implementation is not supported.
+Follow-up topics: Bayer pattern, image validation
 
-3.3. Developed C++ image format conversion and preprocessing components to support different sensor output formats and ensure compatibility across processing pipelines
-Status: CV NOT VERIFIED
-Source: CV, page 6
-CV-based answer: Developed C++ image format conversion and preprocessing components to support different sensor output formats and ensure compatibility across processing pipelines.
-Follow-up topics: Convert sensor formats in C++; check dimensions, channel layout and compatibility with the next stage.
-Illustrative edge case and validation: An incorrect stride or channel order can corrupt an image; check dimensions and layout at component boundaries. The lesson is to make format contracts explicit.
+3.3. Developed C++ image format conversion and preprocessing components to support different sensor output formats and ensure compatibility across processing pipelines.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I worked on image format conversion as part of the MATLAB UAV processing work.
+Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
+Gap: The record does not support C++ conversion-component ownership.
+Follow-up topics: Formats, pipeline interfaces
 
-3.4. Optimized image frame processing in C++, focusing on efficient memory buffer management and reducing unnecessary data copying during image operations
-Status: CV NOT VERIFIED
-Source: CV, page 6
-CV-based answer: Optimized image frame processing in C++, focusing on efficient memory buffer management and reducing unnecessary data copying during image operations.
-Follow-up topics: Inspect buffer ownership and copies during frame processing; measure performance and preserve output.
-Illustrative edge case and validation: Eliminating a copy can expose a lifetime or mutation error; check buffer ownership alongside timing. The lesson is that optimization must preserve correctness.
+3.4. Optimized image frame processing in C++, focusing on efficient memory buffer management and reducing unnecessary data copying during image operations.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I evaluated imaging algorithms in MATLAB; C++ buffer optimization on this project is not evidenced.
+Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
+Gap: No evidence of C++ frame-buffer ownership or copy optimization.
+Follow-up topics: Buffers and memory theory
 
-3.5. Developed and evaluated image stabilization algorithms using MATLAB, implementing selected processing operations in C++ for integration into image processing workflows
-Status: CV NOT VERIFIED
-Source: CV, page 6
-CV-based answer: Developed and evaluated image stabilization algorithms using MATLAB, implementing selected processing operations in C++ for integration into image processing workflows.
-Follow-up topics: Evaluate stabilization in MATLAB and integrate selected C++ operations; compare output across representative motion.
-Illustrative edge case and validation: Motion or weak visual features can expose instability; evaluate representative sequences in MATLAB and C++. The lesson is to validate temporal behavior.
+3.5. Developed and evaluated image stabilization algorithms using MATLAB, implementing selected processing operations in C++ for integration into image processing workflows.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I developed and evaluated UAV stabilization algorithms in MATLAB.
+Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
+Gap: A C++ implementation of selected operations is not supported.
+Follow-up topics: Stabilization, representative data
 
-3.6. Designed and validated multi-sensor image fusion algorithms in MATLAB and integrated the resulting processing modules into the software pipeline
-Status: CV NOT VERIFIED
-Source: CV, page 6
-CV-based answer: Designed and validated multi-sensor image fusion algorithms in MATLAB and integrated the resulting processing modules into the software pipeline.
-Follow-up topics: Develop MATLAB fusion algorithms and integrate processing modules; compare output using representative sensor data.
-Illustrative edge case and validation: Different sensor inputs may produce inconsistent fusion; compare outputs using representative datasets. The lesson is to check assumptions at input boundaries.
+3.6. Designed and validated multi-sensor image fusion algorithms in MATLAB and integrated the resulting processing modules into the software pipeline.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I designed and verified image-fusion algorithms in MATLAB for the UAV optical system.
+Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
+Gap: Summary supports algorithm design, but not the asserted software-pipeline integration scope.
+Follow-up topics: Fusion, reference imagery
 
-3.7. Tested image processing modules using representative sensor datasets, analyzing output quality, processing accuracy, and performance
-Status: CV NOT VERIFIED
-Source: CV, page 6
-CV-based answer: Tested image processing modules using representative sensor datasets, analyzing output quality, processing accuracy, and performance.
-Follow-up topics: Run representative datasets through processing and inspect output quality, numerical accuracy and timing.
-Illustrative edge case and validation: A single clean frame can conceal errors in other conditions; include varied representative datasets and inspect quality and timing. The lesson is to test beyond the nominal input.
+3.7. Tested image processing modules using representative sensor datasets, analyzing output quality, processing accuracy, and performance.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I verified imaging algorithms using reference imagery and participated in real UAV flight testing as payload operator.
+Supported context: Relevant project context: MATLAB was the primary algorithm environment; validation used reference imagery and UAV flight tests, with the candidate operating the optical payload.
+Gap: The CV implies testing C++ modules and performance; Summary supports algorithm and flight validation instead.
+Follow-up topics: Reference imagery, flight testing
 
 4. Software for Processing and Analysis of Satellite Earth Observation Images
-Period: 01.2018 – 02.2020; Software Engineer
+PROJECT FACTUAL CORRECTION
+CV: January 2018–February 2020, Software Engineer. Summary: satellite imaging work within August 2012–January 2020, as a design and research engineer.
+Evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md; Summary/Interview/Career Overview.md
 
-4.1. Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects, improving the overall quality and consistency of satellite imagery
-Status: CV NOT VERIFIED
-Source: CV, page 7
-CV-based answer: Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects, improving the overall quality and consistency of satellite imagery.
-Follow-up topics: Normalize brightness between frames and address optical artifacts; inspect consistency on representative imagery.
-Illustrative edge case and validation: Frame-to-frame brightness differences can make seams visible; compare adjacent corrected frames and optical artifacts. The lesson is to evaluate the combined image.
+4.1. Developed algorithms for standardizing brightness levels across multiple frames and eliminating optical defects, improving the overall quality and consistency of satellite imagery.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I designed MATLAB frame-stitching and radiometric matching algorithms to remove visible brightness differences between detector segments.
+Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
+Gap: Summary describes radiometric matching and stitching; it does not establish every possible optical-defect correction.
+Follow-up topics: Radiometry, stitching, seams
 
-4.2. Designed and implemented software to analyze the linear resolution of satellite images using the sharp edge method, enhancing the accuracy of imaging performance evaluation
-Status: CV NOT VERIFIED
-Source: CV, page 7
-CV-based answer: Designed and implemented software to analyze the linear resolution of satellite images using the sharp edge method, enhancing the accuracy of imaging performance evaluation.
-Follow-up topics: Use the sharp-edge method to assess linear resolution; validate measurements against representative image edges.
-Illustrative edge case and validation: A poor edge selection can distort the measured resolution; compare the measurement on representative edges. The lesson is to validate assumptions in the measurement method.
+4.2. Designed and implemented software to analyze the linear resolution of satellite images using the sharp edge method, enhancing the accuracy of imaging performance evaluation.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I developed automated linear-resolution assessment in MATLAB using flight-test imagery.
+Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
+Gap: The sharp-edge method is named in the CV but not established by the cited Summary record.
+Follow-up topics: Sharp-edge method, ground truth
 
-4.3. Created algorithms to assess image sharpness and edge clarity, ensuring precise resolution measurements for remote sensing applications and contributing to reliable data interpretation
-Status: CV NOT VERIFIED
-Source: CV, page 7
-CV-based answer: Created algorithms to assess image sharpness and edge clarity, ensuring precise resolution measurements for remote sensing applications and contributing to reliable data interpretation.
-Follow-up topics: Measure image sharpness and edge clarity; compare results across image conditions.
-Illustrative edge case and validation: Noise can affect edge clarity; compare measurements on representative imagery. The lesson is to interpret sharpness in context.
+4.3. Created algorithms to assess image sharpness and edge clarity, ensuring precise resolution measurements for remote sensing applications and contributing to reliable data interpretation.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I automated image-resolution assessment and validated results against reference targets and repeatability.
+Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
+Gap: Summary establishes automated resolution assessment, but does not document separate edge-clarity algorithms.
+Follow-up topics: Edge clarity, repeatability
 
-4.4. Developed software to predict quantization ranges for remote sensing satellites by analyzing Earth observation data and estimating the albedo range, improving sensor calibration and minimizing data loss
-Status: CV NOT VERIFIED
-Source: CV, page 7
-CV-based answer: Developed software to predict quantization ranges for remote sensing satellites by analyzing Earth observation data and estimating the albedo range, improving sensor calibration and minimizing data loss.
-Follow-up topics: Estimate albedo ranges from observation data and use them to predict quantization limits; inspect range coverage.
-Illustrative edge case and validation: An unsuitable range can discard useful signal detail; compare predicted ranges with representative observations. The lesson is to verify coverage of expected inputs.
+4.4. Developed software to predict quantization ranges for remote sensing satellites by analyzing Earth observation data and estimating the albedo range, improving sensor calibration and minimizing data loss.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I predicted image type and adapted quantization to improve image quality at a given compression ratio.
+Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
+Gap: The evidence describes image-type prediction, not a documented albedo-range estimation workflow.
+Follow-up topics: Image type, quantization, compression
 
-4.5. Automated the prediction of quantization ranges, streamlining workflows, and improving operational efficiency
-Status: CV NOT VERIFIED
-Source: CV, page 7
-CV-based answer: Automated the prediction of quantization ranges, streamlining workflows, and improving operational efficiency.
-Follow-up topics: Automate the quantization-range workflow; check repeatability of results for the same inputs.
-Illustrative edge case and validation: Different runs should not silently produce inconsistent ranges; repeat the workflow on identical data. The lesson is to make the calculation reproducible.
+4.5. Automated the prediction of quantization ranges, streamlining workflows, and improving operational efficiency.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I implemented image-type prediction and adaptive quantization in MATLAB and compared quality at matched compression ratios.
+Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
+Gap: Automation of an albedo-based range-prediction workflow is not documented.
+Follow-up topics: Adaptive quantization, comparison
 
-4.6. Designed and implemented a custom image compression algorithm using ADPCM with multiple quantizers, achieving optimized compression ratios and enhanced flexibility for different data sizes
-Status: CV NOT VERIFIED
-Source: CV, page 7
-CV-based answer: Designed and implemented a custom image compression algorithm using ADPCM with multiple quantizers, achieving optimized compression ratios and enhanced flexibility for different data sizes.
-Follow-up topics: Implement ADPCM with multiple quantizers; compare compression and reconstruction behavior for different data sizes.
-Illustrative edge case and validation: A quantizer choice affects reconstructed quality and output size; compare both on representative inputs. The lesson is to evaluate the compression tradeoff.
+4.6. Designed and implemented a custom image compression algorithm using ADPCM with multiple quantizers, achieving optimized compression ratios and enhanced flexibility for different data sizes.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2012-2020. Satellite and UAV Optical Imaging Software.md
+Interview answer: I designed an ADPCM-family lossy compression algorithm in MATLAB and verified it against hardware and image-quality constraints.
+Supported context: Relevant project context: MATLAB algorithms were verified using reference imagery and known targets; onboard implementation belonged to the flight-software group.
+Gap: Multiple distinct quantizers and C++ implementation are not established; flight-software implementation was another team’s responsibility.
+Follow-up topics: ADPCM, compute budget, validation
 
 5. Library System
-Period: 01.2015 – 12.2017; Software Engineer
+PROJECT FACTUAL CORRECTION
+CV: January 2015–December 2017, Software Engineer. Summary: March 2022–April 2024 on the library project, primarily C89 backend development.
+Evidence: Summary/Interview/2022-2024. Integrated Library System.md; Summary/Interview/Career Overview.md
 
-5.1. Developed and maintained backend modules in C for library catalogue management and digital collection workflows, focusing on data processing, validation, and core business logic
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Developed and maintained backend modules in C for library catalogue management and digital collection workflows, focusing on data processing, validation, and core business logic.
-Follow-up topics: Maintain C catalogue and collection logic; validate inputs and preserve established workflows.
-Illustrative edge case and validation: Invalid catalogue data can affect downstream consumers; exercise validation and established workflows. The lesson is to preserve the legacy contract.
+5.1. Developed and maintained backend modules in C for library catalogue management and digital collection workflows, focusing on data processing, validation, and core business logic.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I shared C89 backend responsibility with two other C developers, implementing features, fixes and refactoring for library workflows.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: Digital-object collection processing as stated in the CV is not specifically supported.
+Follow-up topics: C89, library workflows, diagnostics
 
-5.2. Designed and optimized socket-based communication components in C and Java to support concurrent client sessions and data exchange between distributed backend services
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Designed and optimized socket-based communication components in C and Java to support concurrent client sessions and data exchange between distributed backend services.
-Follow-up topics: Work on C and Java socket communication; check concurrent sessions, disconnects and data exchange.
-Illustrative edge case and validation: Disconnects or concurrent sessions can interrupt data exchange; exercise communication under those conditions. The lesson is to test connection lifecycle.
+5.2. Designed and optimized socket-based communication components in C and Java to support concurrent client sessions and data exchange between distributed backend services.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I debugged and changed C, Java and Scala components across inherited custom service interfaces.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: Design and optimization ownership of socket-based components and concurrent sessions is not supported.
+Follow-up topics: Cross-service logs, protocol boundaries
 
-5.3. Extended service APIs and Scala endpoints to support evolving catalogue workflows and integration with existing application modules
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Extended service APIs and Scala endpoints to support evolving catalogue workflows and integration with existing application modules.
-Follow-up topics: Extend Scala endpoints and service APIs; verify compatibility with existing catalogue clients.
-Illustrative edge case and validation: An API change can break an existing consumer; verify endpoint behavior with existing catalogue workflows. The lesson is to preserve service compatibility.
+5.3. Extended service APIs and Scala endpoints to support evolving catalogue workflows and integration with existing application modules.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I made occasional Scala API and Swagger changes, including requests that invoked C-side behavior.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: This was secondary, task-specific work, not primary ownership of all API endpoints.
+Follow-up topics: Scala, Swagger, C integration
 
-5.4. Integrated AWS S3 object storage through the S3 API to persist digital collection assets, including scanned manuscripts and other large media files, while maintaining bibliographic metadata and object references in relational databases
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Integrated AWS S3 object storage through the S3 API to persist digital collection assets, including scanned manuscripts and other large media files, while maintaining bibliographic metadata and object references in relational databases.
-Follow-up topics: Integrate S3 object storage and relational references; validate object retrieval and metadata consistency.
-Illustrative edge case and validation: A saved record can point to an unavailable object; test retrieval and the associated relational reference. The lesson is to check both storage and metadata.
+5.4. Integrated AWS S3 object storage through the S3 API to persist digital collection assets, including scanned manuscripts and other large media files, while maintaining bibliographic metadata and object references in relational databases.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I worked with C backend behavior and Java data services using PostgreSQL and MySQL.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: No evidence of AWS S3 object-storage integration or digital-object reference ownership.
+Follow-up topics: Relational services, object-storage theory
 
-5.5. Implemented streaming upload and byte-range download mechanisms for large digital objects, reducing memory consumption and avoiding unnecessary loading of complete files into application memory
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Implemented streaming upload and byte-range download mechanisms for large digital objects, reducing memory consumption and avoiding unnecessary loading of complete files into application memory.
-Follow-up topics: Stream uploads and request byte ranges for downloads; check large files, memory use and incomplete transfers.
-Illustrative edge case and validation: Partial transfers and large objects can expose resource or retrieval errors; test streaming and requested ranges. The lesson is to validate the entire transfer path.
+5.5. Implemented streaming upload and byte-range download mechanisms for large digital objects, reducing memory consumption and avoiding unnecessary loading of complete files into application memory.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I developed and debugged the C89 backend and followed service requests through logs.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: No evidence of streaming S3 upload or byte-range download implementation.
+Follow-up topics: Native diagnostics, streaming theory
 
-5.6. Updated MySQL and PostgreSQL schemas and optimized database queries to improve data retrieval performance when handling large library catalogues
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Updated MySQL and PostgreSQL schemas and optimized database queries to improve data retrieval performance when handling large library catalogues.
-Follow-up topics: Update MySQL and PostgreSQL schema and queries; check correctness and retrieval behavior on large catalogues.
-Illustrative edge case and validation: A schema or query change can alter existing results; compare catalogue retrieval before and after the change. The lesson is to combine correctness with query improvement.
+5.6. Updated MySQL and PostgreSQL schemas and optimized database queries to improve data retrieval performance when handling large library catalogues.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I integrated application behavior with Java services accessing PostgreSQL and residual MySQL models.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: Schema updates and query optimization ownership are not evidenced; the migration predated the assignment.
+Follow-up topics: Service/database boundary, migrations
 
-5.7. Improved backend data-processing workflows and maintained compatibility with existing legacy application components
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Improved backend data-processing workflows and maintained compatibility with existing legacy application components.
-Follow-up topics: Change C backend processing incrementally; check compatibility with legacy consumers and established workflows.
-Illustrative edge case and validation: A local processing change can affect an older client; check established inputs and outputs. The lesson is to account for existing consumers.
+5.7. Improved backend data-processing workflows and maintained compatibility with existing legacy application components.
+Status: CONFIRMED
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I implemented focused C backend changes and refactoring while preserving compatibility with Java, Scala and existing workflows.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: The underlying compatibility work is directly supported.
+Follow-up topics: C89, compatibility, regression
 
-5.8. Participated in release preparation, deployment workflow improvements, and code reviews to maintain application stability and code quality
-Status: CV NOT VERIFIED
-Source: CV, page 8
-CV-based answer: Participated in release preparation, deployment workflow improvements, and code reviews to maintain application stability and code quality.
-Follow-up topics: Contribute to release preparation and reviews; check deployment workflow and stability of the changed components.
-Illustrative edge case and validation: A change that passes locally may fail during release; review the deployment path and affected workflows. The lesson is to include integration in release preparation.
+5.8. Participated in release preparation, deployment workflow improvements, and code reviews to maintain application stability and code quality.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md
+Interview answer: I participated in mandatory code review and used Jenkins builds and existing nightly or on-demand deployments for validation.
+Supported context: Relevant project context: C89 behavior crossed Scala APIs and Java data services; logs, gdb, core dumps and Valgrind supported diagnosis, with QA and mandatory review.
+Gap: Ownership of deployment workflow improvements is not established; infrastructure administration was outside my role.
+Follow-up topics: Reviews, Jenkins, QA
 
 6. Corporate System for the Oil and Gas Industry
-Period: 08.2012 – 12.2014; Software Engineer
+PROJECT FACTUAL CORRECTION
+CV: August 2012–December 2014, Software Engineer, C++11. Summary: October 2021–January 2022, Junior C++ Software Engineer, C++17.
+Evidence: Summary/Interview/2021. Oil and Gas Corporate System.md; Summary/Interview/Career Overview.md
 
-6.1. Developed and maintained backend components in C++11 for internal corporate workflows and operational data processing in the oil and gas domain
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Developed and maintained backend components in C++11 for internal corporate workflows and operational data processing in the oil and gas domain.
-Follow-up topics: Maintain C++11 corporate workflows and data processing; verify changes against existing behavior.
-Illustrative edge case and validation: A backend change can affect existing workflows; verify affected inputs and outputs. The lesson is to preserve established behavior while changing C++ code.
+6.1. Developed and maintained backend components in C++11 for internal corporate workflows and operational data processing in the oil and gas domain.
+Status: FACTUAL CORRECTION
+Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I implemented and maintained C++17 application features for an oil-and-gas data system during October 2021–January 2022.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: The CV says C++11 and 2012–2014; the supported period, standard and junior role differ.
+Follow-up topics: C++17, legacy application
 
-6.2. Integrated LevelDB as an embedded, disk-backed key-value storage engine into C++ backend services to persist and index high-frequency telemetry and sensor events locally on disk, complementing relational storage in Microsoft SQL Server
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Integrated LevelDB as an embedded, disk-backed key-value storage engine into C++ backend services to persist and index high-frequency telemetry and sensor events locally on disk, complementing relational storage in Microsoft SQL Server.
-Follow-up topics: Integrate LevelDB for local telemetry and event storage alongside SQL Server; validate persistence and index access.
-Illustrative edge case and validation: A failure writing local data can leave a missing event; check persistence and retrieval alongside SQL records. The lesson is to understand the boundary between stores.
+6.2. Integrated LevelDB as an embedded, disk-backed key-value storage engine into C++ backend services to persist and index high-frequency telemetry and sensor events locally on disk, complementing relational storage in Microsoft SQL Server.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I worked on C++17 application logic and MySQL-backed sensor-data workflows.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: No evidence of LevelDB integration, disk-backed indexing or key-value ownership.
+Follow-up topics: MySQL, data flow, LevelDB theory
 
-6.3. Optimized LevelDB storage performance by tuning block cache configuration and compaction settings to improve write throughput and maintain efficient data access under sustained ingestion workloads
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Optimized LevelDB storage performance by tuning block cache configuration and compaction settings to improve write throughput and maintain efficient data access under sustained ingestion workloads.
-Follow-up topics: Evaluate block cache and compaction settings under sustained writes; compare write and retrieval behavior.
-Illustrative edge case and validation: A setting that helps writes may affect reads or resource use; compare behavior under sustained load. The lesson is to measure tradeoffs before choosing settings.
+6.3. Optimized LevelDB storage performance by tuning block cache configuration and compaction settings to improve write throughput and maintain efficient data access under sustained ingestion workloads.
+Status: NOT SUPPORTED
+Summary evidence: No supporting evidence in Summary; adjacent evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I implemented application features and focused legacy-code changes in C++17.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: No evidence of LevelDB block-cache or compaction tuning.
+Follow-up topics: Performance measurement theory
 
-6.4. Developed and maintained database access layers, supporting interaction between embedded key-value storage and relational database systems
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Developed and maintained database access layers, supporting interaction between embedded key-value storage and relational database systems.
-Follow-up topics: Maintain access layers across key-value and relational storage; check error handling and data consistency.
-Illustrative edge case and validation: A storage error can propagate through the access layer; check error handling and expected data. The lesson is to make boundaries between stores explicit.
+6.4. Developed and maintained database access layers, supporting interaction between embedded key-value storage and relational database systems.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I worked with C++ application behavior backed by MySQL and traced values across application layers.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: A dedicated key-value/relational access-layer implementation and LevelDB ownership are not supported.
+Follow-up topics: C++, MySQL, data flow
 
-6.5. Maintained MySQL persistence components for auxiliary operational data and application metadata, while Microsoft SQL Server remained the primary relational database for corporate business records
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Maintained MySQL persistence components for auxiliary operational data and application metadata, while Microsoft SQL Server remained the primary relational database for corporate business records.
-Follow-up topics: Maintain MySQL access for auxiliary records and metadata; preserve the SQL Server role in business records.
-Illustrative edge case and validation: Changes to auxiliary data access can affect metadata workflows; verify retrieval and compatibility with existing records. The lesson is to respect each database’s role.
+6.5. Maintained MySQL persistence components for auxiliary operational data and application metadata, while Microsoft SQL Server remained the primary relational database for corporate business records.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I worked with MySQL-backed processing workflows; Microsoft SQL Server was also part of the system environment.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: Personal ownership of the MySQL persistence components and the CV’s division of database roles are broader than the record.
+Follow-up topics: MySQL, SQL Server, role boundaries
 
-6.6. Supported integration between backend services and the web interface implemented using JavaScript, HTML, and jQuery
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Supported integration between backend services and the web interface implemented using JavaScript, HTML, and jQuery.
-Follow-up topics: Trace data between C++ services and JavaScript/jQuery interface; check field values and error handling.
-Illustrative edge case and validation: A value can change or disappear between backend and UI; trace representative fields through the workflow. The lesson is to validate across component boundaries.
+6.6. Supported integration between backend services and the web interface implemented using JavaScript, HTML, and jQuery.
+Status: CONFIRMED
+Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I occasionally changed JavaScript when a task crossed C++ processing and the user-facing workflow.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: This was secondary to C++ work.
+Follow-up topics: JavaScript, C++ integration
 
-6.7. Refactored existing C++ components, resolved defects, and removed outdated code to improve application reliability and maintainability
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Refactored existing C++ components, resolved defects, and removed outdated code to improve application reliability and maintainability.
-Follow-up topics: Refactor existing C++ components and remove obsolete code; verify existing behavior and defect fixes.
-Illustrative edge case and validation: Removing old code can affect a hidden dependency; inspect callers and check existing workflows. The lesson is to refactor in controlled steps.
+6.7. Refactored existing C++ components, resolved defects, and removed outdated code to improve application reliability and maintainability.
+Status: CONFIRMED
+Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I implemented C++17 features, corrected defects, refactored inherited code and removed obsolete components.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: The supported work uses C++17, not the CV’s C++11.
+Follow-up topics: Legacy refactoring, QA
 
-6.8. Participated in technical task estimation, code reviews, and development planning to support predictable delivery of project functionality
-Status: CV NOT VERIFIED
-Source: CV, page 9
-CV-based answer: Participated in technical task estimation, code reviews, and development planning to support predictable delivery of project functionality.
-Follow-up topics: Estimate and plan development tasks, review code and coordinate work; assess scope and delivery risks.
-Illustrative edge case and validation: An estimate can omit integration or review work; account for dependencies and coordinate scope. The lesson is to plan delivery as well as implementation.
+6.8. Participated in technical task estimation, code reviews, and development planning to support predictable delivery of project functionality.
+Status: PARTIALLY CONFIRMED
+Summary evidence: Summary/Interview/2021. Oil and Gas Corporate System.md
+Interview answer: I worked on assigned C++ changes in an established review and QA process.
+Supported context: Relevant project context: the inherited Azure-hosted application used C++17, MySQL and JavaScript; a separate QA team validated changes.
+Gap: Specific ownership of estimation and development planning on this short assignment is not directly documented.
+Follow-up topics: Task scope, review, delivery
 
-2. REQUEST COVERAGE BASED ON THE CV
+2. REQUEST RESPONSIBILITY AND REQUIREMENT COVERAGE
 
-INDICATED: explicitly described in the CV; PARTIAL: only a narrower scope is described; NOT INDICATED: absent from the CV.
+Request item 1. Design and implement new features in Ceph, including RGW, RADOS, RBD and CephFS
 
-1. Design and implement new features in Ceph, including RGW, RADOS, RBD and CephFS.
-CV coverage: PARTIAL
-CV reference: 2.4, 2.6
-Basis: RGW and RBD integration are described; Ceph core feature development and CephFS are not.
+Type: RESPONSIBILITY
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database, Ceph RGW integration through S3 API
+Summary evidence: No supporting evidence in Summary
+Assessment: The candidate has never worked in the Ceph codebase or with a Ceph cluster. The closest real evidence is feature development inside large inherited codebases: the Sierra C89 backend and a customized Linphone SDK, where he implemented new SDK-side behavior.
+Interview response: I have not developed Ceph features. My relevant experience is implementing features inside large existing C and C++ codebases, including SDK-level changes in a customized open-source SIP stack, and I would approach Ceph the same way: understand the data path and invariants first, then change the narrowest component.
 
-2. Optimize the performance, scalability and reliability of the storage system.
-CV coverage: PARTIAL
-CV reference: 2.7, 2.9
-Basis: Ceph performance investigation and monitoring are described; explicit scalability and reliability improvements are not.
+Request item 2. Optimize the performance, scalability and reliability of the storage system
 
-3. Troubleshoot distributed storage issues and debug low-level system behavior.
-CV coverage: PARTIAL
-CV reference: 2.7
-Basis: Ceph latency, OSD and BlueStore investigation is described; low-level debugging scope is not specified.
+Type: RESPONSIBILITY
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database, Ceph performance investigation; Oil and gas, LevelDB tuning
+Summary evidence: No supporting evidence in Summary for storage performance work
+Assessment: No storage-system tuning, OSD or BlueStore analysis, LevelDB or RocksDB tuning or benchmark campaigns are recorded. Reliability work on the SIP platform, primary/backup failover and failback, is real but is not storage.
+Interview response: I have not tuned a storage system. My reliability example is SIP primary/backup failover that I implemented in the SDK, and my performance habit is to measure the actual path before changing it.
 
-4. Participate in upstream Ceph development and community discussions.
-CV coverage: NOT INDICATED
-CV reference: —
-Basis: No upstream Ceph work or community participation is described.
+Request item 3. Troubleshoot distributed storage issues and debug low-level system behavior
 
-5. Integrate Ceph with Kubernetes through Rook and CSI drivers.
-CV coverage: INDICATED
-CV reference: 2.5, 2.6
-Basis: Rook Operator and Ceph CSI for RBD are explicitly described.
+Type: RESPONSIBILITY
+Coverage: PARTIALLY COVERED
+Related CV item: Library System, backend modules and service communication; SIP platform, target integration
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md, sections 01, 03 and 04; Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, sections 03 and 04
+Assessment: Low-level debugging is directly supported: log-first diagnosis across services and language runtimes, gdb and core dumps on AWS EC2 Linux, Valgrind for invalid-memory and initialization defects in C, and gdbserver on ARM64 targets. The distributed-storage part is not supported.
+Interview response: Low-level diagnosis is my strongest area. On a production C platform on AWS Linux, a symptom in Java or Scala often led back to a C root cause, and I worked from correlated logs to gdb, core dumps and Valgrind. I have not diagnosed Ceph or other distributed-storage failures.
 
-6. Monitor and improve system observability using telemetry and metrics.
-CV coverage: INDICATED
-CV reference: 2.9
-Basis: Prometheus and Grafana monitoring of storage infrastructure is described.
+Request item 4. Participate in upstream Ceph development and community discussions
 
-7. Plan and execute development tasks using Agile methodologies.
-CV coverage: PARTIAL
-CV reference: 5.8, 6.8
-Basis: Planning and release work are described; a specific Agile methodology is not.
+Type: RESPONSIBILITY
+Coverage: NOT COVERED
+Related CV item: No direct match
+Summary evidence: No supporting evidence in Summary
+Assessment: No upstream open-source contribution is recorded. Public GitHub repositories contain the candidate's own C++20 application and Stroustrup exercises. The customized Linphone SDK work was internal to the customer project.
+Interview response: I have not contributed upstream to Ceph. I have maintained customer-specific changes in a customized open-source SDK, so I understand the cost of carrying a fork, but I have not gone through an upstream review process.
 
-8. Contribute to technical documentation, design reviews and internal knowledge sharing.
-CV coverage: PARTIAL
-CV reference: 5.8, 6.8
-Basis: Code review is described; technical documentation and knowledge-sharing scope are not.
+Request item 5. Integrate Ceph with Kubernetes through Rook and CSI drivers
 
-9. Very strong developer with experience across various technical areas.
-CV coverage: PARTIAL
-CV reference: 1–6
-Basis: The CV describes work across several areas; the subjective strength criterion is not established by the CV alone.
+Type: RESPONSIBILITY
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database, Rook Operator and Ceph CSI for RBD
+Summary evidence: No supporting evidence in Summary
+Assessment: Kubernetes, Rook and Ceph CSI project experience is not supported by Summary. Interview-theory question banks provide preparation material, not evidence that the candidate has mastered these technologies.
+Interview response: I have not deployed Ceph with Rook or configured Ceph CSI. This would be new hands-on work for me.
 
-10. Development experience in C++.
-CV coverage: INDICATED
-CV reference: 1, 2, 3, 6
-Basis: C++ development is described in multiple projects.
+Request item 6. Monitor and improve system observability using telemetry and metrics
 
-11. Infrastructure experience.
-CV coverage: INDICATED
-CV reference: 1.7, 2.5–2.9
-Basis: The CV describes device integration and Kubernetes/Ceph operations.
+Type: RESPONSIBILITY
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database, Prometheus and Grafana monitoring
+Summary evidence: No supporting evidence in Summary for metrics systems
+Assessment: Observability in the real record is log-based: service logs on Sierra, application, SIP and system logs and active-proxy diagnostics on the SIP platform. No Prometheus, Grafana, exporters, alerting or dashboards are recorded.
+Interview response: My diagnostic work has been log-centred, including adding diagnostics where a state was invisible. I have not built Prometheus metrics or Grafana dashboards.
 
-12. Ceph or NetApp storage experience, including some Ceph experience.
-CV coverage: INDICATED
-CV reference: 2.4–2.7
-Basis: Ceph experience is described; NetApp is not named.
+Request item 7. Plan and execute development tasks using Agile methodologies
 
-13. Kubernetes experience.
-CV coverage: INDICATED
-CV reference: 2.5, 2.6
-Basis: The CV describes Kubernetes, Rook and CSI work.
+Type: RESPONSIBILITY
+Coverage: COVERED
+Related CV item: Oil and gas, task estimation and planning; Library System, release preparation
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md, section 01; Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, section 04
+Assessment: Two-week sprints, daily stand-ups, weekly grooming, demos and retrospectives with Jira on Sierra; Asana-based planning on the SIP platform; estimation of own tasks.
+Interview response: I have worked in Scrum with two-week sprints, grooming, demos and retrospectives, and I estimate and plan my own work within that process.
 
-14. Senior engineering level.
-CV coverage: PARTIAL
-CV reference: Professional summary
-Basis: Fourteen-plus years are stated, while the project role is Software Engineer; a formal senior level is not stated.
+Request item 8. Contribute to technical documentation, design reviews and internal knowledge sharing
 
-15. Strong proficiency in C++ and Python, five or more years.
-CV coverage: PARTIAL
-CV reference: Skills matrix
-Basis: C++ is listed for 11 years and Python for 2 years; the Python five-year requirement is not met by the CV.
+Type: RESPONSIBILITY
+Coverage: COVERED
+Related CV item: Library System, code reviews; SIP platform, architecture refactoring
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md, section 01; Summary/Interview/Career Overview.md, section 02; Summary/Interview/Recruiter Brief.md, section 06
+Assessment: All EPAM and customer reviewers had to approve a change on Sierra; Swagger documentation updates; call/account architecture decisions on the SIP platform; onboarding, 1:1s, development planning and interview preparation as People Lead from October 2025.
+Interview response: Review and knowledge sharing are part of my routine: multi-reviewer approval on a production platform, architecture discussions on the embedded project and, since October 2025, mentoring and onboarding as People Lead while remaining hands-on.
 
-16. Hands-on experience with Ceph: any of RGW, RADOS, RBD or CephFS.
-CV coverage: INDICATED
-CV reference: 2.4–2.6
-Basis: The CV names RGW, RADOS and RBD and describes RGW and RBD work.
+Request item 9. Very strong developer with experience across various technical areas
 
-17. Solid understanding of Linux internals: I/O, memory management and threading.
-CV coverage: PARTIAL
-CV reference: 2.2, 2.3
-Basis: POSIX streaming, buffers and multithreading are described; depth of Linux internals is not established.
+Type: MUST-HAVE, REVISED
+Coverage: PARTIALLY COVERED
+Related CV item: All CV projects
+Summary evidence: Summary/Interview/Career Overview.md, sections 02 to 04
+Assessment: Breadth is real and unusual: C89 backend, C++17 backend, C++17 and Qt on embedded Linux with Yocto, SIP and WebRTC, C# and .NET 8 tooling, occasional Java, Scala and JavaScript, and seven years of MATLAB algorithm R&D. The formal grade is middle, not senior, and none of the areas is storage or cloud infrastructure.
+Interview response: My profile is broad by design: I have worked across C backend services, C++ on embedded Linux, protocol stacks and Windows tooling, and earlier on aerospace algorithms. The common thread is diagnosing systems where behavior depends on several layers at once.
 
-18. Familiarity with Kubernetes, Rook and Ceph CSI drivers.
-CV coverage: INDICATED
-CV reference: 2.5, 2.6
-Basis: Kubernetes, Rook and Ceph CSI are explicitly listed in project work.
+Request item 10. Development experience in C++
 
-19. Experience with Git, GitHub and CI/CD pipelines.
-CV coverage: PARTIAL
-CV reference: Skills; 1, 5
-Basis: Git, GitLab and Bitbucket are named; GitHub and CI/CD scope are not stated.
+Type: MUST-HAVE, REVISED
+Coverage: COVERED
+Related CV item: SIP platform; Oil and gas; Library System
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, section 01; Summary/Interview/2021. Oil and Gas Corporate System.md, section 01; Summary/Interview/2022-2024. Integrated Library System.md, section 01; Summary/Interview/2020-2021. Independent C++ Engineering Projects.md, section 01
+Assessment: More than six years of C and C++ practice, five of them commercial: C++17 on the SIP platform and the oil-and-gas system, C89 on Sierra and a published C++20 application.
+Interview response: C and C++ are my main languages: C++17 and Qt on embedded Linux most recently, C89 on a large production backend before that, and C++17 in an enterprise data system.
 
-20. Exposure to large-scale infrastructure or cloud-native environments.
-CV coverage: PARTIAL
-CV reference: 2.5, 2.6
-Basis: Kubernetes-based storage is described; infrastructure scale is not quantified.
+Request item 11. Infrastructure experience
 
-21. Proficiency with observability tools such as Prometheus and Grafana.
-CV coverage: INDICATED
-CV reference: 2.9
-Basis: Prometheus and Grafana monitoring is explicitly described.
+Type: MUST-HAVE, REVISED
+Coverage: PARTIALLY COVERED
+Related CV item: SIP platform, Yocto and device-side service configuration; Library System, deployment workflow
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, section 04; Summary/Interview/2022-2024. Integrated Library System.md, sections 01 and 03
+Assessment: Supported infrastructure-adjacent work: Yocto Kirkstone recipes, packaging and systemd service startup; DHCP, TFTP and SNMP provisioning tooling; daily use of AWS EC2 Linux hosts over SSH; Jenkins and GitLab CI as a user. Data-centre, cloud-platform, storage or Kubernetes operations are not supported.
+Interview response: My infrastructure experience is at the Linux system level: building device images with Yocto, defining systemd services, provisioning devices over DHCP and TFTP and debugging services on AWS Linux hosts. I have not operated cloud infrastructure or storage clusters.
 
-22. English at B2+ level.
-CV coverage: INDICATED
-CV reference: Language proficiency
-Basis: English B2+ is listed in the CV.
+Request item 12. Ceph or NetApp storage experience, including some Ceph experience
 
-23. Location in the European Union, with CET working hours and at least 30 hours per week.
-CV coverage: NOT INDICATED
-CV reference: —
-Basis: EU location, CET availability and weekly capacity are not established by the CV.
+Type: MUST-HAVE, REVISED
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database
+Summary evidence: No supporting evidence in Summary
+Assessment: Neither Ceph nor NetApp is recorded. This is the decisive gap for both versions of the request.
+Interview response: I do not have hands-on Ceph or NetApp experience. I would need to learn the storage stack on the project, starting from the client's own deployment.
 
-24. Contributions to open-source projects, especially Ceph.
-CV coverage: NOT INDICATED
-CV reference: —
-Basis: Open-source contributions are not described.
+Request item 13. Kubernetes experience
 
-25. Experience with cloud platforms: AWS, Azure or OpenStack.
-CV coverage: PARTIAL
-CV reference: 5.4; Cloud skills
-Basis: AWS S3 is described; Azure and OpenStack experience are not stated in the CV.
+Type: MUST-HAVE, REVISED
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database
+Summary evidence: No supporting evidence in Summary; Summary/Interview/Certificates and Continuing Education.md records Docker as coursework only
+Assessment: No project use of Kubernetes is recorded. Preparation material does not establish the candidate's current theoretical proficiency.
+Interview response: I have not run workloads or storage on Kubernetes in a project. I would need to build practical experience with the team's deployment and operating model.
 
-26. Familiarity with performance profiling tools and storage benchmarks.
-CV coverage: PARTIAL
-CV reference: 2.7, 2.8; Tools
-Basis: Storage performance analysis, scripts and Valgrind are named; specific storage benchmark or profiler tools are not.
+Request item 14. Senior engineering level
 
-27. Knowledge of S3 and Swift protocols and object-storage semantics.
-CV coverage: PARTIAL
-CV reference: 2.4, 5.4, 5.5
-Basis: S3 integration and byte-range transfer are described; Swift is not named.
+Type: MUST-HAVE, SHARED VACANCY CONDITION
+Coverage: PARTIALLY COVERED
+Related CV item: Professional summary
+Summary evidence: Summary/Interview/Recruiter Brief.md, sections 06 and 07; Summary/Interview/Career Overview.md, section 02
+Assessment: The formal grade is middle; senior was never awarded. Scope beyond the title includes design decisions and review on the embedded product and People Lead responsibilities for a sub-group that grew from four to six engineers, with roughly 80% hands-on delivery.
+Interview response: My grade is middle. My scope has included architecture decisions on an embedded product and, since October 2025, People Lead responsibilities for an internal group of four to six engineers while staying primarily hands-on.
+
+Request item 15. Strong proficiency in C++ and Python, five or more years
+
+Type: MUST-HAVE, ORIGINAL
+Coverage: PARTIALLY COVERED
+Related CV item: Skills matrix: C++ 11 years, Python 2 years
+Summary evidence: Summary/Interview/Recruiter Brief.md, section 07; occasional Python use in Summary/Interview/Vacancy Preparation/Vacancy Preparation. FinDev Senior C++ Engineer, Electronic Bond Trading/Vacancy Preparation. FinDev Senior C++ Engineer, Electronic Bond Trading.md, section 03
+Assessment: C++17 work on the embedded and oil-and-gas projects and an independent C++20 application are directly supported. The C89 backend assignment is relevant systems-programming experience, but combining C and C++ duration does not by itself demonstrate five years of proficiency specifically in C++. Five years of Python proficiency and production Python are not established, so the combined requirement is not fully met.
+Interview response: C and C++ are my primary languages with more than six years of practice. Python I have used occasionally for scripts, not as a production language.
+
+Request item 16. Hands-on experience with Ceph: RGW, RADOS, RBD or CephFS
+
+Type: MUST-HAVE, ORIGINAL
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database
+Summary evidence: No supporting evidence in Summary
+Assessment: Same gap as item 12, stated at component level.
+Interview response: I have not worked hands-on with RGW, RADOS, RBD or CephFS.
+
+Request item 17. Solid understanding of Linux internals: I/O, memory management and threading
+
+Type: MUST-HAVE, ORIGINAL
+Coverage: PARTIALLY COVERED
+Related CV item: Library System; SIP platform
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md, sections 03 and 04; Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, section 04
+Assessment: User-space Linux depth is supported: native memory defects in C with fixed-size buffers, Valgrind, core-dump analysis, processes and logs on Linux hosts, QThread and queued connections across thread boundaries, systemd and an embedded Linux image. Kernel I/O paths, page cache, block layer, direct I/O and NUMA or memory-management tuning are not supported.
+Interview response: I work comfortably in Linux user space: native memory defects, core dumps, Valgrind, threads and cross-thread event delivery, services and images. Kernel-level storage I/O tuning I would treat as an area to deepen.
+
+Request item 18. Familiarity with Kubernetes, Rook and Ceph CSI drivers
+
+Type: MUST-HAVE, ORIGINAL
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database
+Summary evidence: No supporting evidence in Summary
+Assessment: Same gap as items 5 and 13.
+Interview response: I have not used Kubernetes, Rook or Ceph CSI on a project; these would be new practical areas for me.
+
+Request item 19. Experience with Git, GitHub and CI/CD pipelines
+
+Type: MUST-HAVE, ORIGINAL
+Coverage: COVERED
+Related CV item: Source control systems: Git, GitLab, Bitbucket
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, section 04; Summary/Interview/2022-2024. Integrated Library System.md, section 01; Summary/Interview/Recruiter Brief.md, section 09
+Assessment: Git across all commercial projects; GitLab with merge requests and GitLab CI; Bitbucket with Jenkins builds on AWS Linux and nightly or on-demand deployment; public GitHub repositories. Ownership of CI infrastructure is not established.
+Interview response: I use Git daily with merge-request review and have worked with GitLab CI and Jenkins pipelines; I have used them rather than owned their infrastructure.
+
+Request item 20. Exposure to large-scale infrastructure or cloud-native environments
+
+Type: MUST-HAVE, ORIGINAL
+Coverage: PARTIALLY COVERED
+Related CV item: Library System; Oil and gas
+Summary evidence: Summary/Interview/2022-2024. Integrated Library System.md, sections 01 and 02; Summary/Interview/2021. Oil and Gas Corporate System.md, section 01; Summary/Interview/Recruiter Brief.md, section 08
+Assessment: Development on production systems hosted on AWS EC2 for a library-software vendor whose installed customer base served more than 9,000 libraries, and on Microsoft Azure for an oil-and-gas corporate system. The library count describes the vendor's customer base, not the deployment scale of the specific Sierra platform or the candidate's services. These are cloud-hosted, not cloud-native Kubernetes environments.
+Interview response: I have developed and debugged services running on AWS and Azure for large production systems, but not in a Kubernetes-based cloud-native platform.
+
+Request item 21. Proficiency with observability tools such as Prometheus and Grafana
+
+Type: MUST-HAVE, ORIGINAL
+Coverage: NOT COVERED
+Related CV item: Remote Sensing Satellites Database
+Summary evidence: No supporting evidence in Summary
+Assessment: Same gap as item 6.
+Interview response: I have not used Prometheus or Grafana in a project.
+
+Request item 22. English at B2+ level
+
+Type: MUST-HAVE, SHARED VACANCY CONDITION
+Coverage: PARTIALLY COVERED
+Related CV item: Language proficiency: English B2+
+Summary evidence: Summary/Interview/Recruiter Brief.md, section 03
+Assessment: English has been the professional working language since 2021 with distributed teams in the US, India and Europe. Summary records B2 as the defensible level, with course certificates through B1 and a B2 course exam result of 60.5/100.
+Interview response: English has been my daily working language since 2021, including direct technical communication with customer teams. I would describe my level as B2.
+
+Request item 23. EU location, CET working hours and at least 30 hours per week
+
+Type: MUST-HAVE, SHARED VACANCY CONDITION
+Coverage: PARTIALLY COVERED
+Related CV item: No direct match
+Summary evidence: Summary/Interview/Recruiter Brief.md, sections 02 and 07; Summary/Interview/Career Overview.md, section 02
+Assessment: The candidate is available full time, works in a CET-compatible time zone and has been between assignments since September 2026. Summary records him as a Belarusian citizen in Minsk, relocating to Warsaw with a Polish national D visa valid from 26 September 2026 to 25 September 2027. The EU-location requirement is satisfied only once he works from Poland.
+Interview response: I am available full time in CET hours. I hold a Polish national D visa and worked in Warsaw for two years before; my working location for the project would be Poland.
+
+Request item 24. Contributions to open-source projects, especially Ceph
+
+Type: NICE-TO-HAVE
+Coverage: NOT COVERED
+Related CV item: No direct match
+Summary evidence: No supporting evidence in Summary for open-source contribution; Summary/Interview/Recruiter Brief.md, section 09, records own public repositories only
+Assessment: Own public repositories are not open-source project contributions.
+Interview response: My public code is my own C++ projects; I have not contributed to an external open-source project.
+
+Request item 25. Experience with cloud platforms: AWS, Azure or OpenStack
+
+Type: NICE-TO-HAVE
+Coverage: PARTIALLY COVERED
+Related CV item: Library System, AWS; Cloud skills
+Summary evidence: Summary/Interview/Certificates and Continuing Education.md, section 06; Summary/Interview/2022-2024. Integrated Library System.md, section 01; Summary/Interview/2021. Oil and Gas Corporate System.md, section 01
+Assessment: Developer use of AWS EC2 Linux hosts and of an Azure-hosted system; two AWS digital training badges from May 2024, not certifications. No OpenStack.
+Interview response: I have worked on systems hosted on AWS and Azure as a developer and hold two AWS training badges. I have not worked with OpenStack.
+
+Request item 26. Familiarity with performance profiling tools and storage benchmarks
+
+Type: NICE-TO-HAVE
+Coverage: PARTIALLY COVERED
+Related CV item: SIP platform, Valgrind and gdb
+Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, section 04; Summary/Interview/2022-2024. Integrated Library System.md, section 04
+Assessment: Valgrind and debugger-based diagnosis are supported; dedicated profilers such as perf and storage benchmarks such as fio, rados bench or COSBench are not.
+Interview response: I use Valgrind and gdb regularly for diagnosis. Storage benchmarking tools would be new for me.
+
+Request item 27. Knowledge of S3 and Swift protocols and object-storage semantics
+
+Type: NICE-TO-HAVE
+Coverage: NOT COVERED
+Related CV item: Library System, AWS S3 integration; Remote Sensing Satellites Database, Ceph RGW through S3 API
+Summary evidence: No supporting evidence in Summary
+Assessment: The S3 integration and pre-signed URL claims are CV-only. AWS coursework covers S3 conceptually.
+Interview response: I know the S3 model from AWS training, but I have not integrated S3 or Swift in a project.
