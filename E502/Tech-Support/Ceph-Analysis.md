@@ -2,7 +2,7 @@ CEPH: ANALYSIS AND INTERVIEW PREPARATION
 
 1. SOURCE AND PURPOSE
 
-Source: Ceph.pdf, nine-page technical note supplied for E502.
+Source: Ceph-Notes.md, transcribed from the nine-page Ceph.pdf supplied for E502. Original page numbers are preserved.
 Research date: 10 November 2026.
 
 The note is a broad overview of RADOS, OSDs, monitors, managers, MDS, RGW, erasure coding, CRUSH, Ceph CSI, Rook and OpenStack integration. It is useful for preparing technical questions; it is not evidence of project work, ownership or current proficiency.
@@ -14,11 +14,11 @@ The note is a broad overview of RADOS, OSDs, monitors, managers, MDS, RGW, erasu
 - OSDs store data and participate in replication, recovery and rebalancing. Monitors maintain maps and use quorum for cluster coordination. The manager exposes cluster-management functions and metrics. MDS manages CephFS metadata; clients also communicate directly with OSDs for file data.
 - RGW data, bucket indexes and user or bucket metadata have different functions and may use different pools. Their actual layout depends on the deployed zone and configuration.
 
-3. CORRECTIONS AND QUALIFICATIONS TO THE PDF
+3. CORRECTIONS AND QUALIFICATIONS TO THE SOURCE NOTES
 
 1. Pages 1–2: a single monitor can form a cluster, but is not a fault-tolerant production configuration. Three monitors across independent failure domains are a common baseline; five are recommended for production clusters with at least five suitable hosts. An odd count is useful for quorum, not a guarantee of independence or resilience.
 
-2. Page 2: loss of monitor quorum prevents normal cluster coordination and map updates. The statement that every existing I/O operation immediately stops is too absolute: actual behavior depends on client state, authentication, maps and failures. Distinguish control-plane availability from client data I/O.
+2. Page 2: loss of monitor quorum prevents normal cluster coordination and map updates. The source claim that Ceph can operate only while a majority of monitors is available is too absolute for every existing I/O path: behavior depends on client state, authentication, maps and failures. Distinguish control-plane availability from client data I/O.
 
 3. Page 3: CephFS capabilities govern client caching and access to inode data and metadata. Do not memorize one MDS request per file as a protocol guarantee: caching, invalidation and workload affect the number of requests.
 

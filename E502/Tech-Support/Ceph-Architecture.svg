@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Ceph architecture</title>
+<desc id="desc">S3 and Swift clients reach RGW, block clients use RBD, and file clients use CephFS with metadata from MDS; all store data in RADOS. The monitor provides maps, and object placement goes through a pool and placement group to OSDs using CRUSH.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#34445c"/></marker><style>text{font-family:Segoe UI,Arial,sans-serif;fill:#172337}.title{font-size:30px;font-weight:700}.label{font-size:20px;font-weight:700}.sub{font-size:16px}.small{font-size:15px}.box{fill:#fff;stroke:#9aaac0;stroke-width:2}.core{fill:#eaf4ff;stroke:#3975aa;stroke-width:2}.flow{stroke:#34445c;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#637b96;stroke-width:2;stroke-dasharray:8 5;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect width="1200" height="720" fill="#f6f9fc"/><text x="50" y="55" class="title">Ceph: interfaces and placement</text>
+<rect class="box" x="50" y="90" width="250" height="88" rx="12"/><text class="label" x="70" y="122">S3 / Swift clients</text><text class="sub" x="70" y="151">HTTP requests</text>
+<rect class="box" x="340" y="90" width="250" height="88" rx="12"/><text class="label" x="360" y="122">Block clients / RBD</text><text class="sub" x="360" y="151">Block access</text>
+<rect class="box" x="630" y="90" width="250" height="88" rx="12"/><text class="label" x="650" y="122">CephFS clients</text><text class="sub" x="650" y="151">File access</text>
+<rect class="box" x="920" y="90" width="220" height="88" rx="12"/><text class="label" x="940" y="122">MDS</text><text class="sub" x="940" y="151">CephFS metadata</text>
+<rect class="box" x="50" y="230" width="250" height="75" rx="12"/><text class="label" x="70" y="261">RGW</text><text class="sub" x="70" y="286">Object API</text>
+<path class="flow" d="M175 178 L175 230"/><path class="flow" d="M880 133 L920 133"/><text class="small" x="919" y="201">Metadata</text>
+<rect class="core" x="315" y="350" width="580" height="112" rx="14"/><text class="label" x="340" y="386">RADOS: pool → object → PG</text><text class="sub" x="340" y="419">CRUSH maps PGs to OSDs</text><text class="small" x="340" y="444">Replication or erasure coding</text>
+<path class="flow" d="M175 305 L175 406 L315 406"/><path class="flow" d="M465 178 L465 350"/><path class="flow" d="M755 178 L755 350"/>
+<rect class="box" x="950" y="350" width="190" height="112" rx="12"/><text class="label" x="970" y="385">MON quorum</text><text class="sub" x="970" y="413">Cluster maps</text><text class="small" x="970" y="440">Cluster coordination</text><path class="dash" d="M950 405 L895 405"/>
+<rect class="box" x="315" y="555" width="160" height="85" rx="12"/><text class="label" x="355" y="590">OSD 1</text><text class="small" x="335" y="617">Object / shard</text>
+<rect class="box" x="525" y="555" width="160" height="85" rx="12"/><text class="label" x="565" y="590">OSD 2</text><text class="small" x="545" y="617">Object / shard</text>
+<rect class="box" x="735" y="555" width="160" height="85" rx="12"/><text class="label" x="775" y="590">OSD 3</text><text class="small" x="755" y="617">Object / shard</text>
+<path class="flow" d="M395 462 L395 555"/><path class="flow" d="M605 462 L605 555"/><path class="flow" d="M815 462 L815 555"/>
+<text class="small" x="50" y="684">Simplified conceptual diagram; placement and topology depend on configuration.</text>
+</svg>
