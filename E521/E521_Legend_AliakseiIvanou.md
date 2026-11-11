@@ -5,6 +5,7 @@ Candidate: Aliaksei Ivanou
 Period: 05.2022–present
 Role: Software Engineer
 Status: current
+Project environment from the CV: C++17, C#, JavaScript, Embedded Linux, Yocto, Qt Designer, .ui, systemd, CMake, qmake, GCC, gdb, Valgrind, Qt Test, Qt Creator, GStreamer, Qt 5.15.7, Qt Widgets, QSS, .NET 8, Node.js, WinForms, V4L2, Qt DBus, Qt WebSockets, WebRTC, Qt Multimedia, Linphone-SDK, liblinphone, mediasoup, libmediasoupclient, SQLite, SDP, SIP, RTP, SNMP, DHCP, TFTP, BitBake, NXP i.MX, Asana, Git, GitLab, Qt Model/View.
 
 CONTEXT, ARCHITECTURE AND TEAM
 
@@ -74,7 +75,7 @@ I used application, SIP and system logs and added active-proxy diagnostics to ma
 
 1.11. Qt Test coverage
 
-I added and maintained focused Qt Test checks for local logic, models and controllers, including call-session changes. These checks supported refactoring, while physical devices remained necessary for media, hardware and boot scenarios.
+I added and maintained focused Qt Test checks for local logic, models and controllers, including call-session changes. The tests covered the extracted call-state and conference domain layer. These checks supported refactoring, while physical devices remained necessary for media, hardware and boot scenarios.
 
 1.12. Yocto and target services
 
@@ -88,6 +89,7 @@ SDK registration and authentication; Qt signals and object lifetime; BitBake pac
 Period: 05.2019–04.2022
 Role: Software Engineer
 Status: completed
+Project environment from the CV: C, Java 11, Scala, gdb, MySQL, PostgreSQL, Amazon Web Services, Git, Bitbucket.
 
 CONTEXT, ARCHITECTURE AND TEAM
 
@@ -149,6 +151,7 @@ C89 buffers and memory; gdb and Valgrind; cross-service diagnosis; Scala/C integ
 Period: 03.2019–05.2019
 Role: Software Engineer
 Status: completed
+Project environment from the CV: C++, Visual Studio, PCL, Open3D, Git.
 
 CONTEXT, ARCHITECTURE AND TEAM
 
@@ -176,7 +179,7 @@ I used PCL for filtering, downsampling, alignment and surface reconstruction. I 
 
 3.3. Open3D evaluation
 
-I used Open3D alongside PCL for comparison and visualization during evaluation. This gave engineers another view of the data and reconstruction without making it the primary pipeline.
+I integrated Open3D alongside PCL for visualization and analysis during evaluation. This gave engineers another view of the data and reconstruction without making it the primary pipeline.
 
 3.4. Visual Studio development
 
@@ -190,6 +193,7 @@ Coordinate transforms and sensor geometry; PCL processing stages; filtering vers
 Period: 08.2017–12.2018
 Role: Software Engineer
 Status: completed
+Project environment from the CV: MATLAB, PostgreSQL, Git, Bitbucket.
 
 CONTEXT, ARCHITECTURE AND TEAM
 
@@ -221,11 +225,11 @@ I worked on image-format conversion within the MATLAB processing workflow. Corre
 
 4.4. Image stabilization
 
-I developed and evaluated stabilization algorithms to reduce the effect of platform motion. I used representative imagery and flight-test observations to judge whether the correction preserved useful detail.
+I developed and evaluated stabilization algorithms to reduce motion-induced distortion in real-time UAV video. I used representative imagery and flight-test observations to judge whether the correction preserved useful detail.
 
 4.5. Image fusion
 
-I designed and verified image-fusion algorithms in MATLAB. Alignment and comparable inputs were necessary before combining information; I evaluated output against reference imagery and the needs of the optical workflow.
+I designed and verified image-fusion algorithms in MATLAB, combining information from multiple sensors to improve detail and contrast for target analysis. Alignment and comparable inputs were necessary before combining information; I evaluated output against reference imagery and the needs of the optical workflow.
 
 FOLLOW-UP TOPICS
 
@@ -235,12 +239,13 @@ Bayer patterns; stabilization and alignment; fusion inputs; calibration and flig
 Period: 03.2016–03.2017
 Role: Software Engineer
 Status: completed
+Project environment from the CV: Ruby, Ruby on Rails, PostgreSQL, MS Access.
 
 CONTEXT, ARCHITECTURE AND TEAM
 
 The project provided internal engineers with a shared reference database of remote-sensing satellites, missions and instrument parameters. Before a queryable reference system, relevant information was spread across documents and spreadsheets.
 
-I designed and implemented a Ruby on Rails web application backed by PostgreSQL. Users could work with structured satellite records and retrieve parameters through the interface. Existing MS Access databases were part of the broader historical environment; the Rails/PostgreSQL work was the reference database I built.
+I designed and implemented a Ruby on Rails web application backed by PostgreSQL. Users could work with structured satellite records and retrieve parameters through the interface. The system also integrated MS Access for legacy data support and migration.
 
 I worked in the same Minsk research organization with engineers who supplied and used the reference information. My responsibility was the web application and database; subject specialists supplied domain context. I checked records and application workflows with representative data and user feedback.
 
@@ -272,6 +277,7 @@ Reference-data modelling; Rails and PostgreSQL; user workflows and data validati
 Period: 08.2012–03.2016
 Role: Software Engineer
 Status: completed
+Project environment from the CV: C++, MATLAB, System Tool Kit, CMake, Visual Studio, PostgreSQL, MS Access, Jira, Git.
 
 CONTEXT, ARCHITECTURE AND TEAM
 
