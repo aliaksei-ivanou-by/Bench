@@ -59,7 +59,7 @@ Category: REQUESTED WORK
 Coverage: COVERED
 CV item: SIP, C++17/Qt
 Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, sections 01, 04, 07 and 13
-Assessment: The embedded phone application and customized SDK were developed in C++17 on Linux.
+Assessment: The embedded phone application used C++17 and Qt on Linux; the customized Linphone SDK was integrated and modified within the project.
 Interview answer: My main work was C++17 and Qt on the phone, including SDK integration and asynchronous state.
 
 7. Senior engineering level.
@@ -158,3 +158,20 @@ CV: August 2012–March 2016; Software Engineer. FULL MATCH for satellite imagin
 
 The strongest example is C++/Qt and liblinphone on a Yocto phone: recipe and packaging changes in an inherited platform, systemd, complete image and validation on i.MX. State the BSP and custom-layer ownership boundary clearly.
 Preparation priorities: BitBake tasks and dependencies, layers and .bbappend, sysroot and cross-compilation, image/package/rootfs, systemd and boot diagnosis, BSP/kernel/U-Boot boundaries, and technical English practice. Theory does not establish project experience.
+
+5. PRIORITY INTERVIEW QUESTIONS
+
+1. What did you change in Yocto, and where was your ownership boundary?
+I worked in an inherited Kirkstone build on recipes, package contents, images and service startup for the phone. The existing BSP, kernel and bootloader were shared platform foundations; the record does not establish ownership of a layer created from scratch or the entire BSP.
+
+2. How would you diagnose a target application that builds successfully but does not start?
+I would check whether the package and runtime dependencies are present in the image, then inspect systemd, application and graphical-environment logs. On the phone I would verify startup order and use gdb/gdbserver when the failure reaches the process. A successful build alone does not establish runtime correctness.
+
+3. How do BitBake recipes, sysroots, packages and the image relate?
+Recipes describe how components are fetched, built and packaged; the build uses target dependencies, and the image selects packages for the device. For this project I can discuss the application and SDK integration in the inherited build. This is a conceptual explanation, not a claim that I built the complete platform.
+
+4. What is your strongest example of C++ work across system boundaries?
+I implemented the registration watchdog and primary/backup failover in the customized Linphone SDK, then integrated the APIs into the Qt application and provisioning paths. I checked server loss and recovery using SIP diagnostics and phone scenarios.
+
+5. How do you distinguish project experience from preparation?
+I describe hands-on recipe and target integration, SDK work and device diagnosis using the actual assignment. Kernel or BSP internals, creating layers from scratch and C1 English should be presented according to the evidence rather than inferred from the vacancy.

@@ -395,7 +395,7 @@ Category: REQUESTED WORK
 Coverage: COVERED
 CV item: SIP, C++17/Qt
 Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, sections 01, 04, 07 and 13
-Assessment: The embedded phone application and customized SDK were developed in C++17 on Linux.
+Assessment: The embedded phone application used C++17 and Qt on Linux; the customized Linphone SDK was integrated and modified within the project.
 Interview answer: My main work was C++17 and Qt on the phone, including SDK integration and asynchronous state.
 
 7. Senior engineering level.
