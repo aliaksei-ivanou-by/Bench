@@ -113,7 +113,7 @@ Interview answer: I worked with complete images and checked startup, media and d
 13. Strong C++ skills.
 Category: REQUIREMENT
 Coverage: COVERED
-CV item: SIP, Library, 3D reconstruction
+CV item: SIP; 3D reconstruction
 Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, sections 01, 04, 07 and 13; Summary/Interview/Career Overview.md, sections 02 and 04
 Assessment: C++17/Qt application and SDK work, enterprise C++17 and a C++ point-cloud prototype support the requirement; C89 experience is distinct from C++.
 Interview answer: I have over six years of C++ practice, with C++17 on embedded and enterprise systems and earlier 3D work.

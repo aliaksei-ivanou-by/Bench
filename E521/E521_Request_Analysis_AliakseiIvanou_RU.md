@@ -113,7 +113,7 @@
 13. Сильное владение C++.
 Категория: ТРЕБОВАНИЕ
 Покрытие: COVERED
-Пункт CV: SIP, Library, 3D reconstruction
+Пункт CV: SIP; 3D reconstruction
 Подтверждение Summary: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md, sections 01, 04, 07 and 13; Summary/Interview/Career Overview.md, sections 02 and 04
 Оценка: Требование подтверждают приложение и SDK на C++17/Qt, корпоративный C++17 и C++ прототип обработки облаков точек; опыт C89 отделён от C++.
 Ответ на интервью: У меня более шести лет практики C++: C++17 в embedded и корпоративной системе и более ранняя работа с 3D.
