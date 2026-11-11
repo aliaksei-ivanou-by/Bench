@@ -15,7 +15,7 @@ Instructions for AI agents working in this repository. This repository contains 
 Each artifact has a fixed source boundary.
 
 - `Intro` starts from the selected CV in the current package. Do not use another CV or another request package. A verified full-match project from the sibling `Summary` repository is the only exception: use all relevant externally usable facts from that real project to enrich and reconcile the corresponding Intro material.
-- `Legend` starts from the same selected CV. For a verified full-match project, use all relevant externally usable information from the corresponding `Summary` project document, including context, architecture, data flow, team, personal scope, decisions, stories, testing, deployment, outcomes and limitations. For every other project, the Legend may expand concise CV statements into realistic technical narratives, team structures and project situations, but the expansion must remain compatible with that CV.
+- `Legend` is based on the same selected CV and must cover every CV project and responsibility in its full stated scope. For a verified full-match project, use relevant externally usable information from the corresponding `Summary` project document to enrich the CV narrative where compatible. `Summary` does not limit or replace a CV responsibility in Legend; reconcile differences in `Responsibilities`. Expand concise CV statements into technically coherent narratives consistent with the CV.
 - `Responsibilities` starts with every responsibility in the selected CV and checks it against the sibling `Summary` repository. Use `Summary/Interview/Career Overview.md` to locate the relevant period documents, then use those documents and their cited evidence to establish the candidate's real scope.
 - `Tech` covers every technology named in the selected CV and in the supplied request. It is general technical theory for interview preparation, not evidence of the candidate's experience; its section about the candidate's projects repeats only claims already made in Legend.
 - A supplied request is the only source for the target role, requested responsibilities, requirements and engagement conditions.
@@ -25,9 +25,9 @@ Each artifact has a fixed source boundary.
 
 Classify a CV project as a verified full match when the project identity is unambiguous and `Summary` describes the same product or system, problem domain, core stack and main body of work. Differences in exact dates or duration, grade or title, legal employer or engagement form (for example informal, contractor or independent work), and a CV that broadens or narrows individual responsibilities do not by themselves prevent a full match; record them in the internal inventory and reconcile them in `Responsibilities`. A project is not a full match when `Summary` has no record of that product or system, describes a different product or domain, or when the CV project is substantially constructed. A technology overlap or a broadly similar domain alone is not enough.
 
-For a verified full match, Intro and Legend keep the CV project title, period and role in project headers and spoken text. `Summary` facts that would contradict those CV fields, such as a different end date, grade or employer, are not stated in Intro or Legend; they appear only in `Responsibilities`. When a CV responsibility goes beyond the `Summary` record, the Legend expanded answer presents the closest defensible version of that work consistent with `Summary` and never asserts a fact that `Summary` contradicts.
+For a verified full match, Intro and Legend keep the CV project title, period and role in project headers and spoken text. `Summary` facts that would contradict those CV fields, such as a different end date, grade or employer, are not stated in Intro or Legend; they appear only in `Responsibilities`. When a CV responsibility goes beyond or conflicts with the `Summary` record, Legend preserves and explains the full CV responsibility rather than narrowing it to the `Summary` version. Record the difference and the supported real scope in `Responsibilities`.
 
-For a verified full match, `Summary` is the factual source of detail for `Intro` and `Legend`; prefer its accepted facts over constructed narrative and use the complete relevant project record instead of limiting the artifact to the short CV bullets. Do not expose private evidence, customer secrets, credentials or NDA-protected detail. Do not transfer facts from that real project to any other CV project. A full project match also does not automatically confirm every CV responsibility: `Responsibilities` must still assess every item separately.
+For a verified full match, use the relevant factual `Summary` record to enrich `Intro` and `Legend`. Intro follows its specified source boundary; Legend preserves the full CV scope and incorporates compatible Summary details without limiting the narrative to them. Do not expose private evidence, customer secrets, credentials or NDA-protected detail. Do not transfer facts from that real project to any other CV project. A full project match also does not automatically confirm every CV responsibility: `Responsibilities` must still assess every item separately.
 
 For projects that are not verified full matches, `Summary` remains verification evidence for `Responsibilities`, not a source for enriching `Intro` or `Legend`. When the CV and `Summary` differ, keep the CV wording visible in `Responsibilities` and provide the supported real scope, correction or unsupported status from `Summary`.
 
@@ -132,7 +132,7 @@ For every CV project include:
 
 When the CV is concise, expand the Legend with a technically coherent implementation narrative. Added detail must remain compatible with the CV's dates, role, domain, technologies, responsibilities and metrics. Do not introduce a contradictory platform, customer, employer, seniority or numerical result.
 
-For every project classified as `FULL MATCH`, populate all Legend sections from the corresponding factual `Summary` project record. Include all relevant accepted detail needed for interview preparation, not only the facts already repeated in the CV. Preserve documented uncertainty and role boundaries, and do not replace factual team, architecture, testing or outcome information with invented alternatives. After exhausting the matching `Summary` record, fill only genuinely missing required narrative fields with plausible, non-conflicting details under the normal Legend expansion rule.
+For every project classified as `FULL MATCH`, cover the complete CV scope first and enrich all Legend sections with relevant externally usable details from the matching `Summary` project record where they are compatible with the CV. Preserve documented uncertainty where compatible with the CV. If the CV describes a broader or different scope, explain that scope in Legend without replacing it with the narrower Summary account; document the discrepancy and factual evidence in Responsibilities. Where needed, expand the CV into coherent, plausible narratives consistent with its stated scope, without presenting constructed details as verified evidence.
 
 When the CV does not contain enough detail for a complete interview story, construct realistic and internally consistent project facts: architecture decisions, implementation steps, failure modes, validation methods, team roles, grades, locations, stacks and first names. Treat the CV as the hard boundary: the constructed detail may explain how the listed work could have been delivered, but it must not change what the CV says the candidate did, add a conflicting technology or create a new measurable achievement.
 
@@ -157,7 +157,7 @@ Do not reduce a story to a one-line Situation/Task/Action/Result list. Explain c
 
 #### Expanded task answers
 
-Every responsibility in the CV must also have an expanded Legend answer. Each answer should cover:
+Every responsibility in the CV must also have an expanded Legend answer covering its complete stated scope, technologies, ownership and outcome. Do not omit or narrow a CV responsibility because it is absent from or differs from Summary. Each answer should cover:
 
 - the original task;
 - the underlying problem;
@@ -287,7 +287,7 @@ Before finishing:
 8. Search for unresolved placeholders, draft labels and human-review wording.
 9. Check that metrics, dates, roles, names and technologies match between languages.
 10. Confirm that every technology named in the CV and request has a Tech file in both languages, that `_Index.md` and `_Index_RU.md` list exactly those files, and that no Tech file exists for a technology outside that scope.
-11. Confirm that every CV project has a recorded `FULL MATCH` or `NOT FULL MATCH` decision and that all `FULL MATCH` Intro and Legend sections use the complete relevant factual project record without borrowing from unrelated projects.
+11. Confirm that every CV project has a recorded `FULL MATCH` or `NOT FULL MATCH` decision; Intro uses the relevant matching factual record within its source boundary, and Legend covers the full CV scope while using compatible matching facts without borrowing from unrelated projects. Compare every Legend task against its original CV wording, including technologies, ownership and outcomes.
 12. Verify UTF-8 without BOM, CRLF line endings, no trailing spaces and no forbidden Markdown markers.
 13. Run `git diff --check` and inspect `git status`.
 14. Update the package row in the root `README.md`.
