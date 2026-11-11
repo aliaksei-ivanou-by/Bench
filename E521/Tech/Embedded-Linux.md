@@ -18,6 +18,8 @@ A service can fail at several different boundaries: the bootloader may load the 
 
 Use dmesg for kernel messages, journalctl for service logs where available, ps for processes and ls -l /dev for device nodes. Check image contents, executable architecture, libraries, service environment, permissions and hardware. Remote gdb/gdbserver can help when supported.
 
+For a process that runs interactively but fails at boot, compare the executable, working directory, user, environment, available libraries and dependent services. For missing hardware, inspect kernel messages and driver binding before debugging the application. For cross-debugging, use target-compatible symbols and record the deployed binary version; a mismatched executable or debug symbols can make a backtrace misleading. These are general diagnostic techniques, not a claim that each occurred on the phone.
+
 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Linux offers a mature ecosystem and networking but its size and ordinary scheduling may not suit a very small or hard-real-time device. An RTOS can suit strict timing and smaller footprints. PREEMPT_RT and hardware need separate evaluation; hard-real-time guarantees cannot be assumed.
@@ -46,6 +48,12 @@ No. Timing depends on configuration, workload, drivers and hardware.
 
 5. Why test on target?
 Hardware, boot order, drivers and resources differ from a desktop.
+
+6. Why can an application work in a shell but fail as a service?
+Its user, environment, working directory, permissions or startup dependencies may differ.
+
+7. What is important for a reliable remote backtrace?
+Matching executable and debug symbols, target architecture and an appropriate debugger setup.
 
 9. SOURCES
 

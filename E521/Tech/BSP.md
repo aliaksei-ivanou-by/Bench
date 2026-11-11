@@ -18,6 +18,8 @@ The BSP boundary is easiest to explain through a boot and peripheral path. Hardw
 
 Start with board revision, vendor BSP release and machine configuration. Trace boot logs through bootloader and kernel, check the device tree and driver, then verify that required firmware and user-space packages are present. Test on physical hardware and record the configuration used.
 
+For a proposed BSP change, compare the actual board revision and supported vendor release first. Trace the affected path from boot artifacts through device tree and driver to the user-space consumer. Record the baseline configuration, build and deploy the matching artifacts in a suitable test environment, then verify boot, affected peripherals and the documented recovery method. A device that exists in Linux but cannot be opened may indicate permissions or user-space configuration rather than a missing BSP driver.
+
 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 A vendor BSP accelerates hardware enablement and supplies a validated baseline for supported configurations. It also creates dependencies on vendor releases, patches and compatible layers. Mainline support may simplify upstream maintenance when the hardware and features are adequately supported; the tradeoff must be evaluated per device.
@@ -46,6 +48,12 @@ Boot, drivers, firmware compatibility or user-space integration; test the actual
 
 5. Does using a BSP prove ownership of it?
 No. Separate application integration from authoring board-support components and bring-up.
+
+6. Is an existing device node proof that the application can use it?
+No. Permissions, firmware, driver state and the user-space configuration can still prevent access.
+
+7. How would you validate a BSP update?
+Test matching boot artifacts, affected peripherals and recovery on the actual board and record the versions.
 
 9. SOURCES
 

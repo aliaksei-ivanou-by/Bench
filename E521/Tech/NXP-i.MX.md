@@ -18,6 +18,8 @@ A processor family name does not identify the physical board or prove that a par
 
 Identify the actual board and image, inspect boot and kernel logs and check device nodes and driver binding. Use the matching NXP release notes and board documentation before choosing a build or hardware configuration. On the phone, target logs and remote debugging help connect application symptoms to runtime behavior.
 
+A useful investigation begins by recording the board revision, running image and kernel, then checking whether the expected hardware is described, the driver probes successfully and the corresponding user-space interface exists. If a camera or display fails, separate hardware discovery from permissions, service startup and application media state. Check the applicable vendor release documentation before assuming an accelerator or peripheral is present. These checks are a general approach; they do not establish personal authorship of a device-tree or driver change.
+
 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 The family offers an embedded Linux ecosystem and vendor support across multiple products. Board-specific integration, vendor release compatibility and long-term updates add work. A smaller microcontroller may suit simpler low-power control, whereas a different SoC family may offer better requirements fit.
@@ -46,6 +48,12 @@ Check board details, device tree, kernel logs, driver binding and permissions.
 
 5. Why use release notes?
 They describe supported hardware and software versions for the chosen vendor release.
+
+6. What is the difference between an SoC and a board?
+The SoC is the integrated processor; the board connects it to power, memory and actual peripherals.
+
+7. How do you investigate a missing camera?
+Check the physical board, hardware description, kernel probe, firmware, permissions and then the application.
 
 9. SOURCES
 

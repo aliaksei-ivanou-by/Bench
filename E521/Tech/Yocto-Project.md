@@ -18,6 +18,8 @@ The build directory is separate from the source layers. Its configuration choose
 
 After sourcing the project build environment, bitbake <image> builds an image; bitbake-layers show-layers lists enabled layers and bitbake-layers show-appends shows matched appends. Inspect local.conf and bblayers.conf, build logs, package contents and the final root filesystem. Use the project’s release documentation and machine configuration; command output depends on the configured layers.
 
+Practical investigation: first identify MACHINE, DISTRO and the enabled layer versions. If a file is missing on the device, check whether the recipe installed it, whether it appears in a built package, whether that package is selected by the image and whether the intended image was actually deployed. oe-pkgdata-util can inspect built package data: find-path locates the package containing a path and list-pkg-files lists a package's files. Recheck permissions and service configuration on the target after confirming image contents.
+
 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Yocto supports hardware-specific composition, controlled versions and long-term image maintenance. The cost is metadata complexity, build time and responsibility for layer compatibility and security updates. Buildroot may be simpler for a smaller fixed image; a binary distribution may speed up development where its packages and update policy fit the device.
@@ -47,8 +49,15 @@ It provides a cross-development toolchain and sysroot for building applications 
 5. Is cache reuse a target test?
 No. It only reuses matching build outputs; runtime behavior still needs verification on the target.
 
+6. What is the difference between MACHINE and DISTRO?
+MACHINE selects hardware-specific configuration; DISTRO sets distribution policy and configuration.
+
+7. How can you find which package contains a file?
+Query built package metadata with oe-pkgdata-util find-path, then check image package selection.
+
 9. SOURCES
 
 Research date: 2026-11-11
 - https://docs.yoctoproject.org/4.0.30/overview-manual/concepts.html
 - https://docs.yoctoproject.org/4.0.30/dev-manual/layers.html
+- https://docs.yoctoproject.org/4.0.30/dev-manual/debugging.html

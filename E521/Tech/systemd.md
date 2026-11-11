@@ -18,6 +18,8 @@ Unit configuration separates relationships in the Unit section from process sett
 
 systemctl status <service> shows state; journalctl -u <service> shows its journal; systemctl cat <service> displays unit definitions and drop-ins. systemctl show exposes resolved properties. After editing a unit, systemctl daemon-reload reloads definitions. systemd-analyze critical-chain helps inspect startup ordering.
 
+Type=simple does not notify systemd when the application has completed its own initialization; Type=notify can report readiness when the application implements the notification protocol. network.target is an ordering point, not proof of connectivity. network-online.target can wait for a configured network when the appropriate network manager and wait service are set up, but it does not guarantee that a specific remote server is reachable or remains reachable. Prefer explicit application retry and diagnostics where network conditions can change.
+
 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Declarative units, dependencies, logging and supervision make startup manageable. Incorrect dependencies may hide failures or delay boot; a minimal device may choose a smaller init system.
@@ -47,8 +49,15 @@ Start with unit status and journal logs, then inspect dependencies and environme
 5. Does an active network target prove server access?
 No. Connectivity and endpoint readiness require separate checks.
 
+6. Does Type=simple prove that application initialization has finished?
+No. For explicit readiness the application can support the notification protocol and a suitable service type.
+
+7. Does network-online.target guarantee the SIP server is reachable?
+No. It reflects the network manager's readiness definition, not the availability of a particular remote server.
+
 9. SOURCES
 
 Research date: 2026-11-11
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html
+- https://wiki.freedesktop.org/www/Software/systemd/NetworkTarget/

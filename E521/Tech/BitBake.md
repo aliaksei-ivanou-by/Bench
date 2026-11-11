@@ -18,6 +18,8 @@ A recipe’s tasks form a graph rather than a single linear shell script. For ex
 
 bitbake <recipe> builds a target; bitbake <recipe> -c listtasks lists tasks; bitbake -e <recipe> shows the expanded environment; bitbake -g <target> generates dependency graphs. bitbake-layers show-appends helps identify matching appends. For a failed task inspect the log.do_* file in the recipe work directory. Commands run in an initialized build environment.
 
+For a failed build, identify the recipe and failed task, read its log, then inspect the final metadata and declared dependencies. For a successful build with a missing target file, follow do_install into package contents and image selection rather than rebuilding randomly. Recipe names in DEPENDS and package names in RDEPENDS have different roles. For package inspection use oe-pkgdata-util only after the relevant packages have been built; the available metadata belongs to the current build configuration.
+
 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 A task graph makes dependencies, parallel execution and reuse explicit. Complexity comes from interacting layers, overrides, signatures and providers. A direct CMake or Make build is often simpler for a single host application; it does not replace image composition and cross-build metadata when those are required.
@@ -46,6 +48,12 @@ Inspect the corresponding log.do_* in the recipe work directory.
 
 5. Why can a build pass but a target fail?
 The runtime package, library, configuration or service may be absent or incompatible.
+
+6. What is the difference between do_install and image construction?
+do_install stages recipe files; packaging and image assembly subsequently select runtime packages.
+
+7. What should you inspect before invalidating the cache?
+The failed task log, resolved metadata, declared inputs and task signatures.
 
 9. SOURCES
 
