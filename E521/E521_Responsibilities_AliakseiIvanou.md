@@ -7,6 +7,9 @@ Request source: E521_Request_AliakseiIvanou.md
 1. CV RESPONSIBILITY RECONCILIATION
 
 1. SIP-BASED PHONE SOFTWARE
+Additional factual source: candidate clarification dated 2026-11-13 about the initial Yocto baseline and the team addition of Linphone SDK, WebRTC and mediasoup.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 PROJECT FACTUAL CORRECTION
 CV: May 2022–present, Software Engineer. Summary: the SIP assignment ran May 2025–August 2026; the internal People Lead role began in October 2025.
 Evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md; Summary/Interview/Career Overview.md
@@ -22,8 +25,8 @@ Follow-up topics: Qt, call state, SDK callbacks
 1.2. Authored and maintained custom BitBake recipes to cross-compile the modified Linphone-SDK and its dependencies for the NXP i.MX ARM architecture, configuring build flags to optimize memory footprint for the embedded target;
 Status: PARTIALLY CONFIRMED
 Summary evidence: Summary/Interview/2025-2026. Embedded SIP Desk Phone Platform.md
-Interview answer: I adapted recipes and packaging for the phone application, SDK and dependencies in the inherited Yocto platform.
-Supported detail: The inherited Kirkstone build supplied i.MX images; my contribution covered recipe metadata, packaging and target integration for the application and SDK.
+Interview answer: Our team added Linphone SDK, WebRTC and mediasoup to the initial Yocto skeleton. I contributed recipe metadata, packaging and application/SDK integration for the resulting phone image.
+Supported detail: The initial Kirkstone baseline supplied the platform foundation, not the Linphone/WebRTC/mediasoup stack. The candidate clarification establishes that the team added that stack; my contribution covered recipe metadata, packaging and application/SDK target integration.
 Gap: Personal ownership of all custom recipes and memory-optimization flags is not established.
 Follow-up topics: BitBake, sysroot, target packaging
 

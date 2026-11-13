@@ -106,6 +106,8 @@ A missing DEPENDS can produce a build that only works because of accidental host
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 SIP-BASED PHONE SOFTWARE: the CV lists custom recipes and .bbappend for the SDK. The Legend describes SDK cross-build and image integration; Responsibilities qualifies ownership of dedicated layers and individual changes. The request explicitly asks for BitBake and recipes.
 
 SECTION 8. INTERVIEW QUESTIONS

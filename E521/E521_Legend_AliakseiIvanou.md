@@ -9,6 +9,8 @@ Project environment from the CV: C++17, C#, JavaScript, Embedded Linux, Yocto, Q
 
 CONTEXT, ARCHITECTURE AND TEAM
 
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 An enterprise desk-phone platform provides audio and video calling, conferences and centrally managed configuration. Office users interact with the phone; administrators provision and maintain fleets. The existing product combines a C++17 and Qt Widgets application, a customized Linphone SDK, embedded Linux built with Yocto/BitBake for NXP i.MX, and a Windows WinForms provisioning utility.
 
 The Qt application converts user actions into SDK operations and maps asynchronous SIP, call and media events back to models and screens. Device settings and generated provisioning files connect the application and SDK; audio, video, GPIO and the graphical environment depend on the target image and services. The browser interface and its REST implementation belonged to another developer.
@@ -27,7 +29,7 @@ The alternative at the UI layer was attractive because it was close to the displ
 
 1.2. Image and startup integration
 
-A Qt application can appear broken when its actual dependency is missing from the image or the graphical service is not ready. With an inherited Yocto platform, replacing the image stack would have been disproportionate; I worked inside existing layers, adapting packaging and startup configuration. I traced the path from BitBake recipe and installed files through the model-specific image to systemd and the Weston/Wayland environment, using build output, target logs and remote debugging. Checks on the physical ARM device established whether files, services, display and hardware were available at the right point. The lesson was to locate the failing boundary before changing application code; a successful cross-build alone cannot establish that the complete device starts correctly.
+A Qt application can appear broken when its actual dependency is missing from the image or the graphical service is not ready. We retained the initial Yocto skeleton and extended it with Linphone SDK, WebRTC and mediasoup. My work included packaging and startup integration for the resulting phone image. I traced the path from BitBake recipe and installed files through the model-specific image to systemd and the Weston/Wayland environment, using build output, target logs and remote debugging. Checks on the physical ARM device established whether files, services, display and hardware were available at the right point. The lesson was to locate the failing boundary before changing application code; a successful cross-build alone cannot establish that the complete device starts correctly.
 
 An alternative would have been to debug only the application or replace the existing image structure, but either could miss the package or service boundary and increase the scope of the change. Following the existing image path allowed a focused integration change, at the cost of checking several layers and a physical device. The same symptom must be compared with boot and service evidence before attributing it to application logic.
 
@@ -47,7 +49,7 @@ The important boundary is between the SDK event stream and the state consumed by
 
 1.2. BitBake builds for SDK and dependencies
 
-I adapted inherited recipes and packaging for the customized SDK and dependencies on the i.MX target. I checked build output and target behavior; the platform and its cross-compilation foundations already existed. I authored and maintained custom BitBake recipes for cross-compiling the modified Linphone SDK and its dependencies for NXP i.MX ARM, including build-flag configuration to optimize the embedded memory footprint.
+The initial Yocto skeleton did not contain Linphone SDK, WebRTC or mediasoup; our team added the stack. I contributed SDK/dependency recipes and packaging for the i.MX target and checked build output and target behavior. The basic platform and cross-compilation foundations already existed, while the telephony and conferencing integration was new team work. I authored and maintained custom BitBake recipes for cross-compiling the modified Linphone SDK and its dependencies for NXP i.MX ARM, including build-flag configuration to optimize the embedded memory footprint.
 
 A cross-build needs target libraries and headers in the target sysroot rather than accidentally linking against host binaries. Recipe dependencies, compiler and linker flags, and package contents are therefore part of the same path from SDK source to device. A useful check is to rebuild the affected recipe, inspect its dependencies and packaged libraries, then run the application on i.MX; memory impact should be measured on the target rather than inferred from a flag alone. The result is a reproducible SDK build compatible with the target environment.
 

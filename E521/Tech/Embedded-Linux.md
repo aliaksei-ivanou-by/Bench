@@ -95,6 +95,8 @@ A missing driver, wrong device tree, absent firmware or incorrect permissions ca
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 SIP-BASED PHONE SOFTWARE: CV names embedded Linux, Qt and i.MX. Legend describes application, services and phone diagnostics. The request asks for deep embedded Linux; Responsibilities distinguishes integration from independent kernel ownership.
 
 SECTION 8. INTERVIEW QUESTIONS

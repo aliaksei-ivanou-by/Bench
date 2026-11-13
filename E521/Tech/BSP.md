@@ -143,6 +143,8 @@ A correct application cannot compensate for a mismatched device tree, missing dr
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 The request explicitly asks for BSP customization. SIP-BASED PHONE SOFTWARE in the CV describes i.MX integration; Legend describes work within the existing platform. Responsibilities supports application/image integration with that BSP, but not independent ownership of the complete BSP or board bring-up.
 
 SECTION 8. INTERVIEW QUESTIONS

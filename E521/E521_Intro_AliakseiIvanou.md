@@ -31,7 +31,7 @@ The product supports audio-only and camera-enabled phones. Its software includes
 
 For example, I implemented the registration watchdog and primary/backup failover and failback in the customized liblinphone SDK, then integrated its APIs into the application and provisioning paths. I initially tried switching servers in the Qt layer, but moved the state machine into the SDK because registration lifecycle state belonged there. I checked server loss and recovery, authentication and the displayed state on physical devices. I also refactored call handling toward clearer session, service, adapter and presentation boundaries; the broader refactor was completed as internal architecture work.
 
-On the Linux side, the product already used Yocto and BitBake. I worked within its inherited layers and adapted recipes and packaging for the Qt application, SDK and media dependencies, model-specific image contents, scripts and runtime services. The complete image brought together the application and its dependencies on the NXP i.MX target. My contribution was integration within that existing platform, including the BSP boundary, rather than ownership of the entire BSP or building a distribution from scratch.
+Before our team joined, there was a basic Yocto skeleton without Linphone SDK, WebRTC or mediasoup. We added those components, their dependencies and runtime integration to the NXP i.MX image. I contributed to BitBake recipes, application and SDK packaging, model-specific image contents, scripts and startup services. We developed that baseline into an integrated phone stack; the BSP remained a shared team foundation.
 
 A useful example is device startup. The application depended on the graphical environment, installed files, services and hardware being ready. A symptom that looked like a Qt failure could come from a missing file, service ordering or an unavailable Wayland socket. I investigated with logs, gdb and gdbserver and checked behavior on physical phones. Component tests helped with isolated logic, but complete boot, audio, video and hardware behavior needed target validation.
 
@@ -43,7 +43,7 @@ SECTION 3. FOLLOW-UP QUESTIONS AND ANSWERS
 
 QUESTION INTRO-01. What did you do with BitBake recipes and image contents?
 
-Answer: I adapted recipe metadata, packaging, dependencies and service integration within the inherited Yocto build. I trace a component from compilation through install staging and packages into the deployed image; a successful recipe build alone does not prove the file is on the phone.
+Answer: Our team started with a basic Yocto skeleton and added Linphone SDK, WebRTC and mediasoup. I contributed recipe metadata, dependencies, packaging and service integration. I trace a component from compilation through staging and packages into the image and device; a successful recipe build alone does not prove delivery to the phone.
 
 QUESTION INTRO-02. How do you keep host and target dependencies separate?
 

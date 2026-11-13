@@ -1,5 +1,9 @@
 PROFILE
 
+Additional factual source: candidate clarification dated 2026-11-13 about the initial Yocto baseline and the team addition of Linphone SDK, WebRTC and mediasoup.
+
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 1. DOCUMENT INFORMATION
 
 Request ID: E521
@@ -11,7 +15,7 @@ Factual sources: Summary/Interview/Career Overview.md and the project records ci
 
 2. POSITIONING
 
-C++ engineer with more than six years of C++ practice, approximately five in commercial work, within more than fourteen years across engineering and R&D. The strongest match is a physical SIP-phone platform: C++17 and Qt on an inherited Yocto-based embedded Linux image for NXP i.MX ARM64, with BitBake recipe and packaging contributions, systemd startup, target debugging and device-level validation. The primary project role was application and SDK engineering, with platform integration, not sole ownership of a Yocto distribution or BSP.
+C++ engineer with more than six years of C++ practice, approximately five in commercial work, within more than fourteen years across engineering and R&D. The strongest match is a physical SIP-phone platform: C++17 and Qt on a Yocto-based embedded Linux image extended by our team from a basic skeleton for NXP i.MX ARM64, with BitBake recipe and packaging contributions, systemd startup, target debugging and device-level validation. The primary project role was application and SDK engineering, with platform integration, not sole ownership of a Yocto distribution or BSP.
 
 The request calls for Senior, extensive Yocto including custom layers and BSP customization, and English C1. The supported grade is middle, the directly documented embedded assignment is May 2025–August 2026, and the defensible English level is B2. These are material boundaries for the requested profile.
 

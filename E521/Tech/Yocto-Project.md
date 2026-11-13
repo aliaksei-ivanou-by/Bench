@@ -297,6 +297,8 @@ A recipe compiling successfully does not prove its package is in the image. Dist
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 SIP-BASED PHONE SOFTWARE: the CV lists Yocto/BitBake and i.MX. The Legend describes recipe and package work, SDK cross-compilation, image integration and service startup. The request asks for extensive Yocto, custom layers, recipes and image builds; Responsibilities distinguishes confirmed inherited-platform integration from unsupported full-platform ownership.
 
 SECTION 8. INTERVIEW QUESTIONS

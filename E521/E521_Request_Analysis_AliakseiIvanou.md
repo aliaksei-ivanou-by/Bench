@@ -1,5 +1,9 @@
 REQUEST ANALYSIS
 
+Additional factual source: candidate clarification dated 2026-11-13 about the initial Yocto baseline and the team addition of Linphone SDK, WebRTC and mediasoup.
+
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+
 Request ID: E521
 
 Target: Senior C++ Engineer – Yocto Linux
