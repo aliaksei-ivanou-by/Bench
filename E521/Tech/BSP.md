@@ -1,7 +1,9 @@
 BSP
 
 SECTION 1. TECHNOLOGY AND VERSION
+
 Category: Embedded platform
+
 Board support package for the relevant NXP i.MX board and vendor release.
 
 SECTION 2. PURPOSE
@@ -10,37 +12,99 @@ A board support package is the hardware-specific software and configuration need
 
 SECTION 3. CORE CONCEPTS
 
-A Linux BSP commonly includes bootloader and kernel sources or configuration, device trees, drivers, firmware and build metadata. Boot components initialize the hardware, the kernel uses the board description and drivers, and the root filesystem supplies user-space software. In a Yocto environment vendor layers can package these elements; exact ownership and contents depend on the release. Board bring-up is the process of establishing basic operation on the actual hardware.
+A Linux BSP commonly includes bootloader and kernel sources or configuration, device trees, drivers, firmware and build metadata. Boot components initialize the hardware, the kernel uses the board description and drivers, and the root filesystem supplies user-space software.
 
-The BSP boundary is easiest to explain through a boot and peripheral path. Hardware-specific initialization begins in firmware and boot components; the kernel uses its configuration, drivers and hardware description; user space relies on the resulting devices and services. A vendor release may provide recipes, patches and firmware that need to remain compatible with one another. When debugging, determine whether the device is absent in the kernel, unavailable because of permissions or firmware, or present but misused by an application. Updating one component can affect the others, so boot, peripheral and recovery checks should be performed against the actual board revision. Integration of an application with an inherited BSP is valuable work, but it should not be presented as authorship of the entire BSP.
+In a Yocto environment vendor layers can package these elements; exact ownership and contents depend on the release. Board bring-up is the process of establishing basic operation on the actual hardware.
+
+The BSP boundary is easiest to explain through a boot and peripheral path. Hardware-specific initialization begins in firmware and boot components; the kernel uses its configuration, drivers and hardware description; user space relies on the resulting devices and services.
+
+A vendor release may provide recipes, patches and firmware that need to remain compatible with one another. When debugging, determine whether the device is absent in the kernel, unavailable because of permissions or firmware, or present but misused by an application.
+
+Updating one component can affect the others, so boot, peripheral and recovery checks should be performed against the actual board revision. Integration of an application with an inherited BSP is valuable work, but it should not be presented as authorship of the entire BSP.
 
 SECTION 4. TYPICAL USAGE
 
 Start with board revision, vendor BSP release and machine configuration. Trace boot logs through bootloader and kernel, check the device tree and driver, then verify that required firmware and user-space packages are present. Test on physical hardware and record the configuration used.
 
-For a proposed BSP change, compare the actual board revision and supported vendor release first. Trace the affected path from boot artifacts through device tree and driver to the user-space consumer. Record the baseline configuration, build and deploy the matching artifacts in a suitable test environment, then verify boot, affected peripherals and the documented recovery method. A device that exists in Linux but cannot be opened may indicate permissions or user-space configuration rather than a missing BSP driver.
+For a proposed BSP change, compare the actual board revision and supported vendor release first. Trace the affected path from boot artifacts through device tree and driver to the user-space consumer.
+
+Record the baseline configuration, build and deploy the matching artifacts in a suitable test environment, then verify boot, affected peripherals and the documented recovery method. A device that exists in Linux but cannot be opened may indicate permissions or user-space configuration rather than a missing BSP driver.
 
 KERNEL, MODULE AND DEVICE-TREE WORKFLOW
 
 A BSP may include vendor kernel/U-Boot branches, machine configuration, firmware and GPU/VPU/NPU components where required. Not every board needs proprietary blobs. Example ecosystems are meta-raspberrypi, meta-freescale with NXP meta-imx integration, and meta-ti; match their branches and dependencies to the selected release.
 
 KERNEL-01. Patch the provider.
-Determine the provider of virtual/kernel. Run devtool modify virtual/kernel where supported, or use the resolved recipe name; the QEMU lab uses linux-yocto. Edit workspace sources, make a focused Git commit and build/test. Either export with devtool finish linux-yocto ../meta-lab, or manually use git format-patch -1 in the source repository. In the manual path put the patch under files/ beside a product-layer linux-yocto_%.bbappend containing:
+
+Determine the provider of virtual/kernel.
+
+Run devtool modify virtual/kernel where supported, or use the resolved recipe name; the QEMU lab uses linux-yocto.
+
+Edit workspace sources, make a focused Git commit and build/test.
+
+Either export with devtool finish linux-yocto ../meta-lab, or manually use git format-patch -1 in the source repository.
+
+In the manual path put the patch under files/ beside a product-layer linux-yocto_%.bbappend containing:
+
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
 SRC_URI += "file://0001-lab-change.patch"
-The filename must match the exported patch. For manual export, remove the workspace override with devtool reset linux-yocto after preserving the patch; finish already removes it. Then test the layer-based build. Do not apply the same patch twice through both export methods.
+
+The filename must match the exported patch.
+
+For manual export, remove the workspace override with devtool reset linux-yocto after preserving the patch; finish already removes it.
+
+Then test the layer-based build.
+
+Do not apply the same patch twice through both export methods.
 
 KERNEL-02. Preserve configuration.
-Run bitbake -c menuconfig virtual/kernel, save, then bitbake -c diffconfig virtual/kernel if the provider supports these tasks. Copy the reported fragment into files/lab.cfg and add SRC_URI += "file://lab.cfg" to the append. For a linux-yocto exercise the fragment can contain CONFIG_PRINTK_TIME=y. Check the final .config and boot behavior. A vendor recipe that does not merge fragments needs its supported configuration mechanism; merely fetching .cfg is insufficient.
+
+Run bitbake -c menuconfig virtual/kernel, save, then bitbake -c diffconfig virtual/kernel if the provider supports these tasks.
+
+Copy the reported fragment into files/lab.cfg and add SRC_URI += "file://lab.cfg" to the append.
+
+For a linux-yocto exercise the fragment can contain CONFIG_PRINTK_TIME=y.
+
+Check the final .config and boot behavior.
+
+A vendor recipe that does not merge fragments needs its supported configuration mechanism; merely fetching .cfg is insufficient.
 
 KERNEL-03. Package an external module.
-Use inherit module and a Makefile compatible with the kernel build interface. The recipe builds against the selected kernel and packages installed .ko files. KERNEL_MODULE_AUTOLOAD += "lab_driver" requests boot-time loading; it does not select the module package into the image. Include the actual output package, check modinfo/modprobe and dmesg, and rebuild for kernel ABI/configuration changes.
+
+Use inherit module and a Makefile compatible with the kernel build interface.
+
+The recipe builds against the selected kernel and packages installed .ko files.
+
+KERNEL_MODULE_AUTOLOAD += "lab_driver" requests boot-time loading; it does not select the module package into the image.
+
+Include the actual output package, check modinfo/modprobe and dmesg, and rebuild for kernel ABI/configuration changes.
 
 DT-01. Build and select the description.
-.dts describes a board; .dtsi holds shared descriptions. Kernel build preprocessing and dtc produce .dtb. compatible participates in driver matching, but the driver and required clocks, regulators, pinctrl and firmware must also exist. KERNEL_DEVICETREE in machine configuration selects outputs for supporting recipes. Adding a new .dts through a kernel append usually also needs a patch to the appropriate build Makefile and selection of its output; fetch alone does not build/deploy it.
+
+.dts describes a board; .dtsi holds shared descriptions.
+
+Kernel build preprocessing and dtc produce .dtb.
+
+compatible participates in driver matching, but the driver and required clocks, regulators, pinctrl and firmware must also exist.
+
+KERNEL_DEVICETREE in machine configuration selects outputs for supporting recipes.
+
+Adding a new .dts through a kernel append usually also needs a patch to the appropriate build Makefile and selection of its output; fetch alone does not build/deploy it.
 
 DT-02. Apply the overlay.
-An overlay uses /plugin/ and compiles to .dtbo. Symbol-based overlays need compatible symbol information, commonly generated with dtc -@ for base and overlay. U-Boot loads them, selects the FDT, reserves space with fdt resize and applies the overlay with fdt apply before booting Linux. Addresses/load commands depend on the board. Raspberry Pi firmware instead uses dtoverlay= in config.txt. Check the live tree and driver probe after boot; a deployed .dtbo is not proof of application.
+
+An overlay uses /plugin/ and compiles to .dtbo.
+
+Symbol-based overlays need compatible symbol information, commonly generated with dtc -@ for base and overlay.
+
+U-Boot loads them, selects the FDT, reserves space with fdt resize and applies the overlay with fdt apply before booting Linux.
+
+Addresses/load commands depend on the board.
+
+Raspberry Pi firmware instead uses dtoverlay= in config.txt.
+
+Check the live tree and driver probe after boot; a deployed .dtbo is not proof of application.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
@@ -155,10 +219,17 @@ Answer: The boot path applies it, expected nodes/properties appear in the live t
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
+
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
+
 - https://docs.kernel.org/devicetree/usage-model.html
+
 - https://docs.yoctoproject.org/4.0.30/bsp-guide/bsp.html
+
 - https://docs.kernel.org/driver-api/driver-model/binding.html
+
 - https://docs.yoctoproject.org/4.0.30/kernel-dev/common.html
+
 - https://docs.u-boot.org/en/latest/usage/fdt_overlays.html
+
 - https://www.raspberrypi.com/documentation/computers/config_txt.html

@@ -1,7 +1,9 @@
 BitBake
 
 SECTION 1. TECHNOLOGY AND VERSION
+
 Category: Build tool
+
 BitBake 2.0 with Yocto Kirkstone; exact behavior follows the project version.
 
 SECTION 2. PURPOSE
@@ -10,27 +12,49 @@ BitBake parses metadata and schedules a dependency graph of tasks to build targe
 
 SECTION 3. CORE CONCEPTS
 
-Parsing combines configuration, classes, recipes and matching appends into a datastore. Providers and versions are selected from metadata; BitBake then schedules tasks such as do_fetch, do_unpack, do_patch, do_configure, do_compile, do_install and packaging. Dependencies connect tasks across recipes. Signatures and shared state permit reuse when inputs match; they do not make an undeclared dependency safe. DEPENDS names build-time recipe dependencies; RDEPENDS is a runtime package dependency, commonly qualified by package name.
+Parsing combines configuration, classes, recipes and matching appends into a datastore. Providers and versions are selected from metadata; BitBake then schedules tasks such as do_fetch, do_unpack, do_patch, do_configure, do_compile, do_install and packaging.
 
-A recipe’s tasks form a graph rather than a single linear shell script. For example, fetching and unpacking prepare sources, while configuration and compilation depend on the appropriate build inputs. The install task places files in a staging directory; subsequent packaging and image assembly are separate steps. Overrides and layer configuration can change the final value of a variable, so inspecting the expanded metadata is often more useful than reading one assignment in isolation. Shared-state hits should be understood through signatures and declared inputs. A missing runtime library is investigated at the package and image boundary, while a failed configure step calls for its own task log and sysroot checks. These are distinct diagnostic paths.
+Dependencies connect tasks across recipes. Signatures and shared state permit reuse when inputs match; they do not make an undeclared dependency safe.
+
+DEPENDS names build-time recipe dependencies; RDEPENDS is a runtime package dependency, commonly qualified by package name.
+
+A recipe’s tasks form a graph rather than a single linear shell script. For example, fetching and unpacking prepare sources, while configuration and compilation depend on the appropriate build inputs.
+
+The install task places files in a staging directory; subsequent packaging and image assembly are separate steps. Overrides and layer configuration can change the final value of a variable, so inspecting the expanded metadata is often more useful than reading one assignment in isolation.
+
+Shared-state hits should be understood through signatures and declared inputs. A missing runtime library is investigated at the package and image boundary, while a failed configure step calls for its own task log and sysroot checks.
+
+These are distinct diagnostic paths.
 
 SECTION 4. TYPICAL USAGE
 
 bitbake <recipe> builds a target; bitbake <recipe> -c listtasks lists tasks; bitbake -e <recipe> shows the expanded environment; bitbake -g <target> generates dependency graphs. bitbake-layers show-appends helps identify matching appends. For a failed task inspect the log.do_* file in the recipe work directory. Commands run in an initialized build environment.
 
-For a failed build, identify the recipe and failed task, read its log, then inspect the final metadata and declared dependencies. For a successful build with a missing target file, follow do_install into package contents and image selection rather than rebuilding randomly. Recipe names in DEPENDS and package names in RDEPENDS have different roles. For package inspection use oe-pkgdata-util only after the relevant packages have been built; the available metadata belongs to the current build configuration.
+For a failed build, identify the recipe and failed task, read its log, then inspect the final metadata and declared dependencies. For a successful build with a missing target file, follow do_install into package contents and image selection rather than rebuilding randomly.
+
+Recipe names in DEPENDS and package names in RDEPENDS have different roles. For package inspection use oe-pkgdata-util only after the relevant packages have been built; the available metadata belongs to the current build configuration.
 
 RECIPE AUTHORING AND DIAGNOSTICS
 
 A .bb defines a component; a matching .bbappend extends it from another layer. Honister 3.4 introduced colon overrides: SRC_URI:append = " file://fix.patch" and FILES:${PN}:append = " ${datadir}/phone". Preserve spaces for :append. Do not replace all underscores: PREFERRED_VERSION_recipe and layer collection suffixes are not override syntax.
 
-Use inherit cmake, meson or autotools according to the build system. inherit pkgconfig integrates cross-build pkg-config; it does not install dependencies or replace DEPENDS. Install libraries under ${D}${libdir}, headers under ${D}${includedir}, executables under ${D}${bindir}. Default splitting normally places headers and development metadata in ${PN}-dev and detached debug information in ${PN}-dbg. FILES:${PN} uses target paths without ${D}; inspect PACKAGES and actual files instead of assigning everything to runtime.
+Use inherit cmake, meson or autotools according to the build system. inherit pkgconfig integrates cross-build pkg-config; it does not install dependencies or replace DEPENDS.
+
+Install libraries under ${D}${libdir}, headers under ${D}${includedir}, executables under ${D}${bindir}. Default splitting normally places headers and development metadata in ${PN}-dev and detached debug information in ${PN}-dbg.
+
+FILES:${PN} uses target paths without ${D}; inspect PACKAGES and actual files instead of assigning everything to runtime.
 
 For example, bitbake -e hello | grep '^PACKAGECONFIG=' inspects a resolved value; change the variable name for other investigations. bitbake -c devshell hello opens a build-environment shell, not a target shell. oe-pkgdata-util list-pkg-files hello and oe-pkgdata-util find-path /usr/bin/hello inspect already-built package data. bitbake-layers show-appends confirms matching appends.
 
-devtool add introduces a new component; devtool modify exposes an existing recipe's sources; devtool build supports iteration; devtool finish exports committed changes to a maintained layer and removes the workspace override. Review generated sources, license fields, dependencies and install behavior. LICENSE identifies licenses, LIC_FILES_CHKSUM tracks relevant license text, SRC_URI identifies fetch inputs and SRCREV pins a VCS revision. A changed license checksum requires reviewing the text, not merely accepting the new hash.
+devtool add introduces a new component; devtool modify exposes an existing recipe's sources; devtool build supports iteration; devtool finish exports committed changes to a maintained layer and removes the workspace override. Review generated sources, license fields, dependencies and install behavior.
 
-For installed-vs-shipped, inspect ${D}, PACKAGES and FILES; assign intended files to the correct package or stop installing unwanted files. For dev-so, check development symlinks; plugin .so files may require deliberate treatment. For file-rdeps, supply the genuine runtime provider. For buildpaths/rpaths, remove leaked host paths from configuration. A global INSANE_SKIP hides defects rather than repairing them.
+LICENSE identifies licenses, LIC_FILES_CHKSUM tracks relevant license text, SRC_URI identifies fetch inputs and SRCREV pins a VCS revision. A changed license checksum requires reviewing the text, not merely accepting the new hash.
+
+For installed-vs-shipped, inspect ${D}, PACKAGES and FILES; assign intended files to the correct package or stop installing unwanted files. For dev-so, check development symlinks; plugin .so files may require deliberate treatment.
+
+For file-rdeps, supply the genuine runtime provider. For buildpaths/rpaths, remove leaked host paths from configuration.
+
+A global INSANE_SKIP hides defects rather than repairing them.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
@@ -145,11 +169,19 @@ Answer: No. It configures cross-build pkg-config. DEPENDS must still name the pr
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
+
 - https://docs.yoctoproject.org/bitbake/2.0/bitbake-user-manual/bitbake-user-manual-execution.html
+
 - https://docs.yoctoproject.org/4.0.30/ref-manual/variables.html
+
 - https://docs.yoctoproject.org/4.0.30/ref-manual/tasks.html
+
 - https://docs.yoctoproject.org/bitbake/2.0/bitbake-user-manual/bitbake-user-manual-metadata.html
+
 - https://docs.yoctoproject.org/migration-guides/migration-3.4.html
+
 - https://docs.yoctoproject.org/4.0.30/ref-manual/qa-checks.html
+
 - https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html
+
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html

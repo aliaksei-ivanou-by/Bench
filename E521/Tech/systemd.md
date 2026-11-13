@@ -1,7 +1,9 @@
 systemd
 
 SECTION 1. TECHNOLOGY AND VERSION
+
 Category: Service management
+
 systemd on embedded Linux; directives depend on the installed version.
 
 SECTION 2. PURPOSE
@@ -12,17 +14,31 @@ SECTION 3. CORE CONCEPTS
 
 Units include service, socket, mount, device and target types. Requires= and Wants= express dependencies; After= and Before= express ordering and do not alone start another unit. Service type influences when startup is considered complete. An active target does not necessarily mean that an endpoint or compositor socket is ready.
 
-Unit configuration separates relationships in the Unit section from process settings in Service and installation information in Install. Wants= is generally a weaker dependency than Requires=, whereas ordering is specified independently. A service may start correctly but fail later; inspect the main process, exit status, restart policy and journal rather than treating a restart as a fix. Service environment and execution identity can differ from an interactive shell, which explains why a command works manually but not during boot. Examine drop-ins and the final resolved properties when configuration appears inconsistent. For a graphical application, distinguish the service being started from the compositor actually accepting connections. Use the deployed systemd manual because options and defaults vary by version.
+Unit configuration separates relationships in the Unit section from process settings in Service and installation information in Install. Wants= is generally a weaker dependency than Requires=, whereas ordering is specified independently.
+
+A service may start correctly but fail later; inspect the main process, exit status, restart policy and journal rather than treating a restart as a fix. Service environment and execution identity can differ from an interactive shell, which explains why a command works manually but not during boot.
+
+Examine drop-ins and the final resolved properties when configuration appears inconsistent. For a graphical application, distinguish the service being started from the compositor actually accepting connections.
+
+Use the deployed systemd manual because options and defaults vary by version.
 
 SECTION 4. TYPICAL USAGE
 
 systemctl status <service> shows state; journalctl -u <service> shows its journal; systemctl cat <service> displays unit definitions and drop-ins. systemctl show exposes resolved properties. After editing a unit, systemctl daemon-reload reloads definitions. systemd-analyze critical-chain helps inspect startup ordering.
 
-Type=simple does not notify systemd when the application has completed its own initialization; Type=notify can report readiness when the application implements the notification protocol. network.target is an ordering point, not proof of connectivity. network-online.target can wait for a configured network when the appropriate network manager and wait service are set up, but it does not guarantee that a specific remote server is reachable or remains reachable. Prefer explicit application retry and diagnostics where network conditions can change.
+Type=simple does not notify systemd when the application has completed its own initialization; Type=notify can report readiness when the application implements the notification protocol. network.target is an ordering point, not proof of connectivity.
+
+network-online.target can wait for a configured network when the appropriate network manager and wait service are set up, but it does not guarantee that a specific remote server is reachable or remains reachable. Prefer explicit application retry and diagnostics where network conditions can change.
 
 YOCTO UNIT PACKAGING
 
-An application recipe can inherit systemd, install phone-ui.service under ${D}${systemd_system_unitdir} and set SYSTEMD_SERVICE:${PN} = "phone-ui.service". SYSTEMD_AUTO_ENABLE:${PN} = "enable" explicitly selects enablement. Assign the unit to the intended package and ensure systemd is selected as init; image inclusion remains separate. ExecStart must match the installed executable. Choose suitable Type, User, restart policy and writable state. After image deployment and reboot inspect systemctl cat, systemctl status and journalctl -u. Let the class handle enablement rather than calling the build host's systemctl in do_install.
+An application recipe can inherit systemd, install phone-ui.service under ${D}${systemd_system_unitdir} and set SYSTEMD_SERVICE:${PN} = "phone-ui.service". SYSTEMD_AUTO_ENABLE:${PN} = "enable" explicitly selects enablement.
+
+Assign the unit to the intended package and ensure systemd is selected as init; image inclusion remains separate. ExecStart must match the installed executable.
+
+Choose suitable Type, User, restart policy and writable state. After image deployment and reboot inspect systemctl cat, systemctl status and journalctl -u.
+
+Let the class handle enablement rather than calling the build host's systemctl in do_install.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
@@ -121,10 +137,17 @@ Answer: The recipe installs the unit and application into the staged filesystem,
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
+
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html
+
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html
+
 - https://wiki.freedesktop.org/www/Software/systemd/NetworkTarget/
+
 - https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html
+
 - https://www.freedesktop.org/software/systemd/man/latest/sd_notify.html
+
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html
+
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html

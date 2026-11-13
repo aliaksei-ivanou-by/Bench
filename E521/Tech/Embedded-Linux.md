@@ -1,7 +1,9 @@
 Embedded-Linux
 
 SECTION 1. TECHNOLOGY AND VERSION
+
 Category: Embedded operating system
+
 Linux on i.MX; kernel version is product-specific.
 
 SECTION 2. PURPOSE
@@ -10,29 +12,53 @@ Embedded Linux combines the Linux kernel and a selected user space for a dedicat
 
 SECTION 3. CORE CONCEPTS
 
-A typical boot chain passes control from firmware to a bootloader, which loads the kernel and a hardware description. The kernel initializes hardware and mounts a root filesystem; PID 1 starts user-space services. Device tree describes hardware and configuration; drivers bind to compatible devices. Actual boot stages differ by SoC and product. User-space applications access device files and system services through kernel interfaces.
+A typical boot chain passes control from firmware to a bootloader, which loads the kernel and a hardware description. The kernel initializes hardware and mounts a root filesystem; PID 1 starts user-space services.
 
-A service can fail at several different boundaries: the bootloader may load the wrong artifact, the kernel may fail to probe a device, the service may lack a library or permission, or the application may mishandle a runtime event. Start with the observed symptom and identify the earliest failing layer using the boot log, kernel messages and service logs. Confirm architecture and shared-library availability before assuming a C++ defect. The kernel and user-space ABI, device nodes, permissions and firmware are part of the delivered system. Real devices also impose startup timing, limited writable storage and recovery requirements. When an issue depends on USB, GPIO, audio or display timing, a desktop-only reproduction cannot establish full target behavior.
+Device tree describes hardware and configuration; drivers bind to compatible devices. Actual boot stages differ by SoC and product.
+
+User-space applications access device files and system services through kernel interfaces.
+
+A service can fail at several different boundaries: the bootloader may load the wrong artifact, the kernel may fail to probe a device, the service may lack a library or permission, or the application may mishandle a runtime event. Start with the observed symptom and identify the earliest failing layer using the boot log, kernel messages and service logs.
+
+Confirm architecture and shared-library availability before assuming a C++ defect. The kernel and user-space ABI, device nodes, permissions and firmware are part of the delivered system.
+
+Real devices also impose startup timing, limited writable storage and recovery requirements. When an issue depends on USB, GPIO, audio or display timing, a desktop-only reproduction cannot establish full target behavior.
 
 SECTION 4. TYPICAL USAGE
 
 Use dmesg for kernel messages, journalctl for service logs where available, ps for processes and ls -l /dev for device nodes. Check image contents, executable architecture, libraries, service environment, permissions and hardware. Remote gdb/gdbserver can help when supported.
 
-For a process that runs interactively but fails at boot, compare the executable, working directory, user, environment, available libraries and dependent services. For missing hardware, inspect kernel messages and driver binding before debugging the application. For cross-debugging, use target-compatible symbols and record the deployed binary version; a mismatched executable or debug symbols can make a backtrace misleading. These are general diagnostic techniques, not a claim that each occurred on the phone.
+For a process that runs interactively but fails at boot, compare the executable, working directory, user, environment, available libraries and dependent services. For missing hardware, inspect kernel messages and driver binding before debugging the application.
+
+For cross-debugging, use target-compatible symbols and record the deployed binary version; a mismatched executable or debug symbols can make a backtrace misleading. These are general diagnostic techniques, not a claim that each occurred on the phone.
 
 BOOT, CROSS-DEVELOPMENT AND UPDATES
 
 A common ARM sequence is BootROM, optional SPL/early firmware, U-Boot, kernel plus DTB and optional initramfs, then PID 1 such as systemd or sysvinit. It varies by SoC/boot chain. Initramfs may locate/unlock the real root and switch to it. Serial logs identify the first failing stage.
 
-The final command line is visible in /proc/cmdline. Inputs can include U-Boot bootargs, boot configuration or chosen/bootargs in device tree; CONFIG_CMDLINE behavior depends on architecture/configuration. Raspberry Pi cmdline.txt is platform-specific. console= chooses a console, root= identifies the root device, rootwait waits for discovery, init= overrides the normal init executable and loglevel= controls console verbosity. Names and identifiers depend on the board.
+The final command line is visible in /proc/cmdline. Inputs can include U-Boot bootargs, boot configuration or chosen/bootargs in device tree; CONFIG_CMDLINE behavior depends on architecture/configuration.
 
-Generate a toolchain with bitbake core-image-minimal -c populate_sdk, install it and source its matching environment-setup-* script in a fresh shell. An SDK with CMake support supplies a toolchain file, commonly $OECORE_NATIVE_SYSROOT/usr/share/cmake/OEToolchainConfig.cmake. Use a fresh CMake build directory to avoid host cache settings; check compiler, sysroot and target ABI. External SDK development does not replace maintaining the recipe.
+Raspberry Pi cmdline.txt is platform-specific. console= chooses a console, root= identifies the root device, rootwait waits for discovery, init= overrides the normal init executable and loglevel= controls console verbosity.
+
+Names and identifiers depend on the board.
+
+Generate a toolchain with bitbake core-image-minimal -c populate_sdk, install it and source its matching environment-setup-* script in a fresh shell. An SDK with CMake support supplies a toolchain file, commonly $OECORE_NATIVE_SYSROOT/usr/share/cmake/OEToolchainConfig.cmake.
+
+Use a fresh CMake build directory to avoid host cache settings; check compiler, sysroot and target ABI. External SDK development does not replace maintaining the recipe.
 
 Use target gdbserver and matching cross-GDB with the same executable, symbols and target sysroot. strace follows syscalls, perf profiles where kernel events/permissions allow, and Valgrind diagnoses supported memory behavior with overhead and architecture limitations. Add tools/symbols to a development image deliberately; core-image-minimal need not contain them.
 
-Userspace uses kernel interfaces: /dev and ioctl, sysfs, GPIO character devices through libgpiod, i2c-dev, spidev and V4L2. mmap can map driver-managed buffers but does not remove ownership, cache-coherence or DMA-synchronization requirements. Prefer existing subsystem drivers where appropriate. libgpiod APIs vary by version; old sysfs GPIO is deprecated. Check permissions and failures on target.
+Userspace uses kernel interfaces: /dev and ioctl, sysfs, GPIO character devices through libgpiod, i2c-dev, spidev and V4L2. mmap can map driver-managed buffers but does not remove ownership, cache-coherence or DMA-synchronization requirements.
 
-SWUpdate provides configurable update handlers, RAUC manages signed bundles and slot/boot integration, and Mender combines device updating with deployment management. Select product-compatible releases rather than assuming current versions fit Kirkstone. For A/B, write/verify the inactive slot, switch boot selection, mark good after health checks and bound retries with recovery. Shared data migrations can obstruct rollback. Read-only rootfs needs writable state/log locations. Secure boot authenticates the boot chain; update signatures and rollback policy are separate controls, not automatic results of A/B.
+Prefer existing subsystem drivers where appropriate. libgpiod APIs vary by version; old sysfs GPIO is deprecated.
+
+Check permissions and failures on target.
+
+SWUpdate provides configurable update handlers, RAUC manages signed bundles and slot/boot integration, and Mender combines device updating with deployment management. Select product-compatible releases rather than assuming current versions fit Kirkstone.
+
+For A/B, write/verify the inactive slot, switch boot selection, mark good after health checks and bound retries with recovery. Shared data migrations can obstruct rollback.
+
+Read-only rootfs needs writable state/log locations. Secure boot authenticates the boot chain; update signatures and rollback policy are separate controls, not automatic results of A/B.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
@@ -147,14 +173,25 @@ Answer: No. Require verified artifacts, boot selection, health confirmation, bou
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
+
 - https://docs.kernel.org/admin-guide/init.html
+
 - https://docs.kernel.org/devicetree/usage-model.html
+
 - https://doc.qt.io/archives/qt-5.15/qthread.html
+
 - https://docs.kernel.org/userspace-api/gpio/chardev.html
+
 - https://sourceware.org/gdb/current/onlinedocs/gdb.html/Remote-Debugging.html
+
 - https://docs.kernel.org/admin-guide/kernel-parameters.html
+
 - https://docs.yoctoproject.org/4.0.30/sdk-manual/using.html
+
 - https://docs.kernel.org/driver-api/gpio/using-gpio.html
+
 - https://rauc.readthedocs.io/en/latest/basic.html
+
 - https://sbabic.github.io/swupdate/swupdate.html
+
 - https://docs.mender.io/overview/introduction

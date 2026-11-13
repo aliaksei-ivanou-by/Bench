@@ -1,7 +1,9 @@
 NXP-i.MX
 
 SECTION 1. TECHNOLOGY AND VERSION
+
 Category: Embedded hardware
+
 NXP i.MX ARM family; the exact SoC and board must be identified for the target.
 
 SECTION 2. PURPOSE
@@ -12,13 +14,19 @@ SECTION 3. CORE CONCEPTS
 
 The SoC and the board are different: the board connects memory, storage, power and peripherals to a particular processor. Boot firmware, a bootloader, kernel, device tree, drivers and userspace must agree on that hardware. Supported peripherals and boot modes vary by SoC and board. A vendor Linux BSP supplies integration pieces; the application uses exposed operating-system interfaces.
 
-A processor family name does not identify the physical board or prove that a particular peripheral is wired and enabled. First establish the SoC variant, board revision, boot medium and vendor software release. Then trace a peripheral through its board wiring, device-tree description, driver binding, firmware and user-space interface. A driver present in the source tree is not sufficient if it is not enabled or the board description is wrong. When a Qt or media feature fails, logs and device nodes help determine whether the application, runtime service or hardware integration is the first failing boundary. Consult the exact board and release documentation before making claims about cores, acceleration or boot modes; these vary across the family.
+A processor family name does not identify the physical board or prove that a particular peripheral is wired and enabled. First establish the SoC variant, board revision, boot medium and vendor software release.
+
+Then trace a peripheral through its board wiring, device-tree description, driver binding, firmware and user-space interface. A driver present in the source tree is not sufficient if it is not enabled or the board description is wrong.
+
+When a Qt or media feature fails, logs and device nodes help determine whether the application, runtime service or hardware integration is the first failing boundary. Consult the exact board and release documentation before making claims about cores, acceleration or boot modes; these vary across the family.
 
 SECTION 4. TYPICAL USAGE
 
 Identify the actual board and image, inspect boot and kernel logs and check device nodes and driver binding. Use the matching NXP release notes and board documentation before choosing a build or hardware configuration. On the phone, target logs and remote debugging help connect application symptoms to runtime behavior.
 
-A useful investigation begins by recording the board revision, running image and kernel, then checking whether the expected hardware is described, the driver probes successfully and the corresponding user-space interface exists. If a camera or display fails, separate hardware discovery from permissions, service startup and application media state. Check the applicable vendor release documentation before assuming an accelerator or peripheral is present. These checks are a general approach; they do not establish personal authorship of a device-tree or driver change.
+A useful investigation begins by recording the board revision, running image and kernel, then checking whether the expected hardware is described, the driver probes successfully and the corresponding user-space interface exists. If a camera or display fails, separate hardware discovery from permissions, service startup and application media state.
+
+Check the applicable vendor release documentation before assuming an accelerator or peripheral is present. These checks are a general approach; they do not establish personal authorship of a device-tree or driver change.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
@@ -117,7 +125,11 @@ Answer: Name the image, recipe, runtime and application integration actually han
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
+
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
+
 - https://docs.nxp.com/bundle/UG10164/page/topics/overview.html
+
 - https://www.nxp.com/docs/en/user-guide/UG10163.pdf
+
 - https://docs.kernel.org/userspace-api/media/v4l/v4l2.html
