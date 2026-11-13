@@ -8,6 +8,14 @@ The collection contains 136 answered questions with stable identifiers: 24 each 
 
 Scope: Only Yocto Project, BitBake, Embedded Linux, systemd, NXP i.MX and BSP, as explicitly requested. Other CV and request technologies are outside this collection.
 
+RECOMMENDED READING ORDER
+
+- Start with Yocto-Project.md: foundations, the twelve-step Linphone SDK flow and practical exercises LAB-01 through LAB-04.
+- Continue with BitBake.md: recipe mechanics, dependencies, package splitting and QA diagnosis.
+- Read BSP.md with Embedded-Linux.md: kernel/device tree, boot, cross-development and target diagnostics.
+- Use systemd.md for startup and NXP-i.MX.md for the hardware/platform boundary.
+- For quick review, open section 8 in each topic: every question has an answer and a stable identifier.
+
 CHECKLIST ROUTE
 
 - Yocto Project: Poky/configuration, caches and four practical exercises: QEMU, CMake application, kernel changes and board overlay.

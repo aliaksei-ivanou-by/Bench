@@ -28,7 +28,15 @@ These are distinct diagnostic paths.
 
 SECTION 4. TYPICAL USAGE
 
-bitbake <recipe> builds a target; bitbake <recipe> -c listtasks lists tasks; bitbake -e <recipe> shows the expanded environment; bitbake -g <target> generates dependency graphs. bitbake-layers show-appends helps identify matching appends. For a failed task inspect the log.do_* file in the recipe work directory. Commands run in an initialized build environment.
+Commands run in an initialized build environment.
+
+- bitbake <recipe> builds a target.
+- bitbake <recipe> -c listtasks lists tasks.
+- bitbake -e <recipe> shows the expanded environment.
+- bitbake -g <target> generates dependency graphs.
+- bitbake-layers show-appends helps identify matching appends.
+
+For a failed task inspect the log.do_* file in the recipe work directory.
 
 For a failed build, identify the recipe and failed task, read its log, then inspect the final metadata and declared dependencies. For a successful build with a missing target file, follow do_install into package contents and image selection rather than rebuilding randomly.
 

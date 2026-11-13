@@ -40,25 +40,18 @@ FLOW ИНТЕГРАЦИИ LINPHONE SDK
 
 FLOW-01. Зафиксировать исходную конфигурацию сборки.
 
-Начать с рабочего образа для платы.
-
-Зафиксировать MACHINE, DISTRO, совместимые с Kirkstone ревизии слоёв, компилятор и C library.
-
-Выбрать релиз Linphone SDK, совместимый с этой основой и API приложения.
-
-Определить необходимые audio, video, TLS и codecs.
-
-Текущий upstream master не обязательно совместим со старой продуктовой веткой.
+- Начать с рабочего образа для платы.
+- Зафиксировать MACHINE, DISTRO, совместимые с Kirkstone ревизии слоёв, компилятор и C library.
+- Выбрать релиз Linphone SDK, совместимый с этой основой и API приложения.
+- Определить необходимые audio, video, TLS и codecs.
+- Текущий upstream master не обязательно совместим со старой продуктовой веткой.
 
 FLOW-02. Найти существующий рецепт до создания нового.
 
-В инициализированном Linux-окружении сборки посмотреть bitbake-layers show-layers, bitbake-layers show-recipes и bitbake-layers show-appends.
-
-Найти в подключённых метаданных liblinphone и связанные компоненты: provider может называться иначе, чем linphone-sdk.
-
-По возможности использовать совместимый рецепт с .bbappend в продуктовом слое.
-
-Новый рецепт нужен, когда существующие метаданные не обеспечивают требуемую версию или модель сборки.
+- В инициализированном Linux-окружении сборки посмотреть bitbake-layers show-layers, bitbake-layers show-recipes и bitbake-layers show-appends.
+- Найти в подключённых метаданных liblinphone и связанные компоненты: provider может называться иначе, чем linphone-sdk.
+- По возможности использовать совместимый рецепт с .bbappend в продуктовом слое.
+- Новый рецепт нужен, когда существующие метаданные не обеспечивают требуемую версию или модель сборки.
 
 ```bash
 bitbake-layers show-layers
@@ -68,13 +61,10 @@ bitbake-layers show-appends
 
 FLOW-03. Разместить продуктовые изменения в слое.
 
-Использовать существующий продуктовый слой или создать его командой bitbake-layers create-layer ../meta-phone, затем подключить через bitbake-layers add-layer ../meta-phone.
-
-Проверить в conf/layer.conf обнаружение рецептов, зависимости слоёв и совместимость с Kirkstone.
-
-Возможная структура: meta-phone/recipes-connectivity/linphone-sdk/ для рецепта и files/ для патчей.
-
-Постоянное решение не должно зависеть от правок vendor-слоёв или временных результатов сборки.
+- Использовать существующий продуктовый слой или создать его командой bitbake-layers create-layer ../meta-phone, затем подключить через bitbake-layers add-layer ../meta-phone.
+- Проверить в conf/layer.conf обнаружение рецептов, зависимости слоёв и совместимость с Kirkstone.
+- Возможная структура: meta-phone/recipes-connectivity/linphone-sdk/ для рецепта и files/ для патчей.
+- Постоянное решение не должно зависеть от правок vendor-слоёв или временных результатов сборки.
 
 ```bash
 bitbake-layers create-layer ../meta-phone
@@ -83,55 +73,37 @@ bitbake-layers add-layer ../meta-phone
 
 FLOW-04. Описать воспроизводимые исходники и лицензии.
 
-Рецепт задаёт SUMMARY, LICENSE, LIC_FILES_CHKSUM, SRC_URI, SRCREV и S для выбранной структуры исходников.
-
-Фиксируется точный commit, все необходимые исходники загружаются через BitBake; для release-архивов задаются checksums.
-
-Учитываются submodules, если они используются в этом релизе.
-
-Локальные изменения сохраняются как версионируемые патчи в SRC_URI либо как фиксированная ревизия сопровождаемого fork.
-
-Проверяются лицензии включённых codecs и зависимостей, а также самого SDK.
+- Рецепт задаёт SUMMARY, LICENSE, LIC_FILES_CHKSUM, SRC_URI, SRCREV и S для выбранной структуры исходников.
+- Фиксируется точный commit, все необходимые исходники загружаются через BitBake; для release-архивов задаются checksums.
+- Учитываются submodules, если они используются в этом релизе.
+- Локальные изменения сохраняются как версионируемые патчи в SRC_URI либо как фиксированная ревизия сопровождаемого fork.
+- Проверяются лицензии включённых codecs и зависимостей, а также самого SDK.
 
 FLOW-05. Выбрать способ сборки стека зависимостей.
 
-У Linphone SDK есть собственная CMake-оркестрация нескольких компонентов.
-
-Нужно изучить выбранный релиз, а не считать его одной обычной библиотекой.
-
-Предпочтительны отдельные совместимые рецепты, если стек умеет использовать подготовленные зависимости; иначе оркестрация SDK адаптируется так, чтобы исходники, toolchain и установка оставались под контролем Yocto.
-
-Исключаются скрытые загрузки во время configure/compile и дублирование bundled/system-копий одной библиотеки.
-
-Универсальный переключатель отключения superbuild предполагать нельзя: опции зависят от релиза.
+- У Linphone SDK есть собственная CMake-оркестрация нескольких компонентов.
+- Нужно изучить выбранный релиз, а не считать его одной обычной библиотекой.
+- Предпочтительны отдельные совместимые рецепты, если стек умеет использовать подготовленные зависимости; иначе оркестрация SDK адаптируется так, чтобы исходники, toolchain и установка оставались под контролем Yocto.
+- Исключаются скрытые загрузки во время configure/compile и дублирование bundled/system-копий одной библиотеки.
+- Универсальный переключатель отключения superbuild предполагать нельзя: опции зависят от релиза.
 
 FLOW-06. Описать входные данные кросс-сборки и features.
 
-Для CMake-компонента используется inherit cmake, а необходимые целевые библиотеки задаются как зависимости рецептов через DEPENDS.
-
-Генераторам, выполняющимся на host, нужны подходящие native-зависимости.
-
-PACKAGECONFIG и EXTRA_OECMAKE выражают поддерживаемые варианты features.
-
-Класс cmake обеспечивает интеграцию кросс-сборки; вложенные сборки должны сохранять его compiler, sysroot и target settings.
-
-В log.do_configure и CMakeCache.txt проверяется отсутствие случайных host-путей.
-
-CPU tuning определяется machine-конфигурацией; аппаратным codecs также нужна корректная платформенная интеграция.
+- Для CMake-компонента используется inherit cmake, а необходимые целевые библиотеки задаются как зависимости рецептов через DEPENDS.
+- Генераторам, выполняющимся на host, нужны подходящие native-зависимости.
+- PACKAGECONFIG и EXTRA_OECMAKE выражают поддерживаемые варианты features.
+- Класс cmake обеспечивает интеграцию кросс-сборки; вложенные сборки должны сохранять его compiler, sysroot и target settings.
+- В log.do_configure и CMakeCache.txt проверяется отсутствие случайных host-путей.
+- CPU tuning определяется machine-конфигурацией; аппаратным codecs также нужна корректная платформенная интеграция.
 
 FLOW-07. Установить результаты в staging и сформировать пакеты.
 
-Выполнить bitbake linphone-sdk и проследить fetch, unpack, patch, configure, compile, install и packaging.
-
-do_install пишет в ${D}, а не в /usr сборочного host.
-
-Если upstream-install неполон, установка адаптируется явно.
-
-Проверяются runtime-библиотеки, plugins и resources, а также development headers и CMake/pkg-config metadata.
-
-Пути распределяются через FILES, development/debug-содержимое отделяется.
-
-Ошибки packaging QA исправляются, а не отключаются глобально.
+- Выполнить bitbake linphone-sdk и проследить fetch, unpack, patch, configure, compile, install и packaging.
+- do_install пишет в ${D}, а не в /usr сборочного host.
+- Если upstream-install неполон, установка адаптируется явно.
+- Проверяются runtime-библиотеки, plugins и resources, а также development headers и CMake/pkg-config metadata.
+- Пути распределяются через FILES, development/debug-содержимое отделяется.
+- Ошибки packaging QA исправляются, а не отключаются глобально.
 
 ```bash
 bitbake linphone-sdk
@@ -139,15 +111,11 @@ bitbake linphone-sdk
 
 FLOW-08. Подключить рецепт приложения.
 
-В этом примере phone-ui задаёт DEPENDS += "linphone-sdk".
-
-Подготовленные headers, libraries и metadata поиска зависимости становятся доступны в recipe sysroot приложения.
-
-CMake приложения использует package configuration или pkg-config interface, реально экспортируемые выбранным релизом SDK, вместо жёстких host-путей.
-
-Runtime-зависимости shared libraries обычно определяются автоматически; для динамически загружаемых plugins и данных могут понадобиться явные RDEPENDS:${PN}.
-
-Там указываются имена выходных пакетов, а не произвольные имена рецептов.
+- В этом примере phone-ui задаёт DEPENDS += "linphone-sdk".
+- Подготовленные headers, libraries и metadata поиска зависимости становятся доступны в recipe sysroot приложения.
+- CMake приложения использует package configuration или pkg-config interface, реально экспортируемые выбранным релизом SDK, вместо жёстких host-путей.
+- Runtime-зависимости shared libraries обычно определяются автоматически; для динамически загружаемых plugins и данных могут понадобиться явные RDEPENDS:${PN}.
+- Там указываются имена выходных пакетов, а не произвольные имена рецептов.
 
 ```bitbake
 DEPENDS += "linphone-sdk"
@@ -155,15 +123,11 @@ DEPENDS += "linphone-sdk"
 
 FLOW-09. Выбрать runtime-пакеты для образа.
 
-Добавить приложение через продуктовый image или packagegroup.
-
-Если его выходной пакет называется phone-ui, фрагмент image-конфигурации: IMAGE_INSTALL:append = " phone-ui".
-
-Обычные зависимости линковки подтянут пакеты библиотек; отдельно необходимые plugins/resources добавляются явно.
-
-Сборка одного linphone-sdk не включает его в образ.
-
-Генерируемый SDK разработки может дополнительно содержать development-пакеты, тогда как production-образу обычно не нужны headers и static libraries.
+- Добавить приложение через продуктовый image или packagegroup.
+- Если его выходной пакет называется phone-ui, фрагмент image-конфигурации: IMAGE_INSTALL:append = " phone-ui".
+- Обычные зависимости линковки подтянут пакеты библиотек; отдельно необходимые plugins/resources добавляются явно.
+- Сборка одного linphone-sdk не включает его в образ.
+- Генерируемый SDK разработки может дополнительно содержать development-пакеты, тогда как production-образу обычно не нужны headers и static libraries.
 
 ```bitbake
 IMAGE_INSTALL:append = " phone-ui"
@@ -171,15 +135,11 @@ IMAGE_INSTALL:append = " phone-ui"
 
 FLOW-10. Интегрировать запуск приложения.
 
-Если phone-ui управляется systemd, его рецепт может использовать inherit systemd, устанавливать phone-ui.service в ${systemd_system_unitdir} и задавать SYSTEMD_SERVICE:${PN} = "phone-ui.service".
-
-Дистрибутив действительно должен использовать systemd; также выбирается политика включения сервиса.
-
-Самим библиотекам SDK отдельный сервис обычно не нужен.
-
-Приложению всё равно нужны writable-каталоги состояния, права на audio/video devices и повторные попытки при неготовности сети или SIP.
-
-Один порядок запуска после network target не гарантирует доступность сервера.
+- Если phone-ui управляется systemd, его рецепт может использовать inherit systemd, устанавливать phone-ui.service в ${systemd_system_unitdir} и задавать SYSTEMD_SERVICE:${PN} = "phone-ui.service".
+- Дистрибутив действительно должен использовать systemd; также выбирается политика включения сервиса.
+- Самим библиотекам SDK отдельный сервис обычно не нужен.
+- Приложению всё равно нужны writable-каталоги состояния, права на audio/video devices и повторные попытки при неготовности сети или SIP.
+- Один порядок запуска после network target не гарантирует доступность сервера.
 
 ```bitbake
 inherit systemd
@@ -188,17 +148,12 @@ SYSTEMD_SERVICE:${PN} = "phone-ui.service"
 
 FLOW-11. Проверить образ и работу на оборудовании.
 
-Выполнить bitbake phone-ui, затем bitbake phone-image.
-
-Проверить состав пакетов через oe-pkgdata-util list-pkg-files с реальными именами пакетов, а также manifest образа и root filesystem.
-
-Развернуть нужный образ способом, поддерживаемым платой.
-
-Проверить architecture, dynamic loader, отсутствующие библиотеки, plugins, certificates и configuration.
-
-Протестировать registration, входящие/исходящие звонки, audio/video, restart и восстановление сети.
-
-Если сервис установлен, использовать systemctl status phone-ui.service и journalctl -u phone-ui.service.
+- Выполнить bitbake phone-ui, затем bitbake phone-image.
+- Проверить состав пакетов через oe-pkgdata-util list-pkg-files с реальными именами пакетов, а также manifest образа и root filesystem.
+- Развернуть нужный образ способом, поддерживаемым платой.
+- Проверить architecture, dynamic loader, отсутствующие библиотеки, plugins, certificates и configuration.
+- Протестировать registration, входящие/исходящие звонки, audio/video, restart и восстановление сети.
+- Если сервис установлен, использовать systemctl status phone-ui.service и journalctl -u phone-ui.service.
 
 На Linux-host сборки:
 
@@ -216,13 +171,10 @@ journalctl -u phone-ui.service
 
 FLOW-12. Сделать интеграцию повторяемой.
 
-Хранить изменения слоёв, ревизии исходников, патчи и feature choices в системе контроля версий.
-
-Пересобирать в CI без локальных workspace overrides разработчика, сохранять manifests и тестировать на устройстве тот же артефакт.
-
-Проверять, что изменение SDK вызывает необходимую пересборку приложения, а обновлённые runtime-библиотеки соответствуют развёрнутому executable.
-
-Включить регрессионные проверки upgrade/reboot; успешная сборка рецепта — только один этап поставки.
+- Хранить изменения слоёв, ревизии исходников, патчи и feature choices в системе контроля версий.
+- Пересобирать в CI без локальных workspace overrides разработчика, сохранять manifests и тестировать на устройстве тот же артефакт.
+- Проверять, что изменение SDK вызывает необходимую пересборку приложения, а обновлённые runtime-библиотеки соответствуют развёрнутому executable.
+- Включить регрессионные проверки upgrade/reboot; успешная сборка рецепта — только один этап поставки.
 
 FLOW ДЛЯ УСТНОГО ОТВЕТА
 
@@ -244,17 +196,12 @@ DL_DIR хранит загруженные исходные данные; SSTATE
 
 LAB-01. Загрузить базовый образ.
 
-Использовать поддерживаемый Linux-host и фиксированную ревизию Poky Kirkstone.
-
-Quick-build guide Kirkstone указывает минимум 90 GB свободного диска и 8 GB RAM; для SDK и дополнительных сборок нужен запас.
-
-Инициализация: source oe-init-build-env build-lab.
-
-В conf/local.conf задать MACHINE = "qemuarm64", выполнить bitbake core-image-minimal и runqemu qemuarm64 nographic.
-
-Критерий успеха — guest shell и проверка uname -a и /proc/cmdline.
-
-QEMU не воспроизводит все стадии загрузки физической платы.
+- Использовать поддерживаемый Linux-host и фиксированную ревизию Poky Kirkstone.
+- Quick-build guide Kirkstone указывает минимум 90 GB свободного диска и 8 GB RAM; для SDK и дополнительных сборок нужен запас.
+- Инициализация: source oe-init-build-env build-lab.
+- В conf/local.conf задать MACHINE = "qemuarm64", выполнить bitbake core-image-minimal и runqemu qemuarm64 nographic.
+- Критерий успеха — guest shell и проверка uname -a и /proc/cmdline.
+- QEMU не воспроизводит все стадии загрузки физической платы.
 
 ```bash
 source oe-init-build-env build-lab
@@ -273,9 +220,8 @@ runqemu qemuarm64 nographic
 
 LAB-02. Добавить C++ приложение.
 
-Из build directory выполнить bitbake-layers create-layer ../meta-lab и bitbake-layers add-layer ../meta-lab.
-
-Создать ../hello со следующими файлами и реальной лицензией исходников; хранить исходники в системе контроля версий.
+- Из build directory выполнить bitbake-layers create-layer ../meta-lab и bitbake-layers add-layer ../meta-lab.
+- Создать ../hello со следующими файлами и реальной лицензией исходников; хранить исходники в системе контроля версий.
 
 main.cpp:
 
@@ -293,11 +239,9 @@ add_executable(hello main.cpp)
 install(TARGETS hello RUNTIME DESTINATION bin)
 ```
 
-Выполнить devtool add hello ../hello, проверить поля исходников/лицензии и inherit cmake в сгенерированном рецепте, затем devtool build hello. Зафиксировать изменения исходников по необходимости и выполнить devtool finish hello ../meta-lab.
-
-Проверить экспортированный рецепт и исходники, затем выполнить bitbake hello без workspace override. Для упражнения добавить IMAGE_INSTALL:append = " hello" в local.conf, пересобрать core-image-minimal и запустить hello в QEMU.
-
-В продукте выбор пакетов хранится в image/packagegroup metadata.
+- Выполнить devtool add hello ../hello, проверить поля исходников/лицензии и inherit cmake в сгенерированном рецепте, затем devtool build hello. Зафиксировать изменения исходников по необходимости и выполнить devtool finish hello ../meta-lab.
+- Проверить экспортированный рецепт и исходники, затем выполнить bitbake hello без workspace override. Для упражнения добавить IMAGE_INSTALL:append = " hello" в local.conf, пересобрать core-image-minimal и запустить hello в QEMU.
+- В продукте выбор пакетов хранится в image/packagegroup metadata.
 
 На Linux-host сборки:
 
@@ -333,21 +277,16 @@ runqemu qemuarm64 nographic
 
 LAB-03. Экспортировать изменение ядра.
 
-Использовать workflow ядра из файла BSP; для упражнения QEMU выбрать linux-yocto.
-
-Результат — .bbappend в собственном слое, один применимый патч и фрагмент .cfg.
-
-После выхода из devtool workspace пересобрать ядро и образ, проверить действие патча и итоговую конфигурацию.
+- Использовать workflow ядра из файла BSP; для упражнения QEMU выбрать linux-yocto.
+- Результат — .bbappend в собственном слое, один применимый патч и фрагмент .cfg.
+- После выхода из devtool workspace пересобрать ядро и образ, проверить действие патча и итоговую конфигурацию.
 
 LAB-04. Применить overlay.
 
-Использовать поддерживаемую плату и соответствующий слой, например Raspberry Pi с meta-raspberrypi.
-
-Собрать overlay, включить в boot artifacts и настроить реальный путь загрузки на применение.
-
-После reboot проверить живое device tree и binding драйвера.
-
-Одного .dtbo в deploy directory недостаточно; BSP объясняет разные механизмы U-Boot и firmware Raspberry Pi.
+- Использовать поддерживаемую плату и соответствующий слой, например Raspberry Pi с meta-raspberrypi.
+- Собрать overlay, включить в boot artifacts и настроить реальный путь загрузки на применение.
+- После reboot проверить живое device tree и binding драйвера.
+- Одного .dtbo в deploy directory недостаточно; BSP объясняет разные механизмы U-Boot и firmware Raspberry Pi.
 
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
@@ -464,21 +403,12 @@ SIP-BASED PHONE SOFTWARE: CV указывает Yocto/BitBake и i.MX. Леге�
 Дата проверки: 2026-11-13
 
 - https://docs.yoctoproject.org/4.0.30/overview-manual/concepts.html
-
 - https://docs.yoctoproject.org/4.0.30/dev-manual/layers.html
-
 - https://docs.yoctoproject.org/4.0.30/dev-manual/debugging.html
-
 - https://docs.yoctoproject.org/4.0.30/ref-manual/variables.html
-
 - https://docs.yoctoproject.org/4.0.30/dev-manual/new-recipe.html
-
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
-
 - https://github.com/BelledonneCommunications/linphone-sdk
-
 - https://github.com/BelledonneCommunications/linphone-sdk/blob/master/CMakeLists.txt
-
 - https://docs.yoctoproject.org/4.0.30/brief-yoctoprojectqs/index.html
-
 - https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html

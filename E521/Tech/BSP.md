@@ -36,13 +36,10 @@ A BSP may include vendor kernel/U-Boot branches, machine configuration, firmware
 
 KERNEL-01. Patch the provider.
 
-Determine the provider of virtual/kernel.
-
-Run devtool modify virtual/kernel where supported, or use the resolved recipe name; the QEMU lab uses linux-yocto.
-
-Edit workspace sources, make a focused Git commit and build/test.
-
-Either export with devtool finish linux-yocto ../meta-lab, or manually use git format-patch -1 in the source repository.
+- Determine the provider of virtual/kernel.
+- Run devtool modify virtual/kernel where supported, or use the resolved recipe name; the QEMU lab uses linux-yocto.
+- Edit workspace sources, make a focused Git commit and build/test.
+- Either export with devtool finish linux-yocto ../meta-lab, or manually use git format-patch -1 in the source repository.
 
 In the manual path put the patch under files/ beside a product-layer linux-yocto_%.bbappend containing:
 
@@ -51,13 +48,10 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 SRC_URI += "file://0001-lab-change.patch"
 ```
 
-The filename must match the exported patch.
-
-For manual export, remove the workspace override with devtool reset linux-yocto after preserving the patch; finish already removes it.
-
-Then test the layer-based build.
-
-Do not apply the same patch twice through both export methods.
+- The filename must match the exported patch.
+- For manual export, remove the workspace override with devtool reset linux-yocto after preserving the patch; finish already removes it.
+- Then test the layer-based build.
+- Do not apply the same patch twice through both export methods.
 
 Prepare workspace sources for the QEMU example:
 
@@ -85,15 +79,11 @@ devtool reset linux-yocto
 
 KERNEL-02. Preserve configuration.
 
-Run bitbake -c menuconfig virtual/kernel, save, then bitbake -c diffconfig virtual/kernel if the provider supports these tasks.
-
-Copy the reported fragment into files/lab.cfg and add SRC_URI += "file://lab.cfg" to the append.
-
-For a linux-yocto exercise the fragment can contain CONFIG_PRINTK_TIME=y.
-
-Check the final .config and boot behavior.
-
-A vendor recipe that does not merge fragments needs its supported configuration mechanism; merely fetching .cfg is insufficient.
+- Run bitbake -c menuconfig virtual/kernel, save, then bitbake -c diffconfig virtual/kernel if the provider supports these tasks.
+- Copy the reported fragment into files/lab.cfg and add SRC_URI += "file://lab.cfg" to the append.
+- For a linux-yocto exercise the fragment can contain CONFIG_PRINTK_TIME=y.
+- Check the final .config and boot behavior.
+- A vendor recipe that does not merge fragments needs its supported configuration mechanism; merely fetching .cfg is insufficient.
 
 ```bash
 bitbake -c menuconfig virtual/kernel
@@ -114,13 +104,10 @@ CONFIG_PRINTK_TIME=y
 
 KERNEL-03. Package an external module.
 
-Use inherit module and a Makefile compatible with the kernel build interface.
-
-The recipe builds against the selected kernel and packages installed .ko files.
-
-KERNEL_MODULE_AUTOLOAD += "lab_driver" requests boot-time loading; it does not select the module package into the image.
-
-Include the actual output package, check modinfo/modprobe and dmesg, and rebuild for kernel ABI/configuration changes.
+- Use inherit module and a Makefile compatible with the kernel build interface.
+- The recipe builds against the selected kernel and packages installed .ko files.
+- KERNEL_MODULE_AUTOLOAD += "lab_driver" requests boot-time loading; it does not select the module package into the image.
+- Include the actual output package, check modinfo/modprobe and dmesg, and rebuild for kernel ABI/configuration changes.
 
 External-module recipe fragment:
 
@@ -131,29 +118,20 @@ KERNEL_MODULE_AUTOLOAD += "lab_driver"
 
 DT-01. Build and select the description.
 
-.dts describes a board; .dtsi holds shared descriptions.
-
-Kernel build preprocessing and dtc produce .dtb.
-
-compatible participates in driver matching, but the driver and required clocks, regulators, pinctrl and firmware must also exist.
-
-KERNEL_DEVICETREE in machine configuration selects outputs for supporting recipes.
-
-Adding a new .dts through a kernel append usually also needs a patch to the appropriate build Makefile and selection of its output; fetch alone does not build/deploy it.
+- .dts describes a board; .dtsi holds shared descriptions.
+- Kernel build preprocessing and dtc produce .dtb.
+- compatible participates in driver matching, but the driver and required clocks, regulators, pinctrl and firmware must also exist.
+- KERNEL_DEVICETREE in machine configuration selects outputs for supporting recipes.
+- Adding a new .dts through a kernel append usually also needs a patch to the appropriate build Makefile and selection of its output; fetch alone does not build/deploy it.
 
 DT-02. Apply the overlay.
 
-An overlay uses /plugin/ and compiles to .dtbo.
-
-Symbol-based overlays need compatible symbol information, commonly generated with dtc -@ for base and overlay.
-
-U-Boot loads them, selects the FDT, reserves space with fdt resize and applies the overlay with fdt apply before booting Linux.
-
-Addresses/load commands depend on the board.
-
-Raspberry Pi firmware instead uses dtoverlay= in config.txt.
-
-Check the live tree and driver probe after boot; a deployed .dtbo is not proof of application.
+- An overlay uses /plugin/ and compiles to .dtbo.
+- Symbol-based overlays need compatible symbol information, commonly generated with dtc -@ for base and overlay.
+- U-Boot loads them, selects the FDT, reserves space with fdt resize and applies the overlay with fdt apply before booting Linux.
+- Addresses/load commands depend on the board.
+- Raspberry Pi firmware instead uses dtoverlay= in config.txt.
+- Check the live tree and driver probe after boot; a deployed .dtbo is not proof of application.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
@@ -270,15 +248,9 @@ SECTION 9. SOURCES
 Research date: 2026-11-13
 
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
-
 - https://docs.kernel.org/devicetree/usage-model.html
-
 - https://docs.yoctoproject.org/4.0.30/bsp-guide/bsp.html
-
 - https://docs.kernel.org/driver-api/driver-model/binding.html
-
 - https://docs.yoctoproject.org/4.0.30/kernel-dev/common.html
-
 - https://docs.u-boot.org/en/latest/usage/fdt_overlays.html
-
 - https://www.raspberrypi.com/documentation/computers/config_txt.html
