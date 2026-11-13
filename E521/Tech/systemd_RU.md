@@ -40,6 +40,24 @@ Unit относится к нужному пакету, systemd выбирает
 
 Enablement обеспечивает class вместо вызова systemctl сборочного host в do_install.
 
+ПРИМЕРЫ УПАКОВКИ И ПРОВЕРКИ
+
+Фрагмент рецепта приложения; установка unit описывается отдельно:
+
+```bitbake
+inherit systemd
+SYSTEMD_SERVICE:${PN} = "phone-ui.service"
+SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+```
+
+Проверка на целевом устройстве после установки пакета:
+
+```bash
+systemctl cat phone-ui.service
+systemctl status phone-ui.service
+journalctl -u phone-ui.service
+```
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Декларативные units, зависимости, журналирование и контроль упрощают запуск. Неверные зависимости могут скрыть сбой или задержать загрузку; минимальное устройство может использовать более простую init-систему.

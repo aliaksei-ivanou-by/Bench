@@ -60,6 +60,12 @@ FLOW-02. Найти существующий рецепт до создания 
 
 Новый рецепт нужен, когда существующие метаданные не обеспечивают требуемую версию или модель сборки.
 
+```bash
+bitbake-layers show-layers
+bitbake-layers show-recipes
+bitbake-layers show-appends
+```
+
 FLOW-03. Разместить продуктовые изменения в слое.
 
 Использовать существующий продуктовый слой или создать его командой bitbake-layers create-layer ../meta-phone, затем подключить через bitbake-layers add-layer ../meta-phone.
@@ -69,6 +75,11 @@ FLOW-03. Разместить продуктовые изменения в сл�
 Возможная структура: meta-phone/recipes-connectivity/linphone-sdk/ для рецепта и files/ для патчей.
 
 Постоянное решение не должно зависеть от правок vendor-слоёв или временных результатов сборки.
+
+```bash
+bitbake-layers create-layer ../meta-phone
+bitbake-layers add-layer ../meta-phone
+```
 
 FLOW-04. Описать воспроизводимые исходники и лицензии.
 
@@ -122,6 +133,10 @@ do_install пишет в ${D}, а не в /usr сборочного host.
 
 Ошибки packaging QA исправляются, а не отключаются глобально.
 
+```bash
+bitbake linphone-sdk
+```
+
 FLOW-08. Подключить рецепт приложения.
 
 В этом примере phone-ui задаёт DEPENDS += "linphone-sdk".
@@ -133,6 +148,10 @@ CMake приложения использует package configuration или pkg
 Runtime-зависимости shared libraries обычно определяются автоматически; для динамически загружаемых plugins и данных могут понадобиться явные RDEPENDS:${PN}.
 
 Там указываются имена выходных пакетов, а не произвольные имена рецептов.
+
+```bitbake
+DEPENDS += "linphone-sdk"
+```
 
 FLOW-09. Выбрать runtime-пакеты для образа.
 
@@ -146,6 +165,10 @@ FLOW-09. Выбрать runtime-пакеты для образа.
 
 Генерируемый SDK разработки может дополнительно содержать development-пакеты, тогда как production-образу обычно не нужны headers и static libraries.
 
+```bitbake
+IMAGE_INSTALL:append = " phone-ui"
+```
+
 FLOW-10. Интегрировать запуск приложения.
 
 Если phone-ui управляется systemd, его рецепт может использовать inherit systemd, устанавливать phone-ui.service в ${systemd_system_unitdir} и задавать SYSTEMD_SERVICE:${PN} = "phone-ui.service".
@@ -157,6 +180,11 @@ FLOW-10. Интегрировать запуск приложения.
 Приложению всё равно нужны writable-каталоги состояния, права на audio/video devices и повторные попытки при неготовности сети или SIP.
 
 Один порядок запуска после network target не гарантирует доступность сервера.
+
+```bitbake
+inherit systemd
+SYSTEMD_SERVICE:${PN} = "phone-ui.service"
+```
 
 FLOW-11. Проверить образ и работу на оборудовании.
 
@@ -171,6 +199,20 @@ FLOW-11. Проверить образ и работу на оборудован
 Протестировать registration, входящие/исходящие звонки, audio/video, restart и восстановление сети.
 
 Если сервис установлен, использовать systemctl status phone-ui.service и journalctl -u phone-ui.service.
+
+На Linux-host сборки:
+
+```bash
+bitbake phone-ui
+bitbake phone-image
+```
+
+На устройстве после поставки образа:
+
+```bash
+systemctl status phone-ui.service
+journalctl -u phone-ui.service
+```
 
 FLOW-12. Сделать интеграцию повторяемой.
 
@@ -214,6 +256,21 @@ Quick-build guide Kirkstone указывает минимум 90 GB свобод
 
 QEMU не воспроизводит все стадии загрузки физической платы.
 
+```bash
+source oe-init-build-env build-lab
+```
+
+conf/local.conf:
+
+```bitbake
+MACHINE = "qemuarm64"
+```
+
+```bash
+bitbake core-image-minimal
+runqemu qemuarm64 nographic
+```
+
 LAB-02. Добавить C++ приложение.
 
 Из build directory выполнить bitbake-layers create-layer ../meta-lab и bitbake-layers add-layer ../meta-lab.
@@ -222,25 +279,57 @@ LAB-02. Добавить C++ приложение.
 
 main.cpp:
 
+```cpp
 #include <iostream>
-
 int main() { std::cout << "hello from Yocto" << std::endl; }
+```
 
 CMakeLists.txt:
 
+```cmake
 cmake_minimum_required(VERSION 3.16)
-
 project(hello LANGUAGES CXX)
-
 add_executable(hello main.cpp)
-
 install(TARGETS hello RUNTIME DESTINATION bin)
+```
 
 Выполнить devtool add hello ../hello, проверить поля исходников/лицензии и inherit cmake в сгенерированном рецепте, затем devtool build hello. Зафиксировать изменения исходников по необходимости и выполнить devtool finish hello ../meta-lab.
 
 Проверить экспортированный рецепт и исходники, затем выполнить bitbake hello без workspace override. Для упражнения добавить IMAGE_INSTALL:append = " hello" в local.conf, пересобрать core-image-minimal и запустить hello в QEMU.
 
 В продукте выбор пакетов хранится в image/packagegroup metadata.
+
+На Linux-host сборки:
+
+```bash
+bitbake-layers create-layer ../meta-lab
+bitbake-layers add-layer ../meta-lab
+```
+
+После подготовки и проверки исходников:
+
+```bash
+devtool add hello ../hello
+devtool build hello
+```
+
+После фиксации изменений исходников:
+
+```bash
+devtool finish hello ../meta-lab
+bitbake hello
+```
+
+conf/local.conf:
+
+```bitbake
+IMAGE_INSTALL:append = " hello"
+```
+
+```bash
+bitbake core-image-minimal
+runqemu qemuarm64 nographic
+```
 
 LAB-03. Экспортировать изменение ядра.
 

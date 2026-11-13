@@ -60,6 +60,31 @@ SWUpdate предоставляет настраиваемые update handlers, 
 
 Read-only rootfs требует writable-каталогов state/logs. Secure boot аутентифицирует цепочку загрузки; подписи обновлений и rollback policy — отдельные меры, не автоматический результат A/B.
 
+КОМАНДЫ КРОСС-РАЗРАБОТКИ
+
+Генерация SDK на Linux-host сборки:
+
+```bash
+bitbake core-image-minimal -c populate_sdk
+```
+
+После установки SDK и подключения соответствующего environment-setup script, из каталога CMake-проекта:
+
+```bash
+cmake -S . -B build-target \
+  -DCMAKE_TOOLCHAIN_FILE="$OECORE_NATIVE_SYSROOT/usr/share/cmake/OEToolchainConfig.cmake"
+cmake --build build-target
+```
+
+Базовая диагностика на целевом устройстве:
+
+```bash
+uname -a
+cat /proc/cmdline
+dmesg
+ls -l /dev
+```
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Linux даёт зрелую экосистему и сеть, но размер и обычное планирование могут не подойти маленькому устройству или системе с жёстким real time. RTOS подходит для строгих сроков и малого объёма. PREEMPT_RT и оборудование нужно оценивать отдельно: гарантии жёсткого real time нельзя предполагать.

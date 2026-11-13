@@ -46,9 +46,10 @@ KERNEL-01. Изменить provider.
 
 В ручном варианте положить патч в files/ рядом с linux-yocto_%.bbappend собственного слоя, содержащим:
 
+```bitbake
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-
 SRC_URI += "file://0001-lab-change.patch"
+```
 
 Имя файла совпадает с экспортированным патчем.
 
@@ -57,6 +58,30 @@ SRC_URI += "file://0001-lab-change.patch"
 Затем проверить сборку из слоя.
 
 Нельзя применять один патч дважды через оба способа экспорта.
+
+Подготовка исходников в workspace для примера QEMU:
+
+```bash
+devtool modify linux-yocto
+```
+
+После редактирования, commit и проверки — экспорт через devtool:
+
+```bash
+devtool finish linux-yocto ../meta-lab
+```
+
+Альтернатива — ручной экспорт из Git-каталога исходников:
+
+```bash
+git format-patch -1
+```
+
+После сохранения патча и добавления append при ручном экспорте:
+
+```bash
+devtool reset linux-yocto
+```
 
 KERNEL-02. Сохранить конфигурацию.
 
@@ -70,6 +95,23 @@ KERNEL-02. Сохранить конфигурацию.
 
 Если vendor-рецепт не объединяет fragments, нужен поддерживаемый им механизм конфигурации; одной загрузки .cfg недостаточно.
 
+```bash
+bitbake -c menuconfig virtual/kernel
+bitbake -c diffconfig virtual/kernel
+```
+
+linux-yocto_%.bbappend:
+
+```bitbake
+SRC_URI += "file://lab.cfg"
+```
+
+files/lab.cfg:
+
+```ini
+CONFIG_PRINTK_TIME=y
+```
+
 KERNEL-03. Упаковать внешний модуль.
 
 Использовать inherit module и Makefile, совместимый с интерфейсом сборки ядра.
@@ -79,6 +121,13 @@ KERNEL-03. Упаковать внешний модуль.
 KERNEL_MODULE_AUTOLOAD += "lab_driver" запрашивает загрузку при старте, но не выбирает пакет модуля в образ.
 
 Включить реальный выходной пакет, проверить modinfo/modprobe и dmesg, пересобирать при изменениях ABI/configuration ядра.
+
+Фрагмент рецепта внешнего модуля:
+
+```bitbake
+inherit module
+KERNEL_MODULE_AUTOLOAD += "lab_driver"
+```
 
 DT-01. Собрать и выбрать описание.
 

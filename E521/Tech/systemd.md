@@ -40,6 +40,24 @@ Choose suitable Type, User, restart policy and writable state. After image deplo
 
 Let the class handle enablement rather than calling the build host's systemctl in do_install.
 
+PACKAGING AND VALIDATION EXAMPLES
+
+Application recipe fragment; unit installation is defined separately:
+
+```bitbake
+inherit systemd
+SYSTEMD_SERVICE:${PN} = "phone-ui.service"
+SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+```
+
+Check on the target device after package installation:
+
+```bash
+systemctl cat phone-ui.service
+systemctl status phone-ui.service
+journalctl -u phone-ui.service
+```
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Declarative units, dependencies, logging and supervision make startup manageable. Incorrect dependencies may hide failures or delay boot; a minimal device may choose a smaller init system.

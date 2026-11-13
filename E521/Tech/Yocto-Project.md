@@ -60,6 +60,12 @@ Reuse a compatible recipe with a product-layer .bbappend where possible.
 
 Create a new recipe only when existing metadata cannot supply the required version or build model.
 
+```bash
+bitbake-layers show-layers
+bitbake-layers show-recipes
+bitbake-layers show-appends
+```
+
 FLOW-03. Put product changes in a layer.
 
 Use an existing product layer or create one with bitbake-layers create-layer ../meta-phone, then enable it with bitbake-layers add-layer ../meta-phone.
@@ -69,6 +75,11 @@ Inspect conf/layer.conf for recipe discovery, layer dependencies and Kirkstone c
 A possible layout is meta-phone/recipes-connectivity/linphone-sdk/ for the recipe and files/ for patches.
 
 Do not edit vendor layers or temporary build outputs as the permanent solution.
+
+```bash
+bitbake-layers create-layer ../meta-phone
+bitbake-layers add-layer ../meta-phone
+```
 
 FLOW-04. Define reproducible sources and licensing.
 
@@ -122,6 +133,10 @@ Assign paths with FILES and split development/debug content appropriately.
 
 Fix packaging QA failures instead of disabling them globally.
 
+```bash
+bitbake linphone-sdk
+```
+
 FLOW-08. Connect the application recipe.
 
 For this example, phone-ui declares DEPENDS += "linphone-sdk".
@@ -133,6 +148,10 @@ The application's CMake uses the package configuration or pkg-config interface a
 Shared-library runtime dependencies are normally discovered automatically; dynamically loaded plugins and data may need explicit RDEPENDS:${PN}.
 
 Those entries name output packages, not arbitrary recipe names.
+
+```bitbake
+DEPENDS += "linphone-sdk"
+```
 
 FLOW-09. Select runtime packages in the image.
 
@@ -146,6 +165,10 @@ Building linphone-sdk alone does not include it in the image.
 
 A generated development SDK may additionally include development packages, while a production image usually does not need headers or static libraries.
 
+```bitbake
+IMAGE_INSTALL:append = " phone-ui"
+```
+
 FLOW-10. Integrate application startup.
 
 If phone-ui is managed by systemd, its recipe can inherit systemd, install phone-ui.service under ${systemd_system_unitdir} and set SYSTEMD_SERVICE:${PN} = "phone-ui.service".
@@ -155,6 +178,11 @@ Ensure the distribution actually uses systemd and select the intended enablement
 The SDK libraries themselves normally need no service.
 
 The application still needs writable state locations, audio/video device permissions and retry handling for network or SIP readiness; ordering after a network target alone does not guarantee server reachability.
+
+```bitbake
+inherit systemd
+SYSTEMD_SERVICE:${PN} = "phone-ui.service"
+```
 
 FLOW-11. Inspect the image and validate on hardware.
 
@@ -169,6 +197,20 @@ Check architecture, dynamic loader, missing libraries, plugins, certificates and
 Test registration, incoming/outgoing calls, audio/video, restart and network recovery.
 
 Use systemctl status phone-ui.service and journalctl -u phone-ui.service when that service is installed.
+
+On the Linux build host:
+
+```bash
+bitbake phone-ui
+bitbake phone-image
+```
+
+On the device after image deployment:
+
+```bash
+systemctl status phone-ui.service
+journalctl -u phone-ui.service
+```
 
 FLOW-12. Make the integration repeatable.
 
@@ -212,6 +254,21 @@ Success means reaching a guest shell and checking uname -a and /proc/cmdline.
 
 QEMU does not reproduce every physical-board boot stage.
 
+```bash
+source oe-init-build-env build-lab
+```
+
+conf/local.conf:
+
+```bitbake
+MACHINE = "qemuarm64"
+```
+
+```bash
+bitbake core-image-minimal
+runqemu qemuarm64 nographic
+```
+
 LAB-02. Add a C++ application.
 
 From the build directory run bitbake-layers create-layer ../meta-lab and bitbake-layers add-layer ../meta-lab.
@@ -220,25 +277,57 @@ Create ../hello with the following files and an actual source license; keep the 
 
 main.cpp:
 
+```cpp
 #include <iostream>
-
 int main() { std::cout << "hello from Yocto" << std::endl; }
+```
 
 CMakeLists.txt:
 
+```cmake
 cmake_minimum_required(VERSION 3.16)
-
 project(hello LANGUAGES CXX)
-
 add_executable(hello main.cpp)
-
 install(TARGETS hello RUNTIME DESTINATION bin)
+```
 
 Run devtool add hello ../hello, inspect the generated source/license fields and inherit cmake, then run devtool build hello. Commit source changes as appropriate and run devtool finish hello ../meta-lab.
 
 Inspect the exported recipe and sources, then run bitbake hello without the workspace override. For this exercise add IMAGE_INSTALL:append = " hello" in local.conf, rebuild core-image-minimal and run hello in QEMU.
 
 In a product, maintain package selection in image/packagegroup metadata.
+
+On the Linux build host:
+
+```bash
+bitbake-layers create-layer ../meta-lab
+bitbake-layers add-layer ../meta-lab
+```
+
+After preparing and inspecting the sources:
+
+```bash
+devtool add hello ../hello
+devtool build hello
+```
+
+After committing source changes:
+
+```bash
+devtool finish hello ../meta-lab
+bitbake hello
+```
+
+conf/local.conf:
+
+```bitbake
+IMAGE_INSTALL:append = " hello"
+```
+
+```bash
+bitbake core-image-minimal
+runqemu qemuarm64 nographic
+```
 
 LAB-03. Export a kernel change.
 

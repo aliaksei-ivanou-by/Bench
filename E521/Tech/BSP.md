@@ -46,9 +46,10 @@ Either export with devtool finish linux-yocto ../meta-lab, or manually use git f
 
 In the manual path put the patch under files/ beside a product-layer linux-yocto_%.bbappend containing:
 
+```bitbake
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-
 SRC_URI += "file://0001-lab-change.patch"
+```
 
 The filename must match the exported patch.
 
@@ -57,6 +58,30 @@ For manual export, remove the workspace override with devtool reset linux-yocto 
 Then test the layer-based build.
 
 Do not apply the same patch twice through both export methods.
+
+Prepare workspace sources for the QEMU example:
+
+```bash
+devtool modify linux-yocto
+```
+
+After editing, committing and testing, export through devtool:
+
+```bash
+devtool finish linux-yocto ../meta-lab
+```
+
+Alternative: manual export from the source Git directory:
+
+```bash
+git format-patch -1
+```
+
+After preserving the patch and adding the append in the manual path:
+
+```bash
+devtool reset linux-yocto
+```
 
 KERNEL-02. Preserve configuration.
 
@@ -70,6 +95,23 @@ Check the final .config and boot behavior.
 
 A vendor recipe that does not merge fragments needs its supported configuration mechanism; merely fetching .cfg is insufficient.
 
+```bash
+bitbake -c menuconfig virtual/kernel
+bitbake -c diffconfig virtual/kernel
+```
+
+linux-yocto_%.bbappend:
+
+```bitbake
+SRC_URI += "file://lab.cfg"
+```
+
+files/lab.cfg:
+
+```ini
+CONFIG_PRINTK_TIME=y
+```
+
 KERNEL-03. Package an external module.
 
 Use inherit module and a Makefile compatible with the kernel build interface.
@@ -79,6 +121,13 @@ The recipe builds against the selected kernel and packages installed .ko files.
 KERNEL_MODULE_AUTOLOAD += "lab_driver" requests boot-time loading; it does not select the module package into the image.
 
 Include the actual output package, check modinfo/modprobe and dmesg, and rebuild for kernel ABI/configuration changes.
+
+External-module recipe fragment:
+
+```bitbake
+inherit module
+KERNEL_MODULE_AUTOLOAD += "lab_driver"
+```
 
 DT-01. Build and select the description.
 

@@ -1,5 +1,7 @@
 TECH INDEX
 
+Commands and source/configuration examples use fenced blocks with language labels. Build-host commands, target diagnostics and recipe fragments are separated.
+
 The Yocto Project usage section includes a twelve-step Linphone SDK integration flow, from source selection and recipes through application dependencies, image composition and target validation.
 
 The collection contains 136 answered questions with stable identifiers: 24 each for YCT, BB, EL and BSP, and 20 each for SYS and IMX. Section and question labels are literal text, so they do not depend on automatic list numbering.

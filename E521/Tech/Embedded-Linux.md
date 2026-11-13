@@ -60,6 +60,31 @@ For A/B, write/verify the inactive slot, switch boot selection, mark good after 
 
 Read-only rootfs needs writable state/log locations. Secure boot authenticates the boot chain; update signatures and rollback policy are separate controls, not automatic results of A/B.
 
+CROSS-DEVELOPMENT COMMANDS
+
+Generate the SDK on the Linux build host:
+
+```bash
+bitbake core-image-minimal -c populate_sdk
+```
+
+After installing the SDK and sourcing its matching environment-setup script, from the CMake project directory:
+
+```bash
+cmake -S . -B build-target \
+  -DCMAKE_TOOLCHAIN_FILE="$OECORE_NATIVE_SYSROOT/usr/share/cmake/OEToolchainConfig.cmake"
+cmake --build build-target
+```
+
+Basic diagnostics on the target device:
+
+```bash
+uname -a
+cat /proc/cmdline
+dmesg
+ls -l /dev
+```
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Linux offers a mature ecosystem and networking but its size and ordinary scheduling may not suit a very small or hard-real-time device. An RTOS can suit strict timing and smaller footprints. PREEMPT_RT and hardware need separate evaluation; hard-real-time guarantees cannot be assumed.

@@ -56,6 +56,38 @@ LICENSE определяет лицензии, LIC_FILES_CHKSUM отслежив
 
 Глобальный INSANE_SKIP скрывает дефекты вместо исправления.
 
+ПРИМЕРЫ КОМАНД НА LINUX-HOST
+
+Проверка метаданных и состава пакетов для рецепта hello:
+
+```bash
+bitbake -e hello | grep '^PACKAGECONFIG='
+bitbake-layers show-appends
+oe-pkgdata-util list-pkg-files hello
+oe-pkgdata-util find-path /usr/bin/hello
+```
+
+Отдельная интерактивная сессия окружения сборки:
+
+```bash
+bitbake -c devshell hello
+```
+
+ФРАГМЕНТЫ РЕЦЕПТА
+
+Пример расширения рецепта; пути относятся к целевой системе:
+
+```bitbake
+SRC_URI:append = " file://fix.patch"
+FILES:${PN}:append = " ${datadir}/phone"
+```
+
+Для проекта на CMake с использованием pkg-config:
+
+```bitbake
+inherit cmake pkgconfig
+```
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Граф задач явно задаёт зависимости, параллельное выполнение и повторное использование. Сложность создают взаимодействующие слои, overrides, сигнатуры и providers. Для одного host-приложения прямой CMake или Make часто проще, но он не заменяет составление образа и метаданные кросс-сборки, когда они нужны.

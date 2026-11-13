@@ -56,6 +56,38 @@ For file-rdeps, supply the genuine runtime provider. For buildpaths/rpaths, remo
 
 A global INSANE_SKIP hides defects rather than repairing them.
 
+LINUX BUILD-HOST COMMAND EXAMPLES
+
+Inspect metadata and package contents for the hello recipe:
+
+```bash
+bitbake -e hello | grep '^PACKAGECONFIG='
+bitbake-layers show-appends
+oe-pkgdata-util list-pkg-files hello
+oe-pkgdata-util find-path /usr/bin/hello
+```
+
+A separate interactive build-environment session:
+
+```bash
+bitbake -c devshell hello
+```
+
+RECIPE FRAGMENTS
+
+Example recipe extension; paths refer to the target filesystem:
+
+```bitbake
+SRC_URI:append = " file://fix.patch"
+FILES:${PN}:append = " ${datadir}/phone"
+```
+
+For a CMake project using pkg-config:
+
+```bitbake
+inherit cmake pkgconfig
+```
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 A task graph makes dependencies, parallel execution and reuse explicit. Complexity comes from interacting layers, overrides, signatures and providers. A direct CMake or Make build is often simpler for a single host application; it does not replace image composition and cross-build metadata when those are required.
