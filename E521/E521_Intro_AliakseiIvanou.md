@@ -9,7 +9,7 @@ CV source: E521 Aliaksei Ivanou (13, C++).pdf
 Source request: E521_Request_AliakseiIvanou.md
 Preparation language: English
 Delivery format: Domain-based spoken introduction with a detailed latest-project section
-Estimated spoken duration: 5–6 minutes
+Estimated spoken duration: 4–5 minutes
 
 SECTION 2. INTERVIEW SCRIPT
 
@@ -17,17 +17,13 @@ Hello, my name is Aliaksei Ivanou. I am a software engineer with more than fourt
 
 I will describe my background through the domains I have worked in and then explain my latest embedded project in more detail.
 
-The first domain is telecommunications and embedded devices. I work as a Software Engineer on SIP-Based Phone Software, a desk-phone platform for audio and video communication. My work spans the C++ and Qt application, a customized Linphone SDK, device provisioning and integration with a Yocto-based Linux system on NXP i.MX hardware. I will return to the platform after the domain overview.
+The first domain is telecommunications and embedded devices. As a Software Engineer on SIP-Based Phone Software, I work on a desk-phone platform using C++17, Qt, Linphone SDK and Yocto-based Linux on NXP i.MX. I will describe this project in more detail shortly.
 
-The second domain is library systems and long-lived backend software. I worked as a Software Engineer on Library System. I was one of three C developers sharing responsibility for an established C89 backend. I implemented features, fixes and refactoring across C, occasionally changing Java or Scala. I traced failures through service logs and used gdb, core dumps and Valgrind on Linux. PostgreSQL and MySQL supported the data services.
+The second domain is library systems and long-lived backend software. On Library System, I was one of three C developers maintaining a C89 backend. I implemented features, fixes and refactoring, with occasional Java and Scala changes, and investigated Linux failures using gdb and Valgrind.
 
-The third domain is industrial measurement. I worked as a Software Engineer on 3D Reconstruction Software for Industrial Applications. I developed a C++ prototype that combined profiles from multiple 2D laser scanners into a point cloud. I used Point Cloud Library for reconstruction and Open3D for comparison and visualization, checking intermediate stages against recorded data.
+The third domain is industrial measurement. On 3D Reconstruction Software for Industrial Applications, I developed a C++ prototype that combined 2D laser-scanner profiles into a point cloud, using Point Cloud Library and Open3D for processing and visualization.
 
-The fourth domain is aerospace and UAV imaging. I worked as a Software Engineer on Software Modules for UAV, developing MATLAB algorithms for debayering, format conversion, stabilization and image fusion. I verified algorithms on representative imagery and participated in UAV flight tests as an optical-payload operator.
-
-I worked as a Software Engineer on Remote Sensing Satellites Database. I built a Ruby on Rails and PostgreSQL reference database for querying satellite and mission parameters.
-
-I worked as a Software Engineer on Software for Processing and Analysis of Satellite Earth Observation Images. My MATLAB work included frame stitching, radiometric matching, image-type prediction, automated resolution assessment and an ADPCM-family compression algorithm. For onboard compression, I designed and verified the algorithm against a limited computation budget; the flight-software team handled implementation on the target.
+The fourth domain is aerospace and UAV imaging. On Software Modules for UAV and Software for Processing and Analysis of Satellite Earth Observation Images, I developed and validated MATLAB algorithms for image processing, resolution assessment and compression. I also built a Ruby on Rails and PostgreSQL reference database on Remote Sensing Satellites Database.
 
 I would now like to explain the SIP phone project in more detail, because it is the closest match to this role.
 
