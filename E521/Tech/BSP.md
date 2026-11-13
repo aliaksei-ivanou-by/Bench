@@ -20,6 +20,28 @@ Start with board revision, vendor BSP release and machine configuration. Trace b
 
 For a proposed BSP change, compare the actual board revision and supported vendor release first. Trace the affected path from boot artifacts through device tree and driver to the user-space consumer. Record the baseline configuration, build and deploy the matching artifacts in a suitable test environment, then verify boot, affected peripherals and the documented recovery method. A device that exists in Linux but cannot be opened may indicate permissions or user-space configuration rather than a missing BSP driver.
 
+KERNEL, MODULE AND DEVICE-TREE WORKFLOW
+
+A BSP may include vendor kernel/U-Boot branches, machine configuration, firmware and GPU/VPU/NPU components where required. Not every board needs proprietary blobs. Example ecosystems are meta-raspberrypi, meta-freescale with NXP meta-imx integration, and meta-ti; match their branches and dependencies to the selected release.
+
+KERNEL-01. Patch the provider.
+Determine the provider of virtual/kernel. Run devtool modify virtual/kernel where supported, or use the resolved recipe name; the QEMU lab uses linux-yocto. Edit workspace sources, make a focused Git commit and build/test. Either export with devtool finish linux-yocto ../meta-lab, or manually use git format-patch -1 in the source repository. In the manual path put the patch under files/ beside a product-layer linux-yocto_%.bbappend containing:
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+SRC_URI += "file://0001-lab-change.patch"
+The filename must match the exported patch. For manual export, remove the workspace override with devtool reset linux-yocto after preserving the patch; finish already removes it. Then test the layer-based build. Do not apply the same patch twice through both export methods.
+
+KERNEL-02. Preserve configuration.
+Run bitbake -c menuconfig virtual/kernel, save, then bitbake -c diffconfig virtual/kernel if the provider supports these tasks. Copy the reported fragment into files/lab.cfg and add SRC_URI += "file://lab.cfg" to the append. For a linux-yocto exercise the fragment can contain CONFIG_PRINTK_TIME=y. Check the final .config and boot behavior. A vendor recipe that does not merge fragments needs its supported configuration mechanism; merely fetching .cfg is insufficient.
+
+KERNEL-03. Package an external module.
+Use inherit module and a Makefile compatible with the kernel build interface. The recipe builds against the selected kernel and packages installed .ko files. KERNEL_MODULE_AUTOLOAD += "lab_driver" requests boot-time loading; it does not select the module package into the image. Include the actual output package, check modinfo/modprobe and dmesg, and rebuild for kernel ABI/configuration changes.
+
+DT-01. Build and select the description.
+.dts describes a board; .dtsi holds shared descriptions. Kernel build preprocessing and dtc produce .dtb. compatible participates in driver matching, but the driver and required clocks, regulators, pinctrl and firmware must also exist. KERNEL_DEVICETREE in machine configuration selects outputs for supporting recipes. Adding a new .dts through a kernel append usually also needs a patch to the appropriate build Makefile and selection of its output; fetch alone does not build/deploy it.
+
+DT-02. Apply the overlay.
+An overlay uses /plugin/ and compiles to .dtbo. Symbol-based overlays need compatible symbol information, commonly generated with dtc -@ for base and overlay. U-Boot loads them, selects the FDT, reserves space with fdt resize and applies the overlay with fdt apply before booting Linux. Addresses/load commands depend on the board. Raspberry Pi firmware instead uses dtoverlay= in config.txt. Check the live tree and driver probe after boot; a deployed .dtbo is not proof of application.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 A vendor BSP accelerates hardware enablement and supplies a validated baseline for supported configurations. It also creates dependencies on vendor releases, patches and compatible layers. Mainline support may simplify upstream maintenance when the hardware and features are adequately supported; the tradeoff must be evaluated per device.
@@ -114,6 +136,22 @@ QUESTION BSP-20. What evidence distinguishes BSP consumption from BSP customizat
 
 Answer: Consuming a BSP uses its supported board/image interfaces. Customization is shown by specific changes to machine metadata, boot, kernel, DTB, drivers or firmware integration and their target checks. The exact contribution must be named; one small change does not imply authorship of the whole platform.
 
+QUESTION BSP-21. Does any kernel recipe merge .cfg from SRC_URI?
+
+Answer: No. Check provider support and final .config. Configuration dependencies can alter results, and vendor recipes may require a different mechanism.
+
+QUESTION BSP-22. Does KERNEL_MODULE_AUTOLOAD install the module?
+
+Answer: No. It requests boot loading. Include the actual module package and verify kernel compatibility and successful modprobe on target.
+
+QUESTION BSP-23. Why can a compatible node fail to create a device?
+
+Answer: It may be disabled, the driver absent, or probe may fail/defer due to clocks, regulators, pinctrl or firmware. Check the live tree and kernel logs.
+
+QUESTION BSP-24. What proves an overlay was applied?
+
+Answer: The boot path applies it, expected nodes/properties appear in the live tree, and driver binding succeeds. A compiled .dtbo alone is not proof.
+
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
@@ -121,3 +159,6 @@ Research date: 2026-11-13
 - https://docs.kernel.org/devicetree/usage-model.html
 - https://docs.yoctoproject.org/4.0.30/bsp-guide/bsp.html
 - https://docs.kernel.org/driver-api/driver-model/binding.html
+- https://docs.yoctoproject.org/4.0.30/kernel-dev/common.html
+- https://docs.u-boot.org/en/latest/usage/fdt_overlays.html
+- https://www.raspberrypi.com/documentation/computers/config_txt.html

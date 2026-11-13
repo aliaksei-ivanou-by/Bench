@@ -20,6 +20,18 @@ bitbake <recipe> собирает цель; bitbake <recipe> -c listtasks пер
 
 При ошибке сборки определите рецепт и задачу, прочитайте её лог, затем проверьте итоговые метаданные и объявленные зависимости. Если сборка успешна, а файла нет на устройстве, проследите путь от do_install до содержимого пакета и выбора в образ, не пересобирая всё случайным образом. Имена рецептов в DEPENDS и имена пакетов в RDEPENDS имеют разные роли. oe-pkgdata-util проверяет метаданные уже собранных пакетов текущей конфигурации.
 
+СОЗДАНИЕ И ДИАГНОСТИКА РЕЦЕПТА
+
+.bb описывает компонент; подходящий .bbappend расширяет его из другого слоя. Honister 3.4 ввёл overrides с двоеточием: SRC_URI:append = " file://fix.patch" и FILES:${PN}:append = " ${datadir}/phone". Для :append сохраняются необходимые пробелы. Нельзя заменять все подчёркивания: PREFERRED_VERSION_recipe и суффиксы коллекций слоёв не являются override-синтаксисом.
+
+Использовать inherit cmake, meson или autotools согласно системе сборки. inherit pkgconfig интегрирует pkg-config для кросс-сборки, но не устанавливает зависимости и не заменяет DEPENDS. Библиотеки устанавливаются в ${D}${libdir}, headers — в ${D}${includedir}, executables — в ${D}${bindir}. Стандартное разбиение обычно относит headers и development metadata в ${PN}-dev, отделённую debug information — в ${PN}-dbg. FILES:${PN} использует целевые пути без ${D}; проверяются PACKAGES и реальные файлы вместо помещения всего в runtime.
+
+Например, bitbake -e hello | grep '^PACKAGECONFIG=' показывает итоговое значение; для других задач меняется имя переменной. bitbake -c devshell hello открывает shell окружения сборки, а не target shell. oe-pkgdata-util list-pkg-files hello и oe-pkgdata-util find-path /usr/bin/hello исследуют данные уже собранных пакетов. bitbake-layers show-appends подтверждает применение appends.
+
+devtool add добавляет новый компонент; devtool modify предоставляет исходники существующего рецепта; devtool build поддерживает итерации; devtool finish экспортирует зафиксированные изменения в сопровождаемый слой и снимает workspace override. Проверяются сгенерированные sources, license fields, dependencies и install behavior. LICENSE определяет лицензии, LIC_FILES_CHKSUM отслеживает их текст, SRC_URI — входные данные fetch, SRCREV — фиксированную ревизию VCS. Изменение license checksum требует анализа текста, а не только принятия нового hash.
+
+Для installed-vs-shipped проверяются ${D}, PACKAGES и FILES; нужные файлы относятся в корректный пакет, ненужные перестают устанавливаться. Для dev-so проверяются development symlinks; plugin .so могут требовать отдельного решения. Для file-rdeps добавляется настоящий runtime-provider. Для buildpaths/rpaths из конфигурации убираются host-пути. Глобальный INSANE_SKIP скрывает дефекты вместо исправления.
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Граф задач явно задаёт зависимости, параллельное выполнение и повторное использование. Сложность создают взаимодействующие слои, overrides, сигнатуры и providers. Для одного host-приложения прямой CMake или Make часто проще, но он не заменяет составление образа и метаданные кросс-сборки, когда они нужны.
@@ -114,6 +126,22 @@ SIP-BASED PHONE SOFTWARE: CV указывает собственные реце�
 
 Ответ: Проверяются metadata/provider-preferences и graph, например bitbake -g. Build-edges recipes отделяются от runtime-edges packages. Исправляется зависимость, а не произвольный порядок и предположение заполненного sysroot.
 
+ВОПРОС BB-21. Нужно ли заменять все подчёркивания двоеточиями в Honister?
+
+Ответ: Нет. Изменились override operations и package overrides, но не обычные имена переменных и суффиксы без override-семантики. Нужен анализ смысла вместо сплошной замены.
+
+ВОПРОС BB-22. Зачем отделять -dev и -dbg от runtime?
+
+Ответ: Headers/build metadata нужны разработке, отделённые symbols — диагностике. Runtime обычно требует executables и runtime libraries. Реальное разбиение определяется patterns и порядком пакетов.
+
+ВОПРОС BB-23. Как modify и finish сохраняют исправление?
+
+Ответ: modify предоставляет исходники рецепта для итераций; после commit finish экспортирует изменения в слой и снимает workspace override. Результат проверяется сборкой через экспортированные метаданные.
+
+ВОПРОС BB-24. Предоставляет ли inherit pkgconfig отсутствующую библиотеку?
+
+Ответ: Нет. Он настраивает pkg-config для кросс-сборки. DEPENDS всё равно должен назвать provider, чьи headers, libraries и .pc нужны в recipe sysroot.
+
 РАЗДЕЛ 9. ИСТОЧНИКИ
 
 Дата проверки: 2026-11-13
@@ -121,3 +149,7 @@ SIP-BASED PHONE SOFTWARE: CV указывает собственные реце�
 - https://docs.yoctoproject.org/4.0.30/ref-manual/variables.html
 - https://docs.yoctoproject.org/4.0.30/ref-manual/tasks.html
 - https://docs.yoctoproject.org/bitbake/2.0/bitbake-user-manual/bitbake-user-manual-metadata.html
+- https://docs.yoctoproject.org/migration-guides/migration-3.4.html
+- https://docs.yoctoproject.org/4.0.30/ref-manual/qa-checks.html
+- https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html
+- https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html

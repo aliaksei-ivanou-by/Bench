@@ -64,6 +64,36 @@ SPOKEN FLOW
 
 First I identify the target configuration and an existing provider. Then I add or extend a recipe in the product layer, pin sources, declare dependencies and configure the cross-build. BitBake builds the SDK, installs it into staging and produces packages. The application consumes its build interface through the recipe sysroot. The image selects runtime packages, and the application service handles startup. Finally I inspect the image and validate calls, media and recovery on the physical device.
 
+FOUNDATION AND PRACTICAL EXERCISES
+
+Poky is a reference integration of BitBake, OpenEmbedded-Core metadata and reference distribution/BSP configuration. OpenEmbedded supplies the metadata/build ecosystem; BitBake executes the task graph. A meta-* layer groups metadata. build/conf/bblayers.conf enables layers; local.conf holds local build choices. MACHINE selects hardware/tuning, DISTRO selects distribution policy, and an image recipe selects packages and image features.
+
+DL_DIR stores downloaded inputs; SSTATE_DIR stores reusable task outputs, commonly under sstate-cache. Sharing these directories can reduce fetching and rebuilding across compatible builds. A changed signature may prevent task-output reuse; neither cache replaces declared dependencies or pinned sources.
+
+LAB-01. Boot a baseline.
+Use a supported Linux host and a pinned Kirkstone revision of Poky. The Kirkstone quick-build guide specifies at least 90 GB free disk and 8 GB RAM; allow additional space for SDKs and extra builds. Initialize with source oe-init-build-env build-lab. Set MACHINE = "qemuarm64" in conf/local.conf, run bitbake core-image-minimal and runqemu qemuarm64 nographic. Success means reaching a guest shell and checking uname -a and /proc/cmdline. QEMU does not reproduce every physical-board boot stage.
+
+LAB-02. Add a C++ application.
+From the build directory run bitbake-layers create-layer ../meta-lab and bitbake-layers add-layer ../meta-lab. Create ../hello with the following files and an actual source license; keep the source in version control.
+
+main.cpp:
+#include <iostream>
+int main() { std::cout << "hello from Yocto" << std::endl; }
+
+CMakeLists.txt:
+cmake_minimum_required(VERSION 3.16)
+project(hello LANGUAGES CXX)
+add_executable(hello main.cpp)
+install(TARGETS hello RUNTIME DESTINATION bin)
+
+Run devtool add hello ../hello, inspect the generated source/license fields and inherit cmake, then run devtool build hello. Commit source changes as appropriate and run devtool finish hello ../meta-lab. Inspect the exported recipe and sources, then run bitbake hello without the workspace override. For this exercise add IMAGE_INSTALL:append = " hello" in local.conf, rebuild core-image-minimal and run hello in QEMU. In a product, maintain package selection in image/packagegroup metadata.
+
+LAB-03. Export a kernel change.
+Follow the BSP file's kernel workflow, using linux-yocto for this QEMU lab. Deliver a product-layer .bbappend, one applicable patch and a .cfg fragment. After leaving the devtool workspace, rebuild kernel and image and check the patch effect and final configuration.
+
+LAB-04. Apply an overlay.
+Use a supported board and matching layer, for example Raspberry Pi with meta-raspberrypi. Compile the overlay, include it in boot artifacts and configure the real boot path to apply it. Reboot and check the live device tree and driver binding. A .dtbo in the deploy directory alone is insufficient; BSP explains the different U-Boot and Raspberry Pi firmware mechanisms.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Yocto supports hardware-specific composition, controlled versions and long-term image maintenance. The cost is metadata complexity, build time and responsibility for layer compatibility and security updates. Buildroot may be simpler for a smaller fixed image; a binary distribution may speed up development where its packages and update policy fit the device.
@@ -158,6 +188,22 @@ QUESTION YCT-20. How do you separate theoretical Yocto knowledge from personal o
 
 Answer: Explain the technical mechanism, then identify the concrete recipes, packages and image integration actually handled. Keep creating a distribution or BSP from scratch separate from working in inherited layers. This prevents a conceptual answer from becoming an unsupported experience claim.
 
+QUESTION YCT-21. How do Poky, OpenEmbedded and BitBake differ?
+
+Answer: Poky is a reference integration, OpenEmbedded supplies metadata and the build ecosystem, and BitBake executes tasks. Product layers/configuration produce the actual device image.
+
+QUESTION YCT-22. What belongs in bblayers.conf and local.conf?
+
+Answer: bblayers.conf enables layers; local.conf holds local settings such as MACHINE. MACHINE selects hardware/tuning, DISTRO selects policy, and the image selects packages.
+
+QUESTION YCT-23. How do downloads and sstate-cache differ?
+
+Answer: DL_DIR preserves fetched inputs; SSTATE_DIR preserves reusable task outputs. Reuse depends on signatures and compatible inputs. Neither cache repairs undeclared dependencies.
+
+QUESTION YCT-24. What proves the recipe lab is complete?
+
+Answer: The exported recipe builds without a workspace override, the package is in the image manifest and hello runs in the rebuilt guest. Workspace-only compilation proves less.
+
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
@@ -169,3 +215,5 @@ Research date: 2026-11-13
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
 - https://github.com/BelledonneCommunications/linphone-sdk
 - https://github.com/BelledonneCommunications/linphone-sdk/blob/master/CMakeLists.txt
+- https://docs.yoctoproject.org/4.0.30/brief-yoctoprojectqs/index.html
+- https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html

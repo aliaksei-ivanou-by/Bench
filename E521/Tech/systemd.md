@@ -20,6 +20,10 @@ systemctl status <service> shows state; journalctl -u <service> shows its journa
 
 Type=simple does not notify systemd when the application has completed its own initialization; Type=notify can report readiness when the application implements the notification protocol. network.target is an ordering point, not proof of connectivity. network-online.target can wait for a configured network when the appropriate network manager and wait service are set up, but it does not guarantee that a specific remote server is reachable or remains reachable. Prefer explicit application retry and diagnostics where network conditions can change.
 
+YOCTO UNIT PACKAGING
+
+An application recipe can inherit systemd, install phone-ui.service under ${D}${systemd_system_unitdir} and set SYSTEMD_SERVICE:${PN} = "phone-ui.service". SYSTEMD_AUTO_ENABLE:${PN} = "enable" explicitly selects enablement. Assign the unit to the intended package and ensure systemd is selected as init; image inclusion remains separate. ExecStart must match the installed executable. Choose suitable Type, User, restart policy and writable state. After image deployment and reboot inspect systemctl cat, systemctl status and journalctl -u. Let the class handle enablement rather than calling the build host's systemctl in do_install.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Declarative units, dependencies, logging and supervision make startup manageable. Incorrect dependencies may hide failures or delay boot; a minimal device may choose a smaller init system.
@@ -123,3 +127,4 @@ Research date: 2026-11-13
 - https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html
 - https://www.freedesktop.org/software/systemd/man/latest/sd_notify.html
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html
+- https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html

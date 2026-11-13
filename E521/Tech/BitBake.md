@@ -20,6 +20,18 @@ bitbake <recipe> builds a target; bitbake <recipe> -c listtasks lists tasks; bit
 
 For a failed build, identify the recipe and failed task, read its log, then inspect the final metadata and declared dependencies. For a successful build with a missing target file, follow do_install into package contents and image selection rather than rebuilding randomly. Recipe names in DEPENDS and package names in RDEPENDS have different roles. For package inspection use oe-pkgdata-util only after the relevant packages have been built; the available metadata belongs to the current build configuration.
 
+RECIPE AUTHORING AND DIAGNOSTICS
+
+A .bb defines a component; a matching .bbappend extends it from another layer. Honister 3.4 introduced colon overrides: SRC_URI:append = " file://fix.patch" and FILES:${PN}:append = " ${datadir}/phone". Preserve spaces for :append. Do not replace all underscores: PREFERRED_VERSION_recipe and layer collection suffixes are not override syntax.
+
+Use inherit cmake, meson or autotools according to the build system. inherit pkgconfig integrates cross-build pkg-config; it does not install dependencies or replace DEPENDS. Install libraries under ${D}${libdir}, headers under ${D}${includedir}, executables under ${D}${bindir}. Default splitting normally places headers and development metadata in ${PN}-dev and detached debug information in ${PN}-dbg. FILES:${PN} uses target paths without ${D}; inspect PACKAGES and actual files instead of assigning everything to runtime.
+
+For example, bitbake -e hello | grep '^PACKAGECONFIG=' inspects a resolved value; change the variable name for other investigations. bitbake -c devshell hello opens a build-environment shell, not a target shell. oe-pkgdata-util list-pkg-files hello and oe-pkgdata-util find-path /usr/bin/hello inspect already-built package data. bitbake-layers show-appends confirms matching appends.
+
+devtool add introduces a new component; devtool modify exposes an existing recipe's sources; devtool build supports iteration; devtool finish exports committed changes to a maintained layer and removes the workspace override. Review generated sources, license fields, dependencies and install behavior. LICENSE identifies licenses, LIC_FILES_CHKSUM tracks relevant license text, SRC_URI identifies fetch inputs and SRCREV pins a VCS revision. A changed license checksum requires reviewing the text, not merely accepting the new hash.
+
+For installed-vs-shipped, inspect ${D}, PACKAGES and FILES; assign intended files to the correct package or stop installing unwanted files. For dev-so, check development symlinks; plugin .so files may require deliberate treatment. For file-rdeps, supply the genuine runtime provider. For buildpaths/rpaths, remove leaked host paths from configuration. A global INSANE_SKIP hides defects rather than repairing them.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 A task graph makes dependencies, parallel execution and reuse explicit. Complexity comes from interacting layers, overrides, signatures and providers. A direct CMake or Make build is often simpler for a single host application; it does not replace image composition and cross-build metadata when those are required.
@@ -114,6 +126,22 @@ QUESTION BB-20. How do you investigate an unexpected provider or dependency?
 
 Answer: Use resolved metadata and provider preferences, then inspect recipe/task dependencies, for example with bitbake -g. Distinguish build-time recipe edges from runtime package edges. Correct the declared relationship instead of adding arbitrary task order or relying on a previously populated sysroot.
 
+QUESTION BB-21. Should every underscore become a colon in Honister?
+
+Answer: No. Override operations and package overrides changed, but ordinary variable names and non-override suffixes did not. Review semantics rather than performing blanket replacement.
+
+QUESTION BB-22. Why separate -dev and -dbg from runtime?
+
+Answer: Headers/build metadata support development; detached symbols support diagnosis. The runtime normally needs executables and runtime libraries. Default package patterns/order determine the actual split.
+
+QUESTION BB-23. How do modify and finish preserve a fix?
+
+Answer: modify exposes recipe sources for iteration; after committing, finish exports changes to a layer and removes the workspace override. Rebuild through the exported metadata.
+
+QUESTION BB-24. Does inherit pkgconfig provide a missing library?
+
+Answer: No. It configures cross-build pkg-config. DEPENDS must still name the provider whose headers, libraries and .pc files are needed in the recipe sysroot.
+
 SECTION 9. SOURCES
 
 Research date: 2026-11-13
@@ -121,3 +149,7 @@ Research date: 2026-11-13
 - https://docs.yoctoproject.org/4.0.30/ref-manual/variables.html
 - https://docs.yoctoproject.org/4.0.30/ref-manual/tasks.html
 - https://docs.yoctoproject.org/bitbake/2.0/bitbake-user-manual/bitbake-user-manual-metadata.html
+- https://docs.yoctoproject.org/migration-guides/migration-3.4.html
+- https://docs.yoctoproject.org/4.0.30/ref-manual/qa-checks.html
+- https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html
+- https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html

@@ -64,6 +64,36 @@ FLOW ДЛЯ УСТНОГО ОТВЕТА
 
 Сначала я определяю конфигурацию цели и существующий provider. Затем добавляю или расширяю рецепт в продуктовом слое, фиксирую исходники, объявляю зависимости и настраиваю кросс-сборку. BitBake собирает SDK, устанавливает результаты в staging и формирует пакеты. Приложение получает интерфейс сборки SDK через recipe sysroot. Образ выбирает runtime-пакеты, а сервис приложения обеспечивает запуск. В конце я проверяю состав образа и на физическом устройстве тестирую звонки, media и восстановление после сбоев.
 
+БАЗА И ПРАКТИЧЕСКИЕ УПРАЖНЕНИЯ
+
+Poky — эталонная интеграция BitBake, метаданных OpenEmbedded-Core и конфигурации эталонного дистрибутива/BSP. OpenEmbedded предоставляет экосистему метаданных и сборки, BitBake выполняет граф задач. Слой meta-* группирует метаданные. build/conf/bblayers.conf подключает слои, local.conf хранит локальные настройки сборки. MACHINE выбирает оборудование/tuning, DISTRO — политику дистрибутива, рецепт образа — пакеты и image features.
+
+DL_DIR хранит загруженные исходные данные; SSTATE_DIR — повторно используемые результаты задач, обычно в sstate-cache. Общие каталоги уменьшают повторные загрузки и сборки при совместимых конфигурациях. Изменённая signature может исключить повторное использование результата; кеши не заменяют объявленные зависимости и фиксированные исходники.
+
+LAB-01. Загрузить базовый образ.
+Использовать поддерживаемый Linux-host и фиксированную ревизию Poky Kirkstone. Quick-build guide Kirkstone указывает минимум 90 GB свободного диска и 8 GB RAM; для SDK и дополнительных сборок нужен запас. Инициализация: source oe-init-build-env build-lab. В conf/local.conf задать MACHINE = "qemuarm64", выполнить bitbake core-image-minimal и runqemu qemuarm64 nographic. Критерий успеха — guest shell и проверка uname -a и /proc/cmdline. QEMU не воспроизводит все стадии загрузки физической платы.
+
+LAB-02. Добавить C++ приложение.
+Из build directory выполнить bitbake-layers create-layer ../meta-lab и bitbake-layers add-layer ../meta-lab. Создать ../hello со следующими файлами и реальной лицензией исходников; хранить исходники в системе контроля версий.
+
+main.cpp:
+#include <iostream>
+int main() { std::cout << "hello from Yocto" << std::endl; }
+
+CMakeLists.txt:
+cmake_minimum_required(VERSION 3.16)
+project(hello LANGUAGES CXX)
+add_executable(hello main.cpp)
+install(TARGETS hello RUNTIME DESTINATION bin)
+
+Выполнить devtool add hello ../hello, проверить поля исходников/лицензии и inherit cmake в сгенерированном рецепте, затем devtool build hello. Зафиксировать изменения исходников по необходимости и выполнить devtool finish hello ../meta-lab. Проверить экспортированный рецепт и исходники, затем выполнить bitbake hello без workspace override. Для упражнения добавить IMAGE_INSTALL:append = " hello" в local.conf, пересобрать core-image-minimal и запустить hello в QEMU. В продукте выбор пакетов хранится в image/packagegroup metadata.
+
+LAB-03. Экспортировать изменение ядра.
+Использовать workflow ядра из файла BSP; для упражнения QEMU выбрать linux-yocto. Результат — .bbappend в собственном слое, один применимый патч и фрагмент .cfg. После выхода из devtool workspace пересобрать ядро и образ, проверить действие патча и итоговую конфигурацию.
+
+LAB-04. Применить overlay.
+Использовать поддерживаемую плату и соответствующий слой, например Raspberry Pi с meta-raspberrypi. Собрать overlay, включить в boot artifacts и настроить реальный путь загрузки на применение. После reboot проверить живое device tree и binding драйвера. Одного .dtbo в deploy directory недостаточно; BSP объясняет разные механизмы U-Boot и firmware Raspberry Pi.
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Yocto позволяет учитывать оборудование, контролировать версии и сопровождать образ длительное время. Цена — сложность метаданных, время сборки и ответственность за совместимость слоёв и обновления безопасности. Buildroot может быть проще для небольшого фиксированного образа; бинарный дистрибутив ускоряет разработку, если его пакеты и политика обновлений подходят устройству.
@@ -158,6 +188,22 @@ SIP-BASED PHONE SOFTWARE: CV указывает Yocto/BitBake и i.MX. Леге�
 
 Ответ: После механизма называются конкретные recipes, packages и image-интеграция личной работы. Создание дистрибутива/BSP с нуля отделяется от унаследованных слоёв. Теоретический ответ не превращается в неподтверждённый опыт.
 
+ВОПРОС YCT-21. Чем различаются Poky, OpenEmbedded и BitBake?
+
+Ответ: Poky — эталонная интеграция, OpenEmbedded предоставляет метаданные и экосистему сборки, BitBake выполняет задачи. Продуктовые слои/конфигурация создают образ устройства.
+
+ВОПРОС YCT-22. Что находится в bblayers.conf и local.conf?
+
+Ответ: bblayers.conf подключает слои; local.conf хранит локальные настройки, например MACHINE. MACHINE выбирает оборудование/tuning, DISTRO — политику, image — пакеты.
+
+ВОПРОС YCT-23. Чем downloads отличается от sstate-cache?
+
+Ответ: DL_DIR хранит загруженные входные данные; SSTATE_DIR — повторно используемые результаты задач. Повторное использование зависит от signatures и совместимых inputs. Кеши не исправляют необъявленные зависимости.
+
+ВОПРОС YCT-24. Что подтверждает выполнение упражнения с рецептом?
+
+Ответ: Экспортированный рецепт собирается без workspace override, пакет есть в manifest образа, hello работает в пересобранной гостевой системе. Одной компиляции в workspace недостаточно.
+
 РАЗДЕЛ 9. ИСТОЧНИКИ
 
 Дата проверки: 2026-11-13
@@ -169,3 +215,5 @@ SIP-BASED PHONE SOFTWARE: CV указывает Yocto/BitBake и i.MX. Леге�
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
 - https://github.com/BelledonneCommunications/linphone-sdk
 - https://github.com/BelledonneCommunications/linphone-sdk/blob/master/CMakeLists.txt
+- https://docs.yoctoproject.org/4.0.30/brief-yoctoprojectqs/index.html
+- https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html

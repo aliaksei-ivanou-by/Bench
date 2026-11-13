@@ -20,6 +20,20 @@ Embedded Linux объединяет ядро Linux и выбранное пол�
 
 Если процесс работает вручную, но не при загрузке, сравните исполняемый файл, рабочий каталог, пользователя, окружение, доступные библиотеки и зависимые сервисы. При отсутствии оборудования изучите сообщения ядра и привязку драйвера до отладки приложения. Для удалённой отладки используйте совместимые символы и фиксируйте версию установленного бинарного файла; несовпадение программы или символов может сделать стек вызовов ошибочным. Это общие приёмы диагностики, а не утверждение, что каждый случай происходил на телефоне.
 
+ЗАГРУЗКА, КРОСС-РАЗРАБОТКА И ОБНОВЛЕНИЯ
+
+Типичная ARM-последовательность: BootROM, необязательные SPL/early firmware, U-Boot, kernel с DTB и необязательным initramfs, затем PID 1 — systemd или sysvinit. Она зависит от SoC/boot chain. Initramfs может найти/разблокировать настоящий root и переключиться на него. Serial logs определяют первую отказавшую стадию.
+
+Итоговая командная строка видна в /proc/cmdline. Источники могут включать U-Boot bootargs, boot configuration или chosen/bootargs в device tree; поведение CONFIG_CMDLINE зависит от архитектуры/конфигурации. cmdline.txt у Raspberry Pi — платформенный механизм. console= выбирает консоль, root= определяет root device, rootwait ждёт его обнаружения, init= переопределяет обычный init executable, loglevel= задаёт подробность вывода в консоль. Имена и идентификаторы зависят от платы.
+
+Toolchain генерируется через bitbake core-image-minimal -c populate_sdk, устанавливается, затем в новом shell выполняется соответствующий environment-setup-* script. SDK с поддержкой CMake предоставляет toolchain file, обычно $OECORE_NATIVE_SYSROOT/usr/share/cmake/OEToolchainConfig.cmake. Новый CMake build directory исключает host cache settings; проверяются compiler, sysroot и target ABI. Разработка через внешний SDK не заменяет сопровождение рецепта.
+
+Используются gdbserver на target и соответствующий cross-GDB с теми же executable, symbols и target sysroot. strace отслеживает syscalls, perf профилирует при доступных kernel events/permissions, Valgrind диагностирует поддерживаемые сценарии памяти с накладными расходами и ограничениями архитектур. Tools/symbols добавляются в development image явно; core-image-minimal не обязан их содержать.
+
+Userspace использует интерфейсы ядра: /dev и ioctl, sysfs, GPIO character devices через libgpiod, i2c-dev, spidev и V4L2. mmap может отображать управляемые драйвером buffers, но не отменяет ownership, cache coherence и DMA synchronization. Где подходит, предпочтительны существующие subsystem drivers. API libgpiod зависит от версии; старый sysfs GPIO deprecated. Права и отказы проверяются на target.
+
+SWUpdate предоставляет настраиваемые update handlers, RAUC управляет подписанными bundles и интеграцией slots/boot, Mender сочетает обновление устройств с управлением deployments. Выбираются совместимые с продуктом релизы: текущие версии не обязательно подходят Kirkstone. Для A/B записывается/проверяется неактивный slot, переключается boot selection, good-status ставится после health checks, число попыток ограничивается с сохранением recovery. Миграции общих данных могут мешать откату. Read-only rootfs требует writable-каталогов state/logs. Secure boot аутентифицирует цепочку загрузки; подписи обновлений и rollback policy — отдельные меры, не автоматический результат A/B.
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Linux даёт зрелую экосистему и сеть, но размер и обычное планирование могут не подойти маленькому устройству или системе с жёстким real time. RTOS подходит для строгих сроков и малого объёма. PREEMPT_RT и оборудование нужно оценивать отдельно: гарантии жёсткого real time нельзя предполагать.
@@ -114,6 +128,22 @@ SIP-BASED PHONE SOFTWARE: CV указывает embedded Linux, Qt и i.MX. Ле
 
 Ответ: Чистые state/conversion-rules проверяются unit, контракты компонентов — integration. Boot, GPIO, camera/audio и состав image требуют target/подходящего hardware. Успех уровня не доказывает остальные.
 
+ВОПРОС EL-21. Исправляет ли rootwait отказ root filesystem?
+
+Ответ: Он ожидает обнаружения устройства, но не исправляет отсутствие драйвера, неверный раздел или неподдерживаемую filesystem. Сначала определяются отказавшая стадия и root=.
+
+ВОПРОС EL-22. Почему бинарник из SDK может не работать на target?
+
+Ответ: Могут различаться architecture, loader, libc/C++ ABI или библиотеки. Нужны соответствующее SDK environment, новый CMake build directory и проверка реальных зависимостей.
+
+ВОПРОС EL-23. Чем различаются strace, perf, Valgrind и GDB?
+
+Ответ: strace отслеживает syscalls, perf профилирует через sampling, Valgrind проверяет поддерживаемые сценарии памяти, GDB исследует process state/control flow. Доступность и накладные расходы различаются.
+
+ВОПРОС EL-24. Гарантирует ли A/B безопасные обновления с откатом?
+
+Ответ: Нет. Нужны проверенные артефакты, boot selection, health confirmation, ограничение попыток и recovery. Миграции данных и anti-rollback policy могут ограничивать откат; secure boot требует собственной цепочки доверия.
+
 РАЗДЕЛ 9. ИСТОЧНИКИ
 
 Дата проверки: 2026-11-13
@@ -122,3 +152,9 @@ SIP-BASED PHONE SOFTWARE: CV указывает embedded Linux, Qt и i.MX. Ле
 - https://doc.qt.io/archives/qt-5.15/qthread.html
 - https://docs.kernel.org/userspace-api/gpio/chardev.html
 - https://sourceware.org/gdb/current/onlinedocs/gdb.html/Remote-Debugging.html
+- https://docs.kernel.org/admin-guide/kernel-parameters.html
+- https://docs.yoctoproject.org/4.0.30/sdk-manual/using.html
+- https://docs.kernel.org/driver-api/gpio/using-gpio.html
+- https://rauc.readthedocs.io/en/latest/basic.html
+- https://sbabic.github.io/swupdate/swupdate.html
+- https://docs.mender.io/overview/introduction

@@ -20,6 +20,10 @@ systemctl status <service> показывает состояние; journalctl -
 
 Type=simple не сообщает systemd о завершении внутренней инициализации приложения; Type=notify может сообщать о готовности, если приложение реализует протокол уведомлений. network.target — точка упорядочивания, а не доказательство подключения. network-online.target может ожидать настройки сети при соответствующих менеджере сети и wait-сервисе, но не гарантирует доступность конкретного удалённого сервера или её сохранение. При изменении сети приложению нужны явные повторы и диагностика.
 
+УПАКОВКА UNIT В YOCTO
+
+Рецепт приложения может использовать inherit systemd, устанавливать phone-ui.service в ${D}${systemd_system_unitdir} и задавать SYSTEMD_SERVICE:${PN} = "phone-ui.service". SYSTEMD_AUTO_ENABLE:${PN} = "enable" явно выбирает включение. Unit относится к нужному пакету, systemd выбирается как init; включение в образ остаётся отдельным шагом. ExecStart соответствует установленному executable. Выбираются подходящие Type, User, restart policy и writable state. После поставки образа и reboot проверяются systemctl cat, systemctl status и journalctl -u. Enablement обеспечивает class вместо вызова systemctl сборочного host в do_install.
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Декларативные units, зависимости, журналирование и контроль упрощают запуск. Неверные зависимости могут скрыть сбой или задержать загрузку; минимальное устройство может использовать более простую init-систему.
@@ -123,3 +127,4 @@ SIP-BASED PHONE SOFTWARE: CV указывает systemd и конфигурац�
 - https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html
 - https://www.freedesktop.org/software/systemd/man/latest/sd_notify.html
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html
+- https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
