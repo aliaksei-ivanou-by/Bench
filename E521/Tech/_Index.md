@@ -1,5 +1,7 @@
 TECH INDEX
 
+Each topic contains 20 answered interview questions with stable identifiers: YCT, BB, EL, SYS, IMX and BSP. Section and question labels are literal text, so they do not depend on automatic list numbering.
+
 Scope: Only Yocto Project, BitBake, Embedded Linux, systemd, NXP i.MX and BSP, as explicitly requested. Other CV and request technologies are outside this collection.
 
 BUILD AND TOOLING

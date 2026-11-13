@@ -111,9 +111,27 @@ I adapted inherited image recipes, packages and startup services and debugged in
 
 The complete chain runs from metadata and package selection to the image, service startup and application on the i.MX device. A missing runtime dependency, wrong service order or unavailable display socket can produce similar user-visible symptoms, so build logs must be combined with systemd and application logs. I checked the affected image and startup path on hardware and used remote debugging for the process boundary. This work integrates with the existing BSP rather than establishing ownership of the whole board platform.
 
-FOLLOW-UP TOPICS
+FOLLOW-UP QUESTIONS AND ANSWERS
 
-SDK registration and authentication; Qt signals and object lifetime; BitBake packaging and target sysroots; systemd and Wayland startup; physical-device testing.
+QUESTION L1-01. Why does registration recovery belong beside SDK registration state?
+
+Answer: The SDK already owns account registration and its transitions. A second Qt-side retry/switch loop can disagree with the active server and authentication state. In this project I implemented the SDK watchdog/failover state machine and made application/provisioning state follow its APIs.
+
+QUESTION L1-02. How do Qt signals affect object and thread lifetime?
+
+Answer: Signals do not make arbitrary shared data thread-safe or keep every referenced object alive. Queued delivery follows receiver affinity and needs a functioning event loop. I make ownership and teardown explicit so late SDK events cannot update an obsolete session or screen.
+
+QUESTION L1-03. How do BitBake packaging and the target sysroot relate?
+
+Answer: Declared build dependencies populate the recipe's target sysroot; do_install stages produced files and packaging assigns them to runtime packages. The image must select those packages. I separate compile-time availability from the files and services actually installed on the phone.
+
+QUESTION L1-04. Why can the application fail after the compositor service starts?
+
+Answer: Service ordering does not necessarily mean the Wayland socket and runtime environment are ready. I check the running unit, service user, socket, installed dependencies and application logs, then reproduce startup on the actual image. An arbitrary delay is weaker than an explicit readiness condition.
+
+QUESTION L1-05. What must be tested on a physical phone?
+
+Answer: Boot ordering, real GPIO, camera, audio routes, USB and provisioning depend on the complete device. Qt tests isolate deterministic logic, while device scenarios check effective settings, SDK/UI state and media behavior. Passing one level does not establish the other.
 
 2. LIBRARY SYSTEM
 Period: 05.2019–04.2022
@@ -193,9 +211,27 @@ I refactored inherited C code in small changes alongside features and fixes, pre
 
 Legacy refactoring starts by identifying behavior and callers before moving code, particularly where C modules interact with Java and Scala services. Small changes make it easier to compare behavior and isolate a regression; boundary and error handling need to remain compatible. Builds, reviews and QA scenarios validate the affected workflows. The lesson is that better structure is valuable only when the established behavior remains dependable.
 
-FOLLOW-UP TOPICS
+FOLLOW-UP QUESTIONS AND ANSWERS
 
-C89 buffers and memory; gdb and Valgrind; cross-service diagnosis; Scala/C integration; review and regression.
+QUESTION L2-01. How do you investigate a C89 buffer defect?
+
+Answer: Track capacity, current length, initialization and the terminating null together. Reproduce the exact input and inspect each copy/format operation rather than increasing buffer sizes blindly. Validate the final output and adjacent cases after correcting the owning operation.
+
+QUESTION L2-02. When do you use gdb and when Valgrind?
+
+Answer: gdb inspects execution state, stacks and values in a live process or core dump. Valgrind Memcheck detects executed invalid-memory and uninitialized-value paths with additional overhead. I use logs to locate the path, then choose the tool for the hypothesis rather than treating either as a storage benchmark.
+
+QUESTION L2-03. How do you locate a fault across services?
+
+Answer: Follow one user operation through Scala/API, C processing and Java data services using correlated logs and payload interpretation. Identify the first incorrect value before changing a consumer that merely displays it. Recheck the complete operation after the owning layer is fixed.
+
+QUESTION L2-04. What matters at the Scala-to-C boundary?
+
+Answer: Request mapping, value representation, errors and returned data must agree between runtimes. I reused existing C behavior through a Scala request and updated Swagger instead of duplicating domain logic. Integration checks validate the contract beyond either component compiling independently.
+
+QUESTION L2-05. How did review and regression protect legacy changes?
+
+Answer: I used focused changes, mandatory delivery/customer review and developer/integration/QA checks on representative workflows. The C code had no unit-test suite to claim as protection. Reproducing the original defect and checking neighboring behavior were therefore especially important.
 
 3. 3D RECONSTRUCTION SOFTWARE FOR INDUSTRIAL APPLICATIONS
 Period: 03.2019–05.2019
@@ -245,9 +281,23 @@ I used Visual Studio for C++ development and debugging of the Windows prototype.
 
 The Windows desktop build brought C++ application and point-cloud libraries together in one debugging environment. Breakpoints and inspection of intermediate data help locate whether a defect enters during loading, transformation or later processing. Replaying recorded datasets supports repeatable comparisons and avoids relying on live hardware for every iteration. This improves diagnostic speed without implying a measured performance gain.
 
-FOLLOW-UP TOPICS
+FOLLOW-UP QUESTIONS AND ANSWERS
 
-Coordinate transforms and sensor geometry; PCL processing stages; filtering versus detail; prototype validation.
+QUESTION L3-01. How do profiles from several scanners become one cloud?
+
+Answer: Each scanner has a local coordinate frame. Apply the measured mounting transform into a common frame with consistent units, orientation and axis conventions, then combine the transformed points. A pose error can create doubled surfaces that later meshing cannot reliably repair.
+
+QUESTION L3-02. Which PCL stages did the pipeline use?
+
+Answer: Transformation establishes common geometry; filtering and downsampling control unsuitable points and density, followed by alignment/reconstruction as needed. I inspected intermediate clouds rather than judging only a final mesh. Parameters were compared on the same recorded inputs.
+
+QUESTION L3-03. How do you balance filtering with geometric detail?
+
+Answer: A stronger filter or larger downsampling scale reduces work and noise but can remove real edges or thin features. Compare retained geometry and known dimensions at several settings, not only point count. Missing physical observations remain a coverage limitation, not a filtering problem.
+
+QUESTION L3-04. What did prototype validation establish?
+
+Answer: Recorded datasets, known geometry and intermediate visualization made the reconstruction inspectable and repeatable. Open3D provided an additional comparison view alongside PCL. This demonstrated the prototype's behavior; it did not establish an invented accuracy metric or released production system.
 
 4. SOFTWARE MODULES FOR UAV
 Period: 08.2017–12.2018
@@ -303,9 +353,23 @@ I designed and verified image-fusion algorithms in MATLAB, combining information
 
 Fusion combines complementary sensor information, but the inputs first have to be placed in comparable spatial and temporal correspondence. Misalignment can produce doubled or misleading features, and contrast changes should not be confused with new information. I assessed the output on representative and reference imagery, including whether the result supported the intended visual analysis. The lesson is that registration and validation matter as much as the combination itself.
 
-FOLLOW-UP TOPICS
+FOLLOW-UP QUESTIONS AND ANSWERS
 
-Bayer patterns; stabilization and alignment; fusion inputs; calibration and flight-test validation.
+QUESTION L4-01. What does debayering reconstruct?
+
+Answer: A Bayer sensor samples one colour component per location, so missing colour values must be estimated from neighboring samples according to the correct pattern. I compare edges and representative raw data against references; incorrect pattern or channel interpretation can create false colour even when dimensions are valid.
+
+QUESTION L4-02. How do alignment and stabilization differ?
+
+Answer: Alignment estimates a geometric relationship between images; stabilization uses motion information to reduce unwanted frame-to-frame variation. Reliable evaluation separates actual scene changes from platform motion. I inspect intermediate results and representative sequences rather than accepting a smooth-looking final video alone.
+
+QUESTION L4-03. What must be true before image fusion is useful?
+
+Answer: Inputs need compatible geometry, timing and value interpretation. Misalignment, motion or inconsistent sensor response can turn extra input into ghosting or false detail. Compare the fused image with each source and known references; more contrast alone does not prove better recognition.
+
+QUESTION L4-04. How do calibration and flight tests complement algorithm tests?
+
+Answer: Synthetic and reference images isolate algorithm behavior; calibration checks geometry against physical references. Flight tests include the real optics, acquisition and platform motion. In this work I also operated the optical payload, which helped connect processed imagery with actual instrument conditions.
 
 5. REMOTE SENSING SATELLITES DATABASE
 Period: 03.2016–03.2017
@@ -349,9 +413,19 @@ The organization also had historical MS Access databases. I built the Rails/Post
 
 Legacy Access records needed to remain useful alongside the PostgreSQL-backed application. Migration requires mapping fields and types, handling missing or duplicate records and comparing representative values before and after transfer. A practical check is to compare record counts and sample records and then exercise the Rails workflow; this illustrates a possible migration check. The intended result is usable legacy information in the new workflow without silently changing its meaning.
 
-FOLLOW-UP TOPICS
+FOLLOW-UP QUESTIONS AND ANSWERS
 
-Reference-data modelling; Rails and PostgreSQL; user workflows and data validation.
+QUESTION L5-01. How would you model satellite reference data?
+
+Answer: Identify entities such as satellites, missions, instruments and their parameters, then define relationships, units and constraints. A relational model preserves these connections better than flattened free text. The database is a reference-data system; this does not imply an imagery archive or object-storage platform.
+
+QUESTION L5-02. How do Rails and PostgreSQL divide responsibility?
+
+Answer: Rails handles request/controller and user workflows while PostgreSQL stores relational data and enforces database constraints. Application validation improves feedback but is not a substitute for uniqueness, foreign-key or transaction guarantees needed at the data boundary.
+
+QUESTION L5-03. How do you validate a catalogue workflow?
+
+Answer: Check creation, editing, search and retrieval with representative parameters, invalid values and related records. Validate units and relationships as well as form acceptance, and verify the stored result. Query correctness and a usable interface are distinct from an unmeasured retrieval-speed claim.
 
 6. SOFTWARE FOR PROCESSING AND ANALYSIS OF SATELLITE EARTH OBSERVATION IMAGES
 Period: 08.2012–03.2016
@@ -419,6 +493,20 @@ I designed and verified a differential predictive compression algorithm in MATLA
 
 ADPCM encodes a prediction error rather than each original sample independently, and quantization trades reconstruction fidelity for fewer bits. The onboard constraint made computational cost a central factor; multiple quantizers and adaptation affect the quality/rate tradeoff. Reference-image comparison at the same ratio and checks of reconstructed output are essential because compression is lossy. The documented 3–4x ratio is an outcome of the algorithm work; the separate flight-software group implemented it for the target.
 
-FOLLOW-UP TOPICS
+FOLLOW-UP QUESTIONS AND ANSWERS
 
-Radiometric versus geometric alignment; resolution validation; adaptive quantization; ADPCM and onboard compute constraints.
+QUESTION L6-01. How do geometric and radiometric correction differ?
+
+Answer: Geometric alignment makes corresponding scene features coincide; radiometric matching reduces inconsistent brightness or response across detectors/frames. A seam can remain after either one alone. I inspect spatial discontinuities and brightness steps separately before judging the assembled image.
+
+QUESTION L6-02. How do you validate image-resolution measurements?
+
+Answer: Use a defined criterion, suitable known targets and consistent processing conditions, then check repeatability and agreement with independent reference analysis. Noise, target orientation and preprocessing affect the estimate. Repeating a calculation is useful only if the measurement assumptions are also controlled.
+
+QUESTION L6-03. Why adapt quantization to image content?
+
+Answer: Smooth and textured regions tolerate quantization error differently. Adapting quantization can preserve more useful detail for the same encoded size, but comparison must hold compression ratio and reference scenes constant. Raising bitrate is a different change from improving quality at a matched ratio.
+
+QUESTION L6-04. Why choose ADPCM-family coding under a compute constraint?
+
+Answer: It encodes prediction residuals with quantization and state updates rather than requiring a costly transform for every block. Encoder/decoder state must remain consistent. The choice trades compression efficiency against feasible computation and memory, with reference reconstruction and difficult scenes used for validation.
