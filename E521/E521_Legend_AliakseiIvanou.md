@@ -9,7 +9,7 @@ Project environment from the CV: C++17, C#, JavaScript, Embedded Linux, Yocto, Q
 
 CONTEXT, ARCHITECTURE AND TEAM
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 An enterprise desk-phone platform provides audio and video calling, conferences and centrally managed configuration. Office users interact with the phone; administrators provision and maintain fleets. The existing product combines a C++17 and Qt Widgets application, a customized Linphone SDK, embedded Linux built with Yocto/BitBake for NXP i.MX, and a Windows WinForms provisioning utility.
 
@@ -17,7 +17,7 @@ The Qt application converts user actions into SDK operations and maps asynchrono
 
 Our delivery team grew from three to four C++ engineers. The customer team typically included a project manager, two to four C++ developers, a web developer and two to four QA engineers. People worked across distributed locations; I coordinated application and SDK changes with the customer developers and device scenarios with QA. My role was a hands-on software engineer; an additional internal People Lead group was separate from the customer project team.
 
-I worked on call and account models, SDK-side registration watchdog and failover, application integration, provisioning and target diagnosis. The inherited platform and BSP were shared foundations, not a platform I built alone. Tests included focused Qt Test and MSTest checks, review, SIP and system logs, gdb/gdbserver and physical-phone scenarios. The broad call-architecture refactor was completed as internal engineering work.
+I worked on call and account models, SDK-side registration watchdog and failover, application integration, provisioning and debugging on the device. The inherited platform and BSP were shared foundations, not a platform I built alone. Tests included focused Qt Test and MSTest checks, review, SIP and system logs, gdb/gdbserver and physical-phone scenarios. The broad call-architecture refactor was completed as internal engineering work.
 
 PROJECT STORIES
 
@@ -43,157 +43,133 @@ Keeping the existing widget-centered flow would avoid migration work but retain 
 
 SITUATION
 
-- Initially, routine software updates already used partial packages applied through update.sh. We did not distribute a complete firmware image for each small change: a package contained selected binaries, libraries, scripts or resources, and its installation script was prepared manually. Complete firmware installation was a separate reflashing procedure. In a later product release, we moved routine updates into a version-aware workflow managed through the .NET Autoprovisioning Manager.
+- Routine updates already used partial packages installed by update.sh. Each package contained selected programs, libraries, scripts or resources, and its script was prepared by hand. Full firmware installation was a separate reflashing procedure. Later, we moved routine updates into the .NET Autoprovisioning Manager, which used each phone’s installed version.
 
 PROBLEM AND WHY IT MATTERED
 
-- The weakness was manual package preparation rather than an absence of incremental delivery. Each update.sh encoded the author's assumptions about the files already on the phone, the replacements required and the order of installation. A package prepared for one starting version could be incomplete or incompatible on another. Administrators had no uniform way to establish the applicable transition and recover the exact software version that an individual phone had before the update.
+- The problem was the assumptions hidden in each manual script. A package made for one starting version could miss files or install incompatible ones on another phone. We needed a common way to choose the right update and return that particular phone to its previous software if installation failed.
 
 ALTERNATIVES AND DECISION
 
-- We considered retaining manually maintained packages for each version transition or requiring devices to reach an intermediate version before another update. Both approaches increased the number of scripts and operational steps. Instead, the Windows tool queried each phone's installed software version and device/platform identity, then dynamically assembled an update package for that phone and the requested target release. The improvement was automatic selection and construction of the required transition, not simply changing from a full image to a smaller archive.
+- We could keep separate manual scripts for every version change or require intermediate upgrades. Instead, the Windows tool read the installed version and device/platform identity. It then built a package for that phone and the selected target release. The main improvement was choosing and preparing the correct update automatically, not replacing full images with small packages.
 
 PACKAGE GENERATION
 
-- The build pipeline retained the exact artifacts and file inventories of released versions. After identifying a phone's source version, the package-building workflow compared its release inventory with the target release and collected the required additions, replacements and deletions. Unchanged files did not need transmission. Changed files could be sent in full or as binary deltas when useful; small scripts were normally sent whole. A manifest described source and target versions, compatibility, relative paths, file operations, metadata and payload/output checksums. Delta operations also required the exact original-file checksum. The package was signed and checked on the phone. Dynamic assembly used already-built release artifacts; it did not recompile C++ separately for every device.
+- The build system kept the exact files and inventories of released versions. The package builder compared the installed release with the target release. It included additions, replacements and deletions, omitted unchanged files and used complete files or useful binary deltas. The signed manifest listed versions, compatibility, paths, operations, permissions and file checksums. Deltas also required the exact old-file checksum. It reused built files rather than compiling C++ for every phone.
 
 PERSONAL ACTIONS AND TEAM COORDINATION
 
-- My part was extending the .NET workflow to query the installed version, initiate construction of the applicable package, track delivery and installation, and show the resulting version or recovery status after reconnecting. I coordinated the package contract with the phone/build engineers. On the phone, an updater independent of the Qt process verified the package and source files, then prepared a complete target release in staging. A phone whose files did not match the expected source could not receive that delta blindly: it needed a suitable full-file package or a supported recovery path. Installation state was persisted locally, so closing the Windows tool did not abandon an accepted operation.
+- I extended the .NET workflow to read the installed version, start package creation, track delivery and show the result after reconnecting. I agreed the package format with the phone/build engineers. A separate updater on the phone checked the package and old files, then prepared the full new release in staging. A mismatched old file required a suitable complete-file package or recovery. The phone kept operation state even if the Windows tool closed.
 
 ACTIVATION AND RECOVERY
 
-- Before activation, the updater recorded that phone's exact pre-update software release and retained a complete recoverable copy, including its executable, matching libraries, scripts, resources, permissions and links. Recovery referred to that device's actual previous release, not a generic factory version or an arbitrary earlier build. The switch waited until no call was active and prevented conflicting call operations, then stopped the application, activated the prepared release and restarted it. Failed local startup or SDK initialization triggered automatic rollback; the Windows tool could also request recovery to the retained pre-update release. That recovery point remained available after a successful update until it was superseded by the next update's recovery point. Persistent settings were stored separately, incompatible schema migrations were excluded, and any settings modified by the update had a corresponding restoration path. Persisted transaction state allowed recovery after reboot without the Windows application remaining connected. An unbootable base system remained a separate reflashing case.
+- Before switching, the phone kept its exact old program, matching libraries, scripts, resources, permissions and links. It waited until no call was active, blocked conflicting call actions, stopped the application and activated the new release. Failed local startup or SDK initialization caused rollback; the administrator could also request it. The recovery copy stayed until the next update replaced that recovery point. Settings stayed separate and compatible, or had their own restoration path. Saved operation state supported recovery after reboot. An unbootable base system still required a separate recovery procedure.
 
 VALIDATION
 
-- We tested phones starting from different supported software versions and checked that each received its own applicable package. Checks covered wrong source versions, locally mismatched files, invalid checksums, full-file/delta payloads, interrupted transfer, insufficient space and failed application startup. Recovery tests verified the reported version and the actual executable/library/script set, permissions and preserved SIP settings against the pre-update state. We also exercised reboot during installation and operator-requested rollback. A completed upload was not success: the tool reconnected and read whether the target version was active or the original version had been restored. External PBX availability was evaluated separately from local health.
+- We tested different starting versions, wrong file checksums, full files and deltas, interrupted transfers, low storage and startup failure. We checked reboot during installation and manual rollback. Recovery had to restore the actual old files, permissions and SIP settings, not just the displayed version. The Windows tool reconnected to read the final result. A PBX outage was checked separately from local application health.
 
 RESULT AND LESSON
 
-- Routine updates remained partial, but package preparation became specific to the source version of each phone instead of relying on a hand-written update.sh for every transition. Administrators could see both the intended target and the recovery version for each device. The central result was a controlled source-to-target transition with an explicit return to the exact previous software release. Binary deltas reduced transfer where appropriate; version identification, consistent package construction and recovery made the process dependable. Complete reflashing remained separate from this application-stack update mechanism.
+- Updates remained partial, but packages were now built for each phone’s starting version instead of hand-written scripts for each case. The administrator could see the target and recovery versions. Correct version checks, a complete compatible file set and tested recovery made the process reliable. Binary deltas saved transfer where useful; full reflashing remained a separate operation.
 
 EXPANDED TASK ANSWERS
 
 1.1. Call handling architecture
 
-I separated call/session state and SDK interaction from rendering and user actions. This made asynchronous events easier to trace and let the existing UI consume a clearer model; the larger refactor remained internal.
+- I separated call state, user actions, media negotiation, SDK access and screen drawing. The aim was an MVC/MVVM-style structure in which widgets display state instead of owning telephony decisions.
 
-The important boundary is between the SDK event stream and the state consumed by the view. A session model can represent the call independently of the widget, while an adapter translates SDK callbacks into changes in that model. Delayed callbacks and teardown need particular attention because an event may arrive after the user has closed a screen. Focused session tests and target scenarios check that the screen follows the effective call state; the architectural gain is that rendering can change without moving telephony decisions into widgets.
+- SDK adapters pass events to call sessions and services. Controllers request operations and the UI follows the result. A stable call identity helps reject late events after a call ends. Cleanup must remain safe if requested twice.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- Separate an incoming SDK event from a user command: the controller requests an operation, while the session reflects its observed result. Keep a stable call identity, reject late events for a terminated session and make teardown idempotent. This prevents a closed screen or a repeated callback from recreating obsolete call state.
+- I changed the code in small steps and checked the existing signals and user actions. The broader refactor was completed as internal architecture work, not as a fully released feature.
 
 1.2. BitBake builds for SDK and dependencies
 
-The initial Yocto skeleton did not contain Linphone SDK, WebRTC or mediasoup; our team added the stack. I contributed SDK/dependency recipes and packaging for the i.MX target and checked build output and target behavior. The basic platform and cross-compilation foundations already existed, while the telephony and conferencing integration was new team work. I authored and maintained custom BitBake recipes for cross-compiling the modified Linphone SDK and its dependencies for NXP i.MX ARM, including build-flag configuration to optimize the embedded memory footprint.
+- Our starting Yocto skeleton had no Linphone SDK, WebRTC or mediasoup. The team added them. I authored and maintained BitBake recipes for the modified SDK and its dependencies on NXP i.MX ARM, including build settings intended to reduce its memory footprint.
 
-A cross-build needs target libraries and headers in the target sysroot rather than accidentally linking against host binaries. Recipe dependencies, compiler and linker flags, and package contents are therefore part of the same path from SDK source to device. A useful check is to rebuild the affected recipe, inspect its dependencies and packaged libraries, then run the application on i.MX; memory impact should be measured on the target rather than inferred from a flag alone. The result is a reproducible SDK build compatible with the target environment.
+- The compiler must use device headers and libraries from the recipe sysroot, not libraries from the build computer. I checked the build, packages and application on the phone.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- Memory-footprint work distinguishes installed binary size, image size and runtime memory. Build features and compiler options are evaluated against the same target workload; stripping debug information alone does not establish lower runtime RSS. Retain matching symbols outside the production image and check calls, codecs and startup after a feature is disabled. No numerical improvement is implied by an optimization flag.
+- A smaller binary, a smaller image and lower RAM use are different results. Compare the same call/media workload and check required codecs and features after changing options. I do not attach an unmeasured percentage or invent a historic flag set.
 
 1.3. Incremental Qt Widgets decomposition
 
-I moved responsibilities toward domain, presentation and SDK integration boundaries in reviewable steps, preserving interaction and QObject connections. Focused tests and call scenarios helped identify regressions during migration.
+- I gradually moved legacy Qt Widgets call handling into call logic, presentation and SDK integration. Existing user behavior and QObject signal connections had to keep working.
 
-The migration preserves the existing user-facing behavior while moving one responsibility at a time. Signals and slots, QObject ownership and lifetime matter because a controller can receive an event after the associated widget or session has changed. Checking existing connections and reproducing call transitions after each change limits regression; focused tests cover state logic and device checks cover the interaction with the real SDK. The lesson is to separate the change of structure from a change of behavior.
+- For each step, I introduced the new interface, moved its caller and removed the replaced connection. I checked signal arguments, direct or queued delivery, duplicate notifications and object lifetime.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- Migrate one call-flow boundary at a time: introduce the adapter/session interface, redirect the relevant caller, preserve expected signal arguments and remove the superseded connection. Check for duplicate notifications and changes in direct versus queued delivery. Validation compares the visible hold, answer and hangup behavior before and after the structural change.
+- Hold, answer, hangup and late callbacks were useful checks. This allowed the structure to change without silently changing the phone’s behavior.
 
 1.4. Yocto layers and SDK packaging
 
-I worked within existing meta-layers on recipes, dependencies and image contents for liblinphone and related components. I verified that the resulting packages were present and usable on target rather than treating a completed build as sufficient. I developed custom Yocto recipes and .bbappend files in dedicated meta-layers to enable liblinphone cross-compilation.
+- I developed recipes and .bbappend files in product meta-layers to cross-build liblinphone and connect it to the image. The initial board platform already existed; the phone and conferencing stack was added by our team.
 
-A dedicated layer organizes project-specific metadata, while a .bbappend extends an existing recipe without copying it wholesale. Build dependencies, runtime dependencies and the image package list must agree: a successful compilation does not prove that the shared library is installed on the phone. Inspecting the resulting package and starting the consuming application on target checks both boundaries. This approach keeps the integration maintainable while retaining the existing platform.
+- I checked source versions, layer dependencies, selected recipes and whether each append actually applied. Build dependencies supply headers and libraries; runtime packages must supply the files used on the device.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- Keep application/SDK recipes and matching appends in product metadata, with explicit source revisions and layer dependencies. Inspect selected providers and show-appends rather than assuming a new file is active. Build-time discovery metadata belongs in the recipe sysroot; runtime plugins and resources must also enter the image. Extending the initial Yocto skeleton with our stack is distinct from claiming ownership of every vendor recipe.
+- I inspected package contents and started the consuming application on the phone. A successful recipe build alone did not prove that its library, plugins and resources had reached the image.
 
 1.5. Video and conference edge cases
 
-I worked with call and conference UI state around held and second calls, remote hangups and media changes. I checked the relationship between SDK events and visible state in device scenarios, where event order and teardown can differ. The work covered held calls, second-line calls, remote hangups, stale overlays and switching the active video stream.
+- I worked on held calls, second incoming calls, remote hangups, stale overlays and switching the active video stream. The screen had to follow the call and media state reported by the SDK.
 
-The call model, media state and visible widgets must be updated in a consistent order even when the remote party or SDK initiates a transition. A held call or remote hangup can arrive while a second call or video window is active, so teardown must not leave an overlay or point the view at a stale stream. Reproducing those sequences on a phone and comparing the UI with SDK state helps isolate whether the defect lies in presentation or media lifecycle. The outcome sought is a consistent screen throughout transitions, not just a correct initial call.
+- The difficult cases were overlapping changes: a remote hangup while another call screen opens, or a participant leaving while the conference updates. Cleanup must detach old video bindings and ignore events from a finished session.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- The regression matrix covers a held call plus a second incoming call, remote hangup during a UI transition, conference leave during participant updates and video-source changes after an overlay closes. Cleanup detaches obsolete media/view bindings and uses session identity to ignore stale events. Check both the final screen and the sequence of transitions; a correct final image can still hide a transient invalid action.
+- I reproduced these sequences on phones and compared SDK state with the screen. I checked intermediate transitions as well as the final screen, since a brief incorrect state could still allow a wrong user action.
 
 1.6. SIP backup and authentication
 
-I implemented SDK registration watchdog and failover/failback, integrated the APIs and added a backup-domain field to AuthInfo. I checked authentication and state when switching servers. The SDK changes included support for authorization with different HA1 hashes for primary and backup servers when their realms differed.
+- I implemented the registration watchdog and primary/backup failover and failback in the customized SDK, then connected its APIs to the application and settings. I also added a backup domain to AuthInfo and implemented support for different HA1 values when the primary and backup servers used different realms.
 
-The watchdog monitors registration and selects the primary or backup server; the application then displays the active choice and applies configuration consistently. Different realms affect digest authentication, so the server selection and matching credentials must change together rather than leaving a hash associated with the wrong realm. Loss, repeated failure, recovery and failback are useful scenarios, with SIP logs and active-server state checked on the device. A separate HA1 mode was disabled in later releases, so implementation of support and its enabled status must be described separately.
+- Registration, selected server and credentials must change together. A 401/407 challenge is not by itself a reason to switch servers. I checked loss, recovery, authentication and displayed state on the phone.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- Distinguish an authentication challenge from an unavailable server; a 401/407 challenge alone is not proof that failover is required. Keep active-server selection, authentication domain and persisted backup settings consistent, and avoid treating every retry as a reason to rotate servers. Registration recovery is separate from continuity of an established SIP dialog and media session. HA1 capability and its later disabled selection mode remain separate facts.
+- Recovering registration does not automatically preserve an ongoing call. HA1 support was implemented, but selectable HA1 mode was disabled in later releases and remained disabled at project end.
 
 1.7. WebRTC conferencing
 
-I integrated and debugged the phone-side WebRTC/mediasoup conference path, including the relationship between joining, participant state and media. My server contribution was limited to the initial server; another team handled the later server work. The phone-side work covered conference creation and joining, incoming invitations, participant rosters, SIP/IP/phonebook add dialogs, status strip, controls, video tiles and audio/video device controls.
+- My main work was the phone-side WebRTC/mediasoup integration: create/join, invitations, participant lists, SIP/IP/phonebook add dialogs, status and control panels, video tiles and audio/video controls. My initial Node.js server contribution was limited; I did not own the later rewrite.
 
-Signaling creates or joins a room and exchanges participant and media state; the phone must then bind the negotiated media to its controls and video tiles. An invite can be declined or a participant can leave while the UI is changing, and a successful signaling step does not prove that audio or video actually renders. Testing the join/leave lifecycle, participant list and devices on the phone alongside signaling logs separates those failure domains. The result is a coherent conference flow across the UI, signaling and media boundaries.
+- The native C++ phone uses libmediasoupclient. Mediasoup forwards media as an SFU rather than mixing everyone into one server video. The UI must follow participant and stream changes.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- The phone uses the native C++ client path, including libmediasoupclient, while the server-side Node.js integration controls mediasoup workers. Mediasoup is an SFU: stream forwarding is different from mixing every participant into one server-rendered video. UI controls must follow actual producer/consumer and participant lifecycle; leaving a room releases the corresponding media bindings. This explains the native client integration without attributing the later server rewrite to me.
+- I checked joining, leaving, rejected invites and media cleanup on the phone. Successful room signaling did not prove that camera, audio and video display worked.
 
 1.8. GPIO and hardware integration
 
-I worked on Qt application integration with GPIO and hardware events, using target scenarios and logs to diagnose behavior. Hardware event delivery and object lifetime had to be considered alongside asynchronous UI work. I reworked the libgpiod C++ layer for handset hook-switch edge events and the RGB status LED, moving event handling to a dedicated QThread, implementing a thread-safe singleton, and correcting a mutex deadlock and memory leak.
+- I reworked the GPIO layer using the libgpiod C++ API for handset switch events and the RGB LED. I moved event handling to a dedicated QThread, implemented a thread-safe singleton and fixed a mutex deadlock and memory leak.
 
-The hardware layer observes hook-switch edge events and controls the RGB LED, while the Qt side consumes state changes without blocking the UI thread. Moving event handling to QThread requires a clear stop and cleanup path; shared singleton state must be synchronized without holding a mutex across a blocking operation or callback. Rapid hook transitions, shutdown and repeated initialization are useful edge cases, complemented by thread and lifetime diagnostics on target. The intended outcome is responsive hardware handling with predictable ownership and cleanup.
+- The worker reports handset state to Qt without blocking the UI. It reads the initial state, handles later edges and uses the board’s signal polarity. Waiting must be limited or interruptible so shutdown can finish.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- Read the initial hook state as well as later edges and interpret polarity using the board configuration. A GPIO worker needs bounded or interruptible waiting: quit() does not interrupt an arbitrary blocking loop. Singleton construction and concurrent method access are separate concerns. Deadlock diagnosis checks nested acquisition and waiting under a lock; lifetime diagnosis distinguishes heap allocations from file descriptors and GPIO requests. The exact historic failing allocation or lock sequence is not substituted with a hypothetical code fragment.
+- Safe singleton creation does not make all methods safe. Check lock order, waiting while locked and object cleanup. I explain those mechanisms without inventing the exact historic faulty allocation or lock sequence.
 
 1.9. Provisioning utility
 
-I migrated the inherited WinForms utility from .NET Framework 4.8 to .NET 8 and worked on discovery and configuration using SNMP, DHCP, TFTP and SQLite. I checked generated settings against the phone; older encrypted BinaryFormatter files are not compatible with the later JSON reader. The work also unified project file formats across the device ecosystem.
+- I migrated the WinForms tool from .NET Framework 4.8 to .NET 8 and developed discovery, configuration and provisioning using SNMP, DHCP, TFTP and SQLite. I also unified the supported project-file formats across the device ecosystem.
 
-The Windows tool discovers devices, edits configuration and delivers settings through the provisioning workflow; the generated representation must be understood by the phone. Migration to .NET 8 required checking library behavior and persistence as well as compilation. Discovery failures, invalid settings and project-file compatibility are important cases: the older encrypted BinaryFormatter format is not readable by the later JSON reader. I checked representative configuration and device behavior; unifying supported formats should not be confused with universal compatibility with every legacy file.
+- SNMP reads device information, DHCP options help locate provisioning data, TFTP transfers files and SQLite stores tool data. The generated settings must match what the phone applies.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- SNMP queries device information, DHCP provisioning options help locate delivery information, and TFTP transfers the configuration artifacts; these protocols do not all perform the same step. SQLite-backed tool state and the supported project-file schema must regenerate equivalent phone settings after save/open. Validation includes missing fields, invalid account values, duplicate device entries and unreachable devices. Legacy BinaryFormatter incompatibility is explicit rather than hidden behind a claim of universal format support.
+- I used explicit project state for save/load and checked save, reopen and regenerated configuration. Old encrypted BinaryFormatter files were not readable by the later JSON reader; supported-format consistency was not universal legacy compatibility.
 
 1.10. Device diagnostics
 
-I used application, SIP and system logs and added active-proxy diagnostics to make failover state observable. Reproduction required matching the device, firmware, account and network conditions; logs were correlated with target behavior. I implemented categorized QLoggingCategory output to journald with size limits to protect flash, and a downloadable diagnostics bundle containing journal entries, liblinphone logs, sanitized configuration and SIP traces.
+- I used application, SIP and system logs and added active-proxy diagnostics for failover. I implemented QLoggingCategory output to journald with storage limits and a support bundle containing journal entries, liblinphone logs, sanitized settings and SIP traces for download through the web interface.
 
-Categories make it possible to distinguish application, telephony and system events without treating every message as equally important. A bounded journal protects flash capacity, while the support bundle joins relevant logs and SIP traces with a sanitized configuration so a field failure can be reconstructed. An absent log, an oversized bundle or sensitive data in configuration are important cases to check; reproducing a failure and examining the downloaded bundle validates the diagnostic path. The value is faster correlation of the device state with a reported symptom.
+- Categories help select useful messages, but journal capture still needs a configured logging path. Storage limits bound retained logs, not all flash writes. Verbosity and message rate matter too.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- QLoggingCategory controls application categories; journal capture also needs the deployed logging sink or service stdout/stderr configuration. Storage limits bound retained journal data, not total lifetime flash writes, so verbose categories and rate control matter too. Bundle generation uses a bounded time window, firmware identity and correlated logs, removes credentials and authentication material, and handles partial collection. I integrated device-side diagnostics with the separately owned web download path rather than owning the entire web interface.
+- The bundle needs a time/size limit, firmware identity and removal of passwords, keys and authentication data. I coordinated device diagnostics with the separately owned web download implementation; I did not own the whole web interface.
 
 1.11. Qt Test coverage
 
-I added and maintained focused Qt Test checks for local logic, models and controllers, including call-session changes. The tests covered the extracted call-state and conference domain layer. These checks supported refactoring, while physical devices remained necessary for media, hardware and boot scenarios.
+- I added Qt Test checks for extracted call-state and conference logic, alongside focused model/controller and session tests. These tests supported the refactor; real media and hardware still needed device checks.
 
-The extracted state layer can be tested without rendering the complete phone UI by supplying events and observing the resulting call or conference state. Relevant cases include repeated events, hold and resume, remote termination and a participant leaving during a transition. Focused tests reduce the cost of detecting a state regression, while a real SDK and physical phone are still needed for media and hardware integration. The lesson is to test the deterministic state boundary separately from the full device.
+- A useful case holds a call, terminates it remotely and delivers a late media event. The session must stay terminated and must not emit a new active-state notification. Conference cases include repeated participant removal and leaving during join.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- A focused test feeds controlled SDK-adapter events into the extracted state boundary and asserts state plus emitted notifications. For example: hold a session, terminate it remotely, then deliver a late media event and verify it does not reactivate the session. Conference cases include repeated participant removal and leave during join. Signal observation and event-loop-aware waiting avoid arbitrary sleeps. These checks exercise domain behavior, while real SDK/media and hardware remain integration tests.
+- Controlled adapter events isolate the logic. Signal observation and event-loop-aware waiting avoid arbitrary sleeps. A local test result is separate from validation of the complete SDK and phone.
 
 1.12. Yocto and target services
 
-I adapted inherited image recipes, packages and startup services and debugged integration on i.MX devices. I traced dependencies across image contents, systemd, the graphical environment and application instead of assuming every failure was a Qt defect.
+- I contributed recipes, packages, model-specific image contents and startup services for i.MX devices. I checked the path from build settings to installed files, systemd, Weston/Wayland and application startup using logs and remote debugging.
 
-The complete chain runs from metadata and package selection to the image, service startup and application on the i.MX device. A missing runtime dependency, wrong service order or unavailable display socket can produce similar user-visible symptoms, so build logs must be combined with systemd and application logs. I checked the affected image and startup path on hardware and used remote debugging for the process boundary. This work integrates with the existing BSP rather than establishing ownership of the whole board platform.
+- Before comparison, I recorded the phone model, image and application/SDK versions. Missing libraries, wrong service order and an unavailable display socket can look like Qt faults.
 
-IMPLEMENTATION AND VALIDATION DETAIL
-
-- Record the deployed model, image identity, application and SDK revisions before comparing a successful build with a failing device. Separate initial image provisioning from runtime component updates. Our manual update.sh packages were already partial; the later .NET workflow generated a package for the detected source version and kept the exact previous software set for recovery. This does not imply A/B rootfs or a confirmed UART flashing procedure.
+- Our old update.sh packages were already partial. The later .NET workflow built packages for each detected source version and kept the exact previous software for recovery. This did not mean ownership of the entire BSP, A/B rootfs or a confirmed UART flashing method.
 
 FOLLOW-UP QUESTIONS AND ANSWERS
 

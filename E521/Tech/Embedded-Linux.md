@@ -8,21 +8,16 @@ Linux on i.MX; kernel version is product-specific.
 
 SECTION 2. PURPOSE
 
-Embedded Linux combines the Linux kernel and a selected user space for a dedicated device. It supplies process isolation, networking and hardware interfaces while allowing an image tailored to memory and storage constraints.
+Embedded Linux is Linux configured for a particular product. Besides the application, the product includes the kernel, drivers, services, libraries and configuration needed by its hardware.
 
 SECTION 3. CORE CONCEPTS
 
-A typical boot chain passes control from firmware to a bootloader, which loads the kernel and a hardware description. The kernel initializes hardware and mounts a root filesystem; PID 1 starts user-space services.
-
-Device tree describes hardware and configuration; drivers bind to compatible devices. Actual boot stages differ by SoC and product.
-
-User-space applications access device files and system services through kernel interfaces.
-
-A service can fail at several different boundaries: the bootloader may load the wrong artifact, the kernel may fail to probe a device, the service may lack a library or permission, or the application may mishandle a runtime event. Start with the observed symptom and identify the earliest failing layer using the boot log, kernel messages and service logs.
-
-Confirm architecture and shared-library availability before assuming a C++ defect. The kernel and user-space ABI, device nodes, permissions and firmware are part of the delivered system.
-
-Real devices also impose startup timing, limited writable storage and recovery requirements. When an issue depends on USB, GPIO, audio or display timing, a desktop-only reproduction cannot establish full target behavior.
+- The kernel controls hardware and exposes interfaces to programs. User-space programs include the application and system services.
+- The bootloader, kernel, device tree and root filesystem must agree on the board and storage layout.
+- An executable needs the right architecture, loader and libraries. Successful compilation on a developer computer does not prove it can run on the device.
+- Files under /dev, access permissions and firmware are part of the delivered system.
+- Startup depends on service readiness. Limited memory, writable storage and recovery options also affect application behavior.
+- Tests on a computer can check isolated logic. Real audio, camera, GPIO and display timing still need suitable hardware tests.
 
 SECTION 4. TYPICAL USAGE
 
@@ -108,7 +103,7 @@ A missing driver, wrong device tree, absent firmware or incorrect permissions ca
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 SIP-BASED PHONE SOFTWARE: CV names embedded Linux, Qt and i.MX. Legend describes application, services and phone diagnostics. The request asks for deep embedded Linux; Responsibilities distinguishes integration from independent kernel ownership.
 

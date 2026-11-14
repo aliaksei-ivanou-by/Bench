@@ -8,17 +8,16 @@ NXP i.MX ARM family; the exact SoC and board must be identified for the target.
 
 SECTION 2. PURPOSE
 
-NXP i.MX is a family of application processors used in embedded products. Depending on the model, an SoC combines CPU cores with peripherals and dedicated accelerators for graphics, media or other functions.
+NXP i.MX is a family of processors for embedded products. Depending on the model, a chip contains CPU cores, peripheral controllers and graphics or media accelerators.
 
 SECTION 3. CORE CONCEPTS
 
-The SoC and the board are different: the board connects memory, storage, power and peripherals to a particular processor. Boot firmware, a bootloader, kernel, device tree, drivers and userspace must agree on that hardware. Supported peripherals and boot modes vary by SoC and board. A vendor Linux BSP supplies integration pieces; the application uses exposed operating-system interfaces.
-
-A processor family name does not identify the physical board or prove that a particular peripheral is wired and enabled. First establish the SoC variant, board revision, boot medium and vendor software release.
-
-Then trace a peripheral through its board wiring, device-tree description, driver binding, firmware and user-space interface. A driver present in the source tree is not sufficient if it is not enabled or the board description is wrong.
-
-When a Qt or media feature fails, logs and device nodes help determine whether the application, runtime service or hardware integration is the first failing boundary. Consult the exact board and release documentation before making claims about cores, acceleration or boot modes; these vary across the family.
+- An SoC is the chip; a board connects it to memory, power, storage and peripherals. The family name does not identify those connections.
+- Identify the exact chip, board revision, boot medium and vendor software release before choosing settings.
+- Boot components, kernel, device tree, drivers and user-space libraries must match the board.
+- Follow a failing device from wiring and power through the device tree, driver startup, firmware and application interface.
+- A driver in the source tree may be disabled or fail to start. A device file may exist while permissions or media configuration are still wrong.
+- Different i.MX models offer different peripherals and acceleration. Check the board and release documents before claiming a feature is available.
 
 SECTION 4. TYPICAL USAGE
 
@@ -44,7 +43,7 @@ Do not infer CPU architecture, GPU, media engine or a specific boot flow from th
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 SIP-BASED PHONE SOFTWARE: CV lists i.MX ARM and target integration. Legend describes a Yocto phone image, SDK and Qt application validated on physical devices. The request asks for embedded Linux and BSP customization; Responsibilities separates target integration from complete BSP ownership.
 
@@ -108,7 +107,7 @@ Answer: A device can be described but unusable because a required clock, reset s
 
 QUESTION IMX-15. What if the right application runs on the wrong image variant?
 
-Answer: Model-specific assets, DTB, libraries or services may not match the attached peripherals. Compare the running image identity and installed files with the selected board configuration. A correct executable cannot compensate for an incompatible complete-image composition.
+Answer: Model-specific assets, DTB, libraries or services may not match the attached peripherals. Compare the running image identity and installed files with the selected board configuration. A correct executable cannot compensate for an incompatible complete-image contents.
 
 QUESTION IMX-16. Why can a camera initialize but produce no useful frames?
 
@@ -122,7 +121,7 @@ QUESTION IMX-18. Does using a media library prove hardware acceleration is activ
 
 Answer: No. The selected backend, plugins, formats and build/runtime configuration determine the path. Inspect negotiated components and resource behavior with the same workload. High CPU use may suggest fallback, but utilization alone is not proof of a specific implementation path.
 
-QUESTION IMX-19. How can resource limits affect target validation?
+QUESTION IMX-19. How can resource limits affect testing on the device?
 
 Answer: CPU contention, memory pressure, storage I/O and thermal behavior can change timing and media performance. Record the workload and system state, compare repeatable scenarios and inspect the bottleneck before tuning. A short idle demonstration is not a sustained product-performance result.
 

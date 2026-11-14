@@ -2,7 +2,7 @@ PROFILE
 
 Additional factual source: candidate clarification dated 2026-11-13 about the initial Yocto baseline and the team addition of Linphone SDK, WebRTC and mediasoup.
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 1. DOCUMENT INFORMATION
 
@@ -44,7 +44,7 @@ CV: August 2012–March 2016; Software Engineer. FULL MATCH for satellite imagin
 - Worked with inherited Yocto Kirkstone layers and BitBake metadata for the Qt application, SDK and media dependencies, model-specific packaging, scripts, default assets and services.
 - Worked on the complete image and service startup, including systemd ordering around the graphical environment; investigated missing files, runtime dependencies and startup behavior on physical devices.
 - Integrated with the existing NXP i.MX BSP and platform; kernel and U-Boot changes appear in the project platform. The evidence does not establish personal ownership of BSP design, a custom layer created from scratch, or all kernel and bootloader changes.
-- Used gdb/gdbserver, logs and device scenarios. Desktop tests supported isolated logic; complete boot, media, GPIO and hardware integration required target validation.
+- Used gdb/gdbserver, logs and device scenarios. Desktop tests supported isolated logic; complete boot, media, GPIO and hardware integration required testing on the device.
 - Extended customized liblinphone with the registration watchdog and primary/backup failover/failback, then integrated its APIs into the application. SDK ownership is separate from ownership of Yocto platform architecture.
 
 5. CV CLAIM BOUNDARIES

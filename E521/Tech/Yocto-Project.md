@@ -8,23 +8,18 @@ Yocto Project 4.0 Kirkstone; the exact project release must be checked in its me
 
 SECTION 2. PURPOSE
 
-Yocto Project provides tools and metadata for building a tailored embedded Linux distribution and images. It is a project and ecosystem, not a Linux distribution installed on a device. OpenEmbedded metadata and BitBake turn source, configuration and package selection into reproducible target artifacts.
+Yocto Project helps build a Linux system for a particular device. You choose the programs, libraries and settings that go into its image. OpenEmbedded provides recipes and build settings; BitBake reads them and runs the build tasks.
 
 SECTION 3. CORE CONCEPTS
 
-Recipes describe source, dependencies, build and install steps; classes share behavior. Layers organize related metadata, while machine and distribution configuration select hardware and policy.
-
-A .bbappend extends a matching recipe from another layer. The build uses per-recipe sysroots for dependencies, packages installed files and assembles selected packages into an image.
-
-The SDK supplies a cross-toolchain and target headers/libraries for external development. Shared state can reuse matching build outputs.
-
-The build directory is separate from the source layers. Its configuration chooses the enabled layers, machine and distribution; layer priorities and provider selection determine which metadata is used.
-
-A recipe produces one or more packages, but an image recipe or image configuration must select the packages needed at runtime. A generated SDK is built against a particular target configuration and should be kept compatible with it.
-
-To diagnose a missing executable, inspect the recipe install step, package contents, image package selection and finally the deployed filesystem. Keep target-specific changes in the appropriate project layer so vendor updates remain manageable.
-
-Do not confuse a successful desktop test with validation of a cross-built image on the physical product.
+- A recipe describes where to get a component and how to build, install and package it.
+- A class contains steps shared by several recipes. A layer groups related recipes and settings. A .bbappend adds changes to a matching recipe.
+- MACHINE selects the board settings. DISTRO selects system-wide rules. The image selects packages to install.
+- A recipe sysroot is a directory with the device headers and libraries needed to build that recipe. The SDK provides a compiler and libraries for development outside the full image build.
+- One recipe may produce several packages. A successful build does not mean that those packages are included in the image.
+- Sstate stores reusable task results. Reuse saves build time but does not test the phone.
+- Keep build output separate from source layers. Check selected recipes and final settings when several layers affect the same component.
+- A generated SDK must match the device configuration. Test the final image on hardware as well as testing local application logic.
 
 SECTION 4. TYPICAL USAGE
 
@@ -38,20 +33,18 @@ LINPHONE SDK INTEGRATION FLOW
 
 This is a general integration example. Here linphone-sdk names the SDK recipe, phone-ui names a consuming application recipe and phone-image names a product image recipe. Actual providers and output package names are determined by the chosen metadata. Linphone SDK is the VoIP software stack; a Yocto SDK is a generated cross-development toolchain, a different artifact.
 
-FLOW-01. Establish the build baseline.
+FLOW-01. Choose the starting build.
 
-- Start from a working image for the board.
-- Record MACHINE, DISTRO, Kirkstone-compatible layer revisions, compiler and C library.
-- Select a Linphone SDK release compatible with that baseline and the application's API.
-- Decide which audio, video, TLS and codec features are needed.
-- A current upstream master is not automatically compatible with an older product branch.
+- Start with a working image for the board.
+- Record MACHINE, DISTRO, layer revisions, compiler and C library. The layers must support Kirkstone.
+- Choose an SDK release that works with this build and the application API.
+- List the audio, video, TLS and codecs you need. The newest upstream code may not fit an older product branch.
 
-FLOW-02. Find an existing recipe before creating one.
+FLOW-02. Look for an existing recipe.
 
-- In the initialized Linux build environment, inspect bitbake-layers show-layers, bitbake-layers show-recipes and bitbake-layers show-appends.
-- Search enabled metadata for liblinphone and related components; the provider may not be called linphone-sdk.
-- Reuse a compatible recipe with a product-layer .bbappend where possible.
-- Create a new recipe only when existing metadata cannot supply the required version or build model.
+- In the Linux build environment, list the enabled layers, recipes and appends.
+- Look for liblinphone and related components. The recipe may have a different name.
+- Use a compatible recipe with a product-layer .bbappend if possible. Create a recipe when the existing ones cannot build the version you need.
 
 ```bash
 bitbake-layers show-layers
@@ -59,121 +52,111 @@ bitbake-layers show-recipes
 bitbake-layers show-appends
 ```
 
-FLOW-03. Put product changes in a layer.
+FLOW-03. Keep changes in a product layer.
 
-- Use an existing product layer or create one with bitbake-layers create-layer ../meta-phone, then enable it with bitbake-layers add-layer ../meta-phone.
-- Inspect conf/layer.conf for recipe discovery, layer dependencies and Kirkstone compatibility.
-- A possible layout is meta-phone/recipes-connectivity/linphone-sdk/ for the recipe and files/ for patches.
-- Do not edit vendor layers or temporary build outputs as the permanent solution.
+- Use an existing product layer or create and enable meta-phone.
+- Check conf/layer.conf: which recipes it finds, which layers it needs and whether it supports Kirkstone.
+- One possible directory is meta-phone/recipes-connectivity/linphone-sdk/ with patches under files/.
+- Do not keep the permanent fix only in a vendor layer or temporary build directory.
 
 ```bash
 bitbake-layers create-layer ../meta-phone
 bitbake-layers add-layer ../meta-phone
 ```
 
-FLOW-04. Define reproducible sources and licensing.
+FLOW-04. Fix source versions and check licenses.
 
-- The recipe defines SUMMARY, LICENSE, LIC_FILES_CHKSUM, SRC_URI, SRCREV and S for the selected source layout.
-- Pin the exact commit and fetch all required source inputs through BitBake; use archive checksums for release archives.
-- Account for submodules where that release uses them.
-- Store local changes as versioned patches in SRC_URI or pin a maintained fork.
-- Review the licenses of enabled codecs and dependencies as well as the SDK itself.
+- Set SUMMARY, LICENSE, LIC_FILES_CHKSUM, SRC_URI, SRCREV and S for the chosen sources.
+- Pin a Git commit and let BitBake fetch all inputs. Check release-archive checksums and any required submodules.
+- Keep changes as patches listed in SRC_URI or as a fixed commit in a maintained fork.
+- Check licenses for the SDK, enabled codecs and other dependencies.
 
-FLOW-05. Choose how to build the dependency stack.
+FLOW-05. Decide how dependencies are built.
 
-- Linphone SDK has its own CMake orchestration for multiple components.
-- Inspect the selected release rather than treating it as a single ordinary library.
-- Prefer separate compatible recipes when the stack can use staged dependencies; otherwise adapt the SDK orchestration so source inputs, toolchains and installation remain controlled by Yocto.
-- Avoid hidden downloads during configure/compile and duplicate bundled/system copies of the same library.
-- Do not invent a universal switch that disables the superbuild: options vary by release.
+- Linphone SDK can build several components through its own CMake process. Read the chosen release setup.
+- Where supported, build dependencies through separate Yocto recipes. Otherwise adapt the SDK build so Yocto still controls the inputs, compiler and installation.
+- Avoid downloads during configure/compile and conflicting bundled and system copies of a library.
+- Do not assume every SDK version has the same switch for disabling its combined build, often called a superbuild.
 
-FLOW-06. Describe cross-build inputs and features.
+FLOW-06. Set up the device build.
 
-- For a CMake-based component, inherit cmake and declare recipe-level DEPENDS for required target libraries.
-- Host-side generators require suitable native dependencies.
-- Use PACKAGECONFIG and EXTRA_OECMAKE to express supported feature choices.
-- The cmake class supplies cross-build integration; nested builds must preserve its compiler, sysroot and target settings.
-- Check log.do_configure and CMakeCache.txt for accidental host paths.
-- CPU tuning follows the machine configuration; hardware codecs also need the correct platform integration.
+- For a CMake component, use inherit cmake and list required library recipes in DEPENDS.
+- Tools that run on the build computer need suitable native dependencies.
+- PACKAGECONFIG and EXTRA_OECMAKE select the features supported by that recipe and source version.
+- Nested builds must use the same device compiler and sysroot. Check log.do_configure and CMakeCache.txt for accidental computer paths.
+- CPU settings come from the machine configuration. Hardware codecs also need the right platform support.
 
-FLOW-07. Install into staging and create packages.
+FLOW-07. Build and package the SDK.
 
-- Run bitbake linphone-sdk and follow fetch, unpack, patch, configure, compile, install and packaging.
-- do_install writes into ${D}, not the build host's /usr.
-- Where upstream installation is incomplete, adapt installation explicitly.
-- Inspect the runtime libraries, plugins and resource files, plus development headers and CMake/pkg-config metadata.
-- Assign paths with FILES and split development/debug content appropriately.
-- Fix packaging QA failures instead of disabling them globally.
+- Build the SDK and follow fetch, unpack, patch, configure, compile, install and package tasks.
+- do_install writes under ${D}, not into the build computer’s /usr. Add missing installation steps if needed.
+- Check libraries, plugins, resources, headers and CMake/pkg-config files.
+- Use FILES to assign them to packages. Keep development and debug files separate where appropriate and fix packaging QA errors.
 
 ```bash
 bitbake linphone-sdk
 ```
 
-FLOW-08. Connect the application recipe.
+FLOW-08. Connect the application.
 
-- For this example, phone-ui declares DEPENDS += "linphone-sdk".
-- The dependency's staged headers, libraries and discovery metadata become available in the application's recipe sysroot.
-- The application's CMake uses the package configuration or pkg-config interface actually exported by the chosen SDK release, rather than hard-coded host paths.
-- Shared-library runtime dependencies are normally discovered automatically; dynamically loaded plugins and data may need explicit RDEPENDS:${PN}.
-- Those entries name output packages, not arbitrary recipe names.
+- The phone-ui recipe lists the SDK recipe in DEPENDS. This makes its headers, libraries and build-discovery files available in the application’s sysroot.
+- The application uses the CMake package or pkg-config files actually supplied by that SDK version. Do not hard-code paths from the build computer.
+- Yocto normally detects shared-library dependencies. Loaded plugins and data may need explicit RDEPENDS:${PN}, using output package names.
 
 ```bitbake
 DEPENDS += "linphone-sdk"
 ```
 
-FLOW-09. Select runtime packages in the image.
+FLOW-09. Select packages for the image.
 
-- Add the application through the product image or packagegroup.
-- If phone-ui is its output package, an image fragment is IMAGE_INSTALL:append = " phone-ui".
-- Normal linked dependencies pull in their library packages; add separately needed plugins/resources explicitly.
-- Building linphone-sdk alone does not include it in the image.
-- A generated development SDK may additionally include development packages, while a production image usually does not need headers or static libraries.
+- Add the application package through the product image or packagegroup. The example package name is phone-ui.
+- Linked dependencies usually bring their library packages; include extra plugins and resources when required.
+- Building the SDK alone does not put it in the image.
+- A development SDK may need headers and other development files that the production image does not need.
 
 ```bitbake
 IMAGE_INSTALL:append = " phone-ui"
 ```
 
-FLOW-10. Integrate application startup.
+FLOW-10. Set up application startup.
 
-- If phone-ui is managed by systemd, its recipe can inherit systemd, install phone-ui.service under ${systemd_system_unitdir} and set SYSTEMD_SERVICE:${PN} = "phone-ui.service".
-- Ensure the distribution actually uses systemd and select the intended enablement policy.
-- The SDK libraries themselves normally need no service.
-- The application still needs writable state locations, audio/video device permissions and retry handling for network or SIP readiness; ordering after a network target alone does not guarantee server reachability.
+- If the system uses systemd, let the application recipe install its unit and describe it through the systemd class.
+- Choose whether the service should start at boot. SDK libraries normally need no separate service.
+- Check writable state directories and audio/video permissions.
+- The application still needs network/SIP retry handling. Startup order alone cannot guarantee that a remote server is reachable.
 
 ```bitbake
 inherit systemd
 SYSTEMD_SERVICE:${PN} = "phone-ui.service"
 ```
 
-FLOW-11. Inspect the image and validate on hardware.
+FLOW-11. Check the image and the phone.
 
-- Run bitbake phone-ui, then bitbake phone-image.
-- Inspect package contents with oe-pkgdata-util list-pkg-files using actual package names, and check the image manifest and root filesystem.
-- Deploy the intended image through the board's supported method.
-- Check architecture, dynamic loader, missing libraries, plugins, certificates and configuration.
-- Test registration, incoming/outgoing calls, audio/video, restart and network recovery.
-- Use systemctl status phone-ui.service and journalctl -u phone-ui.service when that service is installed.
+- Build the application and then the product image. Inspect package contents, the image manifest and root filesystem.
+- Install that image using the board’s supported method. Check architecture, loader, libraries, plugins, certificates and settings.
+- Test registration, incoming/outgoing calls, audio/video, restart and network recovery on the phone.
+- Use application and service logs to locate failures.
 
-On the Linux build host:
+On the build computer:
 
 ```bash
 bitbake phone-ui
 bitbake phone-image
 ```
 
-On the device after image deployment:
+On the device:
 
 ```bash
 systemctl status phone-ui.service
 journalctl -u phone-ui.service
 ```
 
-FLOW-12. Make the integration repeatable.
+FLOW-12. Make the result repeatable.
 
-- Keep layer changes, source revisions, patches and feature choices in version control.
-- Rebuild in CI without a developer's local workspace overrides, retain image manifests and test the same artifact on target.
-- Verify that changes to the SDK trigger the required application rebuild and that updated runtime libraries match the deployed executable.
-- Include upgrade/reboot regression checks; a successful recipe build is only one stage of delivery.
+- Keep layer changes, source commits, patches and feature settings in version control.
+- Build in CI without the developer’s workspace overrides. Keep manifests and test the same built image on hardware.
+- Check that an SDK change rebuilds the application when needed and that the deployed executable matches its libraries.
+- Include update and reboot checks. A successful SDK build is only one part of delivery.
 
 SPOKEN FLOW
 
@@ -303,7 +286,7 @@ A recipe compiling successfully does not prove its package is in the image. Dist
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 SIP-BASED PHONE SOFTWARE: the CV lists Yocto/BitBake and i.MX. The Legend describes recipe and package work, SDK cross-compilation, image integration and service startup. The request asks for extensive Yocto, custom layers, recipes and image builds; Responsibilities distinguishes confirmed inherited-platform integration from unsupported full-platform ownership.
 
@@ -367,7 +350,7 @@ Answer: Record layer revisions, source revisions, configuration, toolchain input
 
 QUESTION YCT-15. How do you inspect image contents before flashing?
 
-Answer: Inspect package metadata, the image manifest and the generated root filesystem or image contents. Check binaries, libraries, units, permissions and model-specific configuration, then confirm that the same artifact is deployed. A recipe log alone cannot establish image composition.
+Answer: Inspect package metadata, the image manifest and the generated root filesystem or image contents. Check binaries, libraries, units, permissions and model-specific configuration, then confirm that the same artifact is deployed. A recipe log alone cannot establish image contents.
 
 QUESTION YCT-16. How do you reduce image size safely?
 
@@ -383,7 +366,7 @@ Answer: Identify compatible boot, kernel, device-tree, rootfs and persistent-dat
 
 QUESTION YCT-19. How do licenses and security updates enter the workflow?
 
-Answer: Review recipe license metadata and license manifests, track source provenance and assess relevant vulnerability reports. Apply compatible fixes, rebuild and validate the resulting image. A successful CVE scan is one input, not proof that the product is secure.
+Answer: Review recipe license metadata and license manifests, track source source and build history and assess relevant vulnerability reports. Apply compatible fixes, rebuild and validate the resulting image. A successful CVE scan is one input, not proof that the product is secure.
 
 QUESTION YCT-20. How do you separate theoretical Yocto knowledge from personal ownership?
 
@@ -411,7 +394,7 @@ Answer: Toolchain, metadata or packaging differences can change bytes. A binary 
 
 QUESTION YCT-26. What must be retained to recover the exact pre-update release?
 
-Answer: A complete coherent executable/library/script/resource set, metadata and the previous activation state. Persistent data must remain compatible or have a restoration path. A reverse delta or a version number alone is not a recovery plan.
+Answer: A complete consistent executable/library/script/resource set, metadata and the previous activation state. Persistent data must remain compatible or have a restoration path. A reverse delta or a version number alone is not a recovery plan.
 
 SECTION 9. SOURCES
 

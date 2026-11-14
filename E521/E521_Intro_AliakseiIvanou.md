@@ -33,11 +33,11 @@ For example, I implemented the registration watchdog and primary/backup failover
 
 Before our team joined, there was a basic Yocto skeleton without Linphone SDK, WebRTC or mediasoup. We added those components, their dependencies and runtime integration to the NXP i.MX image. I contributed to BitBake recipes, application and SDK packaging, model-specific image contents, scripts and startup services. We developed that baseline into an integrated phone stack; the BSP remained a shared team foundation.
 
-A useful example is device startup. The application depended on the graphical environment, installed files, services and hardware being ready. A symptom that looked like a Qt failure could come from a missing file, service ordering or an unavailable Wayland socket. I investigated with logs, gdb and gdbserver and checked behavior on physical phones. Component tests helped with isolated logic, but complete boot, audio, video and hardware behavior needed target validation.
+A useful example is device startup. The application depended on the graphical environment, installed files, services and hardware being ready. A symptom that looked like a Qt failure could come from a missing file, service ordering or an unavailable Wayland socket. I investigated with logs, gdb and gdbserver and checked behavior on physical phones. Component tests helped with isolated logic, but complete boot, audio, video and hardware behavior needed testing on the device.
 
 I also migrated the WinForms provisioning tool from .NET Framework 4.8 to .NET 8 and developed configuration and discovery workflows with SNMP, DHCP and TFTP. The generated settings had to match what the phone actually applied.
 
-Across these domains, my common approach is to understand the complete data or control path, make focused changes within an existing system and validate them at the appropriate boundary. For this role, I would bring hands-on C++ development, Yocto image integration and embedded Linux diagnosis, together with experience working across application, SDK, services and physical hardware.
+Across these domains, my common approach is to understand the complete data or control path, make focused changes within an existing system and validate them at the layer being checked. For this role, I would bring hands-on C++ development, Yocto image integration and embedded Linux diagnosis, together with experience working across application, SDK, services and physical hardware.
 
 SECTION 3. FOLLOW-UP QUESTIONS AND ANSWERS
 
@@ -49,9 +49,9 @@ QUESTION INTRO-02. How do you keep host and target dependencies separate?
 
 Answer: Build-time tools execute on the host, while application headers/libraries and output must match the target ABI/sysroot. I inspect the selected compiler, dependency metadata and actual link inputs. Accidentally finding a host library can produce a build that is unusable on the device.
 
-QUESTION INTRO-03. Where was your i.MX/BSP ownership boundary?
+QUESTION INTRO-03. Where was your i.MX/BSP division of responsibility?
 
-Answer: My work covered application/SDK integration, recipes, image contents, services and target diagnosis within the inherited platform. This does not imply that I designed the entire BSP, performed independent board bring-up or owned every kernel and bootloader change.
+Answer: My work covered application/SDK integration, recipes, image contents, services and debugging on the device within the inherited platform. This does not imply that I designed the entire BSP, performed independent board bring-up or owned every kernel and bootloader change.
 
 QUESTION INTRO-04. How would you diagnose a Qt application failing at boot?
 

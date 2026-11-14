@@ -8,19 +8,17 @@ Board support package for the relevant NXP i.MX board and vendor release.
 
 SECTION 2. PURPOSE
 
-A board support package is the hardware-specific software and configuration needed to run an operating system on a particular board. Its scope varies by vendor and product; it is not merely one driver or one kernel patch.
+A board support package, or BSP, supplies the software and settings needed to run a system on a particular board. It connects the operating system to the board hardware.
 
 SECTION 3. CORE CONCEPTS
 
-A Linux BSP commonly includes bootloader and kernel sources or configuration, device trees, drivers, firmware and build metadata. Boot components initialize the hardware, the kernel uses the board description and drivers, and the root filesystem supplies user-space software.
-
-In a Yocto environment vendor layers can package these elements; exact ownership and contents depend on the release. Board bring-up is the process of establishing basic operation on the actual hardware.
-
-The BSP boundary is easiest to explain through a boot and peripheral path. Hardware-specific initialization begins in firmware and boot components; the kernel uses its configuration, drivers and hardware description; user space relies on the resulting devices and services.
-
-A vendor release may provide recipes, patches and firmware that need to remain compatible with one another. When debugging, determine whether the device is absent in the kernel, unavailable because of permissions or firmware, or present but misused by an application.
-
-Updating one component can affect the others, so boot, peripheral and recovery checks should be performed against the actual board revision. Integration of an application with an inherited BSP is valuable work, but it should not be presented as authorship of the entire BSP.
+- A BSP usually includes bootloader and kernel support, board configuration, device descriptions, drivers and required firmware. The exact contents depend on the vendor and product.
+- The root filesystem contains user-space programs and data. It works with the BSP but is not the same thing.
+- The device tree describes hardware connections and resources. Drivers still need to support those devices.
+- Kernel options, modules and firmware determine which devices can initialize. The device files and permissions then affect application access.
+- Vendor and product layers can split these responsibilities. Check the actual source of a change before calling it a BSP change.
+- New-board bring-up, platform maintenance and application integration are different levels of work. Describe personal changes at the right level.
+- Kernel, bootloader, device tree and root filesystem need compatible versions and a tested recovery path.
 
 SECTION 4. TYPICAL USAGE
 
@@ -149,7 +147,7 @@ A correct application cannot compensate for a mismatched device tree, missing dr
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 The request explicitly asks for BSP customization. SIP-BASED PHONE SOFTWARE in the CV describes i.MX integration; Legend describes work within the existing platform. Responsibilities supports application/image integration with that BSP, but not independent ownership of the complete BSP or board bring-up.
 

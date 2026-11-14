@@ -8,19 +8,17 @@ systemd on embedded Linux; directives depend on the installed version.
 
 SECTION 2. PURPOSE
 
-systemd is an init and service manager. It represents services and other resources as units and supervises their lifecycle.
+Systemd starts and supervises services. It describes services and other system resources as units and manages their start, stop and dependencies.
 
 SECTION 3. CORE CONCEPTS
 
-Units include service, socket, mount, device and target types. Requires= and Wants= express dependencies; After= and Before= express ordering and do not alone start another unit. Service type influences when startup is considered complete. An active target does not necessarily mean that an endpoint or compositor socket is ready.
-
-Unit configuration separates relationships in the Unit section from process settings in Service and installation information in Install. Wants= is generally a weaker dependency than Requires=, whereas ordering is specified independently.
-
-A service may start correctly but fail later; inspect the main process, exit status, restart policy and journal rather than treating a restart as a fix. Service environment and execution identity can differ from an interactive shell, which explains why a command works manually but not during boot.
-
-Examine drop-ins and the final resolved properties when configuration appears inconsistent. For a graphical application, distinguish the service being started from the compositor actually accepting connections.
-
-Use the deployed systemd manual because options and defaults vary by version.
+- Units describe services, sockets, mounts, devices and targets. A target groups related units.
+- Wants= and Requires= add dependencies. After= and Before= set order; they do not start another unit on their own.
+- The service Type determines when systemd considers startup complete. A started process may still be initializing.
+- A service can have a different user, working directory and environment from a terminal session. This can explain why manual startup works but boot startup fails.
+- Inspect the exit status and journal before changing the restart policy. Repeating a failed launch does not fix its cause.
+- Drop-in files can change unit settings. Check the combined result with systemctl cat or systemctl show.
+- A running network target or compositor service does not prove that a particular server or display socket is ready.
 
 SECTION 4. TYPICAL USAGE
 
@@ -83,7 +81,7 @@ After= is not a readiness check. A restart loop can hide a persistent configurat
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 SIP-BASED PHONE SOFTWARE: CV names systemd and device-side service configuration. Legend describes startup ordering and phone validation. The request requires embedded Linux and image integration.
 

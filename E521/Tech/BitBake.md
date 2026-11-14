@@ -8,23 +8,17 @@ BitBake 2.0 with Yocto Kirkstone; exact behavior follows the project version.
 
 SECTION 2. PURPOSE
 
-BitBake parses metadata and schedules a dependency graph of tasks to build targets. It is the task executor used by the OpenEmbedded build system; recipes and configuration provide the instructions it evaluates.
+BitBake reads build instructions and runs tasks in dependency order. It is the build engine used by OpenEmbedded. Recipes, classes and configuration tell it what to do.
 
 SECTION 3. CORE CONCEPTS
 
-Parsing combines configuration, classes, recipes and matching appends into a datastore. Providers and versions are selected from metadata; BitBake then schedules tasks such as do_fetch, do_unpack, do_patch, do_configure, do_compile, do_install and packaging.
-
-Dependencies connect tasks across recipes. Signatures and shared state permit reuse when inputs match; they do not make an undeclared dependency safe.
-
-DEPENDS names build-time recipe dependencies; RDEPENDS is a runtime package dependency, commonly qualified by package name.
-
-A recipe’s tasks form a graph rather than a single linear shell script. For example, fetching and unpacking prepare sources, while configuration and compilation depend on the appropriate build inputs.
-
-The install task places files in a staging directory; subsequent packaging and image assembly are separate steps. Overrides and layer configuration can change the final value of a variable, so inspecting the expanded metadata is often more useful than reading one assignment in isolation.
-
-Shared-state hits should be understood through signatures and declared inputs. A missing runtime library is investigated at the package and image boundary, while a failed configure step calls for its own task log and sysroot checks.
-
-These are distinct diagnostic paths.
+- BitBake combines configuration, classes, recipes and matching .bbappend files, then chooses component versions and recipes.
+- Typical tasks fetch sources, unpack them, apply patches, configure, compile, install and package the results.
+- Dependencies connect tasks from different recipes. DEPENDS lists recipes needed for the build; RDEPENDS lists packages needed on the device.
+- Each task has a signature based on its relevant inputs and settings. A matching sstate result can avoid running the work again.
+- An input missing from the dependency description can cause an incorrect result to be reused. Clearing the cache does not fix that description.
+- do_install writes to a staging directory. Packaging and image creation happen later. A missing device library and a failed configure task therefore need different checks.
+- Several layers can change the same setting. Inspect the final value rather than assuming one assignment is the whole configuration.
 
 SECTION 4. TYPICAL USAGE
 
@@ -99,12 +93,12 @@ inherit cmake pkgconfig
 SIP BUILD-SIZE AND RUNTIME CHECKS
 
 - Separate installed bytes, rootfs size and runtime RSS/PSS. GCC -Os targets code-size optimization; it is not a guarantee of less call/media memory. Examine the actual compiler and chosen flags before changing them.
-- PACKAGECONFIG expresses features supported by the recipe. Disabling tests, codecs or plugins is valid only if required functionality remains available. Keep matching debug symbols for target diagnosis.
+- PACKAGECONFIG expresses features supported by the recipe. Disabling tests, codecs or plugins is valid only if required functionality remains available. Keep matching debug symbols for debugging on the device.
 - Inspect the selected ELF interpreter, NEEDED entries and runtime plugin paths; packaging success cannot prove that an ABI-compatible library is loaded. Target-compatible readelf can inspect ELF metadata without executing the ARM binary.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
-A task graph makes dependencies, parallel execution and reuse explicit. Complexity comes from interacting layers, overrides, signatures and providers. A direct CMake or Make build is often simpler for a single host application; it does not replace image composition and cross-build metadata when those are required.
+A task graph makes dependencies, parallel execution and reuse explicit. Complexity comes from interacting layers, overrides, signatures and providers. A direct CMake or Make build is often simpler for a single host application; it does not replace image contents and cross-build metadata when those are required.
 
 SECTION 6. PITFALLS AND SECURITY
 
@@ -112,7 +106,7 @@ A missing DEPENDS can produce a build that only works because of accidental host
 
 SECTION 7. USE IN THE CANDIDATE’S PROJECTS
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 SIP-BASED PHONE SOFTWARE: the CV lists custom recipes and .bbappend for the SDK. The Legend describes SDK cross-build and image integration; Responsibilities qualifies ownership of dedicated layers and individual changes. The request explicitly asks for BitBake and recipes.
 

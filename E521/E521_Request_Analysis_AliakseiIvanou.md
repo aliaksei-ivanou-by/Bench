@@ -2,7 +2,7 @@ REQUEST ANALYSIS
 
 Additional factual source: candidate clarification dated 2026-11-13 about the initial Yocto baseline and the team addition of Linphone SDK, WebRTC and mediasoup.
 
-Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their build dependencies, packages and runtime requirements into the phone image. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and target validation; the stack integration was a team effort.
+Before our team joined, there was a basic Yocto platform skeleton. It did not include Linphone SDK, WebRTC or mediasoup. Our team added those components to the phone image, including their build dependencies, packages and the settings needed to run them. My personal contribution covered application/SDK work, BitBake metadata, packaging, image integration and testing on the device; the stack integration was a team effort.
 
 Request ID: E521
 
@@ -160,12 +160,12 @@ CV: August 2012–March 2016; Software Engineer. FULL MATCH for satellite imagin
 
 4. ASSESSMENT AND PREPARATION PRIORITIES
 
-The strongest example is C++/Qt and liblinphone on a Yocto phone: recipe and packaging changes in an inherited platform, systemd, complete image and validation on i.MX. State the BSP and custom-layer ownership boundary clearly.
+The strongest example is C++/Qt and liblinphone on a Yocto phone: recipe and packaging changes in an inherited platform, systemd, complete image and validation on i.MX. State the BSP and custom-layer division of responsibility clearly.
 Preparation priorities: BitBake tasks and dependencies, layers and .bbappend, sysroot and cross-compilation, image/package/rootfs, systemd and boot diagnosis, BSP/kernel/U-Boot boundaries, and technical English practice. Theory does not establish project experience.
 
 5. PRIORITY INTERVIEW QUESTIONS
 
-1. What did you change in Yocto, and where was your ownership boundary?
+1. What did you change in Yocto, and where was your division of responsibility?
 I worked in an inherited Kirkstone build on recipes, package contents, images and service startup for the phone. The existing BSP, kernel and bootloader were shared platform foundations; the record does not establish ownership of a layer created from scratch or the entire BSP.
 
 2. How would you diagnose a target application that builds successfully but does not start?

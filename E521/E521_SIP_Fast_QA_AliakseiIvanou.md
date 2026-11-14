@@ -8,164 +8,164 @@ SECTION 1. PROJECT AND OWNERSHIP
 
 QUESTION SIP-01. Can you briefly describe the project?
 
-Answer: I worked on an embedded SIP desk-phone platform with audio-only and camera-enabled models. It combined a C++17/Qt application, Linphone SDK, conferencing components and a Yocto Linux image on NXP i.MX. My main work was application and SDK development, including registration failover, configuration integration and device debugging. I also contributed to BitBake recipes, packaging and runtime integration.
+Answer: I worked on SIP desk phones with audio-only and camera models. The product used C++17, Qt, Linphone SDK and Yocto Linux on NXP i.MX. My main work was the application, SDK, server failover, settings and device debugging. I also worked on recipes, packages and startup.
 
 QUESTION SIP-02. What existed before your team joined?
 
-Answer: There was a basic Yocto platform skeleton, but it did not include Linphone SDK, WebRTC or mediasoup. Our team added those components and integrated their dependencies, packages and runtime requirements into the phone image. We inherited the platform baseline, not a fully integrated telephony and conferencing stack. My own contribution was part of that team effort.
+Answer: We received a basic Yocto skeleton without Linphone SDK, WebRTC or mediasoup. Our team added those components, their dependencies and the settings needed to run them. We inherited the board platform, then integrated the phone stack. My work was one part of that team effort.
 
 QUESTION SIP-03. Which parts did you personally implement?
 
-Answer: My strongest personal example is the registration watchdog and primary/backup failover and failback in the customized Linphone SDK, followed by application integration. I also added backup-domain authentication information, worked on Qt call/account architecture and substantially extended the Windows provisioning tool. On the platform side, I contributed recipe metadata, packaging, image contents, service integration and target validation. I distinguish those changes from ownership of the complete product.
+Answer: I implemented registration monitoring and primary/backup switching in the SDK, connected its APIs to the application and added a backup authentication domain. I also worked on Qt calls/accounts, provisioning, recipes and device tests. I did not own the whole product alone.
 
 QUESTION SIP-04. How was responsibility divided within the team?
 
-Answer: Our delivery team grew from three to four C++ engineers. We worked with customer developers, a project manager, a web developer and QA. My focus was the phone application, customized SDK, provisioning and cross-layer integration. The web frontend and device-local REST implementation belonged to another developer. Adding the phone stack to Yocto was team work; it was not something I delivered entirely alone.
+Answer: Our team grew from three to four C++ engineers. We worked with customer developers, a project manager, a web developer and QA. I focused on the phone application, SDK, provisioning and integration. Another developer owned the web frontend and REST implementation. Adding the stack to Yocto was team work.
 
 QUESTION SIP-05. Did you own the BSP and board bring-up?
 
-Answer: My main responsibility was above the board bring-up level: application/SDK integration, recipes, packages, image contents, services and device diagnosis. The existing BSP was a foundation for that work. I investigated issues across the application/platform boundary, but I would not describe myself as the sole owner of the kernel, bootloader or complete BSP. Adding Linphone and conferencing to the image is distinct from bringing up a new board.
+Answer: I mainly worked above new-board bring-up: application, SDK, recipes, packages and services. I used the existing BSP and investigated problems where the application met the platform. That is different from independently creating the kernel, bootloader and all board support.
 
 SECTION 2. YOCTO AND STACK INTEGRATION
 
 QUESTION SIP-06. Why did the product need Yocto?
 
-Answer: The product needed a complete, reproducible image rather than just a Qt executable. The application depended on SDK and media libraries, services, configuration, graphical runtime and model-specific files. Yocto described how those components were built, packaged and selected for the device. Copying a binary could help during debugging, but final validation had to use the intended image and its actual runtime environment.
+Answer: We needed a complete image with matching applications, libraries, services, settings and model files. Yocto described how to build and include them. Copying one executable helped debugging, but it did not replace testing the actual firmware on the phone.
 
 QUESTION SIP-07. How do you integrate Linphone SDK into a Yocto image?
 
-Answer: I start with the selected SDK release and available metadata, then add or extend recipes in the product layer. Sources, dependencies and cross-build options must be controlled. The build installs outputs into staging, packaging assigns files to runtime and development packages, and the application consumes headers/libraries through its recipe sysroot. Image metadata selects runtime packages. I then check the deployed image and validate registration, calls and media on hardware.
+Answer: Choose the SDK version and suitable recipes, then fix source versions, dependencies and cross-build settings. Install the outputs into staging and split them into packages. The application gets headers and libraries through its sysroot. Include runtime packages in the image, then test registration, calls and media on hardware.
 
 QUESTION SIP-08. What is the difference between DEPENDS and RDEPENDS?
 
-Answer: DEPENDS names recipe providers needed during the build, such as libraries whose headers and link inputs must appear in the recipe sysroot. RDEPENDS names output packages needed at runtime. Shared-library runtime dependencies are often detected automatically, while dynamically loaded plugins or resources may need explicit dependencies. A recipe name and its output package names are not necessarily identical, so I check the actual metadata.
+Answer: DEPENDS lists recipes needed to build the component. RDEPENDS lists packages needed when it runs on the phone. Yocto detects many shared-library dependencies automatically. Plugins and data may need explicit entries. A recipe name and its package names can differ.
 
 QUESTION SIP-09. How do you keep the SDK build reproducible?
 
-Answer: The important inputs are pinned source revisions, compatible layer revisions, declared dependencies and explicit feature choices. SRC_URI describes inputs and SRCREV pins version-controlled sources; release archives need checksums. License metadata must describe the selected source and enabled components. Downloads and shared state speed up the build, but do not replace those controls. The useful check is whether maintained metadata can reproduce the integration without a developer-only workspace.
+Answer: Fix source and layer revisions, dependencies and feature choices. SRC_URI lists source inputs and SRCREV pins Git sources. Check archives and licenses. Cache speeds up the work but does not replace these rules. Check that the build works without a developer-only workspace.
 
 QUESTION SIP-10. What is tricky about the Linphone SDK build?
 
-Answer: The SDK can orchestrate builds of several components rather than behave like one simple library. I need to inspect the chosen release and keep nested builds aligned with Yocto toolchain and sysroot settings. Hidden downloads, accidental host libraries and conflicting bundled/system dependencies can undermine reproducibility. Separate recipes or an adapted orchestration may be appropriate; I would choose based on the release and existing platform metadata, not assume one universal CMake switch.
+Answer: The SDK may build several components itself. All nested builds must use the device compiler and libraries. Avoid hidden downloads and accidental use of computer libraries. Choose the approach for the actual SDK release instead of assuming one CMake switch works everywhere.
 
 SECTION 3. BUILD AND RUNTIME DIAGNOSIS
 
 QUESTION SIP-11. The recipe builds, but the library is missing on target. What do you check?
 
-Answer: I follow installation, packaging, image selection and deployment. First I check whether do_install placed the file under the intended path in ${D}. Then I inspect package ownership and contents, and whether the image includes that package. Finally I confirm the device runs the intended image. If the library exists but loading fails, I check its architecture, loader, dependent libraries and permissions instead of repeating compilation.
+Answer: I follow the file through do_install, package contents, image selection and the installed phone image. If the library exists but cannot load, I check architecture, loader, dependencies and permissions. Repeating compilation does not fix every installation problem.
 
 QUESTION SIP-12. How do you fix installed-vs-shipped QA errors?
 
-Answer: The error means files were installed into staging but were not assigned to an output package. I inspect the reported paths, PACKAGES and FILES, then either assign intended files to the correct package or stop installing unwanted files. Development headers and debug information should follow their package roles. I would not disable the QA check globally, because that can hide missing runtime content.
+Answer: The recipe installed a file into staging but did not assign it to a package. Fix FILES or the install path, or stop installing an unwanted file. I would not disable the check globally because it can reveal a genuinely missing file.
 
 QUESTION SIP-13. How do you detect accidental host dependencies?
 
-Answer: I inspect configure logs, the selected compiler, sysroot and actual link inputs. A library found on the build host is not necessarily suitable for ARM64. The recipe needs declared target dependencies, while tools executed during the build may need native providers. With CMake, I also check cached configuration and nested builds. A successful build does not prove the output matches the target ABI.
+Answer: I inspect configure logs, compiler, sysroot and actual link libraries. A computer library may not work on ARM64. Device dependencies and tools that execute on the build computer need separate handling. With CMake, I also inspect cached settings and nested builds.
 
 QUESTION SIP-14. How would you build the application outside BitBake?
 
-Answer: I would generate and install the SDK for the relevant image, source its environment setup script and configure a fresh application build directory with the SDK toolchain. I would verify target headers, libraries and ABI rather than reuse desktop CMake cache settings. This supports development iteration, but the maintained application recipe and final image still need validation. External SDK compilation and product-image delivery are separate checks.
+Answer: I would generate and install the matching image SDK, source its setup script and use its toolchain in a fresh build directory. Check the architecture and libraries. This helps development but does not replace the recipe or final image test.
 
 QUESTION SIP-15. Why can the Qt application run manually but fail at boot?
 
-Answer: The service can have a different user, environment, working directory or available dependencies. I check installed files and libraries, then service configuration and graphical-runtime readiness. On the phone, Wayland/Weston and its socket were relevant boundaries. I correlate system and application logs and use remote debugging when appropriate. An arbitrary startup delay is weaker than identifying the actual missing dependency or readiness condition.
+Answer: A service may use a different user, environment, directory or startup conditions. I check files, libraries, its unit and logs. For graphics, Weston/Wayland and its socket matter. Find the real missing condition instead of adding an arbitrary delay.
 
 QUESTION SIP-16. Does After=network.target guarantee SIP connectivity?
 
-Answer: No. Ordering and readiness are different. After= defines ordering when units participate in the transaction; it does not itself pull in another unit or verify server reachability. Even configured network-online handling does not guarantee that a SIP server remains reachable. The application and SDK still need recovery behavior. I investigate service relationships and actual network/registration state separately.
+Answer: No. After= sets order but does not start a dependency or test a server. Even network-online cannot guarantee that the PBX stays reachable. The application and SDK still need failure handling and reconnection.
 
 SECTION 4. SIP REGISTRATION AND FAILOVER
 
 QUESTION SIP-17. What did your registration watchdog do?
 
-Answer: I implemented project-specific registration supervision and primary/backup failover and failback in the customized SDK. The problem was keeping registration lifecycle and active-server state coherent, not merely storing two addresses. I also integrated the SDK APIs into application/settings paths and added active-proxy diagnostics. This was software supervision of SIP registration, not a claim that I implemented a hardware watchdog or the complete upstream SIP stack.
+Answer: I implemented registration monitoring and primary/backup switching in our customized SDK. Registration, active-server choice and authentication had to agree, then be shown correctly in the application. This was a software registration watchdog, not a hardware watchdog or the entire SIP stack.
 
 QUESTION SIP-18. Why move server switching from Qt into the SDK?
 
-Answer: My first Qt-level approach created another owner of state that belonged beside registration. I reverted it and moved the authoritative watchdog and switching behavior into the customized SDK. The application then consumed SDK-reported active/backup state rather than running a competing rotation loop. The tradeoff was maintaining changes in the SDK fork, but the design made lifecycle ownership clearer and reduced disagreement between application and SDK state.
+Answer: The first Qt version duplicated SDK registration decisions. I reverted it and moved the main logic into the SDK. The application then followed SDK state instead of running another switching loop. This added fork maintenance but left one owner of registration behavior.
 
 QUESTION SIP-19. How did you validate failover and failback?
 
-Answer: I reproduced primary-server loss and recovery on physical phones with configured primary and backup accounts. I compared SDK registration state, active-server diagnostics, SIP logs, authentication behavior and the UI. Configuration and persistence also mattered, because a temporary runtime success could hide inconsistent saved settings. I describe the result through those repeatable scenarios rather than invent a universal recovery-time guarantee.
+Answer: On physical phones I reproduced primary-server loss and recovery. I compared SDK registration, active-server reports, SIP logs, authentication and UI. I also checked saved settings. I describe these tested scenarios rather than claim an unmeasured universal switching time.
 
 QUESTION SIP-20. Does registration failover preserve an ongoing call?
 
-Answer: Not automatically. Registration recovery and continuity of an established call are different requirements. A call also has dialog and media state, and behavior depends on the PBX and network architecture. My confirmed implementation was registration watchdog/failover/failback and its integration. I would validate ongoing-call behavior as a separate scenario rather than infer seamless call preservation from successful backup registration.
+Answer: Not automatically. Registration recovery and keeping an ongoing call are different requirements. Calls also have dialog and media state, and behavior depends on the PBX and network. Test ongoing calls separately; successful backup registration is not enough.
 
 QUESTION SIP-21. Why can a different realm break backup authentication?
 
-Answer: For the MD5-based mechanism used here, HA1 is MD5(username:realm:password). Changing the realm changes the hash input, so a primary-server HA1 cannot simply be assumed valid for the backup. I worked on backup-domain authentication information and realm/HA1 functionality. Selectable HA1 mode was later disabled and remained disabled at project end; I distinguish implemented capability from final enabled functionality.
+Answer: For the MD5 mechanism used here, HA1 = MD5(username:realm:password). A different realm changes the hash, so the primary value cannot simply be reused on backup. I worked on backup-domain and realm/HA1 support. HA1 selection was later disabled and stayed disabled at project end.
 
 QUESTION SIP-22. What did you change in SIP realm discovery?
 
-Answer: The provisioning probe had to handle authentication challenges from different servers. I added handling for WWW-Authenticate and Proxy-Authenticate, continuation-line unfolding and variations in realm quoting and parameter order. The goal was to avoid binding the probe to one PBX response format. It was a focused parser for the fields we needed, not a replacement for a full SIP implementation or proof of compatibility with every server.
+Answer: The probe needed to read challenges from different servers. I added WWW-Authenticate and Proxy-Authenticate handling, continued header lines and different realm formats. This avoided depending on one PBX response. It was a parser for the needed fields, not a full SIP stack.
 
 SECTION 5. QT, CONCURRENCY AND MEDIA
 
 QUESTION SIP-23. How did you connect asynchronous SDK events to the UI?
 
-Answer: I worked toward explicit models/controllers and later session/service boundaries. SDK callbacks updated application state, and the UI followed that state rather than owning registration or call lifecycle decisions. Object lifetime and event ordering were important, especially during teardown or screen changes. The purpose was to make transitions understandable and avoid several layers maintaining independent interpretations of the same call.
+Answer: I separated models, controllers, sessions and services. SDK events updated state and the screen showed it. Event order and object lifetime matter: a callback can arrive after a screen or call closes. Widgets should not independently decide telephony state.
 
 QUESTION SIP-24. What was the scope and status of the Qt refactor?
 
-Answer: I incrementally separated call handling into session, service, SDK-adapter and presentation responsibilities while preserving existing UI behavior and QObject signal compatibility. A large rewrite would have increased regression risk. Focused tests and device scenarios helped check transitions. The broader refactor was completed as internal architecture work; I do not present that entire restructuring as already released customer functionality.
+Answer: I gradually separated sessions, services, SDK adapters and presentation while preserving UI behavior and QObject signals. Focused tests and phone checks helped catch regressions. The broad refactor was completed as internal work, not a fully released customer feature.
 
 QUESTION SIP-25. How would you handle callbacks crossing Qt threads?
 
-Answer: I would first establish the callback thread and the receiving QObject thread affinity. UI changes must reach the UI thread through an appropriate queued mechanism, with valid receiver lifetime and any required cross-thread argument types. I also check late events and session teardown. I would not assume that an SDK callback can safely update a widget directly just because the operation itself is asynchronous.
+Answer: First I would identify the callback thread and the receiving QObject thread. Send UI changes to the GUI thread through a suitable queued connection. Check receiver lifetime, argument types and late events. An asynchronous SDK operation does not make direct widget access safe.
 
 QUESTION SIP-26. A call connects but has no audio or video. Where do you start?
 
-Answer: I separate signaling success from media success and identify the failing direction: capture versus playback, local versus remote, audio versus video. Then I follow SDK/media state, network behavior, device availability, configuration and rendering. My project work involved correlating application, SIP and system logs and reproducing scenarios on the phone. A registration fix is not automatically a media fix, and a desktop reproduction cannot establish hardware behavior.
+Answer: I separate call setup from working audio/video. Identify the failing direction: capture or playback, local or remote. Then inspect SDK state, network, devices, settings and rendering. On the project I compared logs and repeated scenarios on the phone.
 
 QUESTION SIP-27. What was your responsibility in WebRTC/mediasoup conferencing?
 
-Answer: Our team added WebRTC and mediasoup integration to the platform. My main scope was the phone-side client/room lifecycle, UI and media integration and debugging. I also made a limited contribution to the initial Node.js server implementation. I did not own the later server rewrite. That distinction matters: adding the stack was a team responsibility, while my strongest implementation detail is on the C++ phone side.
+Answer: The team added WebRTC and mediasoup. My main work was the phone client and room behavior, UI, media integration and debugging. My contribution to the initial Node.js server was limited. I did not own the later server rewrite.
 
 SECTION 6. VALIDATION, PROVISIONING AND LESSONS
 
 QUESTION SIP-28. What did automated tests cover, and what needed hardware?
 
-Answer: Focused Qt Test checks covered local logic, models/controllers and call-session work. Physical devices remained necessary for real audio/camera/GPIO behavior, complete boot, graphical startup and SDK/device integration. I combined those validation levels with logs and remote debugging. I would not call the local tests complete conference-domain or end-to-end phone coverage; they protected specific logic while device scenarios checked integration.
+Answer: Qt Test checked specific logic, models, controllers and call sessions. Real audio, camera, GPIO, boot and SDK integration still needed a phone. Local tests protected particular changes; they did not prove complete coverage of the phone or every conference path.
 
 QUESTION SIP-29. What did you do in the provisioning tool?
 
-Answer: I migrated the inherited WinForms application from .NET Framework 4.8 to .NET 8 and substantially extended discovery, configuration generation, DHCP/TFTP delivery and project persistence. I introduced explicit project state instead of treating the control tree as the file format. A useful check was save, reopen and regenerate equivalent configuration. That applied to the supported JSON-based schema; older encrypted BinaryFormatter payloads remained incompatible.
+Answer: I migrated WinForms from .NET Framework 4.8 to .NET 8 and developed discovery, settings, DHCP/TFTP and project persistence. I used explicit project state instead of serializing the UI tree. I checked save, reopen and regenerated settings. Old BinaryFormatter files remained incompatible with the JSON reader.
 
 QUESTION SIP-30. What is your strongest engineering lesson from this project?
 
-Answer: The failover change is my clearest example. I first put switching in Qt, recognized that it duplicated SDK-owned lifecycle state, reverted it and implemented the authoritative behavior in the SDK. The application then followed that state. More generally, difficult defects came from disagreement between generated settings, persisted configuration, SDK state, UI and runtime services. I learned to identify the state owner and validate the full path on the device.
+Answer: The clearest lesson was moving failover from Qt to the SDK. I gave up the first approach when it duplicated state. The application then followed the SDK. The wider lesson was to identify the state owner and check the whole path from settings through SDK and UI to the device.
 
 SECTION 7. CV AND UPDATE FOLLOW-UP QUESTIONS
 
 QUESTION SIP-31. Were the old update.sh packages full firmware images?
 
-Answer: No. They already delivered selected software files, but each installation script was prepared manually. The later .NET workflow queried the phone version and dynamically assembled the applicable package from released artifacts. Complete reflashing remained a separate procedure.
+Answer: No. They already updated selected files, but each update.sh was written by hand. The newer .NET workflow read the phone version and built a suitable package from saved releases. Full reflashing was a separate procedure.
 
 QUESTION SIP-32. What exactly did recovery restore?
 
-Answer: The phone’s actual pre-update executable, matching libraries, scripts, resources and file metadata, together with the prior activation state. Settings had to stay compatible or have a restoration path. This was application-stack recovery, not a claim of A/B rootfs or repair of an unbootable board.
+Answer: The phone’s exact old application, matching libraries, scripts, resources, permissions and active-release choice. Settings had to stay compatible or be restorable. This was application-stack rollback, not A/B rootfs or repair of a non-booting board.
 
 QUESTION SIP-33. How do you explain the GPIO responsibility precisely?
 
-Answer: The CV scope includes handset edge events, RGB LED, a dedicated QThread, singleton synchronization and deadlock/leak fixes. The architecture needs one hardware owner, non-blocking UI delivery and a bounded stop path. I can explain the ownership and shutdown design, but I cannot reliably name the exact original lock sequence or leaking allocation without revisiting the implementation.
+Answer: The CV covers handset events, RGB LED, QThread, a singleton and deadlock/leak fixes. The key ideas are one GPIO owner, event delivery to the UI and clean shutdown. I cannot reliably name the exact original lock sequence or leaking allocation without the implementation.
 
 QUESTION SIP-34. Which memory optimization can you defend?
 
-Answer: I can explain feature selection, compiler/build settings and measurement boundaries, but I do not invent an exact flag set or percentage. Binary size and runtime memory differ. A defensible comparison uses the same phone and call/media workload and checks that required functionality survives the change.
+Answer: I can explain feature choices, compiler settings and how to check memory, but I do not invent exact historic flags or percentages. Binary size and RAM use differ. Compare the same calls and media on the same phone and check that required functions still work.
 
 QUESTION SIP-35. Did you own the whole web diagnostics download implementation?
 
-Answer: No. The web frontend and REST implementation belonged to another developer. My confirmed work includes correlating application/SIP/system logs and adding active-proxy diagnostics. I can explain category filtering, journal limits and sanitized support bundles, while keeping that broader CV scope distinct from the personally evidenced implementation.
+Answer: No. Another developer owned the web frontend and REST code. My confirmed work includes comparing application, SIP and system logs and adding active-proxy diagnostics. I explain categories, journal limits and bundle sanitization separately from the full scope of my personally evidenced implementation.
 
 QUESTION SIP-36. How would you demonstrate a useful Qt state test?
 
-Answer: I would feed controlled events into a session/controller and assert both the state and notifications. A good case is remote termination followed by a late media event: the session must remain terminated. QSignalSpy can observe signals, but a passing local test does not prove that physical audio/video or every conference path works.
+Answer: I would feed controlled events into a session/controller and check state and signals. After remote termination, a late media event must not reactivate the call. QSignalSpy helps observe signals, but it does not test physical audio or every conference path.
 
 QUESTION SIP-37. How do you separate SIP, SDP and actual media?
 
-Answer: SIP manages signaling; SDP describes media parameters, while actual audio/video follows its transport and device/rendering path. A successful setup does not prove working media. My debugging approach follows the first failing boundary instead of treating a camera or rendering failure as automatically a SIP defect.
+Answer: SIP controls signaling and SDP describes media settings. Actual audio/video also depends on transport, devices and rendering. Successful setup does not prove working media. I look for the first part of that chain that fails.
 
 QUESTION SIP-38. What did SNMP, DHCP, TFTP and SQLite each do?
 
-Answer: They served different parts of provisioning: SNMP queried device information, DHCP options supported locating provisioning data, TFTP delivered files, and SQLite backed tool data. I checked generated settings against phone behavior and supported save/open semantics. I would not describe TFTP as authenticated or encrypted delivery.
+Answer: SNMP read device information, DHCP options helped locate provisioning data, TFTP transferred files and SQLite stored tool data. I compared generated settings with phone behavior and checked project persistence. TFTP alone does not provide encryption or authentication.
