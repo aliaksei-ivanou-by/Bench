@@ -39,6 +39,40 @@ Call state was spread across inherited Qt Widgets flows while SDK callbacks coul
 
 Keeping the existing widget-centered flow would avoid migration work but retain the coupling between presentation and SDK state. A complete rewrite would enlarge the regression surface, so the incremental boundary was the practical compromise. Tests and call scenarios had to verify both the new state path and unchanged user interactions; the internal status of the broad refactor remains distinct from a released feature.
 
+1.4. From update.sh to incremental updates through Autoprovisioning Manager
+
+SITUATION
+
+- Initially, firmware updates were delivered through the web interface or TFTP and applied through update.sh. That path was useful for installing a complete image, but routine application, SDK and script changes still followed the same firmware-oriented process. In a later product release, we introduced incremental software updates managed through the existing .NET Autoprovisioning Manager. The first enabling firmware release installed the device-side update support; subsequent compatible releases could use the incremental path.
+
+PROBLEM AND WHY IT MATTERED
+
+- A small fix in the Qt executable or Linphone library did not necessarily require changing the kernel or BSP. Treating each fix as a complete firmware replacement increased transfer volume and made administration more cumbersome. Sending individual files manually was also insufficient: an application could be installed with an incompatible SDK, a script could lose executable permissions, or an interrupted transfer could leave an incomplete installation. We needed a release-level operation with a defined source version, target version and recovery path.
+
+ALTERNATIVES AND DECISION
+
+- We considered keeping full-image updates for every change and directly replacing selected files over the network. Full images remained appropriate for platform changes, while direct replacement lacked a coherent version boundary. We chose a versioned application-stack package controlled by a manifest. Unchanged files were omitted from transmission; changed files were delivered either in full or as binary deltas when that reduced the transfer cost. Small scripts were normally sent as complete files. The Windows tool managed delivery and progress; the phone owned validation, installation and activation.
+
+PACKAGE GENERATION
+
+- The build pipeline retained the exact released artifacts and compared the old and new file inventories by relative path and checksum. The manifest recorded compatible device/platform versions, file operations, payload checksums, expected output checksums and file metadata. A delta also identified the required original-file checksum. Application and SDK changes were grouped into one compatible release rather than deployed independently. The release package was signed, and the phone checked its authenticity before accepting its contents. A source mismatch selected a full-package fallback instead of applying a patch to an unknown binary.
+
+PERSONAL ACTIONS AND TEAM COORDINATION
+
+- My part was extending the .NET tool's update workflow: reading the installed release, selecting an applicable package, tracking upload and installation state, and displaying the version or failure reason after reconnecting. I coordinated package contents and compatibility rules with the phone/build engineers. The device-side updater was separate from the Qt process it updated. It checked the package, reconstructed a complete new release in a staging location, preserved unchanged files and applied additions, replacements and deletions. Installation state remained on the phone so closing the Windows tool did not cancel an operation already accepted by the device.
+
+ACTIVATION AND RECOVERY
+
+- Activation waited until there was no active call and prevented a new conflicting call operation during the switch. The updater stopped the application, selected the prepared release and restarted the service. The previous release remained available until local startup and SDK initialization checks passed. Persistent configuration stayed outside release directories; incompatible data-schema migrations were excluded from this update path. An interrupted operation was recovered using persisted installation state. Kernel, BSP and incompatible platform changes continued to use the full-image path, with update.sh retained for that purpose and recovery.
+
+VALIDATION
+
+- We exercised full-file and delta payloads, wrong base versions, checksum failures, interrupted delivery, insufficient storage and application startup failure. We also checked executable permissions, library selection, preservation of SIP settings, the no-active-call condition and recovery after reboot. A completed upload was not treated as success: the Windows tool had to reconnect and read the final device state. External SIP-server availability was checked separately from local application health so a network outage did not incorrectly prove that the new software was broken.
+
+RESULT AND LESSON
+
+- Compatible application-stack fixes could be delivered without retransmitting a complete firmware image. Administrators used the existing Windows tool to see a per-device result, while the phone remained responsible for completing or recovering the installation. The main lesson was that incremental transfer is only an optimization: correctness comes from exact base-version checks, a complete target release, explicit activation and a tested recovery path. The full-image mechanism remained necessary for changes beyond that compatibility boundary.
+
 EXPANDED TASK ANSWERS
 
 1.1. Call handling architecture
