@@ -296,105 +296,157 @@ QUESTION YCT-01. What is a layer?
 
 Answer: A layer groups recipes, appends, classes and configuration for one concern. conf/layer.conf declares how its metadata is discovered; bblayers.conf enables it in a build. A layer directory alone does not affect an image.
 
+Example and checks: For the phone, keep board support separate from application and SDK changes. Enable the product layer explicitly and declare its dependencies. This makes it easier to update vendor layers without losing the phone integration. Check the final recipe selection when two layers provide the same component.
+
 QUESTION YCT-02. What does .bbappend do?
 
 Answer: A .bbappend extends a recipe whose name/version pattern matches. It can add patches, files, configuration or task fragments without copying the upstream recipe. bitbake-layers show-appends checks whether the intended match actually happens.
+
+Example and checks: For example, a product append can add an SDK patch without copying the vendor recipe. Its filename still has to match the selected recipe. Check show-appends and the actual patch task. A patch file sitting in the layer is not enough.
 
 QUESTION YCT-03. Why is a compiled binary absent from the image?
 
 Answer: Compilation is only one step. The file must reach the recipe's install area, belong to an output package, be selected into the image and survive deployment. Inspect those stages before rebuilding everything.
 
+Example and checks: Follow one concrete file, such as an SDK library, through installation, package contents and the image manifest. Then compare it with the phone filesystem. This shows where delivery diverged from the build. Rebuilding the library alone cannot add a package that the image never selected.
+
 QUESTION YCT-04. What is the SDK for?
 
 Answer: The SDK provides a cross-toolchain and target sysroot for application development outside the full image build. Its environment selects compiler, headers and libraries; the SDK must match the target configuration and ABI.
+
+Example and checks: For an external application build, source the SDK environment and check its compiler and sysroot. A code generator running on the computer needs a host-compatible executable instead. Do not reuse an old desktop CMake cache. Validate the produced binary against the libraries actually installed on the phone.
 
 QUESTION YCT-05. Is cache reuse a target test?
 
 Answer: No. Shared-state reuse restores outputs whose task signatures match the cache. It does not execute a device scenario or establish boot, peripheral or media correctness; those need runtime validation.
 
+Example and checks: An unchanged SDK may be restored quickly while another component is rebuilt. That is a build-time optimization, not a functional test. Check which inputs caused reuse or rebuilding. Always test important registration and media scenarios on the resulting image regardless of cache hits.
+
 QUESTION YCT-06. What is the difference between MACHINE and DISTRO?
 
 Answer: MACHINE selects hardware-specific configuration such as the board support and tuning. DISTRO selects distribution policy and features. An image selects a runtime package set; none of these concepts is interchangeable.
+
+Example and checks: Imagine two phone models using one application codebase. Their board settings and available peripherals may differ, while product policy remains shared. The image still chooses the packages each model needs. Separate these choices before changing local.conf to fix a model-specific failure.
 
 QUESTION YCT-07. How can you find which package contains a file?
 
 Answer: Use oe-pkgdata-util find-path with built package metadata, then list-pkg-files for the matching package. Check the image manifest and deployed file as well: finding a provider does not prove the package was installed.
 
+Example and checks: Follow one concrete file, such as an SDK library, through installation, package contents and the image manifest. Then compare it with the phone filesystem. This shows where delivery diverged from the build. Rebuilding the library alone cannot add a package that the image never selected.
+
 QUESTION YCT-08. How do a recipe, package, packagegroup and image differ?
 
 Answer: A recipe describes how to build and package a component; it can produce several packages. A packagegroup collects runtime package dependencies. The image assembles a chosen package set and filesystem artifacts for deployment.
+
+Example and checks: Imagine two phone models using one application codebase. Their board settings and available peripherals may differ, while product policy remains shared. The image still chooses the packages each model needs. Separate these choices before changing local.conf to fix a model-specific failure.
 
 QUESTION YCT-09. How would you organize vendor and product customizations?
 
 Answer: Keep hardware support in BSP-oriented layers and product-specific applications, appends and policy in project layers. Declare compatible releases and dependencies, enable the layers explicitly and inspect the selected providers. This reduces the need to edit vendor metadata directly.
 
+Example and checks: For the phone, keep board support separate from application and SDK changes. Enable the product layer explicitly and declare its dependencies. This makes it easier to update vendor layers without losing the phone integration. Check the final recipe selection when two layers provide the same component.
+
 QUESTION YCT-10. Does layer priority override every configuration choice?
 
 Answer: No. BBFILE_PRIORITY influences recipe selection, but version preferences, providers, overrides and parsing rules also matter. Inspect the chosen recipe and resolved variables rather than assuming the highest-priority layer wins every setting.
+
+Example and checks: If the expected SDK recipe was not selected, inspect the available versions, provider preferences and final overrides. The layer priority is only part of that decision. Make a small change and confirm which recipe now runs. Do not infer selection from directory names alone.
 
 QUESTION YCT-11. How do you add an application and its service to an image?
 
 Answer: The recipe builds the application and installs executable, configuration and unit file into the staging area. Package metadata assigns the files and service integration. The image or packagegroup selects the runtime package; startup is verified on the device.
 
+Example and checks: For a phone application, check both the executable package and its service unit. The unit must point to the installed path and have the intended enablement policy. Then boot the image without manually preparing the environment. This verifies the whole installation path, not only compilation.
+
 QUESTION YCT-12. What is the difference between a native tool and target software?
 
 Answer: A native tool runs on the build host, for example a code generator. Target libraries and executables use the target ABI and sysroot. Confusing them can link host libraries into a target build or try to run target code during compilation.
+
+Example and checks: For an external application build, source the SDK environment and check its compiler and sysroot. A code generator running on the computer needs a host-compatible executable instead. Do not reuse an old desktop CMake cache. Validate the produced binary against the libraries actually installed on the phone.
 
 QUESTION YCT-13. What are downloads and shared state used for?
 
 Answer: The download directory stores fetched source artifacts; shared state stores reusable task outputs. They solve different caching problems. Pin source revisions and record configuration even when both caches are available; a cache is not a source-version policy.
 
+Example and checks: An unchanged SDK may be restored quickly while another component is rebuilt. That is a build-time optimization, not a functional test. Check which inputs caused reuse or rebuilding. Always test important registration and media scenarios on the resulting image regardless of cache hits.
+
 QUESTION YCT-14. How do you make a build reproducible?
 
 Answer: Record layer revisions, source revisions, configuration, toolchain inputs and the intended target. Eliminate undeclared host dependencies and uncontrolled network fetches, then compare artifacts under controlled conditions. Pinning alone helps but is not proof of bit-for-bit reproducibility.
+
+Example and checks: The old release used for a delta must be the exact file that was distributed. A fresh build from the same tag may differ because of tools or packaging. Keep the released files and their checksums. Use those records to reject a delta when the phone’s starting files do not match.
 
 QUESTION YCT-15. How do you inspect image contents before flashing?
 
 Answer: Inspect package metadata, the image manifest and the generated root filesystem or image contents. Check binaries, libraries, units, permissions and model-specific configuration, then confirm that the same artifact is deployed. A recipe log alone cannot establish image contents.
 
+Example and checks: Follow one concrete file, such as an SDK library, through installation, package contents and the image manifest. Then compare it with the phone filesystem. This shows where delivery diverged from the build. Rebuilding the library alone cannot add a package that the image never selected.
+
 QUESTION YCT-16. How do you reduce image size safely?
 
 Answer: Measure package and file contributions first. Remove unnecessary packages/features or development artifacts, preserving runtime dependencies, licenses and diagnostics required for support. Compare startup and product scenarios afterwards; stripping symbols alone is not a complete size strategy.
+
+Example and checks: Measure which packages and files occupy space before removing them. An unused development package is different from a library required by a codec. After a change, repeat startup, calling and diagnostics checks. Also keep license information and matching symbols where they are required.
 
 QUESTION YCT-17. What must be checked for a read-only root filesystem?
 
 Answer: Identify every writer: logs, caches, application state, credentials and update mechanisms. Provide deliberate writable or volatile locations and verify service behavior after reboot. A read-only image flag cannot repair applications that assume arbitrary writable paths.
 
+Example and checks: For example, SIP settings must survive reboot while temporary caches may not need to. Put each type of data in the appropriate writable location. Check permissions from the actual service user. Test a clean boot so missing directories are not accidentally supplied by a developer’s previous session.
+
 QUESTION YCT-18. How would you plan an image update and rollback?
 
 Answer: Identify compatible boot, kernel, device-tree, rootfs and persistent-data versions. Verify artifact authenticity, interrupted-update behavior and a known-good recovery path on a test device. Data migrations can prevent rollback even when an old executable still boots.
+
+Example and checks: Before activation, record the exact previous release and preserve its complete matching files. Keep a way to select them again after failure. Check shared settings as well as binaries. Recovery is incomplete if the old executable returns but can no longer read the data it needs.
 
 QUESTION YCT-19. How do licenses and security updates enter the workflow?
 
 Answer: Review recipe license metadata and license manifests, track source source and build history and assess relevant vulnerability reports. Apply compatible fixes, rebuild and validate the resulting image. A successful CVE scan is one input, not proof that the product is secure.
 
+Example and checks: For an SDK dependency update, check the changed source and license text as well as vulnerability reports. Decide whether the issue applies to the enabled features. Rebuild the affected components and test the resulting phone image. A scan result is evidence to assess, not an automatic statement that the product is safe.
+
 QUESTION YCT-20. How do you separate theoretical Yocto knowledge from personal ownership?
 
 Answer: Explain the technical mechanism, then identify the concrete recipes, packages and image integration actually handled. Keep creating a distribution or BSP from scratch separate from working in inherited layers. This prevents a conceptual answer from becoming an unsupported experience claim.
+
+Example and checks: A useful interview example names the component, the changed recipe and the device check. Adding Linphone to an existing platform is substantial work, but different from writing every BSP component. State what was done by the team and what you personally changed. Keep hypothetical design advice separate from delivered work.
 
 QUESTION YCT-21. How do Poky, OpenEmbedded and BitBake differ?
 
 Answer: Poky is a reference integration, OpenEmbedded supplies metadata and the build ecosystem, and BitBake executes tasks. Product layers/configuration produce the actual device image.
 
+Example and checks: On the project, the board baseline was the starting point rather than the complete phone product. Product layers added the telephony and conferencing components. BitBake executed their recipes along with the platform tasks. This example shows how the reference tools and the product-specific content fit together.
+
 QUESTION YCT-22. What belongs in bblayers.conf and local.conf?
 
 Answer: bblayers.conf enables layers; local.conf holds local settings such as MACHINE. MACHINE selects hardware/tuning, DISTRO selects policy, and the image selects packages.
+
+Example and checks: Imagine two phone models using one application codebase. Their board settings and available peripherals may differ, while product policy remains shared. The image still chooses the packages each model needs. Separate these choices before changing local.conf to fix a model-specific failure.
 
 QUESTION YCT-23. How do downloads and sstate-cache differ?
 
 Answer: DL_DIR preserves fetched inputs; SSTATE_DIR preserves reusable task outputs. Reuse depends on signatures and compatible inputs. Neither cache repairs undeclared dependencies.
 
+Example and checks: An unchanged SDK may be restored quickly while another component is rebuilt. That is a build-time optimization, not a functional test. Check which inputs caused reuse or rebuilding. Always test important registration and media scenarios on the resulting image regardless of cache hits.
+
 QUESTION YCT-24. What proves the recipe lab is complete?
 
 Answer: The exported recipe builds without a workspace override, the package is in the image manifest and hello runs in the rebuilt guest. Workspace-only compilation proves less.
+
+Example and checks: First export the recipe and any changes from the workspace into the maintained layer. Build again through that layer and inspect the image manifest. Finally run the application in the rebuilt guest. This detects work that succeeded locally only because temporary developer files were still active.
 
 QUESTION YCT-25. Why keep exact released artifacts instead of rebuilding the old Git tag?
 
 Answer: Toolchain, metadata or packaging differences can change bytes. A binary delta requires the exact original file checksum. Retain distributed artifacts and compatibility metadata; a matching version label alone is insufficient.
 
+Example and checks: The old release used for a delta must be the exact file that was distributed. A fresh build from the same tag may differ because of tools or packaging. Keep the released files and their checksums. Use those records to reject a delta when the phone’s starting files do not match.
+
 QUESTION YCT-26. What must be retained to recover the exact pre-update release?
 
 Answer: A complete consistent executable/library/script/resource set, metadata and the previous activation state. Persistent data must remain compatible or have a restoration path. A reverse delta or a version number alone is not a recovery plan.
+
+Example and checks: Before activation, record the exact previous release and preserve its complete matching files. Keep a way to select them again after failure. Check shared settings as well as binaries. Recovery is incomplete if the old executable returns but can no longer read the data it needs.
 
 SECTION 9. SOURCES
 

@@ -116,105 +116,157 @@ QUESTION BB-01. What does BitBake schedule?
 
 Answer: BitBake parses recipes, configuration and classes, resolves providers and schedules a dependency graph of tasks. Tasks such as fetch, configure, compile and package run only when their prerequisites and signature decisions allow it; it is not just a shell loop over recipes.
 
+Example and checks: For the phone application, compilation must wait for the SDK build outputs it uses. Other independent tasks may run in parallel. Inspect the graph when an expected prerequisite is missing. Do not try to repair a dependency problem with manual build order alone.
+
 QUESTION BB-02. DEPENDS versus RDEPENDS?
 
 Answer: DEPENDS names recipe-level build dependencies whose staged outputs are needed for the build. RDEPENDS is package-level runtime dependency metadata, usually qualified as RDEPENDS:${PN}. A dependency needed while compiling is not automatically the right runtime package name.
+
+Example and checks: For example, the application needs SDK headers while building, but the phone needs runtime library packages. A generator used during compilation runs on the build computer instead. Identify which side needs each item. This prevents both missing device packages and accidental host-library use.
 
 QUESTION BB-03. How can you inspect resolved variables?
 
 Answer: Use bitbake -e recipe in the configured environment. Inspect the final value and its assignment history, including overrides and appends, rather than reading one layer file and assuming it is the selected value.
 
+Example and checks: Suppose an SDK option does not take effect. Find its final variable value, then inspect which recipe, append or configuration changed it. Check the selected provider and version too. Editing another copy of the recipe can otherwise look like a build-system failure.
+
 QUESTION BB-04. Where is a task failure explained?
 
 Answer: Start with the failed task's log.do_* under its task log directory, and inspect run.do_* when the generated command matters. Keep the first meaningful error and task context; the final make error is often only a consequence.
+
+Example and checks: A final compiler or make message often hides an earlier missing header or failed check. Read the task log from the first relevant error and keep the command context. Reproduce that task only when needed. Do not start by deleting evidence or changing unrelated recipes.
 
 QUESTION BB-05. Why can a build pass but a target fail?
 
 Answer: A target can lack a runtime package, loader, shared library, configuration, permission or ready service despite successful compilation. Check image selection and deployed files, then actual startup diagnostics; rebuilding the compiler stage does not fix every runtime cause.
 
+Example and checks: For a phone that cannot load Linphone, compare the executable’s required libraries with the image contents. Check exact names, compatibility and plugin/data paths. A library in the build directory is not the same as a library installed on the phone. Confirm the actual deployed release before rebuilding.
+
 QUESTION BB-06. What is the difference between do_install and image construction?
 
 Answer: do_install copies files into the recipe's ${D} staging area. Packaging assigns those files to output packages; do_rootfs assembles selected packages and image tasks create deployable artifacts. Files in ${D} are not automatically present on the device.
+
+Example and checks: Take one missing file and follow it from ${D} to its output package and then to the image. This identifies the stage that lost it. A development header may correctly belong to -dev rather than the runtime package. Fix the assignment instead of placing every file into one package.
 
 QUESTION BB-07. What should you inspect before invalidating the cache?
 
 Answer: Inspect task logs, resolved metadata, source revisions and task-signature inputs before deleting cache state. An undeclared dependency or wrong provider can survive a clean rebuild. Cache invalidation should answer a specific hypothesis and preserve evidence of the original failure.
 
+Example and checks: For example, an undeclared source input may not change the task signature. Cleaning can produce one good build while leaving the description wrong. Identify the missing input and declare it. Then check that changing it triggers the expected work without indiscriminate cache removal.
+
 QUESTION BB-08. What is the normal recipe task chain?
 
 Answer: A typical path fetches, unpacks, patches, configures, compiles, installs and packages source outputs. The task graph, inherited classes and dependencies determine actual execution. Image assembly consumes packages later; recipes need not implement every task themselves.
+
+Example and checks: For the phone application, compilation must wait for the SDK build outputs it uses. Other independent tasks may run in parallel. Inspect the graph when an expected prerequisite is missing. Do not try to repair a dependency problem with manual build order alone.
 
 QUESTION BB-09. What is the difference between S, B, D and WORKDIR?
 
 Answer: S locates unpacked source, B the build directory, D the install staging area and WORKDIR the recipe work area. They can differ. Using these variables avoids writing build outputs into source layers or installing directly into the host filesystem.
 
+Example and checks: An out-of-source CMake build keeps source files in S and generated files in B. Installation stages the result in D for later packaging. Use those variables when writing tasks. Hard-coded paths can write into a layer or accidentally install into the computer instead of the device package.
+
 QUESTION BB-10. How does a recipe select source and patches?
 
 Answer: SRC_URI lists source locations and additional inputs such as patches or local files; checksums protect fetched archives. For version-controlled sources, pin the intended revision where reproducibility requires it. The recipe's source directory and branch/revision must agree.
+
+Example and checks: For a local SDK patch, SRC_URI must list it and BitBake must find it through the configured search paths. The selected source revision must also accept that patch. Check all three together. A file existing in your layer does not prove it was fetched or applied.
 
 QUESTION BB-11. How can a .bbappend fail to affect the intended recipe?
 
 Answer: Its filename may not match the selected recipe version, its layer may be disabled, or another provider may be selected. Check show-layers, show-appends, recipe selection and resolved values. Editing an unmatched append changes no build behavior.
 
+Example and checks: After changing an append, inspect show-appends and the final recipe values. Check the supported syntax for the project release. Keep package overrides separate from ordinary variable suffixes. This is safer than assuming a filename match or replacing every underscore automatically.
+
 QUESTION BB-12. What does FILESEXTRAPATHS solve?
 
 Answer: It extends the search locations for local files referenced by recipe metadata, commonly from an append's layer. A correct SRC_URI file entry is insufficient if the file cannot be found through the selected search path. Keep changes local to the intended recipe.
+
+Example and checks: For a local SDK patch, SRC_URI must list it and BitBake must find it through the configured search paths. The selected source revision must also accept that patch. Check all three together. A file existing in your layer does not prove it was fetched or applied.
 
 QUESTION BB-13. Why inherit a build-system class?
 
 Answer: Classes such as cmake or autotools supply standard configure/build/install behavior and cross-build integration. A recipe still needs correct dependencies and project options. Hand-written host commands can bypass toolchain/sysroot handling and accidentally use host libraries.
 
+Example and checks: For an SDK component using CMake, start from the cmake class and inspect its generated configure command. Add only project-specific settings and missing dependencies. Check nested builds for the same toolchain. Reimplementing standard build steps can silently lose cross-compilation support.
+
 QUESTION BB-14. How are cross-compilation and sysroots connected?
 
 Answer: The configured toolchain emits target code and the recipe sysroot supplies target headers/libraries from declared dependencies. Build-time generators run on the host and need the appropriate native dependency. An executable's presence in PATH is not proof of the correct architecture.
+
+Example and checks: For example, the application needs SDK headers while building, but the phone needs runtime library packages. A generator used during compilation runs on the build computer instead. Identify which side needs each item. This prevents both missing device packages and accidental host-library use.
 
 QUESTION BB-15. What does PACKAGECONFIG control?
 
 Answer: It selects optional recipe features and can associate configure arguments and dependencies with each choice. Check the resolved selection and upstream build-system behavior. Removing a feature flag is not a reliable size optimization unless dependencies and runtime behavior are also validated.
 
+Example and checks: For example, removing an unused feature can reduce its code and dependencies, but removing a required codec breaks calls. Compare the same device workload before and after. Keep symbols for diagnosis outside the production image. Report only the size or memory change that was actually measured.
+
 QUESTION BB-16. How do PACKAGES and FILES relate?
 
 Answer: PACKAGES declares output packages and FILES assigns installed paths to them. A recipe can split runtime, development, debug and other content. Inspect package data when a built file is missing; broad patterns or wrong package names can place it somewhere unexpected.
+
+Example and checks: Take one missing file and follow it from ${D} to its output package and then to the image. This identifies the stage that lost it. A development header may correctly belong to -dev rather than the runtime package. Fix the assignment instead of placing every file into one package.
 
 QUESTION BB-17. Why is installed-vs-shipped a useful QA failure?
 
 Answer: It identifies installed files that were not assigned to the recipe's packages. Fix the install location or packaging metadata according to the intended layout. Disabling the check globally can hide genuinely missing runtime content.
 
+Example and checks: Take one missing file and follow it from ${D} to its output package and then to the image. This identifies the stage that lost it. A development header may correctly belong to -dev rather than the runtime package. Fix the assignment instead of placing every file into one package.
+
 QUESTION BB-18. What do task signatures and sstate protect?
 
 Answer: Signatures represent task inputs and relevant metadata; sstate can reuse matching outputs. An input missing from the declared dependency model may not trigger the needed rebuild. Inspect signature differences and dependencies rather than assuming cache corruption whenever output is surprising.
+
+Example and checks: For example, an undeclared source input may not change the task signature. Cleaning can produce one good build while leaving the description wrong. Identify the missing input and declare it. Then check that changing it triggers the expected work without indiscriminate cache removal.
 
 QUESTION BB-19. How do clean, cleansstate and cleanall differ?
 
 Answer: clean removes recipe work outputs while leaving reusable shared state. cleansstate also removes local shared-state results; remote mirrors are separate. cleanall additionally removes fetched source artifacts. Choose deliberately, especially when downloads or caches are shared with other builds.
 
+Example and checks: For example, an undeclared source input may not change the task signature. Cleaning can produce one good build while leaving the description wrong. Identify the missing input and declare it. Then check that changing it triggers the expected work without indiscriminate cache removal.
+
 QUESTION BB-20. How do you investigate an unexpected provider or dependency?
 
 Answer: Use resolved metadata and provider preferences, then inspect recipe/task dependencies, for example with bitbake -g. Distinguish build-time recipe edges from runtime package edges. Correct the declared relationship instead of adding arbitrary task order or relying on a previously populated sysroot.
+
+Example and checks: Suppose an SDK option does not take effect. Find its final variable value, then inspect which recipe, append or configuration changed it. Check the selected provider and version too. Editing another copy of the recipe can otherwise look like a build-system failure.
 
 QUESTION BB-21. Should every underscore become a colon in Honister?
 
 Answer: No. Override operations and package overrides changed, but ordinary variable names and non-override suffixes did not. Review semantics rather than performing blanket replacement.
 
+Example and checks: After changing an append, inspect show-appends and the final recipe values. Check the supported syntax for the project release. Keep package overrides separate from ordinary variable suffixes. This is safer than assuming a filename match or replacing every underscore automatically.
+
 QUESTION BB-22. Why separate -dev and -dbg from runtime?
 
 Answer: Headers/build metadata support development; detached symbols support diagnosis. The runtime normally needs executables and runtime libraries. Default package patterns/order determine the actual split.
+
+Example and checks: A phone normally does not need headers to run its installed executable. A developer SDK does need them to compile another program. Debug files serve a third purpose: matching backtraces to the right build. Check each consumer before adding development content to the production image.
 
 QUESTION BB-23. How do modify and finish preserve a fix?
 
 Answer: modify exposes recipe sources for iteration; after committing, finish exports changes to a layer and removes the workspace override. Rebuild through the exported metadata.
 
+Example and checks: A workspace can make a local change work while the maintained layer still lacks the patch. Export committed source changes and inspect the resulting recipe or append. Then build without that temporary workspace override. This checks what another developer or CI will actually receive.
+
 QUESTION BB-24. Does inherit pkgconfig provide a missing library?
 
 Answer: No. It configures cross-build pkg-config. DEPENDS must still name the provider whose headers, libraries and .pc files are needed in the recipe sysroot.
+
+Example and checks: For example, the application needs SDK headers while building, but the phone needs runtime library packages. A generator used during compilation runs on the build computer instead. Identify which side needs each item. This prevents both missing device packages and accidental host-library use.
 
 QUESTION BB-25. Does -Os or stripping prove lower runtime RAM?
 
 Answer: No. Code size, debug data, file-backed mappings and heap/media buffers are different quantities. Compare the same target workload and keep symbols separately. Inspect options supported by the actual GCC version.
 
+Example and checks: For example, removing an unused feature can reduce its code and dependencies, but removing a required codec breaks calls. Compare the same device workload before and after. Keep symbols for diagnosis outside the production image. Report only the size or memory change that was actually measured.
+
 QUESTION BB-26. Why can a packaged SDK still fail when the application starts?
 
 Answer: The executable may need a different SONAME/ABI, an undeclared plugin or missing data. Inspect installed files, ELF dependencies, discovery paths and the actual loaded library. Do not diagnose this by executing a target binary on the build host.
+
+Example and checks: For a phone that cannot load Linphone, compare the executable’s required libraries with the image contents. Check exact names, compatibility and plugin/data paths. A library in the build directory is not the same as a library installed on the phone. Confirm the actual deployed release before rebuilding.
 
 SECTION 9. SOURCES
 

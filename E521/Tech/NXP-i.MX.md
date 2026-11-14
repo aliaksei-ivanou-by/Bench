@@ -53,89 +53,133 @@ QUESTION IMX-01. Is i.MX a board?
 
 Answer: No. i.MX is an NXP processor family with different SoCs. A board combines one SoC with memory, power, routing and actual peripherals. Always identify the exact SoC and board revision before choosing a BSP or assuming a media capability.
 
+Example and checks: Two products can use the same i.MX family but connect different memory and peripherals. A vendor reference-board image therefore needs checking before reuse. Identify the actual board and its supported software set. Treat a processor family name as a starting clue, not a complete hardware specification.
+
 QUESTION IMX-02. What must match the board?
 
 Answer: The bootloader, kernel, DTB, drivers, firmware and root filesystem must form a compatible set for the actual board. A vendor development-board image is not automatically suitable for a custom product with different wiring.
+
+Example and checks: Two products can use the same i.MX family but connect different memory and peripherals. A vendor reference-board image therefore needs checking before reuse. Identify the actual board and its supported software set. Treat a processor family name as a starting clue, not a complete hardware specification.
 
 QUESTION IMX-03. Does every i.MX have the same peripherals?
 
 Answer: No. CPU architecture, multimedia blocks, interfaces and acceleration vary by SoC; available connectors and devices also depend on the board. Check the hardware documentation and supported vendor release instead of extrapolating from the family name.
 
+Example and checks: Keep the board identity beside the vendor release and Yocto configuration in a test record. This avoids mixing results from different kernel or media stacks. Check documented limitations before assuming a feature exists. Then validate the required feature on the product board itself.
+
 QUESTION IMX-04. Where do you investigate a missing device?
 
 Answer: Start from the physical board and expected interface, then inspect loaded DTB, kernel probe logs, driver binding and device nodes. Only afterwards inspect permissions and application configuration. An absent device can be a hardware-description problem rather than an application bug.
+
+Example and checks: A missing device can mean the driver was never selected, failed to probe or is still waiting for a resource. Read the kernel messages and configuration to separate those cases. Only then move to application settings. The visible absence of a device file is a symptom, not a full diagnosis.
 
 QUESTION IMX-05. Why use release notes?
 
 Answer: Release notes identify the hardware, component versions, features and known limitations supported by that BSP release. They prevent combining unrelated kernel, multimedia and firmware assumptions. Supported in a release still requires validation on the actual product board.
 
+Example and checks: Keep the board identity beside the vendor release and Yocto configuration in a test record. This avoids mixing results from different kernel or media stacks. Check documented limitations before assuming a feature exists. Then validate the required feature on the product board itself.
+
 QUESTION IMX-06. What is the difference between an SoC and a board?
 
 Answer: The SoC integrates processing and hardware controllers. The board supplies memory, power sequencing, connectors and the peripherals connected to those controllers. Software configuration needs both views; a supported controller does not mean the board actually exposes a usable device.
+
+Example and checks: Two products can use the same i.MX family but connect different memory and peripherals. A vendor reference-board image therefore needs checking before reuse. Identify the actual board and its supported software set. Treat a processor family name as a starting clue, not a complete hardware specification.
 
 QUESTION IMX-07. How do you investigate a missing camera?
 
 Answer: Trace camera power/reset, physical interface and loaded hardware description, then driver probe, firmware and media topology. Check exposed nodes and permissions before application selection and format negotiation. A visible camera node alone does not prove successful streaming.
 
+Example and checks: For camera trouble, separate getting frames from converting and displaying them. Check the chosen format and dimensions at each stage. A valid device node and a successful open call do not prove correct pixels reach the screen. Repeat on the camera-enabled phone, not only a desktop sample.
+
 QUESTION IMX-08. How do you establish the exact hardware/software combination?
 
 Answer: Record the SoC, board revision and populated peripherals from product documentation, then compare boot logs and the loaded device model. Record bootloader, kernel, DTB and image versions as well. A label such as i.MX is not a sufficient configuration identifier.
+
+Example and checks: Keep the board identity beside the vendor release and Yocto configuration in a test record. This avoids mixing results from different kernel or media stacks. Check documented limitations before assuming a feature exists. Then validate the required feature on the product board itself.
 
 QUESTION IMX-09. What does an i.MX Linux BSP typically provide?
 
 Answer: It supplies a supported combination of board configuration, boot components, kernel support and integration metadata/documentation for specified hardware. The exact contents depend on release. Application packaging and product service policy can live above this foundation rather than inside hardware bring-up work.
 
+Example and checks: Two products can use the same i.MX family but connect different memory and peripherals. A vendor reference-board image therefore needs checking before reuse. Identify the actual board and its supported software set. Treat a processor family name as a starting clue, not a complete hardware specification.
+
 QUESTION IMX-10. How is a Yocto MACHINE related to an i.MX product?
 
 Answer: MACHINE selects board-specific configuration, tuning and the appropriate providers/artifacts through the enabled metadata. It does not physically identify or rewire a board. Verify that the selected machine and generated DTB/boot artifacts match the product, especially when several variants share a layer.
+
+Example and checks: Keep the board identity beside the vendor release and Yocto configuration in a test record. This avoids mixing results from different kernel or media stacks. Check documented limitations before assuming a feature exists. Then validate the required feature on the product board itself.
 
 QUESTION IMX-11. Why inspect kernel boot arguments?
 
 Answer: They select behavior such as console and root filesystem and can explain early boot or mount failures. Compare the arguments actually passed by the bootloader with the intended image configuration. Fixing user-space code cannot repair a wrong root device or missing console output path.
 
+Example and checks: If the image fails before application startup, inspect the boot arguments actually used by the running attempt. A saved configuration file may not be the selected one. Compare the root device, console and expected storage. This prevents interpreting a wrong boot setting as a new C++ defect.
+
 QUESTION IMX-12. How do you distinguish a missing driver from a failed probe?
 
 Answer: Check whether driver support was built into the kernel or packaged as a module, then inspect matching and probe logs. A driver can exist but fail because clocks, regulators, firmware or another dependency are unavailable. The corrective action depends on that distinction.
+
+Example and checks: A missing device can mean the driver was never selected, failed to probe or is still waiting for a resource. Read the kernel messages and configuration to separate those cases. Only then move to application settings. The visible absence of a device file is a symptom, not a full diagnosis.
 
 QUESTION IMX-13. Why do pin multiplexing and polarity matter for GPIO?
 
 Answer: A physical pin may serve several hardware functions, and logical active state may be inverted by board wiring/configuration. Verify pinctrl and line semantics before interpreting hook-switch events or driving an LED. A GPIO line offset is not automatically a physical connector pin number.
 
+Example and checks: For a handset line, verify that the pin is configured as GPIO and that its level means the expected physical state. Power and reset dependencies matter for other peripherals. Compare board settings with measured behavior or reliable device logs. Application inversion should not hide an unexplained hardware configuration error.
+
 QUESTION IMX-14. How can clocks, resets and regulators cause apparent software faults?
 
 Answer: A device can be described but unusable because a required clock, reset sequence or supply is missing or wrongly configured. Probe logs and dependency state help locate the boundary. Repeatedly changing the application does not address a peripheral that never initialized correctly.
+
+Example and checks: For a handset line, verify that the pin is configured as GPIO and that its level means the expected physical state. Power and reset dependencies matter for other peripherals. Compare board settings with measured behavior or reliable device logs. Application inversion should not hide an unexplained hardware configuration error.
 
 QUESTION IMX-15. What if the right application runs on the wrong image variant?
 
 Answer: Model-specific assets, DTB, libraries or services may not match the attached peripherals. Compare the running image identity and installed files with the selected board configuration. A correct executable cannot compensate for an incompatible complete-image contents.
 
+Example and checks: Before an update, compare model, platform image and application/SDK release as separate identities. Then check the actual source-file checksums for any delta. This avoids sending a camera-specific dependency set to an incompatible image. A matching application version label alone does not prove the whole phone is compatible.
+
 QUESTION IMX-16. Why can a camera initialize but produce no useful frames?
 
 Answer: Format negotiation, pixel layout/stride, media links, buffer ownership or actual sensor output may be wrong after probe succeeds. Start with a minimal capture path and a known format, then add conversion and rendering. Separate device streaming from conference signaling.
+
+Example and checks: For camera trouble, separate getting frames from converting and displaying them. Check the chosen format and dimensions at each stage. A valid device node and a successful open call do not prove correct pixels reach the screen. Repeat on the camera-enabled phone, not only a desktop sample.
 
 QUESTION IMX-17. How do you diagnose missing audio on a phone?
 
 Answer: Check hardware/device availability, routing and selected capture/playback endpoints before SIP/media application state. Distinguish silence, no device and wrong route. Validate on the actual handset/headset/speaker configuration rather than assuming desktop defaults or blaming codec negotiation first.
 
+Example and checks: Test handset, headset and speaker paths separately. Check which input and output the application selected and whether the device service has permission to use them. Correlate that with SDK media state. An established SIP call alone cannot tell which local audio path failed.
+
 QUESTION IMX-18. Does using a media library prove hardware acceleration is active?
 
 Answer: No. The selected backend, plugins, formats and build/runtime configuration determine the path. Inspect negotiated components and resource behavior with the same workload. High CPU use may suggest fallback, but utilization alone is not proof of a specific implementation path.
+
+Example and checks: For example, a library can support both hardware and software processing. The actual backend and format negotiation determine the selected path. Observe the running configuration and resource use on the same workload. Do not claim acceleration from the library name or a CPU number alone.
 
 QUESTION IMX-19. How can resource limits affect testing on the device?
 
 Answer: CPU contention, memory pressure, storage I/O and thermal behavior can change timing and media performance. Record the workload and system state, compare repeatable scenarios and inspect the bottleneck before tuning. A short idle demonstration is not a sustained product-performance result.
 
+Example and checks: Compare an idle call with a representative combination of calls, UI actions and background work. Record CPU, memory and relevant failures over time. Reproduce the first bottleneck before tuning. Otherwise one optimization may simply move the failure to another resource.
+
 QUESTION IMX-20. How do you describe your personal i.MX scope accurately?
 
 Answer: Name the image, recipe, runtime and application integration actually handled, and the target scenarios used to validate it. Keep schematic design, complete board bring-up and ownership of all kernel/U-Boot changes separate unless supported. This is a scope distinction, not a denial of useful integration work.
+
+Example and checks: A strong answer names a concrete recipe, service or SDK change and the physical-phone check used afterward. Explain which platform pieces were supplied by other engineers. That gives an interviewer an honest path for deeper questions. Do not turn knowledge of the boot chain into a claim of complete board bring-up.
 
 QUESTION IMX-21. Which identities matter before deploying a phone-specific update?
 
 Answer: Model/board revision, platform image, application and SDK release, and required media capabilities. Source-file checksums establish delta applicability; the i.MX family name alone does not establish compatibility.
 
+Example and checks: Before an update, compare model, platform image and application/SDK release as separate identities. Then check the actual source-file checksums for any delta. This avoids sending a camera-specific dependency set to an incompatible image. A matching application version label alone does not prove the whole phone is compatible.
+
 QUESTION IMX-22. Why can the same application work on one phone model but not another?
 
 Answer: Image contents, camera/display configuration, plugins, drivers and resource limits can differ. Confirm the deployed model variant and actual loaded dependencies before changing call logic.
+
+Example and checks: Before an update, compare model, platform image and application/SDK release as separate identities. Then check the actual source-file checksums for any delta. This avoids sending a camera-specific dependency set to an incompatible image. A matching application version label alone does not prove the whole phone is compatible.
 
 SECTION 9. SOURCES
 

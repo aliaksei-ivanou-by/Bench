@@ -157,105 +157,157 @@ QUESTION BSP-01. What is a BSP?
 
 Answer: A BSP is the hardware-specific software/configuration foundation for an OS on a board. It commonly includes boot and kernel integration, hardware description and drivers or firmware support. Its exact boundary depends on the vendor/product release; it is broader than one application recipe.
 
+Example and checks: For a phone product, the application needs both working hardware support and its user-space libraries/settings. These may be delivered together but are different responsibilities. Identify what the vendor provides and what product layers add. This makes failures and update compatibility easier to assign correctly.
+
 QUESTION BSP-02. Is BSP the same as the root filesystem?
 
 Answer: No. The root filesystem contains user-space runtime files. BSP concerns hardware support and may be built alongside or integrated with that filesystem in a vendor image. A complete bootable product needs compatible components across both boundaries.
+
+Example and checks: For a phone product, the application needs both working hardware support and its user-space libraries/settings. These may be delivered together but are different responsibilities. Identify what the vendor provides and what product layers add. This makes failures and update compatibility easier to assign correctly.
 
 QUESTION BSP-03. Why is device tree important?
 
 Answer: It tells the kernel how relevant hardware is connected and which resources it uses. Compatible bindings, driver support and the actual board must agree. Device-tree changes do not themselves implement missing driver functionality or correct physical wiring.
 
+Example and checks: For example, enabling a camera node does not create missing driver code. Check its binding, resources and supported compatible value first. Match addresses, clocks and GPIO to the actual board. Then inspect the driver’s startup messages before testing the complete application.
+
 QUESTION BSP-04. What can a BSP update break?
 
 Answer: Bootloader/kernel/DTB compatibility, driver behavior, firmware and user-space interfaces can all change. Validate the affected board and application paths, including recovery. A booting kernel is insufficient evidence that camera, GPIO, audio and persistent data still work.
+
+Example and checks: After changing the platform, repeat the application’s important hardware scenarios even if compilation still passes. Device paths, permissions, timing and media support may have changed. Record the exact image and board. A useful test result says which functions worked on that combination.
 
 QUESTION BSP-05. Does using a BSP prove ownership of it?
 
 Answer: No. Consuming a BSP and adapting application/image integration differ from designing board support, porting drivers or performing bring-up. Personal claims should identify the actual components and validation performed rather than infer full ownership from platform presence.
 
+Example and checks: For example, adapting a package or service to use an existing BSP is not independent board bring-up. Explain the exact file or interface you changed. Then describe the target evidence that checked it. This gives a stronger answer than either claiming the whole BSP or dismissing integration as trivial.
+
 QUESTION BSP-06. Is an existing device node proof that the application can use it?
 
 Answer: No. A node may exist while permissions, driver state, firmware or application configuration prevent useful access. Check the operation that fails, kernel logs and the expected interface, then verify behavior with a minimal targeted scenario.
+
+Example and checks: Start with a minimal device check before the full phone UI. If the driver cannot initialize, changing Qt call logic is unlikely to help. If the device works but the service lacks access, investigate permissions and environment. Follow the first failing layer instead of the layer that displays the error.
 
 QUESTION BSP-07. How would you validate a BSP update?
 
 Answer: Record a known-good component set and the proposed changes, then test boot, affected peripherals, application interfaces and recovery on each relevant board variant. Preserve a rollback route and compare repeatable scenarios; one successful startup is not a full regression check.
 
+Example and checks: After changing the platform, repeat the application’s important hardware scenarios even if compilation still passes. Device paths, permissions, timing and media support may have changed. Record the exact image and board. A useful test result says which functions worked on that combination.
+
 QUESTION BSP-08. Which artifacts must stay compatible across the boot chain?
 
 Answer: Boot firmware/bootloader, kernel, DTB, rootfs and required firmware/modules must match the board and supported interfaces. Record the versions actually deployed, not only the source branch. Mixing artifacts from different releases can boot partially and fail later at a peripheral or application boundary.
+
+Example and checks: A new kernel with an old incompatible device tree can fail even when both files exist. Check the bootloader’s actual selection and storage layout. Include the root filesystem and early userspace in compatibility checks. Keep a known working combination available while validating the replacement.
 
 QUESTION BSP-09. When is a device-tree change enough, and when is a driver change needed?
 
 Answer: Device tree can express supported hardware connections and configuration through bindings. A missing behavior in the driver requires driver work; absent electrical support needs hardware attention. Start by identifying which boundary lacks the required capability rather than treating every board issue as a DTS edit.
 
+Example and checks: For example, enabling a camera node does not create missing driver code. Check its binding, resources and supported compatible value first. Match addresses, clocks and GPIO to the actual board. Then inspect the driver’s startup messages before testing the complete application.
+
 QUESTION BSP-10. What is the role of a defconfig or kernel config fragment?
 
 Answer: They provide requested kernel configuration inputs, while Kconfig dependencies determine the resolved configuration. Inspect the final .config and resulting artifacts. A requested option can be disabled by dependencies or built differently than expected, so the fragment alone is not proof of driver availability.
+
+Example and checks: For a kernel option, inspect the final .config after all fragments and dependencies have been processed. The requested setting may be overridden or depend on another option. Confirm whether this vendor recipe supports the fragment workflow. Test the needed behavior on the running kernel afterward.
 
 QUESTION BSP-11. How do built-in drivers, modules and firmware differ?
 
 Answer: Built-in drivers are part of the kernel image; modules are loaded separately and must match the running kernel. Device firmware is another runtime input where required. A driver build can succeed while module packaging, firmware installation or loading fails on the target.
 
+Example and checks: A module must be built for the selected kernel and actually included in the image. Any required firmware must be installed too. Autoload configuration only requests loading; it does not supply those files. Check module load results and kernel messages on the phone.
+
 QUESTION BSP-12. Why keep a serial console during bring-up?
 
 Answer: It provides early boot observations before networking, graphics and application logging are available. Use it to identify the last successful stage and preserve the error context. Console settings must match the board and boot configuration; absence of output is not automatically a dead processor.
+
+Example and checks: The serial console can show a bootloader prompt while the firmware data is transferred through a different interface. Record both the control steps and the actual data path. Do not label the process UART flashing based only on seeing serial output. Use the documented procedure for that board.
 
 QUESTION BSP-13. Why inspect device-tree bindings instead of copying nodes?
 
 Answer: Bindings define property meanings, required resources and valid relationships for a compatible device. A copied node can reference the wrong GPIO, clock, interrupt or address and still look plausible. Check against the exact board and driver support, then validate actual probe and I/O.
 
+Example and checks: For example, enabling a camera node does not create missing driver code. Check its binding, resources and supported compatible value first. Match addresses, clocks and GPIO to the actual board. Then inspect the driver’s startup messages before testing the complete application.
+
 QUESTION BSP-14. How do you confirm which DTB is actually loaded?
 
 Answer: Compare bootloader configuration and boot logs with the running system's device-tree model and properties. The file generated in the build directory may not be the one deployed or selected at boot. Preserve artifact identity while testing a device-tree hypothesis.
+
+Example and checks: Compare the tree used by the running system with the expected board changes. For overlays, confirm that the boot path applies the file, not merely copies it into deployment output. Then check driver binding and behavior. A source edit without a changed running tree cannot fix the device.
 
 QUESTION BSP-15. What is a reasonable bring-up order for a new board?
 
 Answer: Start with the documented power/boot path and early console, then memory, storage/rootfs and essential interfaces before complex media/application scenarios. Coordinate with hardware specialists and validate one boundary at a time. This is a method description, not evidence of personal ownership of a completed bring-up.
 
+Example and checks: Bring up one stage at a time and keep its result repeatable before adding the next. Start with observation and recovery access, then verify storage and the basic system. Add peripheral and application tests afterward. This reduces the number of possible causes when the next change fails.
+
 QUESTION BSP-16. Which user-space assumptions must a BSP change preserve?
 
 Answer: Applications depend on device interfaces, permissions, media formats, library/ABI support and startup behavior. Kernel-internal compatibility is not the whole product contract. Identify consumers and run their scenarios after a driver or hardware-description change, including their failure and restart paths.
+
+Example and checks: After changing the platform, repeat the application’s important hardware scenarios even if compilation still passes. Device paths, permissions, timing and media support may have changed. Record the exact image and board. A useful test result says which functions worked on that combination.
 
 QUESTION BSP-17. How do you separate an application defect from a BSP integration defect?
 
 Answer: Use a minimal test of the expected kernel/device interface and compare the same image/configuration with the application path. If the interface fails independently, investigate driver/board integration. If it works, inspect application configuration, ownership and timing before changing the BSP.
 
+Example and checks: Start with a minimal device check before the full phone UI. If the driver cannot initialize, changing Qt call logic is unlikely to help. If the device works but the service lacks access, investigate permissions and environment. Follow the first failing layer instead of the layer that displays the error.
+
 QUESTION BSP-18. What makes a BSP handoff useful for application engineers?
 
 Answer: Provide compatible image/SDK identifiers, interface expectations, known limitations, reproducible setup and a minimal validation scenario. Include the relevant logs and owners for unresolved boundaries. This lets application engineers test against a defined platform rather than reverse-engineer an undocumented artifact set.
+
+Example and checks: A useful handoff lets another engineer reproduce the supported image and check a basic device function. Include required versions, enabled features and known limits. Describe how to collect startup evidence and recover the board. A directory of binaries alone does not provide that working contract.
 
 QUESTION BSP-19. What should an update and recovery test include?
 
 Answer: Check authenticated artifact selection where supported, compatible persistent-data layout, interruption handling and a known-good recovery path. Test cold boot and the relevant peripheral/application scenarios after both update and rollback. A backup image does not guarantee recovery if boot selection or data migration is incompatible.
 
+Example and checks: Application recovery assumes Linux and the updater can still run. If the bootloader or root filesystem is unusable, an older application directory is not enough. Test that separate failure path through the board’s recovery process. Keep its claims separate from successful rollback of phone application files.
+
 QUESTION BSP-20. What evidence distinguishes BSP consumption from BSP customization?
 
 Answer: Consuming a BSP uses its supported board/image interfaces. Customization is shown by specific changes to machine metadata, boot, kernel, DTB, drivers or firmware integration and their target checks. The exact contribution must be named; one small change does not imply authorship of the whole platform.
+
+Example and checks: For example, adapting a package or service to use an existing BSP is not independent board bring-up. Explain the exact file or interface you changed. Then describe the target evidence that checked it. This gives a stronger answer than either claiming the whole BSP or dismissing integration as trivial.
 
 QUESTION BSP-21. Does any kernel recipe merge .cfg from SRC_URI?
 
 Answer: No. Check provider support and final .config. Configuration dependencies can alter results, and vendor recipes may require a different mechanism.
 
+Example and checks: For a kernel option, inspect the final .config after all fragments and dependencies have been processed. The requested setting may be overridden or depend on another option. Confirm whether this vendor recipe supports the fragment workflow. Test the needed behavior on the running kernel afterward.
+
 QUESTION BSP-22. Does KERNEL_MODULE_AUTOLOAD install the module?
 
 Answer: No. It requests boot loading. Include the actual module package and verify kernel compatibility and successful modprobe on target.
+
+Example and checks: A module must be built for the selected kernel and actually included in the image. Any required firmware must be installed too. Autoload configuration only requests loading; it does not supply those files. Check module load results and kernel messages on the phone.
 
 QUESTION BSP-23. Why can a compatible node fail to create a device?
 
 Answer: It may be disabled, the driver absent, or probe may fail/defer due to clocks, regulators, pinctrl or firmware. Check the live tree and kernel logs.
 
+Example and checks: Compare the tree used by the running system with the expected board changes. For overlays, confirm that the boot path applies the file, not merely copies it into deployment output. Then check driver binding and behavior. A source edit without a changed running tree cannot fix the device.
+
 QUESTION BSP-24. What proves an overlay was applied?
 
 Answer: The boot path applies it, expected nodes/properties appear in the live tree, and driver binding succeeds. A compiled .dtbo alone is not proof.
+
+Example and checks: Compare the tree used by the running system with the expected board changes. For overlays, confirm that the boot path applies the file, not merely copies it into deployment output. Then check driver binding and behavior. A source edit without a changed running tree cannot fix the device.
 
 QUESTION BSP-25. Does application rollback recover a non-booting board?
 
 Answer: Not by itself. The application updater requires a working base system. Boot/rootfs recovery needs the board’s supported flashing or independent recovery path; do not infer it from retaining an older Qt executable.
 
+Example and checks: Application recovery assumes Linux and the updater can still run. If the bootloader or root filesystem is unusable, an older application directory is not enough. Test that separate failure path through the board’s recovery process. Keep its claims separate from successful rollback of phone application files.
+
 QUESTION BSP-26. Does a UART boot console prove UART firmware flashing?
 
 Answer: No. The console may control a bootloader that loads payloads over another interface. Distinguish observation/control from image transport and identify the exact board procedure.
+
+Example and checks: The serial console can show a bootloader prompt while the firmware data is transferred through a different interface. Record both the control steps and the actual data path. Do not label the process UART flashing based only on seeing serial output. Use the documented procedure for that board.
 
 SECTION 9. SOURCES
 

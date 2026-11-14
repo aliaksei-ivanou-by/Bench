@@ -91,89 +91,133 @@ QUESTION SYS-01. Does After= start the other unit?
 
 Answer: No. After= establishes ordering if both units participate in the transaction; it does not pull the other unit in. Requirement dependencies such as Wants= or Requires= decide inclusion. Ordering is still different from application-specific readiness.
 
+Example and checks: For the phone, decide whether the application merely starts after another service or must require it too. Those are separate settings. Then inspect what happens when the dependency fails. A dependency declaration is useful only if its failure behavior matches the product requirement.
+
 QUESTION SYS-02. Requires= versus Wants=?
 
 Answer: Both can pull another unit into activation, but Requires= creates a stronger requirement relationship. Startup failure handling also depends on ordering such as After=. Wants= allows the requesting unit to continue when the wanted unit fails; neither directive alone expresses a remote endpoint health check.
+
+Example and checks: For the phone, decide whether the application merely starts after another service or must require it too. Those are separate settings. Then inspect what happens when the dependency fails. A dependency declaration is useful only if its failure behavior matches the product requirement.
 
 QUESTION SYS-03. What does daemon-reload do?
 
 Answer: It rereads unit definitions and rebuilds dependency information. It does not restart a running service or make the process reread its application configuration. Restart or a supported service reload is a separate action.
 
+Example and checks: For example, changing a unit file does not alter the process that is already running. Reload systemd’s definitions and apply the required restart or supported reload separately. Inspect the combined unit and drop-ins afterward. This avoids debugging an old process against a newly edited file.
+
 QUESTION SYS-04. Where do you inspect errors?
 
 Answer: Use systemctl status and journalctl -u for the failing unit, then inspect the effective unit, exit status, dependencies and environment. Compare the service user, paths and startup conditions with a successful manual launch.
+
+Example and checks: If the Qt application repeatedly exits, inspect its first failure before the restart messages dominate the journal. Compare the executable, settings and service environment. Limit repeated starts while investigating. A successful automatic restart does not prove the original defect is gone.
 
 QUESTION SYS-05. Does an active network target prove server access?
 
 Answer: No. network.target is a synchronization point, not a statement that a particular host is reachable. A service must handle DNS, route and endpoint failures at runtime even when startup ordering is correct.
 
+Example and checks: A phone can have an address while its configured PBX is unreachable. Treat initial network setup and later server availability separately. Let the application report registration state and retry as designed. Otherwise an unrelated server outage may be mistaken for a boot failure.
+
 QUESTION SYS-06. Does Type=simple prove that application initialization has finished?
 
 Answer: No. Type=simple regards the service as started before application initialization is complete. Type=notify can provide explicit readiness when the program sends READY=1. Declaring the type without implementing the protocol does not make the application ready.
+
+Example and checks: Define what local readiness means: settings loaded, required components initialized and the application processing work. A live process alone is weaker evidence. Keep external PBX reachability as a separate status. Then test whether a hung component can still produce an apparently healthy heartbeat.
 
 QUESTION SYS-07. Does network-online.target guarantee the SIP server is reachable?
 
 Answer: No. It waits for the network implementation's configured online condition, not for a specific SIP server, DNS result or authentication exchange. Endpoint recovery still needs application retries/backoff and observable error handling.
 
+Example and checks: A phone can have an address while its configured PBX is unreachable. Treat initial network setup and later server availability separately. Let the application report registration state and retry as designed. Otherwise an unrelated server outage may be mistaken for a boot failure.
+
 QUESTION SYS-08. How do start and enable differ?
 
 Answer: start activates a unit now; enable creates the configured installation links so it can be pulled in later, commonly during boot. An enabled service can be stopped or failed, and an active service need not be enabled. Check both states.
+
+Example and checks: After building the image, inspect that the unit and executable are both in the selected package. Confirm the intended enablement policy and boot the phone. Test a fresh boot rather than relying on a manually started service. That checks packaging and startup together.
 
 QUESTION SYS-09. How do you model a service dependency safely?
 
 Answer: Identify whether the dependency is required or optional and whether startup must wait for it. Combine inclusion and ordering deliberately, then test dependency absence and failure. A dependency cycle is a design error, not something to fix by adding more After= lines.
 
+Example and checks: For the phone, decide whether the application merely starts after another service or must require it too. Those are separate settings. Then inspect what happens when the dependency fails. A dependency declaration is useful only if its failure behavior matches the product requirement.
+
 QUESTION SYS-10. When is Type=oneshot useful?
 
 Answer: It runs a finite setup action and considers startup finished after the command exits successfully. RemainAfterExit can keep its unit active without a long-running process. This is different from supervising a daemon, and the command must be safe for its expected invocation pattern.
+
+Example and checks: A one-time preparation task might create required directories or validate a local file before the application starts. It should return failure when preparation fails. Decide whether its completed state must remain active for dependency purposes. Do not hide a long-running background process inside a oneshot command.
 
 QUESTION SYS-11. How do you investigate a restart loop?
 
 Answer: Inspect the first failure and exit status before later restart noise. Check executable, configuration, dependencies and permissions, then review Restart=, RestartSec= and start limits. Automatic restart is recovery policy, not a substitute for diagnosing the initial fault.
 
+Example and checks: If the Qt application repeatedly exits, inspect its first failure before the restart messages dominate the journal. Compare the executable, settings and service environment. Limit repeated starts while investigating. A successful automatic restart does not prove the original defect is gone.
+
 QUESTION SYS-12. How can you find a boot delay?
 
 Answer: Use boot journals and systemd-analyze timing or critical-chain information, then correlate the slow unit with its dependencies. A unit's active timestamp is not necessarily useful application readiness. Repeat on the actual image and device rather than extrapolating from a desktop.
+
+Example and checks: Follow the chain leading to the service the user is waiting for. A long-running service outside that chain may not delay the phone UI. Match timing with journal messages and readiness checks. Change the actual wait condition rather than removing dependencies blindly.
 
 QUESTION SYS-13. Why can ordering after Weston still leave a Qt application unable to start?
 
 Answer: Weston's process may exist before the needed display socket and runtime environment are usable. Check the actual socket, XDG_RUNTIME_DIR, WAYLAND_DISPLAY, service user and permissions. Use an explicit readiness contract or bounded recovery, rather than an arbitrary sleep.
 
+Example and checks: For example, Weston may have started but the application may lack its socket path or permissions. Compare the service user and display-related environment with a working launch. Check device access separately. Avoid granting broad privileges just to make one startup symptom disappear.
+
 QUESTION SYS-14. Why might a service lack hardware access?
 
 Answer: Its user/groups, device permissions, sandbox settings or available device nodes can differ from an interactive shell. Check the effective unit and driver/device state. Running everything as root may hide the symptom but does not explain or minimize the required privileges.
+
+Example and checks: For example, Weston may have started but the application may lack its socket path or permissions. Compare the service user and display-related environment with a working launch. Check device access separately. Avoid granting broad privileges just to make one startup symptom disappear.
 
 QUESTION SYS-15. How should a service stop cleanly?
 
 Answer: Handle termination by stopping new work, unblocking event loops, joining worker threads and releasing resources within a bounded time. Check the configured stop timeout and actual exit behavior. Abrupt termination can leave data or external device state inconsistent even when memory is reclaimed.
 
+Example and checks: The phone application should stop accepting new work, finish or cancel outstanding work and release hardware safely. Worker waits must be able to finish. Test stopping during a call transition and while idle. Check the result before relying on systemd’s final timeout or forced termination.
+
 QUESTION SYS-16. Does a systemd watchdog prove application health?
 
 Answer: Only if the application sends watchdog notifications based on meaningful progress. A timer that sends notifications while the actual work is deadlocked can mask failure. Process liveness, watchdog heartbeat and successful SIP/media operations are different observations.
+
+Example and checks: Define what local readiness means: settings loaded, required components initialized and the application processing work. A live process alone is weaker evidence. Keep external PBX reachability as a separate status. Then test whether a hung component can still produce an apparently healthy heartbeat.
 
 QUESTION SYS-17. How do you limit journal storage on an embedded device?
 
 Answer: Choose volatile or persistent storage deliberately and configure the corresponding capacity/retention limits, such as RuntimeMaxUse or SystemMaxUse. Reduce noisy logging and inspect disk usage. Capacity limits help protect space but do not by themselves guarantee low flash wear or preserve every diagnostic event.
 
+Example and checks: For a phone, choose which faults need logs after reboot and how much storage they may occupy. Then control category verbosity and message rate. Check actual disk use and behavior under repeated errors. A small retained journal can still generate many flash writes over time.
+
 QUESTION SYS-18. What belongs in a safe diagnostic bundle?
 
 Answer: Collect relevant journal/application/SIP logs and version/context information with a bounded time/size range. Sanitize credentials, tokens, account identities and private endpoints where required. Check the produced bundle itself and restrict download access; log availability does not make disclosure safe.
+
+Example and checks: Build a bundle for a known incident and inspect the resulting archive, not only the collector code. Check application logs, SDK traces and copied configuration for secrets. Missing files should be reported as partial collection. The support user needs enough context to correlate events without receiving credentials.
 
 QUESTION SYS-19. Why use a drop-in instead of editing a vendor unit?
 
 Answer: A drop-in records a local override separately from the packaged unit and is easier to inspect during updates. Check the merged configuration with systemctl cat or show. Run daemon-reload after unit changes and apply the appropriate restart; do not assume all directives combine like simple scalar values.
 
+Example and checks: For example, changing a unit file does not alter the process that is already running. Reload systemd’s definitions and apply the required restart or supported reload separately. Inspect the combined unit and drop-ins afterward. This avoids debugging an old process against a newly edited file.
+
 QUESTION SYS-20. How is a service connected to a Yocto image?
 
 Answer: The recipe installs the unit and application into the staged filesystem, packaging includes them, and systemd integration metadata defines the relevant service behavior. The image must select the package. Verify unit presence, enablement policy and boot behavior on the deployed target.
+
+Example and checks: After building the image, inspect that the unit and executable are both in the selected package. Confirm the intended enablement policy and boot the phone. Test a fresh boot rather than relying on a manually started service. That checks packaging and startup together.
 
 QUESTION SYS-21. Do journal size limits alone protect flash endurance?
 
 Answer: They bound retained storage, not cumulative writes. Control verbose categories and message rates, choose persistent/volatile policy deliberately and measure relevant behavior. Rotation does not mean that only one journal-sized amount was ever written.
 
+Example and checks: For a phone, choose which faults need logs after reboot and how much storage they may occupy. Then control category verbosity and message rate. Check actual disk use and behavior under repeated errors. A small retained journal can still generate many flash writes over time.
+
 QUESTION SYS-22. What should confirm a phone update when the PBX is offline?
 
 Answer: Local application/service stability, readable configuration and SDK initialization can establish local health. Report external registration availability separately. Define a bounded confirmation policy so an unrelated network outage does not cause an endless rollback loop.
+
+Example and checks: Define what local readiness means: settings loaded, required components initialized and the application processing work. A live process alone is weaker evidence. Keep external PBX reachability as a separate status. Then test whether a hung component can still produce an apparently healthy heartbeat.
 
 SECTION 9. SOURCES
 

@@ -177,45 +177,67 @@ QUESTION L1-01. Why does registration recovery belong beside SDK registration st
 
 Answer: The SDK already owns account registration and its transitions. A second Qt-side retry/switch loop can disagree with the active server and authentication state. In this project I implemented the SDK watchdog/failover state machine and made application/provisioning state follow its APIs.
 
+More detail: Keeping another switch loop in Qt meant it could act while the SDK was already retrying or processing authentication. The two layers could disagree about the active server. Putting the decision beside registration removed that competing owner. The cost was maintaining and testing project-specific changes in the SDK fork.
+
 QUESTION L1-02. How do Qt signals affect object and thread lifetime?
 
 Answer: Signals do not make arbitrary shared data thread-safe or keep every referenced object alive. Queued delivery follows receiver affinity and needs a functioning event loop. I make ownership and teardown explicit so late SDK events cannot update an obsolete session or screen.
+
+More detail: For example, a worker waiting forever for a handset edge may never read a queued stop command. Give that wait a timeout or a wake-up path. Stop new work, finish the current operation and wait for thread exit before deletion. Test stopping while no GPIO event arrives.
 
 QUESTION L1-03. How do BitBake packaging and the target sysroot relate?
 
 Answer: Declared build dependencies populate the recipe's target sysroot; do_install stages produced files and packaging assigns them to runtime packages. The image must select those packages. I separate compile-time availability from the files and services actually installed on the phone.
 
+More detail: Take one missing file and follow it from ${D} to its output package and then to the image. This identifies the stage that lost it. A development header may correctly belong to -dev rather than the runtime package. Fix the assignment instead of placing every file into one package.
+
 QUESTION L1-04. Why can the application fail after the compositor service starts?
 
 Answer: Service ordering does not necessarily mean the Wayland socket and runtime environment are ready. I check the running unit, service user, socket, installed dependencies and application logs, then reproduce startup on the actual image. An arbitrary delay is weaker than an explicit readiness condition.
+
+More detail: For example, Weston may have started but the application may lack its socket path or permissions. Compare the service user and display-related environment with a working launch. Check device access separately. Avoid granting broad privileges just to make one startup symptom disappear.
 
 QUESTION L1-05. What must be tested on a physical phone?
 
 Answer: Boot ordering, real GPIO, camera, audio routes, USB and provisioning depend on the complete device. Qt tests isolate deterministic logic, while device scenarios check effective settings, SDK/UI state and media behavior. Passing one level does not establish the other.
 
+More detail: A unit test can confirm that a remote hangup ends a call model. It cannot show that the handset microphone is routed correctly. Keep a small device checklist for boot, media and hardware. Record the tested image so a later result can be compared with the same build.
+
 QUESTION L1-06. How did you separate smaller binaries from lower runtime memory?
 
 Answer: I distinguish image/package size from process memory and compare the same target call/media workload. Feature selection and optimization flags need regression checks; stripping symbols mainly affects artifacts. I do not attach an unmeasured percentage to the CV claim.
+
+More detail: For example, removing an unused feature can reduce its code and dependencies, but removing a required codec breaks calls. Compare the same device workload before and after. Keep symbols for diagnosis outside the production image. Report only the size or memory change that was actually measured.
 
 QUESTION L1-07. Why can a dedicated GPIO thread still hang at shutdown?
 
 Answer: The worker may be waiting in a blocking GPIO operation rather than its Qt event loop. I need bounded waiting or a wake-up mechanism, cooperative stop and correct destruction order. Waiting for the worker while holding a mutex it needs can deadlock.
 
+More detail: For example, a worker waiting forever for a handset edge may never read a queued stop command. Give that wait a timeout or a wake-up path. Stop new work, finish the current operation and wait for thread exit before deletion. Test stopping while no GPIO event arrives.
+
 QUESTION L1-08. How do you make logs useful without exposing SIP credentials?
 
 Answer: Correlate timestamps, call/session identity and active-server state, but remove passwords, authentication material, keys and sensitive configuration. Bound time and output size and inspect the actual exported archive. Category names alone do not sanitize message payloads.
+
+More detail: Build a bundle for a known incident and inspect the resulting archive, not only the collector code. Check application logs, SDK traces and copied configuration for secrets. Missing files should be reported as partial collection. The support user needs enough context to correlate events without receiving credentials.
 
 QUESTION L1-09. Give a concrete state-layer test example.
 
 Answer: A controlled event sequence holds a session, ends it remotely and then delivers a stale media event. Assertions check that the session stays terminated and no new active-state notification appears. The conference equivalent checks repeated participant removal. This is distinct from testing physical media.
 
+More detail: I would check both the final state and the number and arguments of the important signals. A duplicate callback must not create a second active session. Waiting should process the relevant event loop rather than rely on a long sleep. Hardware tests remain necessary for the actual media and device path.
+
 QUESTION L1-10. What changed when manual update.sh packages were replaced?
 
 Answer: They were already partial updates. The new workflow queried each phone version and constructed the matching source-to-target package from released artifacts. Recovery retained that phone’s exact previous executable, libraries, scripts and metadata rather than restoring an arbitrary factory release.
 
+More detail: The new package was built from the detected starting release and chosen target release using saved artifacts. It did not compile a new C++ program for each phone. File checks prevented applying a delta to an unexpected base. The phone then owned installation and recovery even if the Windows connection disappeared.
+
 QUESTION L1-11. Which layers do SIP, SDP and media troubleshooting cover?
 
 Answer: Registration and call signaling are separate from the negotiated media description and actual transport/capture/rendering. A successful call setup is not proof of working audio/video. I correlate SDK state and logs with the phone-side media path before assigning the defect to the PBX or UI.
+
+More detail: An account can register and a call can be accepted while media has a separate failure. Compare the description that was negotiated with the selected codecs, endpoints and local devices. Then locate whether capture, transmission or rendering stops working. This prevents one successful signaling message from being treated as proof that the whole conversation works.
 
 2. LIBRARY SYSTEM
 Period: 05.2019–04.2022

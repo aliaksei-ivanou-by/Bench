@@ -1,5 +1,7 @@
 TECH INDEX
 
+Each answer adds an example and practical checks. Read the main answer first, then the steps and observations that explain how to verify it.
+
 Explanations use short sentences and explain technical terms in everyday language. API names, variables and commands keep their exact spelling.
 
 Commands and source/configuration examples use fenced blocks with language labels. Build-host commands, target diagnostics and recipe fragments are separated.
