@@ -80,7 +80,7 @@ dmesg
 ls -l /dev
 ```
 
-GPIO LIFETIME AND FAILURE INVESTIGATION
+GPIO OWNERSHIP AND FAILURE INVESTIGATION
 
 - QObject affinity, worker execution and singleton initialization are different concerns. A static singleton does not make its mutable methods thread-safe. Serialize hardware operations in one owner where practical.
 - A worker blocked in device I/O needs a timeout or explicit wake-up; QThread::quit() only addresses an event loop, and requestInterruption() needs cooperative checking. Do not wait for thread exit while holding a lock it requires.

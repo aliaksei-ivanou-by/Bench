@@ -22,19 +22,19 @@ QUESTION SIP-03. Which parts did you personally implement?
 
 Answer: I implemented registration monitoring and primary/backup switching in the SDK, connected its APIs to the application and added a backup authentication domain. I also worked on Qt calls/accounts, provisioning, recipes and device tests. I did not own the whole product alone.
 
-More detail: The failover work is a useful way to explain that division. I implemented SDK behavior and its application integration, while other parts of the product remained shared or separately owned. I also had to keep configuration and provisioning consistent with that behavior. I would describe those concrete changes before discussing general platform knowledge.
+More detail: For failover, my responsibility included both the SDK change and the application integration. I also aligned settings and provisioning with that behavior. Other product areas remained shared or separately owned. This is the concrete work I can use to explain my contribution.
 
 QUESTION SIP-04. How was responsibility divided within the team?
 
 Answer: Our team grew from three to four C++ engineers. We worked with customer developers, a project manager, a web developer and QA. I focused on the phone application, SDK, provisioning and integration. Another developer owned the web frontend and REST implementation. Adding the stack to Yocto was team work.
 
-More detail: Changes often crossed team boundaries even when the feature looked local. An account option could affect the UI, generated configuration and SDK authentication. We coordinated those interfaces and checked scenarios with QA. I would keep team delivery separate from personal authorship when describing a finished feature.
+More detail: An account option could affect the UI, generated configuration and SDK authentication at the same time. We agreed those interfaces and checked device scenarios with QA. The feature therefore crossed several people’s areas of responsibility. I distinguish that team result from the changes I personally implemented.
 
 QUESTION SIP-05. Did you own the BSP and board bring-up?
 
 Answer: I mainly worked above new-board bring-up: application, SDK, recipes, packages and services. I used the existing BSP and investigated problems where the application met the platform. That is different from independently creating the kernel, bootloader and all board support.
 
-More detail: For example, a missing library or incorrect service setup can stop the phone application even with a working kernel. My integration work followed those failures through installed files and runtime services. I could investigate the hardware boundary without claiming to have designed the board. That distinction keeps the technical discussion tied to work I can explain.
+More detail: A missing library or wrong service setup can stop the application while the kernel works correctly. I followed such failures through installed files and services. That required understanding the platform interface, but not designing the board myself. My strongest detail is application and SDK integration on the running phone.
 
 SECTION 2. YOCTO AND STACK INTEGRATION
 
@@ -42,31 +42,31 @@ QUESTION SIP-06. Why did the product need Yocto?
 
 Answer: We needed a complete image with matching applications, libraries, services, settings and model files. Yocto described how to build and include them. Copying one executable helped debugging, but it did not replace testing the actual firmware on the phone.
 
-More detail: For a phone application, check both the executable package and its service unit. The unit must point to the installed path and have the intended enablement policy. Then boot the image without manually preparing the environment. This verifies the whole installation path, not only compilation.
+More detail: For a complete image, I would check that the executable and its service unit both enter the package. The unit must use the installed path and intended startup settings. I would then boot without manually preparing the environment. That tests delivery and startup together instead of only compilation.
 
 QUESTION SIP-07. How do you integrate Linphone SDK into a Yocto image?
 
 Answer: Choose the SDK version and suitable recipes, then fix source versions, dependencies and cross-build settings. Install the outputs into staging and split them into packages. The application gets headers and libraries through its sysroot. Include runtime packages in the image, then test registration, calls and media on hardware.
 
-More detail: Take one missing file and follow it from ${D} to its output package and then to the image. This identifies the stage that lost it. A development header may correctly belong to -dev rather than the runtime package. Fix the assignment instead of placing every file into one package.
+More detail: I would follow one SDK file from installation staging into its package and then the image. Headers may correctly go into a development package, while runtime libraries belong on the phone. I would check that split rather than put everything into one package. Finally I would start the consuming application on the device.
 
 QUESTION SIP-08. What is the difference between DEPENDS and RDEPENDS?
 
 Answer: DEPENDS lists recipes needed to build the component. RDEPENDS lists packages needed when it runs on the phone. Yocto detects many shared-library dependencies automatically. Plugins and data may need explicit entries. A recipe name and its package names can differ.
 
-More detail: For example, the application needs SDK headers while building, but the phone needs runtime library packages. A generator used during compilation runs on the build computer instead. Identify which side needs each item. This prevents both missing device packages and accidental host-library use.
+More detail: For this application, SDK headers are needed while compiling and SDK libraries when the phone runs. A source generator is different: it executes on the build computer. I would identify the consumer of every dependency. That avoids missing phone packages and accidentally linking computer libraries into ARM software.
 
 QUESTION SIP-09. How do you keep the SDK build reproducible?
 
 Answer: Fix source and layer revisions, dependencies and feature choices. SRC_URI lists source inputs and SRCREV pins Git sources. Check archives and licenses. Cache speeds up the work but does not replace these rules. Check that the build works without a developer-only workspace.
 
-More detail: The old release used for a delta must be the exact file that was distributed. A fresh build from the same tag may differ because of tools or packaging. Keep the released files and their checksums. Use those records to reject a delta when the phone’s starting files do not match.
+More detail: A delta needs the exact old file distributed to the phone. Rebuilding its Git tag later can produce different bytes because the tools or packaging changed. I would retain released files with their checksums. The updater should reject a delta when the phone’s source file does not match.
 
 QUESTION SIP-10. What is tricky about the Linphone SDK build?
 
 Answer: The SDK may build several components itself. All nested builds must use the device compiler and libraries. Avoid hidden downloads and accidental use of computer libraries. Choose the approach for the actual SDK release instead of assuming one CMake switch works everywhere.
 
-More detail: For an SDK component using CMake, start from the cmake class and inspect its generated configure command. Add only project-specific settings and missing dependencies. Check nested builds for the same toolchain. Reimplementing standard build steps can silently lose cross-compilation support.
+More detail: For a CMake SDK component, I would start from the cmake class and inspect its configure command. Then I would add project options and missing dependencies. Nested builds need the same device toolchain. Rewriting standard tasks from scratch risks losing that cross-build setup.
 
 SECTION 3. BUILD AND RUNTIME DIAGNOSIS
 
@@ -74,37 +74,37 @@ QUESTION SIP-11. The recipe builds, but the library is missing on target. What d
 
 Answer: I follow the file through do_install, package contents, image selection and the installed phone image. If the library exists but cannot load, I check architecture, loader, dependencies and permissions. Repeating compilation does not fix every installation problem.
 
-More detail: For a phone that cannot load Linphone, compare the executable’s required libraries with the image contents. Check exact names, compatibility and plugin/data paths. A library in the build directory is not the same as a library installed on the phone. Confirm the actual deployed release before rebuilding.
+More detail: If Linphone cannot load, I would compare required libraries with the deployed image. I would check exact names, ABI, plugin paths and required data. A file in the build directory is not proof that it reached the phone. I would confirm the running release before deciding to rebuild it.
 
 QUESTION SIP-12. How do you fix installed-vs-shipped QA errors?
 
 Answer: The recipe installed a file into staging but did not assign it to a package. Fix FILES or the install path, or stop installing an unwanted file. I would not disable the check globally because it can reveal a genuinely missing file.
 
-More detail: Take one missing file and follow it from ${D} to its output package and then to the image. This identifies the stage that lost it. A development header may correctly belong to -dev rather than the runtime package. Fix the assignment instead of placing every file into one package.
+More detail: I would trace the reported path from ${D} to the intended package and image. That shows whether the install location or package assignment is wrong. Some files correctly belong in -dev rather than the runtime package. I would fix the specific rule instead of disabling QA.
 
 QUESTION SIP-13. How do you detect accidental host dependencies?
 
 Answer: I inspect configure logs, compiler, sysroot and actual link libraries. A computer library may not work on ARM64. Device dependencies and tools that execute on the build computer need separate handling. With CMake, I also inspect cached settings and nested builds.
 
-More detail: For example, the application needs SDK headers while building, but the phone needs runtime library packages. A generator used during compilation runs on the build computer instead. Identify which side needs each item. This prevents both missing device packages and accidental host-library use.
+More detail: For each input I would establish whether it belongs to the device build or runs on the computer. SDK headers and link libraries must match ARM64. Build-time generators need executables for the computer. This separation makes an accidental host dependency easier to identify.
 
 QUESTION SIP-14. How would you build the application outside BitBake?
 
 Answer: I would generate and install the matching image SDK, source its setup script and use its toolchain in a fresh build directory. Check the architecture and libraries. This helps development but does not replace the recipe or final image test.
 
-More detail: For an external application build, source the SDK environment and check its compiler and sysroot. A code generator running on the computer needs a host-compatible executable instead. Do not reuse an old desktop CMake cache. Validate the produced binary against the libraries actually installed on the phone.
+More detail: I would verify the SDK compiler and sysroot before configuring the application. I would use a fresh CMake directory rather than a desktop build cache. The result must match the libraries on the phone. That confirms a useful development build, while the maintained recipe still controls product delivery.
 
 QUESTION SIP-15. Why can the Qt application run manually but fail at boot?
 
 Answer: A service may use a different user, environment, directory or startup conditions. I check files, libraries, its unit and logs. For graphics, Weston/Wayland and its socket matter. Find the real missing condition instead of adding an arbitrary delay.
 
-More detail: For example, Weston may have started but the application may lack its socket path or permissions. Compare the service user and display-related environment with a working launch. Check device access separately. Avoid granting broad privileges just to make one startup symptom disappear.
+More detail: For the graphical application, I would compare the service user and display environment with a working manual launch. Weston may have started while the required socket is still unavailable. Hardware permissions are another separate check. I would fix the missing condition instead of granting broad privileges or adding a blind delay.
 
 QUESTION SIP-16. Does After=network.target guarantee SIP connectivity?
 
 Answer: No. After= sets order but does not start a dependency or test a server. Even network-online cannot guarantee that the PBX stays reachable. The application and SDK still need failure handling and reconnection.
 
-More detail: A phone can have an address while its configured PBX is unreachable. Treat initial network setup and later server availability separately. Let the application report registration state and retry as designed. Otherwise an unrelated server outage may be mistaken for a boot failure.
+More detail: A phone may have an IP address but still be unable to reach its PBX. I would keep initial network setup separate from later server availability. Registration state and retries belong in the application/SDK behavior. Otherwise a server outage can look like a local boot failure.
 
 SECTION 4. SIP REGISTRATION AND FAILOVER
 
@@ -150,7 +150,7 @@ QUESTION SIP-23. How did you connect asynchronous SDK events to the UI?
 
 Answer: I separated models, controllers, sessions and services. SDK events updated state and the screen showed it. Event order and object lifetime matter: a callback can arrive after a screen or call closes. Widgets should not independently decide telephony state.
 
-More detail: A GPIO worker and the UI can access the same object, so a valid pointer does not make concurrent access safe. Identify who changes each field and who deletes the object. Pass commands or protect shared state consistently. Test shutdown while an event is being delivered.
+More detail: The GPIO worker and UI may reference the same object, so a valid pointer is not enough for safe access. I would identify who changes its state and who deletes it. Then I would use commands or consistent locking. I would also test teardown while an event is arriving.
 
 QUESTION SIP-24. What was the scope and status of the Qt refactor?
 
@@ -162,7 +162,7 @@ QUESTION SIP-25. How would you handle callbacks crossing Qt threads?
 
 Answer: First I would identify the callback thread and the receiving QObject thread. Send UI changes to the GUI thread through a suitable queued connection. Check receiver lifetime, argument types and late events. An asynchronous SDK operation does not make direct widget access safe.
 
-More detail: For example, a worker waiting forever for a handset edge may never read a queued stop command. Give that wait a timeout or a wake-up path. Stop new work, finish the current operation and wait for thread exit before deletion. Test stopping while no GPIO event arrives.
+More detail: If the worker waits forever for a handset event, it may never process a queued stop command. I would give the wait a timeout or a wake-up path. Then I would stop new work, wait for thread exit and delete resources. I would test shutdown with no GPIO events as well as during activity.
 
 QUESTION SIP-26. A call connects but has no audio or video. Where do you start?
 
@@ -182,7 +182,7 @@ QUESTION SIP-28. What did automated tests cover, and what needed hardware?
 
 Answer: Qt Test checked specific logic, models, controllers and call sessions. Real audio, camera, GPIO, boot and SDK integration still needed a phone. Local tests protected particular changes; they did not prove complete coverage of the phone or every conference path.
 
-More detail: A unit test can confirm that a remote hangup ends a call model. It cannot show that the handset microphone is routed correctly. Keep a small device checklist for boot, media and hardware. Record the tested image so a later result can be compared with the same build.
+More detail: A local test can confirm that remote hangup ends a model, but cannot verify the physical microphone path. I would keep separate device checks for boot, media and GPIO. Each result needs the tested image identity. That makes later regressions comparable to a known build.
 
 QUESTION SIP-29. What did you do in the provisioning tool?
 
@@ -208,19 +208,19 @@ QUESTION SIP-32. What exactly did recovery restore?
 
 Answer: The phone’s exact old application, matching libraries, scripts, resources, permissions and active-release choice. Settings had to stay compatible or be restorable. This was application-stack rollback, not A/B rootfs or repair of a non-booting board.
 
-More detail: Before activation, record the exact previous release and preserve its complete matching files. Keep a way to select them again after failure. Check shared settings as well as binaries. Recovery is incomplete if the old executable returns but can no longer read the data it needs.
+More detail: Before activation, I would record the current release and preserve all its matching files. I would retain a way to select that set after a failed update. Shared settings matter just as much as the executable. Returning old code is not complete recovery if its data is no longer readable.
 
 QUESTION SIP-33. How do you explain the GPIO responsibility precisely?
 
 Answer: The CV covers handset events, RGB LED, QThread, a singleton and deadlock/leak fixes. The key ideas are one GPIO owner, event delivery to the UI and clean shutdown. I cannot reliably name the exact original lock sequence or leaking allocation without the implementation.
 
-More detail: For example, a worker waiting forever for a handset edge may never read a queued stop command. Give that wait a timeout or a wake-up path. Stop new work, finish the current operation and wait for thread exit before deletion. Test stopping while no GPIO event arrives.
+More detail: A key failure to investigate is a worker that cannot leave its GPIO wait during shutdown. I would check its timeout or wake-up path and the order of cleanup. Singleton initialization does not solve concurrent method access. The precise old lock or allocation defect still needs its implementation history.
 
 QUESTION SIP-34. Which memory optimization can you defend?
 
 Answer: I can explain feature choices, compiler settings and how to check memory, but I do not invent exact historic flags or percentages. Binary size and RAM use differ. Compare the same calls and media on the same phone and check that required functions still work.
 
-More detail: For example, removing an unused feature can reduce its code and dependencies, but removing a required codec breaks calls. Compare the same device workload before and after. Keep symbols for diagnosis outside the production image. Report only the size or memory change that was actually measured.
+More detail: Removing an unused feature may remove code and dependencies, while removing a required codec breaks calls. I would compare the same target workload before and after a change. Matching symbols should remain available outside the production image. I would report only measured size or memory results.
 
 QUESTION SIP-35. Did you own the whole web diagnostics download implementation?
 
@@ -238,10 +238,10 @@ QUESTION SIP-37. How do you separate SIP, SDP and actual media?
 
 Answer: SIP controls signaling and SDP describes media settings. Actual audio/video also depends on transport, devices and rendering. Successful setup does not prove working media. I look for the first part of that chain that fails.
 
-More detail: An account can register and a call can be accepted while media has a separate failure. Compare the description that was negotiated with the selected codecs, endpoints and local devices. Then locate whether capture, transmission or rendering stops working. This prevents one successful signaling message from being treated as proof that the whole conversation works.
+More detail: I would first separate registration and call acceptance from actual media. Then I would compare the agreed media settings with the selected codecs, endpoints and local devices. That helps locate whether capture, transmission or rendering is failing. One successful signaling message is not enough to prove the conversation works.
 
 QUESTION SIP-38. What did SNMP, DHCP, TFTP and SQLite each do?
 
 Answer: SNMP read device information, DHCP options helped locate provisioning data, TFTP transferred files and SQLite stored tool data. I compared generated settings with phone behavior and checked project persistence. TFTP alone does not provide encryption or authentication.
 
-More detail: For example, successful device discovery does not prove that the phone downloaded or applied its configuration. Check discovery, file generation, delivery and effective phone settings separately. SQLite persistence adds another check: reopening a saved project should keep the intended values. Network trust and access controls must be considered because TFTP does not provide them itself.
+More detail: Successful discovery did not by itself prove that the phone downloaded and applied its settings. I would check discovery, file generation, delivery and effective settings separately. Reopening a saved project also had to keep the intended values. TFTP required a trusted delivery environment because it did not provide encryption or authentication itself.

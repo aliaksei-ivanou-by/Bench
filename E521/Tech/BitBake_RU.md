@@ -38,21 +38,21 @@ BitBake читает инструкции сборки и выполняет з�
 
 СОЗДАНИЕ И ДИАГНОСТИКА РЕЦЕПТА
 
-.bb описывает компонент; подходящий .bbappend расширяет его из другого слоя. Honister 3.4 ввёл overrides с двоеточием: SRC_URI:append = " file://fix.patch" и FILES:${PN}:append = " ${datadir}/phone". Для :append сохраняются необходимые пробелы. Нельзя заменять все подчёркивания: PREFERRED_VERSION_recipe и суффиксы коллекций слоёв не являются override-синтаксисом.
+.bb описывает компонент, а подходящий .bbappend дополняет его из другого слоя. С Honister 3.4 используется синтаксис переопределений с двоеточием: SRC_URI:append = " file://fix.patch" и FILES:${PN}:append = " ${datadir}/phone". Для :append нужны правильные пробелы. Не все подчёркивания заменяются: PREFERRED_VERSION_recipe и суффиксы коллекций слоёв имеют другой смысл.
 
-Использовать inherit cmake, meson или autotools согласно системе сборки. inherit pkgconfig интегрирует pkg-config для кросс-сборки, но не устанавливает зависимости и не заменяет DEPENDS.
+По системе сборки выбирается inherit cmake, meson или autotools. inherit pkgconfig настраивает pkg-config для кросс-сборки. Он не устанавливает библиотеки и не заменяет DEPENDS.
 
-Библиотеки устанавливаются в ${D}${libdir}, headers — в ${D}${includedir}, executables — в ${D}${bindir}. Стандартное разбиение обычно относит headers и development metadata в ${PN}-dev, отделённую debug information — в ${PN}-dbg.
+Библиотеки устанавливаются в ${D}${libdir}, заголовки — в ${D}${includedir}, программы — в ${D}${bindir}. Заголовки и файлы разработки обычно попадают в ${PN}-dev, отделённые отладочные данные — в ${PN}-dbg.
 
 FILES:${PN} использует целевые пути без ${D}; проверяются PACKAGES и реальные файлы вместо помещения всего в runtime.
 
-Например, bitbake -e hello | grep '^PACKAGECONFIG=' показывает итоговое значение; для других задач меняется имя переменной. bitbake -c devshell hello открывает shell окружения сборки, а не target shell. oe-pkgdata-util list-pkg-files hello и oe-pkgdata-util find-path /usr/bin/hello исследуют данные уже собранных пакетов. bitbake-layers show-appends подтверждает применение appends.
+Команда bitbake -e hello | grep '^PACKAGECONFIG=' показывает итоговое значение PACKAGECONFIG. bitbake -c devshell hello открывает окружение сборки, а не shell телефона. oe-pkgdata-util list-pkg-files hello и oe-pkgdata-util find-path /usr/bin/hello проверяют уже собранные пакеты. bitbake-layers show-appends показывает применённые appends.
 
-devtool add добавляет новый компонент; devtool modify предоставляет исходники существующего рецепта; devtool build поддерживает итерации; devtool finish экспортирует зафиксированные изменения в сопровождаемый слой и снимает workspace override. Проверяются сгенерированные sources, license fields, dependencies и install behavior.
+devtool add подготавливает новый компонент, modify — исходники существующего рецепта, build собирает изменения. finish переносит зафиксированные изменения в постоянный слой и снимает временную подмену workspace. После генерации проверяются исходники, лицензии, зависимости и установка.
 
-LICENSE определяет лицензии, LIC_FILES_CHKSUM отслеживает их текст, SRC_URI — входные данные fetch, SRCREV — фиксированную ревизию VCS. Изменение license checksum требует анализа текста, а не только принятия нового hash.
+LICENSE задаёт лицензии, LIC_FILES_CHKSUM отслеживает их текст. SRC_URI описывает получаемые исходники и файлы, SRCREV фиксирует ревизию системы контроля версий. При изменении суммы лицензии нужно прочитать изменения, а не просто принять новый hash.
 
-Для installed-vs-shipped проверяются ${D}, PACKAGES и FILES; нужные файлы относятся в корректный пакет, ненужные перестают устанавливаться. Для dev-so проверяются development symlinks; plugin .so могут требовать отдельного решения.
+Для installed-vs-shipped проверяются ${D}, PACKAGES и FILES. Нужные файлы включаются в правильный пакет, ненужные не устанавливаются. Для dev-so проверяются ссылки файлов разработки; подключаемые модули .so могут требовать отдельного правила упаковки.
 
 Для file-rdeps добавляется настоящий runtime-provider. Для buildpaths/rpaths из конфигурации убираются host-пути.
 
@@ -93,8 +93,8 @@ inherit cmake pkgconfig
 РАЗМЕР СБОРКИ SIP И ПРОВЕРКА RUNTIME
 
 - Различаются установленные bytes, размер rootfs и runtime RSS/PSS. GCC -Os оптимизирует размер кода, но не гарантирует меньшую память звонков/медиа. Перед изменением проверяются реальный compiler и flags.
-- PACKAGECONFIG выражает поддерживаемые рецептом features. Tests, codecs или plugins отключаются только с сохранением нужной функциональности. Соответствующие debug symbols сохраняются для target-диагностики.
-- Проверяются выбранный ELF interpreter, NEEDED и пути runtime plugins; успешная упаковка не доказывает загрузку ABI-совместимой библиотеки. Target-compatible readelf исследует ELF metadata без выполнения ARM-бинарника.
+- PACKAGECONFIG задаёт поддерживаемые рецептом возможности. Тесты, codecs и подключаемые модули отключаются только с сохранением нужных функций. Соответствующие symbols хранятся для отладки устройства.
+- Проверяются ELF-загрузчик, зависимости NEEDED и пути поиска подключаемых модулей. Упаковка не доказывает совместимость ABI. Подходящий readelf читает ELF без запуска ARM-программы на компьютере.
 
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
