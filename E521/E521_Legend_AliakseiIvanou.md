@@ -59,11 +59,56 @@ PACKAGE GENERATION
 
 PERSONAL ACTIONS AND TEAM COORDINATION
 
-- I extended the .NET workflow to read the installed version, start package creation, track delivery and show the result after reconnecting. I agreed the package format with the phone/build engineers. A separate updater on the phone checked the package and old files, then prepared the full new release in staging. A mismatched old file required a suitable complete-file package or recovery. The phone kept operation state even if the Windows tool closed.
+- I extended the .NET workflow to read the installed version, start package creation, track delivery and show the result after reconnecting. I agreed the package format with the phone/build engineers. A separate updater on the phone checked the package and old files, then prepared changed files in staging and a journal of installation and reverse operations. A mismatched old file required a suitable complete-file package or recovery. The phone kept operation state even if the Windows tool closed.
 
 ACTIVATION AND RECOVERY
 
-- Before switching, the phone kept its exact old program, matching libraries, scripts, resources, permissions and links. It waited until no call was active, blocked conflicting call actions, stopped the application and activated the new release. Failed local startup or SDK initialization caused rollback; the administrator could also request it. The recovery copy stayed until the next update replaced that recovery point. Settings stayed separate and compatible, or had their own restoration path. Saved operation state supported recovery after reboot. An unbootable base system still required a separate recovery procedure.
+- Before replacing files, the phone saved originals for every affected path and a journal describing the reverse operations. Unchanged files stayed installed. On failure, the updater restored replaced/deleted files, removed new files and restored their properties. It verified the old software before reporting recovery complete. The previous release could also be restored at the administrator’s request. The detailed steps below explain how this file-based rollback handled interrupted installation and reboot; it was not a complete firmware-slot switch.
+
+RECOVERY PROCESS IN DETAIL
+
+RECOVERY-01. Record the starting state.
+
+- The phone created an update transaction with its own identifier. It recorded the actual installed software version, target version and package identity. The Windows tool displayed that starting version as the recovery version. Recovery meant returning this phone to that release, not installing a factory image or choosing any older build.
+
+RECOVERY-02. Prepare files before changing the installation.
+
+- The updater checked package compatibility, signature, payload checksums and available storage. It prepared new files in staging and applied binary deltas to copies of the expected old files. The restored outputs had to match their target checksums. This stage did not overwrite the working program. Space was needed for the package, prepared files and recovery copies, not only for the download.
+
+RECOVERY-03. Stop conflicting work.
+
+- Before modifying installed files, the phone waited for no active call, blocked new conflicting operations and stopped the affected application/services. Configuration writers also had to stop or be excluded from the transaction. The update service itself remained separate and running. It rechecked the starting version and file checksums at this point so the recovery copy described the actual state immediately before replacement.
+
+RECOVERY-04. Keep originals and describe reverse operations.
+
+- For each file to replace or delete, the updater saved its original contents, relative path, checksum, owner and permissions. A symbolic link was recorded as a link with its original target. For a newly added path, the journal recorded that no file existed before the update. Unchanged files stayed in place: the phone did not need another copy of the complete firmware.
+- The reverse rules were explicit: restore a replaced file; restore a deleted file; remove a file added by this update; restore changed permissions and links. Newly created directories were removed only when empty and owned by this operation. If an update changed a configuration file, its previous content also needed a backup. Unrelated user data was not treated as software to overwrite.
+
+RECOVERY-05. Save the journal and apply the update.
+
+- Recovery copies and the operation journal were saved to persistent storage before the first destructive change. The journal described the intended operation before it ran and recorded its result afterward. File data and required directory changes were synchronized, with errors checked. This mattered because a successful write or close alone did not establish recovery after power loss.
+- A replacement was prepared in a temporary file on the destination filesystem and then renamed into place. One rename could replace one path atomically; it did not make all file changes one atomic transaction. The journal therefore had to cover interruption between any two operations, including an operation started but not yet marked complete.
+
+RECOVERY-06. Check the new installation.
+
+- After all files were installed, the updater checked their checksums, permissions and required presence, then started the affected services. Local checks covered application startup, readable configuration, SDK initialization and the absence of an immediate crash/restart loop. PBX availability was reported separately: an external server outage alone did not prove a broken installation. Only a successful local check marked the update committed and its target version confirmed.
+
+RECOVERY-07. Restore the old files after failure.
+
+- If installation or local checks failed, the updater stopped the new application and entered rollback. It processed the recovery journal in reverse order. Replaced and deleted files were restored from their saved copies; paths added by this update were removed; file properties and link targets were restored. It also handled operations whose completion was uncertain after interruption, rather than undoing only those marked successful.
+- Restoration kept the backup copies intact until verification finished. Copying an old file through a temporary destination and replacing its path allowed the same recovery step to be repeated safely. The journal recorded progress during rollback too. A second interruption therefore did not require a new package or a live Windows connection.
+
+RECOVERY-08. Verify the restored release.
+
+- The updater compared the restored files and their properties with the saved starting state, then restored the previous version record and restarted the old application. A rollback was complete only when the old software passed its local startup checks. If files could not be restored or verified, the phone reported a recovery failure and did not present a mixed installation as a working old version. It kept backups and logs for further repair.
+
+RECOVERY-09. Recover after a reboot during installation.
+
+- At boot, the update service inspected the saved transaction before allowing the phone application to start. An operation that had only prepared files could discard its staging data without changing the installed version. If installed files might have changed and the transaction was not committed, the recovery path restored the previous state. An interrupted rollback continued using the same journal and backup copies. This depended on a bootable base Linux system; it did not replace board reflashing after a bootloader or root-filesystem failure.
+
+RECOVERY-10. Keep a usable recovery point.
+
+- After success, the phone retained the backup set, journal and version identity needed for an administrator-requested return. A subsequent update could replace that recovery point only after its own pre-update backup was safely prepared. The Windows tool showed the final result: new version active, previous version restored, or recovery failed. Update-touched settings had a defined restoration path; unrelated current settings were preserved where compatible. Incompatible database migrations were outside this update mechanism.
 
 VALIDATION
 
