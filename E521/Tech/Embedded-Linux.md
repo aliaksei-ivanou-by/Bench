@@ -85,6 +85,19 @@ dmesg
 ls -l /dev
 ```
 
+GPIO LIFETIME AND FAILURE INVESTIGATION
+
+- QObject affinity, worker execution and singleton initialization are different concerns. A static singleton does not make its mutable methods thread-safe. Serialize hardware operations in one owner where practical.
+- A worker blocked in device I/O needs a timeout or explicit wake-up; QThread::quit() only addresses an event loop, and requestInterruption() needs cooperative checking. Do not wait for thread exit while holding a lock it requires.
+- To investigate a hang, collect all thread stacks and identify lock owners and blocking I/O. For a leak, compare controlled repeat cycles and allocation evidence; RSS growth alone is insufficient.
+
+GDB session commands:
+
+```text
+info threads
+thread apply all bt
+```
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Linux offers a mature ecosystem and networking but its size and ordinary scheduling may not suit a very small or hard-real-time device. An RTOS can suit strict timing and smaller footprints. PREEMPT_RT and hardware need separate evaluation; hard-real-time guarantees cannot be assumed.
@@ -197,9 +210,17 @@ QUESTION EL-24. Does A/B guarantee secure, reversible upgrades?
 
 Answer: No. Require verified artifacts, boot selection, health confirmation, bounded retries and recovery. Data migrations and anti-rollback policy can restrict rollback; secure boot needs its own trust chain.
 
+QUESTION EL-25. Does a thread-safe singleton constructor make GPIO operations safe?
+
+Answer: No. Construction, QObject affinity, concurrent state and destruction order are independent issues. A single hardware owner with queued commands can simplify access, provided its loop can actually process commands and stop.
+
+QUESTION EL-26. How do you distinguish a GPIO deadlock from a memory leak?
+
+Answer: For deadlock, inspect all thread stacks and the lock/wait cycle. For leaks, use allocation/lifetime evidence across repeated operations and separate heap memory from descriptors or line requests. Neither increasing RSS nor an unresponsive UI alone identifies the cause.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-13
+Research date: 2026-11-14
 
 - https://docs.kernel.org/admin-guide/init.html
 
@@ -222,3 +243,5 @@ Research date: 2026-11-13
 - https://sbabic.github.io/swupdate/swupdate.html
 
 - https://docs.mender.io/overview/introduction
+- https://sourceware.org/gdb/current/onlinedocs/gdb.html/Threads.html
+- https://docs.kernel.org/filesystems/proc.html

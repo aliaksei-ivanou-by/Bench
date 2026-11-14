@@ -81,11 +81,19 @@ I separated call/session state and SDK interaction from rendering and user actio
 
 The important boundary is between the SDK event stream and the state consumed by the view. A session model can represent the call independently of the widget, while an adapter translates SDK callbacks into changes in that model. Delayed callbacks and teardown need particular attention because an event may arrive after the user has closed a screen. Focused session tests and target scenarios check that the screen follows the effective call state; the architectural gain is that rendering can change without moving telephony decisions into widgets.
 
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- Separate an incoming SDK event from a user command: the controller requests an operation, while the session reflects its observed result. Keep a stable call identity, reject late events for a terminated session and make teardown idempotent. This prevents a closed screen or a repeated callback from recreating obsolete call state.
+
 1.2. BitBake builds for SDK and dependencies
 
 The initial Yocto skeleton did not contain Linphone SDK, WebRTC or mediasoup; our team added the stack. I contributed SDK/dependency recipes and packaging for the i.MX target and checked build output and target behavior. The basic platform and cross-compilation foundations already existed, while the telephony and conferencing integration was new team work. I authored and maintained custom BitBake recipes for cross-compiling the modified Linphone SDK and its dependencies for NXP i.MX ARM, including build-flag configuration to optimize the embedded memory footprint.
 
 A cross-build needs target libraries and headers in the target sysroot rather than accidentally linking against host binaries. Recipe dependencies, compiler and linker flags, and package contents are therefore part of the same path from SDK source to device. A useful check is to rebuild the affected recipe, inspect its dependencies and packaged libraries, then run the application on i.MX; memory impact should be measured on the target rather than inferred from a flag alone. The result is a reproducible SDK build compatible with the target environment.
+
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- Memory-footprint work distinguishes installed binary size, image size and runtime memory. Build features and compiler options are evaluated against the same target workload; stripping debug information alone does not establish lower runtime RSS. Retain matching symbols outside the production image and check calls, codecs and startup after a feature is disabled. No numerical improvement is implied by an optimization flag.
 
 1.3. Incremental Qt Widgets decomposition
 
@@ -93,11 +101,19 @@ I moved responsibilities toward domain, presentation and SDK integration boundar
 
 The migration preserves the existing user-facing behavior while moving one responsibility at a time. Signals and slots, QObject ownership and lifetime matter because a controller can receive an event after the associated widget or session has changed. Checking existing connections and reproducing call transitions after each change limits regression; focused tests cover state logic and device checks cover the interaction with the real SDK. The lesson is to separate the change of structure from a change of behavior.
 
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- Migrate one call-flow boundary at a time: introduce the adapter/session interface, redirect the relevant caller, preserve expected signal arguments and remove the superseded connection. Check for duplicate notifications and changes in direct versus queued delivery. Validation compares the visible hold, answer and hangup behavior before and after the structural change.
+
 1.4. Yocto layers and SDK packaging
 
 I worked within existing meta-layers on recipes, dependencies and image contents for liblinphone and related components. I verified that the resulting packages were present and usable on target rather than treating a completed build as sufficient. I developed custom Yocto recipes and .bbappend files in dedicated meta-layers to enable liblinphone cross-compilation.
 
 A dedicated layer organizes project-specific metadata, while a .bbappend extends an existing recipe without copying it wholesale. Build dependencies, runtime dependencies and the image package list must agree: a successful compilation does not prove that the shared library is installed on the phone. Inspecting the resulting package and starting the consuming application on target checks both boundaries. This approach keeps the integration maintainable while retaining the existing platform.
+
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- Keep application/SDK recipes and matching appends in product metadata, with explicit source revisions and layer dependencies. Inspect selected providers and show-appends rather than assuming a new file is active. Build-time discovery metadata belongs in the recipe sysroot; runtime plugins and resources must also enter the image. Extending the initial Yocto skeleton with our stack is distinct from claiming ownership of every vendor recipe.
 
 1.5. Video and conference edge cases
 
@@ -105,11 +121,19 @@ I worked with call and conference UI state around held and second calls, remote 
 
 The call model, media state and visible widgets must be updated in a consistent order even when the remote party or SDK initiates a transition. A held call or remote hangup can arrive while a second call or video window is active, so teardown must not leave an overlay or point the view at a stale stream. Reproducing those sequences on a phone and comparing the UI with SDK state helps isolate whether the defect lies in presentation or media lifecycle. The outcome sought is a consistent screen throughout transitions, not just a correct initial call.
 
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- The regression matrix covers a held call plus a second incoming call, remote hangup during a UI transition, conference leave during participant updates and video-source changes after an overlay closes. Cleanup detaches obsolete media/view bindings and uses session identity to ignore stale events. Check both the final screen and the sequence of transitions; a correct final image can still hide a transient invalid action.
+
 1.6. SIP backup and authentication
 
 I implemented SDK registration watchdog and failover/failback, integrated the APIs and added a backup-domain field to AuthInfo. I checked authentication and state when switching servers. The SDK changes included support for authorization with different HA1 hashes for primary and backup servers when their realms differed.
 
 The watchdog monitors registration and selects the primary or backup server; the application then displays the active choice and applies configuration consistently. Different realms affect digest authentication, so the server selection and matching credentials must change together rather than leaving a hash associated with the wrong realm. Loss, repeated failure, recovery and failback are useful scenarios, with SIP logs and active-server state checked on the device. A separate HA1 mode was disabled in later releases, so implementation of support and its enabled status must be described separately.
+
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- Distinguish an authentication challenge from an unavailable server; a 401/407 challenge alone is not proof that failover is required. Keep active-server selection, authentication domain and persisted backup settings consistent, and avoid treating every retry as a reason to rotate servers. Registration recovery is separate from continuity of an established SIP dialog and media session. HA1 capability and its later disabled selection mode remain separate facts.
 
 1.7. WebRTC conferencing
 
@@ -117,11 +141,19 @@ I integrated and debugged the phone-side WebRTC/mediasoup conference path, inclu
 
 Signaling creates or joins a room and exchanges participant and media state; the phone must then bind the negotiated media to its controls and video tiles. An invite can be declined or a participant can leave while the UI is changing, and a successful signaling step does not prove that audio or video actually renders. Testing the join/leave lifecycle, participant list and devices on the phone alongside signaling logs separates those failure domains. The result is a coherent conference flow across the UI, signaling and media boundaries.
 
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- The phone uses the native C++ client path, including libmediasoupclient, while the server-side Node.js integration controls mediasoup workers. Mediasoup is an SFU: stream forwarding is different from mixing every participant into one server-rendered video. UI controls must follow actual producer/consumer and participant lifecycle; leaving a room releases the corresponding media bindings. This explains the native client integration without attributing the later server rewrite to me.
+
 1.8. GPIO and hardware integration
 
 I worked on Qt application integration with GPIO and hardware events, using target scenarios and logs to diagnose behavior. Hardware event delivery and object lifetime had to be considered alongside asynchronous UI work. I reworked the libgpiod C++ layer for handset hook-switch edge events and the RGB status LED, moving event handling to a dedicated QThread, implementing a thread-safe singleton, and correcting a mutex deadlock and memory leak.
 
 The hardware layer observes hook-switch edge events and controls the RGB LED, while the Qt side consumes state changes without blocking the UI thread. Moving event handling to QThread requires a clear stop and cleanup path; shared singleton state must be synchronized without holding a mutex across a blocking operation or callback. Rapid hook transitions, shutdown and repeated initialization are useful edge cases, complemented by thread and lifetime diagnostics on target. The intended outcome is responsive hardware handling with predictable ownership and cleanup.
+
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- Read the initial hook state as well as later edges and interpret polarity using the board configuration. A GPIO worker needs bounded or interruptible waiting: quit() does not interrupt an arbitrary blocking loop. Singleton construction and concurrent method access are separate concerns. Deadlock diagnosis checks nested acquisition and waiting under a lock; lifetime diagnosis distinguishes heap allocations from file descriptors and GPIO requests. The exact historic failing allocation or lock sequence is not substituted with a hypothetical code fragment.
 
 1.9. Provisioning utility
 
@@ -129,11 +161,19 @@ I migrated the inherited WinForms utility from .NET Framework 4.8 to .NET 8 and 
 
 The Windows tool discovers devices, edits configuration and delivers settings through the provisioning workflow; the generated representation must be understood by the phone. Migration to .NET 8 required checking library behavior and persistence as well as compilation. Discovery failures, invalid settings and project-file compatibility are important cases: the older encrypted BinaryFormatter format is not readable by the later JSON reader. I checked representative configuration and device behavior; unifying supported formats should not be confused with universal compatibility with every legacy file.
 
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- SNMP queries device information, DHCP provisioning options help locate delivery information, and TFTP transfers the configuration artifacts; these protocols do not all perform the same step. SQLite-backed tool state and the supported project-file schema must regenerate equivalent phone settings after save/open. Validation includes missing fields, invalid account values, duplicate device entries and unreachable devices. Legacy BinaryFormatter incompatibility is explicit rather than hidden behind a claim of universal format support.
+
 1.10. Device diagnostics
 
 I used application, SIP and system logs and added active-proxy diagnostics to make failover state observable. Reproduction required matching the device, firmware, account and network conditions; logs were correlated with target behavior. I implemented categorized QLoggingCategory output to journald with size limits to protect flash, and a downloadable diagnostics bundle containing journal entries, liblinphone logs, sanitized configuration and SIP traces.
 
 Categories make it possible to distinguish application, telephony and system events without treating every message as equally important. A bounded journal protects flash capacity, while the support bundle joins relevant logs and SIP traces with a sanitized configuration so a field failure can be reconstructed. An absent log, an oversized bundle or sensitive data in configuration are important cases to check; reproducing a failure and examining the downloaded bundle validates the diagnostic path. The value is faster correlation of the device state with a reported symptom.
+
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- QLoggingCategory controls application categories; journal capture also needs the deployed logging sink or service stdout/stderr configuration. Storage limits bound retained journal data, not total lifetime flash writes, so verbose categories and rate control matter too. Bundle generation uses a bounded time window, firmware identity and correlated logs, removes credentials and authentication material, and handles partial collection. I integrated device-side diagnostics with the separately owned web download path rather than owning the entire web interface.
 
 1.11. Qt Test coverage
 
@@ -141,11 +181,19 @@ I added and maintained focused Qt Test checks for local logic, models and contro
 
 The extracted state layer can be tested without rendering the complete phone UI by supplying events and observing the resulting call or conference state. Relevant cases include repeated events, hold and resume, remote termination and a participant leaving during a transition. Focused tests reduce the cost of detecting a state regression, while a real SDK and physical phone are still needed for media and hardware integration. The lesson is to test the deterministic state boundary separately from the full device.
 
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- A focused test feeds controlled SDK-adapter events into the extracted state boundary and asserts state plus emitted notifications. For example: hold a session, terminate it remotely, then deliver a late media event and verify it does not reactivate the session. Conference cases include repeated participant removal and leave during join. Signal observation and event-loop-aware waiting avoid arbitrary sleeps. These checks exercise domain behavior, while real SDK/media and hardware remain integration tests.
+
 1.12. Yocto and target services
 
 I adapted inherited image recipes, packages and startup services and debugged integration on i.MX devices. I traced dependencies across image contents, systemd, the graphical environment and application instead of assuming every failure was a Qt defect.
 
 The complete chain runs from metadata and package selection to the image, service startup and application on the i.MX device. A missing runtime dependency, wrong service order or unavailable display socket can produce similar user-visible symptoms, so build logs must be combined with systemd and application logs. I checked the affected image and startup path on hardware and used remote debugging for the process boundary. This work integrates with the existing BSP rather than establishing ownership of the whole board platform.
+
+IMPLEMENTATION AND VALIDATION DETAIL
+
+- Record the deployed model, image identity, application and SDK revisions before comparing a successful build with a failing device. Separate initial image provisioning from runtime component updates. Our manual update.sh packages were already partial; the later .NET workflow generated a package for the detected source version and kept the exact previous software set for recovery. This does not imply A/B rootfs or a confirmed UART flashing procedure.
 
 FOLLOW-UP QUESTIONS AND ANSWERS
 
@@ -168,6 +216,30 @@ Answer: Service ordering does not necessarily mean the Wayland socket and runtim
 QUESTION L1-05. What must be tested on a physical phone?
 
 Answer: Boot ordering, real GPIO, camera, audio routes, USB and provisioning depend on the complete device. Qt tests isolate deterministic logic, while device scenarios check effective settings, SDK/UI state and media behavior. Passing one level does not establish the other.
+
+QUESTION L1-06. How did you separate smaller binaries from lower runtime memory?
+
+Answer: I distinguish image/package size from process memory and compare the same target call/media workload. Feature selection and optimization flags need regression checks; stripping symbols mainly affects artifacts. I do not attach an unmeasured percentage to the CV claim.
+
+QUESTION L1-07. Why can a dedicated GPIO thread still hang at shutdown?
+
+Answer: The worker may be waiting in a blocking GPIO operation rather than its Qt event loop. I need bounded waiting or a wake-up mechanism, cooperative stop and correct destruction order. Waiting for the worker while holding a mutex it needs can deadlock.
+
+QUESTION L1-08. How do you make logs useful without exposing SIP credentials?
+
+Answer: Correlate timestamps, call/session identity and active-server state, but remove passwords, authentication material, keys and sensitive configuration. Bound time and output size and inspect the actual exported archive. Category names alone do not sanitize message payloads.
+
+QUESTION L1-09. Give a concrete state-layer test example.
+
+Answer: A controlled event sequence holds a session, ends it remotely and then delivers a stale media event. Assertions check that the session stays terminated and no new active-state notification appears. The conference equivalent checks repeated participant removal. This is distinct from testing physical media.
+
+QUESTION L1-10. What changed when manual update.sh packages were replaced?
+
+Answer: They were already partial updates. The new workflow queried each phone version and constructed the matching source-to-target package from released artifacts. Recovery retained that phone’s exact previous executable, libraries, scripts and metadata rather than restoring an arbitrary factory release.
+
+QUESTION L1-11. Which layers do SIP, SDP and media troubleshooting cover?
+
+Answer: Registration and call signaling are separate from the negotiated media description and actual transport/capture/rendering. A successful call setup is not proof of working audio/video. I correlate SDK state and logs with the phone-side media path before assigning the defect to the PBX or UI.
 
 2. LIBRARY SYSTEM
 Period: 05.2019–04.2022

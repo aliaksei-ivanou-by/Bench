@@ -133,6 +133,12 @@ DT-02. Apply the overlay.
 - Raspberry Pi firmware instead uses dtoverlay= in config.txt.
 - Check the live tree and driver probe after boot; a deployed .dtbo is not proof of application.
 
+COMPONENT RECOVERY VERSUS BOARD RECOVERY
+
+- An updater running in Linux can recover a compatible application release while the base system remains bootable. It cannot be assumed to repair a broken bootloader, unreadable rootfs or incompatible device tree. Define the separate board reflashing/recovery procedure.
+- A serial UART console helps observe boot and issue supported bootloader commands; it is not proof that firmware payloads themselves travel over UART. Confirm the board’s real flashing transport before describing it.
+- Application-slot switching is not equivalent to A/B kernel/rootfs. Bootloader selection, retry accounting and boot confirmation require separate platform integration.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 A vendor BSP accelerates hardware enablement and supplies a validated baseline for supported configurations. It also creates dependencies on vendor releases, patches and compatible layers. Mainline support may simplify upstream maintenance when the hardware and features are adequately supported; the tradeoff must be evaluated per device.
@@ -245,9 +251,17 @@ QUESTION BSP-24. What proves an overlay was applied?
 
 Answer: The boot path applies it, expected nodes/properties appear in the live tree, and driver binding succeeds. A compiled .dtbo alone is not proof.
 
+QUESTION BSP-25. Does application rollback recover a non-booting board?
+
+Answer: Not by itself. The application updater requires a working base system. Boot/rootfs recovery needs the board’s supported flashing or independent recovery path; do not infer it from retaining an older Qt executable.
+
+QUESTION BSP-26. Does a UART boot console prove UART firmware flashing?
+
+Answer: No. The console may control a bootloader that loads payloads over another interface. Distinguish observation/control from image transport and identify the exact board procedure.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-13
+Research date: 2026-11-14
 
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
 - https://docs.kernel.org/devicetree/usage-model.html
@@ -256,3 +270,4 @@ Research date: 2026-11-13
 - https://docs.yoctoproject.org/4.0.30/kernel-dev/common.html
 - https://docs.u-boot.org/en/latest/usage/fdt_overlays.html
 - https://www.raspberrypi.com/documentation/computers/config_txt.html
+- https://docs.u-boot.org/en/latest/usage/cmd/bootm.html

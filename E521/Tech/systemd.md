@@ -58,6 +58,21 @@ systemctl status phone-ui.service
 journalctl -u phone-ui.service
 ```
 
+PHONE DIAGNOSTICS AND HEALTH CONFIRMATION
+
+- QLoggingCategory filters application categories; it does not by itself guarantee journal delivery or secret removal. Configure the logging sink/service stdout/stderr and include category/session context in the emitted message.
+- SystemMaxUse/SystemKeepFree govern persistent journal storage; RuntimeMaxUse governs volatile storage. RateLimitIntervalSec/RateLimitBurst and category verbosity address message volume. Storage bounds do not prove low cumulative flash writes.
+- Bound support bundles by time and size. Remove SIP credentials, authorization material, private keys and sensitive configuration, including copies in SDK traces. Missing logs must remain visible as partial collection.
+- For update confirmation, check local service stability and SDK initialization; a remote PBX outage is not alone a reason to roll back.
+
+Target inspection examples:
+
+```bash
+journalctl --disk-usage
+journalctl -u phone-ui.service --since "10 minutes ago" --no-pager
+systemctl show phone-ui.service -p MainPID -p NRestarts -p Result
+```
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Declarative units, dependencies, logging and supervision make startup manageable. Incorrect dependencies may hide failures or delay boot; a minimal device may choose a smaller init system.
@@ -154,9 +169,17 @@ QUESTION SYS-20. How is a service connected to a Yocto image?
 
 Answer: The recipe installs the unit and application into the staged filesystem, packaging includes them, and systemd integration metadata defines the relevant service behavior. The image must select the package. Verify unit presence, enablement policy and boot behavior on the deployed target.
 
+QUESTION SYS-21. Do journal size limits alone protect flash endurance?
+
+Answer: They bound retained storage, not cumulative writes. Control verbose categories and message rates, choose persistent/volatile policy deliberately and measure relevant behavior. Rotation does not mean that only one journal-sized amount was ever written.
+
+QUESTION SYS-22. What should confirm a phone update when the PBX is offline?
+
+Answer: Local application/service stability, readable configuration and SDK initialization can establish local health. Report external registration availability separately. Define a bounded confirmation policy so an unrelated network outage does not cause an endless rollback loop.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-13
+Research date: 2026-11-14
 
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html
 
@@ -171,3 +194,5 @@ Research date: 2026-11-13
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html
 
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
+- https://www.freedesktop.org/software/systemd/man/249/journald.conf.html
+- https://doc.qt.io/archives/qt-5.15/qloggingcategory.html

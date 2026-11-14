@@ -96,6 +96,12 @@ FILES:${PN}:append = " ${datadir}/phone"
 inherit cmake pkgconfig
 ```
 
+РАЗМЕР СБОРКИ SIP И ПРОВЕРКА RUNTIME
+
+- Различаются установленные bytes, размер rootfs и runtime RSS/PSS. GCC -Os оптимизирует размер кода, но не гарантирует меньшую память звонков/медиа. Перед изменением проверяются реальный compiler и flags.
+- PACKAGECONFIG выражает поддерживаемые рецептом features. Tests, codecs или plugins отключаются только с сохранением нужной функциональности. Соответствующие debug symbols сохраняются для target-диагностики.
+- Проверяются выбранный ELF interpreter, NEEDED и пути runtime plugins; успешная упаковка не доказывает загрузку ABI-совместимой библиотеки. Target-compatible readelf исследует ELF metadata без выполнения ARM-бинарника.
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Граф задач явно задаёт зависимости, параллельное выполнение и повторное использование. Сложность создают взаимодействующие слои, overrides, сигнатуры и providers. Для одного host-приложения прямой CMake или Make часто проще, но он не заменяет составление образа и метаданные кросс-сборки, когда они нужны.
@@ -208,9 +214,17 @@ SIP-BASED PHONE SOFTWARE: CV указывает собственные реце�
 
 Ответ: Нет. Он настраивает pkg-config для кросс-сборки. DEPENDS всё равно должен назвать provider, чьи headers, libraries и .pc нужны в recipe sysroot.
 
+ВОПРОС BB-25. Доказывают ли -Os или stripping снижение runtime RAM?
+
+Ответ: Нет. Размер кода, debug data, file-backed mappings и heap/media buffers — разные величины. Сравнивается одинаковый target workload, symbols сохраняются отдельно. Проверяются опции реальной версии GCC.
+
+ВОПРОС BB-26. Почему упакованный SDK может не работать при запуске?
+
+Ответ: Executable может требовать другой SONAME/ABI, необъявленный plugin или отсутствующие данные. Проверяются файлы, ELF dependencies, пути поиска и реально загруженная библиотека. Target-бинарник не запускается для диагностики на build host.
+
 РАЗДЕЛ 9. ИСТОЧНИКИ
 
-Дата проверки: 2026-11-13
+Дата проверки: 2026-11-14
 
 - https://docs.yoctoproject.org/bitbake/2.0/bitbake-user-manual/bitbake-user-manual-execution.html
 
@@ -227,3 +241,4 @@ SIP-BASED PHONE SOFTWARE: CV указывает собственные реце�
 - https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html
 
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
+- https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html

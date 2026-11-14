@@ -58,6 +58,21 @@ systemctl status phone-ui.service
 journalctl -u phone-ui.service
 ```
 
+ДИАГНОСТИКА ТЕЛЕФОНА И ПОДТВЕРЖДЕНИЕ РАБОТОСПОСОБНОСТИ
+
+- QLoggingCategory фильтрует категории приложения, но сам не гарантирует доставку в journal или удаление секретов. Настраиваются logging sink/stdout/stderr сервиса и category/session context сообщения.
+- SystemMaxUse/SystemKeepFree управляют persistent journal; RuntimeMaxUse — volatile storage. RateLimitIntervalSec/RateLimitBurst и verbosity категорий регулируют объём сообщений. Ограничение хранения не доказывает малый суммарный объём записей во flash.
+- Support bundle ограничивается временем и размером. Удаляются SIP credentials, authorization material, private keys и чувствительная конфигурация, включая копии в SDK traces. Отсутствующие логи отражаются как частичный сбор.
+- Для подтверждения обновления проверяются стабильность локального сервиса и инициализация SDK; отказ внешней PBX сам по себе не требует rollback.
+
+Примеры проверки на target:
+
+```bash
+journalctl --disk-usage
+journalctl -u phone-ui.service --since "10 minutes ago" --no-pager
+systemctl show phone-ui.service -p MainPID -p NRestarts -p Result
+```
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Декларативные units, зависимости, журналирование и контроль упрощают запуск. Неверные зависимости могут скрыть сбой или задержать загрузку; минимальное устройство может использовать более простую init-систему.
@@ -154,9 +169,17 @@ SIP-BASED PHONE SOFTWARE: CV указывает systemd и конфигурац�
 
 Ответ: Recipe устанавливает unit/application в staging, packaging включает их, systemd-metadata задаёт поведение сервиса. Image выбирает package. На цели проверяются unit, enablement-policy и boot.
 
+ВОПРОС SYS-21. Достаточно ли лимита journal для защиты ресурса flash?
+
+Ответ: Он ограничивает сохранённый объём, а не суммарные записи. Контролируются verbosity/rate, осознанно выбирается persistent/volatile policy и измеряется поведение. Rotation не означает, что за всё время записан лишь один объём journal.
+
+ВОПРОС SYS-22. Чем подтвердить обновление при недоступной PBX?
+
+Ответ: Локальную работоспособность подтверждают стабильность приложения/сервиса, читаемая конфигурация и инициализация SDK. Доступность внешней регистрации сообщается отдельно. Ограниченная политика confirmation исключает бесконечный rollback из-за постороннего сетевого отказа.
+
 РАЗДЕЛ 9. ИСТОЧНИКИ
 
-Дата проверки: 2026-11-13
+Дата проверки: 2026-11-14
 
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html
 
@@ -171,3 +194,5 @@ SIP-BASED PHONE SOFTWARE: CV указывает systemd и конфигурац�
 - https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html
 
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
+- https://www.freedesktop.org/software/systemd/man/249/journald.conf.html
+- https://doc.qt.io/archives/qt-5.15/qloggingcategory.html

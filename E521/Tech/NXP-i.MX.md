@@ -28,6 +28,12 @@ A useful investigation begins by recording the board revision, running image and
 
 Check the applicable vendor release documentation before assuming an accelerator or peripheral is present. These checks are a general approach; they do not establish personal authorship of a device-tree or driver change.
 
+PHONE-SPECIFIC MEDIA AND RELEASE CHECKS
+
+- Record which audio-only or camera-enabled model, board revision and image variant is under test. Presence of an i.MX family name does not identify available acceleration or the connected camera.
+- Separate application/SDK version from platform version. A phone-specific update must match that compatibility boundary and use the intended media plugins/libraries; a successful executable replacement alone is insufficient.
+- For a media failure, identify capture, device permissions, negotiated media, conversion and display separately. Desktop success is not evidence of correct target drivers, pixel formats or resource usage.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 The family offers an embedded Linux ecosystem and vendor support across multiple products. Board-specific integration, vendor release compatibility and long-term updates add work. A smaller microcontroller may suit simpler low-power control, whereas a different SoC family may offer better requirements fit.
@@ -124,9 +130,17 @@ QUESTION IMX-20. How do you describe your personal i.MX scope accurately?
 
 Answer: Name the image, recipe, runtime and application integration actually handled, and the target scenarios used to validate it. Keep schematic design, complete board bring-up and ownership of all kernel/U-Boot changes separate unless supported. This is a scope distinction, not a denial of useful integration work.
 
+QUESTION IMX-21. Which identities matter before deploying a phone-specific update?
+
+Answer: Model/board revision, platform image, application and SDK release, and required media capabilities. Source-file checksums establish delta applicability; the i.MX family name alone does not establish compatibility.
+
+QUESTION IMX-22. Why can the same application work on one phone model but not another?
+
+Answer: Image contents, camera/display configuration, plugins, drivers and resource limits can differ. Confirm the deployed model variant and actual loaded dependencies before changing call logic.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-13
+Research date: 2026-11-14
 
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
 

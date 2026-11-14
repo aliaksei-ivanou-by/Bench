@@ -85,6 +85,19 @@ dmesg
 ls -l /dev
 ```
 
+LIFETIME GPIO И ИССЛЕДОВАНИЕ ОТКАЗОВ
+
+- Affinity QObject, выполнение worker и инициализация singleton — разные задачи. Static singleton не делает изменяемые методы thread-safe. Где возможно, аппаратные операции сериализуются одним владельцем.
+- Worker в блокирующем device I/O требует timeout или явного пробуждения; QThread::quit() относится к event loop, requestInterruption() требует кооперативной проверки. Нельзя ждать завершения потока под нужным ему lock.
+- Для hang собираются stacks всех потоков, определяются владельцы locks и блокирующее I/O. Для leak сравниваются контролируемые повторные циклы и данные allocations; одного роста RSS недостаточно.
+
+Команды сессии GDB:
+
+```text
+info threads
+thread apply all bt
+```
+
 РАЗДЕЛ 5. ПРЕИМУЩЕСТВА, ОГРАНИЧЕНИЯ И АЛЬТЕРНАТИВЫ
 
 Linux даёт зрелую экосистему и сеть, но размер и обычное планирование могут не подойти маленькому устройству или системе с жёстким real time. RTOS подходит для строгих сроков и малого объёма. PREEMPT_RT и оборудование нужно оценивать отдельно: гарантии жёсткого real time нельзя предполагать.
@@ -197,9 +210,17 @@ SIP-BASED PHONE SOFTWARE: CV указывает embedded Linux, Qt и i.MX. Ле
 
 Ответ: Нет. Нужны проверенные артефакты, boot selection, health confirmation, ограничение попыток и recovery. Миграции данных и anti-rollback policy могут ограничивать откат; secure boot требует собственной цепочки доверия.
 
+ВОПРОС EL-25. Делает ли thread-safe конструктор singleton GPIO-операции безопасными?
+
+Ответ: Нет. Создание, affinity QObject, конкурентное состояние и порядок уничтожения — независимые вопросы. Один владелец оборудования с queued commands упрощает доступ, если его цикл действительно обрабатывает команды и остановку.
+
+ВОПРОС EL-26. Как различать GPIO deadlock и утечку памяти?
+
+Ответ: Для deadlock проверяются stacks всех потоков и цикл lock/wait. Для leaks нужны данные allocations/lifetime при повторении операций; heap memory отделяется от descriptors и line requests. Ни рост RSS, ни зависший UI сами не устанавливают причину.
+
 РАЗДЕЛ 9. ИСТОЧНИКИ
 
-Дата проверки: 2026-11-13
+Дата проверки: 2026-11-14
 
 - https://docs.kernel.org/admin-guide/init.html
 
@@ -222,3 +243,5 @@ SIP-BASED PHONE SOFTWARE: CV указывает embedded Linux, Qt и i.MX. Ле
 - https://sbabic.github.io/swupdate/swupdate.html
 
 - https://docs.mender.io/overview/introduction
+- https://sourceware.org/gdb/current/onlinedocs/gdb.html/Threads.html
+- https://docs.kernel.org/filesystems/proc.html

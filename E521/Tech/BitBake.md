@@ -96,6 +96,12 @@ For a CMake project using pkg-config:
 inherit cmake pkgconfig
 ```
 
+SIP BUILD-SIZE AND RUNTIME CHECKS
+
+- Separate installed bytes, rootfs size and runtime RSS/PSS. GCC -Os targets code-size optimization; it is not a guarantee of less call/media memory. Examine the actual compiler and chosen flags before changing them.
+- PACKAGECONFIG expresses features supported by the recipe. Disabling tests, codecs or plugins is valid only if required functionality remains available. Keep matching debug symbols for target diagnosis.
+- Inspect the selected ELF interpreter, NEEDED entries and runtime plugin paths; packaging success cannot prove that an ABI-compatible library is loaded. Target-compatible readelf can inspect ELF metadata without executing the ARM binary.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 A task graph makes dependencies, parallel execution and reuse explicit. Complexity comes from interacting layers, overrides, signatures and providers. A direct CMake or Make build is often simpler for a single host application; it does not replace image composition and cross-build metadata when those are required.
@@ -208,9 +214,17 @@ QUESTION BB-24. Does inherit pkgconfig provide a missing library?
 
 Answer: No. It configures cross-build pkg-config. DEPENDS must still name the provider whose headers, libraries and .pc files are needed in the recipe sysroot.
 
+QUESTION BB-25. Does -Os or stripping prove lower runtime RAM?
+
+Answer: No. Code size, debug data, file-backed mappings and heap/media buffers are different quantities. Compare the same target workload and keep symbols separately. Inspect options supported by the actual GCC version.
+
+QUESTION BB-26. Why can a packaged SDK still fail when the application starts?
+
+Answer: The executable may need a different SONAME/ABI, an undeclared plugin or missing data. Inspect installed files, ELF dependencies, discovery paths and the actual loaded library. Do not diagnose this by executing a target binary on the build host.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-13
+Research date: 2026-11-14
 
 - https://docs.yoctoproject.org/bitbake/2.0/bitbake-user-manual/bitbake-user-manual-execution.html
 
@@ -227,3 +241,4 @@ Research date: 2026-11-13
 - https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html
 
 - https://docs.yoctoproject.org/4.0.30/ref-manual/classes.html
+- https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html

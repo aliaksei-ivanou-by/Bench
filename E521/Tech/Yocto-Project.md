@@ -287,6 +287,12 @@ LAB-04. Apply an overlay.
 - Reboot and check the live device tree and driver binding.
 - A .dtbo in the deploy directory alone is insufficient; BSP explains the different U-Boot and Raspberry Pi firmware mechanisms.
 
+RELEASE ARTIFACTS FOR VERSION-AWARE UPDATES
+
+- Retain the exact released application, SDK and script artifacts after packaging transformations, not a later rebuild of the same source tag. Keep file inventories and checksums tied to image/platform and model compatibility.
+- Build the phone-specific update from its detected source release and the target release; dynamic package assembly is not recompilation per phone. Full-file payloads and binary deltas are delivery choices within the same release contract.
+- Verify source files before applying deltas, construct a complete target set and retain that device’s previous set for recovery. A manual update.sh package can already be partial; the newer mechanism improves applicability and automation. This does not imply rootfs A/B or recovery from an unbootable BSP.
+
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
 Yocto supports hardware-specific composition, controlled versions and long-term image maintenance. The cost is metadata complexity, build time and responsibility for layer compatibility and security updates. Buildroot may be simpler for a smaller fixed image; a binary distribution may speed up development where its packages and update policy fit the device.
@@ -399,9 +405,17 @@ QUESTION YCT-24. What proves the recipe lab is complete?
 
 Answer: The exported recipe builds without a workspace override, the package is in the image manifest and hello runs in the rebuilt guest. Workspace-only compilation proves less.
 
+QUESTION YCT-25. Why keep exact released artifacts instead of rebuilding the old Git tag?
+
+Answer: Toolchain, metadata or packaging differences can change bytes. A binary delta requires the exact original file checksum. Retain distributed artifacts and compatibility metadata; a matching version label alone is insufficient.
+
+QUESTION YCT-26. What must be retained to recover the exact pre-update release?
+
+Answer: A complete coherent executable/library/script/resource set, metadata and the previous activation state. Persistent data must remain compatible or have a restoration path. A reverse delta or a version number alone is not a recovery plan.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-13
+Research date: 2026-11-14
 
 - https://docs.yoctoproject.org/4.0.30/overview-manual/concepts.html
 - https://docs.yoctoproject.org/4.0.30/dev-manual/layers.html
@@ -413,3 +427,4 @@ Research date: 2026-11-13
 - https://github.com/BelledonneCommunications/linphone-sdk/blob/master/CMakeLists.txt
 - https://docs.yoctoproject.org/4.0.30/brief-yoctoprojectqs/index.html
 - https://docs.yoctoproject.org/4.0.30/sdk-manual/extensible.html
+- https://www.daemonology.net/bsdiff/

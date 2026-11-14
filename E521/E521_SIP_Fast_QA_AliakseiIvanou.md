@@ -135,3 +135,37 @@ Answer: I migrated the inherited WinForms application from .NET Framework 4.8 to
 QUESTION SIP-30. What is your strongest engineering lesson from this project?
 
 Answer: The failover change is my clearest example. I first put switching in Qt, recognized that it duplicated SDK-owned lifecycle state, reverted it and implemented the authoritative behavior in the SDK. The application then followed that state. More generally, difficult defects came from disagreement between generated settings, persisted configuration, SDK state, UI and runtime services. I learned to identify the state owner and validate the full path on the device.
+
+SECTION 7. CV AND UPDATE FOLLOW-UP QUESTIONS
+
+QUESTION SIP-31. Were the old update.sh packages full firmware images?
+
+Answer: No. They already delivered selected software files, but each installation script was prepared manually. The later .NET workflow queried the phone version and dynamically assembled the applicable package from released artifacts. Complete reflashing remained a separate procedure.
+
+QUESTION SIP-32. What exactly did recovery restore?
+
+Answer: The phone’s actual pre-update executable, matching libraries, scripts, resources and file metadata, together with the prior activation state. Settings had to stay compatible or have a restoration path. This was application-stack recovery, not a claim of A/B rootfs or repair of an unbootable board.
+
+QUESTION SIP-33. How do you explain the GPIO responsibility precisely?
+
+Answer: The CV scope includes handset edge events, RGB LED, a dedicated QThread, singleton synchronization and deadlock/leak fixes. The architecture needs one hardware owner, non-blocking UI delivery and a bounded stop path. I can explain the ownership and shutdown design, but I cannot reliably name the exact original lock sequence or leaking allocation without revisiting the implementation.
+
+QUESTION SIP-34. Which memory optimization can you defend?
+
+Answer: I can explain feature selection, compiler/build settings and measurement boundaries, but I do not invent an exact flag set or percentage. Binary size and runtime memory differ. A defensible comparison uses the same phone and call/media workload and checks that required functionality survives the change.
+
+QUESTION SIP-35. Did you own the whole web diagnostics download implementation?
+
+Answer: No. The web frontend and REST implementation belonged to another developer. My confirmed work includes correlating application/SIP/system logs and adding active-proxy diagnostics. I can explain category filtering, journal limits and sanitized support bundles, while keeping that broader CV scope distinct from the personally evidenced implementation.
+
+QUESTION SIP-36. How would you demonstrate a useful Qt state test?
+
+Answer: I would feed controlled events into a session/controller and assert both the state and notifications. A good case is remote termination followed by a late media event: the session must remain terminated. QSignalSpy can observe signals, but a passing local test does not prove that physical audio/video or every conference path works.
+
+QUESTION SIP-37. How do you separate SIP, SDP and actual media?
+
+Answer: SIP manages signaling; SDP describes media parameters, while actual audio/video follows its transport and device/rendering path. A successful setup does not prove working media. My debugging approach follows the first failing boundary instead of treating a camera or rendering failure as automatically a SIP defect.
+
+QUESTION SIP-38. What did SNMP, DHCP, TFTP and SQLite each do?
+
+Answer: They served different parts of provisioning: SNMP queried device information, DHCP options supported locating provisioning data, TFTP delivered files, and SQLite backed tool data. I checked generated settings against phone behavior and supported save/open semantics. I would not describe TFTP as authenticated or encrypted delivery.

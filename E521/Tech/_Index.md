@@ -4,9 +4,17 @@ Commands and source/configuration examples use fenced blocks with language label
 
 The Yocto Project usage section includes a twelve-step Linphone SDK integration flow, from source selection and recipes through application dependencies, image composition and target validation.
 
-The collection contains 136 answered questions with stable identifiers: 24 each for YCT, BB, EL and BSP, and 20 each for SYS and IMX. Section and question labels are literal text, so they do not depend on automatic list numbering.
+The collection contains 148 answered questions with stable identifiers: 26 each for YCT, BB, EL and BSP, and 22 each for SYS and IMX. Section and question labels are literal text, so they do not depend on automatic list numbering.
 
 Scope: Only Yocto Project, BitBake, Embedded Linux, systemd, NXP i.MX and BSP, as explicitly requested. Other CV and request technologies are outside this collection.
+
+SIP INTERVIEW ADDITIONS
+
+- BitBake: binary size versus runtime memory, ABI/plugins.
+- Embedded Linux: GPIO thread ownership, deadlock and leak diagnosis.
+- systemd: journal limits, diagnostic-bundle sanitization and local health checks.
+- Yocto Project: exact release artifacts, dynamic packages and recovery.
+- BSP and NXP i.MX: recovery/reflashing boundaries, platform versions and models.
 
 RECOMMENDED READING ORDER
 
