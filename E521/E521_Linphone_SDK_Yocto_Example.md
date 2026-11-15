@@ -354,6 +354,8 @@ grep -n 'linphone-sdk' recipe-depends.dot | head -n 20
 
 15. THE ORIGINAL RECIPE SUPPLIED FOR THIS REVIEW
 
+Companion reading: E521_Linphone_SDK_Original_Recipe_Walkthrough.md explains every line of the supplied recipe, local CMake class and layer configuration using stable R/C/L identifiers.
+
 The candidate supplied a local copy at C:\Users\User\Downloads\meta-bc. Its actual layer root is the nested meta-bc directory. The reviewed files are recipes-bc/linphone-sdk/linphone-sdk/linphone-sdk_latest.bb, classes/cmakebuilder.bbclass and conf/layer.conf. The source copy was inspected without modification. Private Git host and repository names are intentionally omitted from this guide.
 
 This is a product-specific variant, not the unmodified public Kirkstone recipe. It contains only linphone-sdk_latest.bb. Therefore the 5.3.x selector in the standalone public exercise must not be carried into this local layer: use latest for the supplied recipe. The public QEMU exercise and this phone-specific case are separate configurations.
