@@ -49,7 +49,7 @@ INC_PR = "r0"
 
 - R007: Sets human-readable package metadata. WIP and console edition are literal labels in this snapshot; they do not determine whether the built product has a GUI.
 
-- R008: Provides a project information URL. This is not the source download location; SRC_URI controls fetching.
+- R008: Provides a project information page, not the source download location; SRC_URI controls fetching. On the review date this old address returned HTTP 404. It is retained in the source quote as part of the original snapshot rather than treated as current documentation.
 
 - R009: Classifies the package under network. SECTION is metadata, not a build dependency or a firewall configuration.
 

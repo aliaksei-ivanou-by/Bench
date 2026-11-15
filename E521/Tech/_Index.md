@@ -20,6 +20,13 @@ SIP INTERVIEW ADDITIONS
 - Yocto Project: exact release artifacts, dynamic packages and recovery.
 - BSP and NXP i.MX: recovery/reflashing boundaries, platform versions and models.
 
+SUPPORTING FILES IN THE E521 ROOT
+
+- ../E521_Preparation_Review.md: package review, preparation order and known factual boundaries.
+- ../E521_SIP_Fast_QA_AliakseiIvanou.md: 46 SIP-project answers, including eight follow-ups on the original recipe and phone behavior.
+- ../E521_Linphone_SDK_Yocto_Example.md: the complete practical integration example.
+- ../E521_Linphone_SDK_Original_Recipe_Walkthrough.md: all 455 lines of the recipe and related files explained individually.
+
 RECOMMENDED READING ORDER
 
 - Start with Yocto-Project.md: foundations, the twelve-step Linphone SDK flow and practical exercises LAB-01 through LAB-04.

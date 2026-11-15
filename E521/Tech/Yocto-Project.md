@@ -273,8 +273,8 @@ LAB-04. Apply an overlay.
 RELEASE ARTIFACTS FOR VERSION-AWARE UPDATES
 
 - Retain the exact released application, SDK and script artifacts after packaging transformations, not a later rebuild of the same source tag. Keep file inventories and checksums tied to image/platform and model compatibility.
-- Build the phone-specific update from its detected source release and the target release; dynamic package assembly is not recompilation per phone. Full-file payloads and binary deltas are delivery choices within the same release contract.
-- Verify source files before applying deltas, construct a complete target set and retain that device’s previous set for recovery. A manual update.sh package can already be partial; the newer mechanism improves applicability and automation. This does not imply rootfs A/B or recovery from an unbootable BSP.
+- Build the phone-specific update from its detected source release and the target release; dynamic package assembly is not recompilation per phone. The project story transfers complete changed files; binary deltas can be considered separately as a transfer optimization.
+- Check source-version compatibility and checksums, prepare a consistent target set and retain the affected previous files for recovery. If binary deltas are introduced separately, they require exact source files. A manual update.sh package can already be partial; the newer mechanism improves package selection and automation. This does not imply rootfs A/B or recovery from an unbootable BSP.
 
 SECTION 5. STRENGTHS, LIMITATIONS AND ALTERNATIVES
 
@@ -402,7 +402,7 @@ Example and checks: Before activation, record the exact previous release and pre
 
 QUESTION YCT-19. How do licenses and security updates enter the workflow?
 
-Answer: Review recipe license metadata and license manifests, track source source and build history and assess relevant vulnerability reports. Apply compatible fixes, rebuild and validate the resulting image. A successful CVE scan is one input, not proof that the product is secure.
+Answer: Review recipe license metadata and license manifests, track source revisions and build history and assess relevant vulnerability reports. Apply compatible fixes, rebuild and validate the resulting image. A successful CVE scan is one input, not proof that the product is secure.
 
 Example and checks: For an SDK dependency update, check the changed source and license text as well as vulnerability reports. Decide whether the issue applies to the enabled features. Rebuild the affected components and test the resulting phone image. A scan result is evidence to assess, not an automatic statement that the product is safe.
 
@@ -450,7 +450,7 @@ Example and checks: Before activation, record the exact previous release and pre
 
 SECTION 9. SOURCES
 
-Research date: 2026-11-14
+Research date: 2026-11-15
 
 - https://docs.yoctoproject.org/4.0.30/overview-manual/concepts.html
 - https://docs.yoctoproject.org/4.0.30/dev-manual/layers.html

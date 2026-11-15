@@ -183,12 +183,14 @@ SIP-BASED PHONE SOFTWARE: CV указывает i.MX ARM и интеграцию
 
 РАЗДЕЛ 9. ИСТОЧНИКИ
 
-Дата проверки: 2026-11-14
+Дата проверки: 2026-11-15
 
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
 
 - https://docs.nxp.com/bundle/UG10164/page/topics/overview.html
 
-- https://www.nxp.com/docs/en/user-guide/UG10163.pdf
+- https://www.nxp.com/docs/en/release-note/IMX_LINUX_RELEASE_NOTES.pdf
 
 - https://docs.kernel.org/userspace-api/media/v4l/v4l2.html
+
+Примечание к источникам: ссылка NXP Release Notes показывает поддерживаемые компоненты и ограничения конкретного выпуска. Она не определяет версию BSP телефона; для проекта нужна документация его фактического выпуска.

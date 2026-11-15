@@ -55,7 +55,7 @@ ALTERNATIVES AND DECISION
 
 PACKAGE GENERATION
 
-- The build system kept the exact files and inventories of released versions. The package builder compared the installed release with the target release. It included additions, replacements and deletions, omitted unchanged files and used complete files or useful binary deltas. The signed manifest listed versions, compatibility, paths, operations, permissions and file checksums. Deltas also required the exact old-file checksum. It reused built files rather than compiling C++ for every phone.
+- The build system kept the exact files and inventories of released versions. The package builder compared the installed release with the target release. It included complete new files for additions and replacements, recorded deletions and omitted unchanged files. The manifest listed versions, compatibility, paths, operations, permissions and file checksums. This was a difference between file sets, not a claim that binary patches were generated inside each changed file. It reused built artifacts rather than compiling C++ for every phone.
 
 PERSONAL ACTIONS AND TEAM COORDINATION
 
@@ -73,7 +73,7 @@ RECOVERY-01. Record the starting state.
 
 RECOVERY-02. Prepare files before changing the installation.
 
-- The updater checked package compatibility, signature, payload checksums and available storage. It prepared new files in staging and applied binary deltas to copies of the expected old files. The restored outputs had to match their target checksums. This stage did not overwrite the working program. Space was needed for the package, prepared files and recovery copies, not only for the download.
+- The updater checked package compatibility, payload checksums and available storage. It prepared the complete replacement files in staging and checked them against their target checksums. This stage did not overwrite the working program. Space was needed for the package, prepared files and recovery copies, not only for the download. Checksums detected unexpected or damaged content; artifact authenticity would require a separate trusted-delivery or signature mechanism.
 
 RECOVERY-03. Stop conflicting work.
 
@@ -112,11 +112,11 @@ RECOVERY-10. Keep a usable recovery point.
 
 VALIDATION
 
-- We tested different starting versions, wrong file checksums, full files and deltas, interrupted transfers, low storage and startup failure. We checked reboot during installation and manual rollback. Recovery had to restore the actual old files, permissions and SIP settings, not just the displayed version. The Windows tool reconnected to read the final result. A PBX outage was checked separately from local application health.
+- We tested different starting versions, wrong file checksums, changed and unchanged files, interrupted transfers, low storage and startup failure. We checked reboot during installation and manual rollback. Recovery had to restore the actual old files, permissions and SIP settings, not just the displayed version. The Windows tool reconnected to read the final result. A PBX outage was checked separately from local application health.
 
 RESULT AND LESSON
 
-- Updates remained partial, but packages were now built for each phone’s starting version instead of hand-written scripts for each case. The administrator could see the target and recovery versions. Correct version checks, a complete compatible file set and tested recovery made the process reliable. Binary deltas saved transfer where useful; full reflashing remained a separate operation.
+- Updates remained partial, but packages were now built for each phone’s starting version instead of hand-written scripts for each case. The administrator could see the target and recovery versions. Correct version checks, a complete compatible file set and tested recovery made the process dependable. Unchanged files were omitted from transfer; full reflashing remained a separate operation.
 
 EXPANDED TASK ANSWERS
 
@@ -228,7 +228,7 @@ QUESTION L1-02. How do Qt signals affect object and thread lifetime?
 
 Answer: Signals do not make arbitrary shared data thread-safe or keep every referenced object alive. Queued delivery follows receiver affinity and needs a functioning event loop. I make ownership and teardown explicit so late SDK events cannot update an obsolete session or screen.
 
-More detail: If the worker waits forever for a handset event, it may never process a queued stop command. I would give the wait a timeout or a wake-up path. Then I would stop new work, wait for thread exit and delete resources. I would test shutdown with no GPIO events as well as during activity.
+More detail: For an SDK event I first identify the callback thread and the receiving object’s thread. UI work is delivered to the GUI thread, and event data must remain valid until processing. A connection context helps bound handler lifetime, but a captured raw pointer can still become stale. Call termination, screen destruction and events already queued therefore need separate checks.
 
 QUESTION L1-03. How do BitBake packaging and the target sysroot relate?
 
@@ -276,7 +276,7 @@ QUESTION L1-10. What changed when manual update.sh packages were replaced?
 
 Answer: They were already partial updates. The new workflow queried each phone version and constructed the matching source-to-target package from released artifacts. Recovery retained that phone’s exact previous executable, libraries, scripts and metadata rather than restoring an arbitrary factory release.
 
-More detail: The new package was built from the detected starting release and chosen target release using saved artifacts. It did not compile a new C++ program for each phone. File checks prevented applying a delta to an unexpected base. The phone then owned installation and recovery even if the Windows connection disappeared.
+More detail: The new package was built from the detected starting release and chosen target release using saved artifacts. It did not compile a new C++ program for each phone. Source-version compatibility and checksums were checked, and changed files were transferred in full. The phone owned installation and recovery even if the Windows connection disappeared.
 
 QUESTION L1-11. Which layers do SIP, SDP and media troubleshooting cover?
 
@@ -346,7 +346,7 @@ A workflow change can require both the service contract and the database schema 
 
 2.7. Task estimation
 
-I estimated my own work in a two-week sprint process, accounting for investigation, implementation, review and QA. Grooming and daily communication helped revise scope as details became clear.
+I estimated tasks in a two-week sprint process, accounting for investigation, implementation, review and QA. I used those estimates to coordinate realistic timelines and the engineering and QA capacity needed for development milestones. Grooming and daily communication helped revise scope and allocation as dependencies became clear.
 
 An estimate includes understanding an inherited code path, implementation, review, integration and QA rather than only coding time. Cross-service changes introduce uncertainty because the visible symptom may not identify the failing component. I discussed scope in grooming and adjusted the estimate when investigation exposed additional dependencies. The lesson is to make uncertainty visible early and revise the plan as evidence improves.
 
@@ -358,7 +358,7 @@ Review covers correctness, compatibility, error handling and whether the change 
 
 2.9. Legacy refactoring
 
-I refactored inherited C code in small changes alongside features and fixes, preserving service compatibility and established workflows. Review, builds and QA regression helped control the risk.
+I refactored inherited C code in small changes alongside features and fixes, preserving service compatibility and established workflows. The work addressed maintainability, scalability and processing efficiency in the affected paths. Review, builds and QA regression controlled the risk; I do not attach an unsupported system-wide benchmark to these changes.
 
 Legacy refactoring starts by identifying behavior and callers before moving code, particularly where C modules interact with Java and Scala services. Small changes make it easier to compare behavior and isolate a regression; boundary and error handling need to remain compatible. Builds, reviews and QA scenarios validate the affected workflows. The lesson is that better structure is valuable only when the established behavior remains dependable.
 
@@ -428,7 +428,7 @@ Visualization allows an engineer to inspect whether adjacent sensor views agree 
 
 3.4. Visual Studio development
 
-I used Visual Studio for C++ development and debugging of the Windows prototype. Recorded datasets and stage-by-stage inspection made repeated checks practical.
+I used Visual Studio for C++ coding, debugging and performance optimization of the Windows prototype. Recorded datasets made repeated checks practical. Performance work considered data handling, repeated processing and unnecessary point-cloud copies; comparisons needed the same input and output quality rather than an invented speedup percentage.
 
 The Windows desktop build brought C++ application and point-cloud libraries together in one debugging environment. Breakpoints and inspection of intermediate data help locate whether a defect enters during loading, transformation or later processing. Replaying recorded datasets supports repeatable comparisons and avoids relying on live hardware for every iteration. This improves diagnostic speed without implying a measured performance gain.
 
@@ -554,7 +554,7 @@ The Rails interface exposes structured satellite and mission records to users wh
 
 5.2. PostgreSQL reference database
 
-I designed the PostgreSQL-backed data structure for satellite and mission parameters and used it from the Rails application. Structured records made the information queryable; no quantified retrieval improvement is claimed.
+I designed and optimized the PostgreSQL-backed data structure for satellite and mission specifications and used it from the Rails application. The design considered larger record sets, query patterns, relationships and appropriate indexes so users could retrieve the required parameters efficiently. Validation used representative records and workflows; no quantified dataset size or retrieval-speed improvement is claimed.
 
 PostgreSQL stores structured satellite specifications and supports queries from the Rails application. Data modelling must keep relationships and units understandable, while query changes should be assessed using representative records rather than a bare claim of speed. I checked that the application retrieved the expected parameters and that the workflow remained usable. The outcome is a queryable reference database; no measured speedup is asserted.
 

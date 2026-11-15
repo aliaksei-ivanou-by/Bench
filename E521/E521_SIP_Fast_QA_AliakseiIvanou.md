@@ -60,7 +60,7 @@ QUESTION SIP-09. How do you keep the SDK build reproducible?
 
 Answer: Fix source and layer revisions, dependencies and feature choices. SRC_URI lists source inputs and SRCREV pins Git sources. Check archives and licenses. Cache speeds up the work but does not replace these rules. Check that the build works without a developer-only workspace.
 
-More detail: A delta needs the exact old file distributed to the phone. Rebuilding its Git tag later can produce different bytes because the tools or packaging changed. I would retain released files with their checksums. The updater should reject a delta when the phone’s source file does not match.
+More detail: A repeatable build records layer revisions, SDK and submodule revisions, the toolchain and enabled features. A source revision and a matching version label alone do not guarantee identical output bytes. Updates and rollback separately retain the actual released files, inventories and checksums. Binary deltas are an additional delivery option, not a required part of the partial-update workflow described here.
 
 QUESTION SIP-10. What is tricky about the Linphone SDK build?
 
@@ -150,7 +150,7 @@ QUESTION SIP-23. How did you connect asynchronous SDK events to the UI?
 
 Answer: I separated models, controllers, sessions and services. SDK events updated state and the screen showed it. Event order and object lifetime matter: a callback can arrive after a screen or call closes. Widgets should not independently decide telephony state.
 
-More detail: The GPIO worker and UI may reference the same object, so a valid pointer is not enough for safe access. I would identify who changes its state and who deletes it. Then I would use commands or consistent locking. I would also test teardown while an event is arriving.
+More detail: For example, a call-ended event and a late media event may arrive close together. The handler checks session identity and current state so a completed call cannot become active again. The screen receives effective state through a model or controller. Destruction disconnects the relevant handlers; a pointer having once been valid is not enough.
 
 QUESTION SIP-24. What was the scope and status of the Qt refactor?
 
@@ -162,7 +162,7 @@ QUESTION SIP-25. How would you handle callbacks crossing Qt threads?
 
 Answer: First I would identify the callback thread and the receiving QObject thread. Send UI changes to the GUI thread through a suitable queued connection. Check receiver lifetime, argument types and late events. An asynchronous SDK operation does not make direct widget access safe.
 
-More detail: If the worker waits forever for a handset event, it may never process a queued stop command. I would give the wait a timeout or a wake-up path. Then I would stop new work, wait for thread exit and delete resources. I would test shutdown with no GPIO events as well as during activity.
+More detail: With a queued connection, delivery runs in the receiver’s thread when that thread processes its event loop. Arguments must be safe to retain for deferred delivery; custom Qt 5 types may require metatype registration. BlockingQueuedConnection is unsafe within the same thread or when it creates a wait cycle. Disconnecting does not automatically retract an already queued event, so session-validity checks remain necessary.
 
 QUESTION SIP-26. A call connects but has no audio or video. Where do you start?
 
@@ -202,13 +202,13 @@ QUESTION SIP-31. Were the old update.sh packages full firmware images?
 
 Answer: No. They already updated selected files, but each update.sh was written by hand. The newer .NET workflow read the phone version and built a suitable package from saved releases. Full reflashing was a separate procedure.
 
-More detail: The new package was built from the detected starting release and chosen target release using saved artifacts. It did not compile a new C++ program for each phone. File checks prevented applying a delta to an unexpected base. The phone then owned installation and recovery even if the Windows connection disappeared.
+More detail: The package was assembled from the starting and selected target releases using saved artifacts. C++ was not recompiled for every phone. Changed files were transferred in full, unchanged files were omitted and removals were explicit. After transfer, the phone performed installation and recovery independently even if the Windows tool disconnected.
 
 QUESTION SIP-32. What exactly did recovery restore?
 
-Answer: The phone’s exact old application, matching libraries, scripts, resources, permissions and active-release choice. Settings had to stay compatible or be restorable. This was application-stack rollback, not A/B rootfs or repair of a non-booting board.
+Answer: Recovery restored the exact previous affected application files, matching libraries, scripts, resources, permissions and version record. Replaced or deleted files came back from backups, and newly added files were removed. Settings had to remain compatible or be restorable. This was file-based rollback, not release-directory switching, A/B rootfs or repair of a non-booting board.
 
-More detail: Before activation, I would record the current release and preserve all its matching files. I would retain a way to select that set after a failed update. Shared settings matter just as much as the executable. Returning old code is not complete recovery if its data is no longer readable.
+More detail: Before changing files, their original contents and properties were saved together with a reverse-operation journal. Failure undid operations in reverse order and allowed an interrupted step to be repeated. After a reboot, recovery had to run before the ordinary application. Restoring the version label alone was insufficient: actual files and local startup of the previous software were checked.
 
 QUESTION SIP-33. How do you explain the GPIO responsibility precisely?
 
@@ -245,3 +245,63 @@ QUESTION SIP-38. What did SNMP, DHCP, TFTP and SQLite each do?
 Answer: SNMP read device information, DHCP options helped locate provisioning data, TFTP transferred files and SQLite stored tool data. I compared generated settings with phone behavior and checked project persistence. TFTP alone does not provide encryption or authentication.
 
 More detail: Successful discovery did not by itself prove that the phone downloaded and applied its settings. I would check discovery, file generation, delivery and effective settings separately. Reopening a saved project also had to keep the intended values. TFTP required a trusted delivery environment because it did not provide encryption or authentication itself.
+
+SECTION 8. ORIGINAL RECIPE AND PHONE BEHAVIOR FOLLOW-UPS
+
+QUESTION SIP-39. Which source version does your supplied original recipe actually build?
+
+Answer: The recipe is named latest, but that is only its recipe version. It fetches the configured Git source on main. An explicit LINPHONE_SDK_REV can pin the commit; otherwise DEFAULT_COMMIT is AUTOREV in this snapshot. The version text passed to CMake does not pin the source.
+
+More detail: I would inspect expanded SRCREV, the actual checked-out commit and recorded submodule commits. LINPHONE_SDK_BRANCH is read but the fetch URI uses literal main, so changing that environment variable alone has no effect on the branch. The environment hook must also be passed into BitBake correctly. These observations explain the supplied snapshot, not the exact inputs of every historical release.
+
+QUESTION SIP-40. Does disabling video remove all Qt and video dependencies?
+
+Answer: Not in the supplied recipe. PACKAGECONFIG selects supported feature arguments and their conditional dependencies, but DEPENDS also contains unconditional Qt and codec entries. Removing video does not remove those direct entries automatically. The final feature arguments and source defaults still determine what is compiled.
+
+More detail: The enabled video branch sets X11/XVideo options, while its disabled branch sets ENABLE_VIDEO=NO. I would inspect PACKAGECONFIG_CONFARGS and CMakeCache rather than assume a symmetric switch. The default zxing entry also needs a matching definition from this recipe or an append. Hardware-specific g2d and imxvpuh264 depend on compatible BSP providers, so the phone variant is not a drop-in generic QEMU build.
+
+QUESTION SIP-41. How do the intermediate SDK directory, sysroot and /opt fit together?
+
+Answer: The original recipe uses an intermediate SDK tree under WORKDIR/build/linphone-sdk/desktop. Installation is then arranged under D so the final device path is /opt/belledonne-communications. SYSROOT_DIRS publishes selected installed content to dependent recipes. The application uses that content while compiling; the phone uses separately installed runtime packages.
+
+More detail: I would check the actual generated install command because the custom and standard CMake classes interact. I would then follow one header and one shared library through staging, sysroot and package contents. rpath-link only helps the build-time linker; it does not teach the phone loader where /opt libraries live. The loader path and any required cache handling must be checked separately.
+
+QUESTION SIP-42. Does RPROVIDES:${PN} = "liblinphone" create a liblinphone build provider?
+
+Answer: No. RPROVIDES declares runtime aliases for an output package. PROVIDES names recipe-level build providers. The supplied SDK recipe lists many runtime component aliases, but that does not create independent recipes for all those components. A consuming recipe should use the actual build provider in DEPENDS.
+
+More detail: I would use show-recipes to inspect build providers and pkgdata to inspect output packages. PACKAGES and FILES then determine which files belong to each package. That is also why a successful alias lookup does not prove that the package contains the required .so. Runtime dependency resolution and file presence are separate checks.
+
+QUESTION SIP-43. Should a 401 or 407 response trigger immediate SIP failover?
+
+Answer: No. A 401 or 407 can be a normal authentication challenge. The SDK must use the appropriate challenge and authentication context before deciding that registration failed. Server reachability, rejected credentials and a normal challenge are different conditions. A failover policy should distinguish them instead of rotating servers on every response.
+
+More detail: For the project’s MD5 variant, a stored HA1 must match the username and realm. I would compare the challenge, selected account and active server, then inspect the resulting registration state. I would not invent retry counts or switch delays without the implementation. Successful backup registration also says nothing by itself about preserving an existing call.
+
+QUESTION SIP-44. Can you explain a basic SIP call and the difference between CANCEL and BYE?
+
+Answer: A caller sends INVITE, potentially with an SDP offer. Provisional responses such as 180 or 183 report progress. A successful final response is acknowledged, while the negotiated audio/video follows a media path such as RTP. SIP signaling and actual media therefore need separate observations.
+
+More detail: CANCEL attempts to stop a pending request such as an unanswered INVITE; BYE terminates an established dialog/session. Cancellation can race with a successful answer, so the implementation must handle the actual final state rather than merely close the screen. For a failed call I would correlate dialog/transaction identifiers and SDK events with the UI. This is a protocol explanation, not a claim that I implemented a SIP stack from scratch.
+
+QUESTION SIP-45. How do you keep C++ ownership safe around C SDK objects and Qt callbacks?
+
+Answer: First identify whether an SDK pointer is borrowed or owns a reference. Release an owned reference with the matching SDK API, not an arbitrary delete. A C++ RAII wrapper can make that release explicit. Qt parent ownership is another model and must not compete with an independent owner of the same object.
+
+More detail: For callbacks, I would stop new events, detach callbacks where supported and ensure no in-flight work can access destroyed state. Shared ownership alone does not make mutable objects thread-safe. I would also check what happens if initialization fails halfway or shutdown occurs during a callback. The exact ref/unref contract comes from the SDK version and API being used.
+
+QUESTION SIP-46. Why can replacing only liblinphone.so break a partial update?
+
+Answer: The application, SDK dependencies and plugins form a compatible software set. A library with the expected filename can still expose an incompatible ABI or require different plugins and data. I would build the package from the selected source and target release inventories. The package must include every required change and explicit removal, not only the most visible .so.
+
+More detail: Before installation, retain the previous affected files and metadata for reverse restoration. After installation, verify real files and local application/Core startup before confirming the new version. Package checksums detect corruption or an unexpected file, but do not by themselves prove authenticity. Signatures, binary deltas and A/B slots are separate mechanisms and should not be described as deployed merely because the update is called incremental.
+
+SECTION 9. TECHNICAL SOURCES
+
+Research date: 2026-11-15.
+
+- https://doc.qt.io/archives/qt-5.15/threads-qobject.html
+- https://doc.qt.io/archives/qt-5.15/qobject.html
+- https://docs.yoctoproject.org/4.0.30/ref-manual/variables.html
+- https://www.rfc-editor.org/rfc/rfc3261.html
+- https://github.com/BelledonneCommunications/liblinphone/blob/5.3.0/include/linphone/core.h

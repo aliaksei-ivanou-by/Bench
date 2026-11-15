@@ -183,12 +183,14 @@ Example and checks: Before an update, compare model, platform image and applicat
 
 SECTION 9. SOURCES
 
-Research date: 2026-11-14
+Research date: 2026-11-15
 
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
 
 - https://docs.nxp.com/bundle/UG10164/page/topics/overview.html
 
-- https://www.nxp.com/docs/en/user-guide/UG10163.pdf
+- https://www.nxp.com/docs/en/release-note/IMX_LINUX_RELEASE_NOTES.pdf
 
 - https://docs.kernel.org/userspace-api/media/v4l/v4l2.html
+
+Source note: the NXP release notes describe supported components and limitations for their stated release. They do not identify the phone’s BSP version; project claims require the documentation for its actual release.
