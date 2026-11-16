@@ -22,6 +22,8 @@ SIP INTERVIEW ADDITIONS
 
 SUPPORTING FILES IN THE E521 ROOT
 
+- ../E521_Yocto_Workspace_Skeleton.md: directory trees for Poky, external layers, the supplied meta-bc, the product layer and build outputs.
+
 - ../E521_Preparation_Review.md: package review, preparation order and known factual boundaries.
 - ../E521_SIP_Fast_QA_AliakseiIvanou.md: 48 SIP-project answers, including eight follow-ups on the original recipe and phone behavior.
 - ../E521_Linphone_SDK_Yocto_Example.md: the complete practical integration example.
