@@ -10,6 +10,7 @@ Source request: E521_Request_AliakseiIvanou.md
 Preparation language: English
 Delivery format: Domain-based spoken introduction with a detailed latest-project section
 Target spoken duration: approximately 5 minutes
+Remote-sensing projects in the CV: Software Modules for UAV; Software for Processing and Analysis of Satellite Earth Observation Images; Remote Sensing Satellites Database.
 
 SECTION 2. INTERVIEW SCRIPT
 
@@ -17,7 +18,7 @@ Hello, my name is Aliaksei Ivanou. I am a Software Engineer with more than fourt
 
 My latest domain is telecommunications. On SIP-Based Phone Software, I work on desk phones using C++17, Qt, Linphone SDK and Yocto Linux on NXP i.MX.
 
-My earlier experience covers three other domains. On Library System, I maintained a C89 backend and investigated Linux failures. In industrial measurement, 3D Reconstruction Software for Industrial Applications involved a C++ point-cloud prototype. Earlier, Software Modules for UAV and Software for Processing and Analysis of Satellite Earth Observation Images involved MATLAB imaging algorithms. On Remote Sensing Satellites Database, I built a Rails/PostgreSQL reference database.
+My earlier experience covers three other domains. On Library System, I maintained a C89 backend and investigated Linux failures. In industrial measurement, 3D Reconstruction Software for Industrial Applications involved a C++ point-cloud prototype. In remote sensing, I worked on satellite image processing with MATLAB and C++, developed UAV imaging algorithms in MATLAB, and built a Rails/PostgreSQL database of satellite and mission parameters.
 
 The phone project is the closest match to this role, so I will focus on it. It supports audio-only and camera-enabled models, with a native application, telephony SDK, provisioning tools and a Linux image. My main responsibility was application and SDK engineering, including integration and debugging on physical phones.
 

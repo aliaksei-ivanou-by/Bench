@@ -10,6 +10,7 @@
 Язык подготовки: Русский
 Формат подачи: Устное представление по доменам с подробным разбором последнего проекта
 Целевая длительность устного ответа: около 5 минут
+Проекты дистанционного зондирования в CV: Software Modules for UAV; Software for Processing and Analysis of Satellite Earth Observation Images; Remote Sensing Satellites Database.
 
 РАЗДЕЛ 2. ТЕКСТ ДЛЯ ИНТЕРВЬЮ
 
@@ -17,7 +18,7 @@
 
 Последний домен — телекоммуникации. На SIP-Based Phone Software я работаю над настольными телефонами на C++17, Qt, Linphone SDK и Linux на базе Yocto для NXP i.MX.
 
-Предыдущий опыт охватывает ещё три области. На Library System я сопровождал бэкенд C89 и исследовал сбои Linux. В промышленных измерениях, на 3D Reconstruction Software for Industrial Applications, разрабатывал C++-прототип обработки облаков точек. Ранее, на Software Modules for UAV и Software for Processing and Analysis of Satellite Earth Observation Images, занимался алгоритмами обработки изображений в MATLAB. На Remote Sensing Satellites Database создал справочную базу Rails/PostgreSQL.
+Предыдущий опыт охватывает ещё три области. На Library System я сопровождал бэкенд C89 и исследовал сбои Linux. В промышленных измерениях, на 3D Reconstruction Software for Industrial Applications, разрабатывал C++-прототип обработки облаков точек. В дистанционном зондировании я занимался обработкой спутниковых изображений на MATLAB и C++, разрабатывал алгоритмы обработки изображений с БПЛА в MATLAB, а также создал базу параметров спутников и миссий на Rails/PostgreSQL.
 
 Проект телефона ближе всего к этой роли, поэтому подробнее остановлюсь на нём. Продукт поддерживает аудиотелефоны и модели с камерой, включает приложение, телефонный SDK, инструменты провижининга и образ Linux. Моя основная работа — приложение и SDK, их интеграция и диагностика на физических телефонах.
 
