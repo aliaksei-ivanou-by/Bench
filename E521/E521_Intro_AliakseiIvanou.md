@@ -9,35 +9,31 @@ CV source: E521 Aliaksei Ivanou (13, C++).pdf
 Source request: E521_Request_AliakseiIvanou.md
 Preparation language: English
 Delivery format: Domain-based spoken introduction with a detailed latest-project section
-Estimated spoken duration: 4–5 minutes
+Target spoken duration: approximately 5 minutes
 
 SECTION 2. INTERVIEW SCRIPT
 
-Hello, my name is Aliaksei Ivanou. I am a software engineer with more than fourteen years across engineering and research and development. My main focus is C and C++ development, and my recent work combines C++17, Qt and embedded Linux with Yocto. Earlier in my career I developed image-processing algorithms in MATLAB.
+Hello, my name is Aliaksei Ivanou. I am a Software Engineer with more than fourteen years across engineering and research and development. My main focus is C and C++, especially embedded Linux applications and integration.
 
-I will describe my background through the domains I have worked in and then explain my latest embedded project in more detail.
+My latest domain is telecommunications. On SIP-Based Phone Software, I work on desk phones using C++17, Qt, Linphone SDK and Yocto Linux on NXP i.MX.
 
-The first domain is telecommunications and embedded devices. As a Software Engineer on SIP-Based Phone Software, I work on a desk-phone platform using C++17, Qt, Linphone SDK and Yocto-based Linux on NXP i.MX. I will describe this project in more detail shortly.
+My earlier experience covers three other domains. On Library System, I maintained a C89 backend and investigated Linux failures. In industrial measurement, 3D Reconstruction Software for Industrial Applications involved a C++ point-cloud prototype. Earlier, Software Modules for UAV and Software for Processing and Analysis of Satellite Earth Observation Images involved MATLAB imaging algorithms. On Remote Sensing Satellites Database, I built a Rails/PostgreSQL reference database.
 
-The second domain is library systems and long-lived backend software. On Library System, I was one of three C developers maintaining a C89 backend. I implemented features, fixes and refactoring, with occasional Java and Scala changes, and investigated Linux failures using gdb and Valgrind.
+The phone project is the closest match to this role, so I will focus on it. It supports audio-only and camera-enabled models, with a native application, telephony SDK, provisioning tools and a Linux image. My main responsibility was application and SDK engineering, including integration and debugging on physical phones.
 
-The third domain is industrial measurement. On 3D Reconstruction Software for Industrial Applications, I developed a C++ prototype that combined 2D laser-scanner profiles into a point cloud, using Point Cloud Library and Open3D for processing and visualization.
+Before our team joined, there was a basic Yocto skeleton without Linphone SDK, WebRTC or mediasoup. We added those components and their dependencies. I contributed to BitBake recipes, packaging, image contents and startup services within the existing board platform.
 
-The fourth domain is aerospace and UAV imaging. On Software Modules for UAV and Software for Processing and Analysis of Satellite Earth Observation Images, I developed and validated MATLAB algorithms for image processing, resolution assessment and compression. I also built a Ruby on Rails and PostgreSQL reference database on Remote Sensing Satellites Database.
+For example, the SDK recipe fetched Git sources with submodules, declared target libraries and native build tools, selected features through PACKAGECONFIG and passed the CMake cross-build settings. I checked the installation layout, output packages and runtime dependencies. SDK files were installed under /opt/belledonne-communications. The application needed the SDK headers and libraries in its recipe sysroot, while the image needed the runtime packages. These were separate checks.
 
-I would now like to explain the SIP phone project in more detail, because it is the closest match to this role.
+A successful build was only the first step. If the application failed after boot, I checked installed files, library paths, the systemd unit and the Weston/Wayland environment. The compositor process could be running while the required socket or service environment was still unavailable. I used logs and remote debugging, then repeated the scenario on the actual phone.
 
-The product supports audio-only and camera-enabled phones. Its software includes a Qt application, a customized SIP SDK, provisioning tools and an embedded Linux image. User-visible state depends on generated configuration, device settings, the SDK and application models. I worked across those boundaries primarily as a C++ and Qt developer.
+My strongest SDK example is SIP server failover. I implemented registration monitoring and switching between primary and backup servers, including returning to the primary after recovery. I first tried switching in Qt, then moved the state machine into liblinphone because registration belonged there. The application consumed SDK state instead of maintaining another switching loop. I tested server loss, recovery, authentication and the displayed state on devices.
 
-For example, I implemented the registration watchdog and primary/backup failover and failback in the customized liblinphone SDK, then integrated its APIs into the application and provisioning paths. I initially tried switching servers in the Qt layer, but moved the state machine into the SDK because registration lifecycle state belonged there. I checked server loss and recovery, authentication and the displayed state on physical devices. I also refactored call handling toward clearer session, service, adapter and presentation boundaries; the broader refactor was completed as internal architecture work.
+I also separated call handling into sessions, services, SDK adapters and presentation. The wider refactor was completed as internal architecture work. Focused Qt tests supported local logic; audio, video, GPIO and full startup still needed device tests.
 
-Before our team joined, there was a basic Yocto skeleton without Linphone SDK, WebRTC or mediasoup. We added those components, their dependencies and runtime integration to the NXP i.MX image. I contributed to BitBake recipes, application and SDK packaging, model-specific image contents, scripts and startup services. We developed that baseline into an integrated phone stack; the BSP remained a shared team foundation.
+Another part of my work was migrating the Windows provisioning tool from .NET Framework 4.8 to .NET 8 and developing discovery and configuration workflows. Generated settings had to agree with the phone's effective behavior.
 
-A useful example is device startup. The application depended on the graphical environment, installed files, services and hardware being ready. A symptom that looked like a Qt failure could come from a missing file, service ordering or an unavailable Wayland socket. I investigated with logs, gdb and gdbserver and checked behavior on physical phones. Component tests helped with isolated logic, but complete boot, audio, video and hardware behavior needed testing on the device.
-
-I also migrated the WinForms provisioning tool from .NET Framework 4.8 to .NET 8 and developed configuration and discovery workflows with SNMP, DHCP and TFTP. The generated settings had to match what the phone actually applied.
-
-Across these domains, my common approach is to understand the complete data or control path, make focused changes within an existing system and validate them at the layer being checked. For this role, I would bring hands-on C++ development, Yocto image integration and embedded Linux diagnosis, together with experience working across application, SDK, services and physical hardware.
+For this role, I bring hands-on C++ development, Yocto recipe and image integration, and embedded Linux diagnosis. My approach is to follow the complete path from source and build settings to installed software and observable device behavior.
 
 SECTION 3. FOLLOW-UP QUESTIONS AND ANSWERS
 

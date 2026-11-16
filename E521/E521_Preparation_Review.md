@@ -22,6 +22,8 @@ Qt callback answers now explain callback thread, receiver affinity, deferred arg
 
 03. READING ORDER BEFORE THE INTERVIEW
 
+The interview feedback and accepted corrections are recorded in E521_Interview_Debrief_AliakseiIvanou.md. The Intro targets about five minutes, with a compact overview of earlier projects and a concrete Yocto/SIP focus. The storage-layout figure is approximately 16 GB; PoE belongs to the interviewer’s CV.
+
 - First read Request and Profile to keep the role and factual scope clear. The target is embedded Linux/Yocto work, including custom layers, recipes, BSP and image builds.
 - Rehearse the Intro once. Keep its earlier-project overview short and spend most detail on the SIP phone.
 - Read SIP Fast Q&A sections 1–4 and questions SIP-39 through SIP-48. These connect personal scope to the concrete recipe and the likely technical probes.
