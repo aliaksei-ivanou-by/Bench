@@ -1,6 +1,6 @@
 E521: PREPARATION REVIEW AND READING MAP
 
-Review date: 2026-11-15. Role: Senior C++ Engineer – Yocto Linux. Candidate: Aliaksei Ivanou.
+Review date: 2026-11-15; DTB/GPIO answers added 2026-11-16. Role: Senior C++ Engineer – Yocto Linux. Candidate: Aliaksei Ivanou.
 
 01. WHAT WAS REVIEWED
 
@@ -10,7 +10,7 @@ The review covered the selected twelve-page CV, all 32 existing Markdown files i
 - Responsibilities has 39 individual evidence assessments: five CONFIRMED, 32 PARTIALLY CONFIRMED and two NOT SUPPORTED. Date/role corrections are recorded at project level.
 - The request has six work items and nine requirements. All 15 are covered once: six COVERED and nine PARTIALLY COVERED.
 - The six-project Legend contains ten delivery stories and 39 expanded task answers. Its scope follows the CV; Responsibilities gives the separate factual reconciliation.
-- Tech remains limited to the six requested topics, with 148 answered questions. Intro adds eight answers, Legend adds 31 and SIP Fast Q&A now has 46. These existing question banks total 233 answers per language.
+- Tech remains limited to the six requested topics, with 150 answered questions. Intro adds eight answers, Legend adds 31 and SIP Fast Q&A now has 48. These existing question banks total 237 answers per language.
 - The integration guide has 27 sections. The original-recipe walkthrough explains 455 physical lines: 273 recipe lines, 171 class lines and 11 layer.conf lines.
 - English/Russian identifiers, source/configuration examples, evidence statuses and package structure were compared. Formatting and shell syntax checks do not amount to a completed Yocto build.
 
@@ -24,7 +24,7 @@ Qt callback answers now explain callback thread, receiver affinity, deferred arg
 
 - First read Request and Profile to keep the role and factual scope clear. The target is embedded Linux/Yocto work, including custom layers, recipes, BSP and image builds.
 - Rehearse the Intro once. Keep its earlier-project overview short and spend most detail on the SIP phone.
-- Read SIP Fast Q&A sections 1–4 and questions SIP-39 through SIP-46. These connect personal scope to the concrete recipe and the likely technical probes.
+- Read SIP Fast Q&A sections 1–4 and questions SIP-39 through SIP-48. These connect personal scope to the concrete recipe and the likely technical probes.
 - Study Legend stories 1.1 and 1.2: SDK failover and image/startup integration. Be able to trace a symptom across SDK, application, packages and device.
 - Use the original walkthrough for R005/R059/R071, R083–R099, R113–R174 and R195–R268. Explain why a setting matters rather than reciting it.
 - Use the implementation guide for a runnable learning path. Keep its public QEMU configuration separate from the supplied phone-specific recipe.

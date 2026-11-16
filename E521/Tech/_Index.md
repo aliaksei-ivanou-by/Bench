@@ -8,22 +8,22 @@ Commands and source/configuration examples use fenced blocks with language label
 
 The Yocto Project usage section includes a twelve-step Linphone SDK integration flow, from source selection and recipes through application dependencies, image composition and target validation.
 
-The collection contains 148 answered questions with stable identifiers: 26 each for YCT, BB, EL and BSP, and 22 each for SYS and IMX. Section and question labels are literal text, so they do not depend on automatic list numbering.
+The collection contains 150 answered questions with stable identifiers: 26 each for YCT and BB, 27 each for EL and BSP, and 22 each for SYS and IMX. Section and question labels are literal text, so they do not depend on automatic list numbering.
 
 Scope: Only Yocto Project, BitBake, Embedded Linux, systemd, NXP i.MX and BSP, as explicitly requested. Other CV and request technologies are outside this collection.
 
 SIP INTERVIEW ADDITIONS
 
 - BitBake: binary size versus runtime memory, ABI/plugins.
-- Embedded Linux: GPIO thread ownership, deadlock and leak diagnosis.
+- Embedded Linux: whether GPIO needs a recipe (EL-27), GPIO thread ownership, deadlock and leak diagnosis.
 - systemd: journal limits, diagnostic-bundle sanitization and local health checks.
 - Yocto Project: exact release artifacts, dynamic packages and recovery.
-- BSP and NXP i.MX: recovery/reflashing boundaries, platform versions and models.
+- BSP and NXP i.MX: DTB definition and build ownership (BSP-27), recovery/reflashing boundaries, platform versions and models.
 
 SUPPORTING FILES IN THE E521 ROOT
 
 - ../E521_Preparation_Review.md: package review, preparation order and known factual boundaries.
-- ../E521_SIP_Fast_QA_AliakseiIvanou.md: 46 SIP-project answers, including eight follow-ups on the original recipe and phone behavior.
+- ../E521_SIP_Fast_QA_AliakseiIvanou.md: 48 SIP-project answers, including eight follow-ups on the original recipe and phone behavior.
 - ../E521_Linphone_SDK_Yocto_Example.md: the complete practical integration example.
 - ../E521_Linphone_SDK_Original_Recipe_Walkthrough.md: all 455 lines of the recipe and related files explained individually.
 

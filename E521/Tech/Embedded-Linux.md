@@ -265,9 +265,15 @@ Answer: For deadlock, inspect all thread stacks and the lock/wait cycle. For lea
 
 Example and checks: Pause the process and collect all thread stacks. Look for one thread waiting for a lock held by another, or for a blocking device operation. Repeat the observation to see whether work progresses. For memory problems, collect allocation evidence separately; a lock wait and a leak need different proof.
 
+QUESTION EL-27. Does GPIO require its own Yocto recipe?
+
+Answer: GPIO means General-Purpose Input/Output: hardware lines that software can read or drive. A physical GPIO pin does not need its own recipe. If the BSP already provides a working GPIO controller driver and the pin is configured correctly, the application uses the existing kernel interface. In this project context, libgpiod is the user-space library used for that access; it is software and has a recipe. The phone application also has its own recipe or belongs to an existing application recipe.
+
+Example and checks: There are three different changes to distinguish. Using libgpiod from existing C++ code normally means adding the libgpiod provider to the application's DEPENDS and checking that C++ bindings and runtime libraries are available. Changing the pin function, board description or kernel options usually means extending the existing BSP/kernel metadata; not every GPIO needs a new .bb. A genuinely new user-space service or out-of-tree driver may need a separate recipe. Check the pin's actual owner, permissions and the supported libgpiod version; do not seize a line already managed by a kernel driver.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-14
+Research date: 2026-11-16
 
 - https://docs.kernel.org/admin-guide/init.html
 
@@ -292,3 +298,5 @@ Research date: 2026-11-14
 - https://docs.mender.io/overview/introduction
 - https://sourceware.org/gdb/current/onlinedocs/gdb.html/Threads.html
 - https://docs.kernel.org/filesystems/proc.html
+
+- https://docs.yoctoproject.org/4.0.30/ref-manual/variables.html#term-DEPENDS

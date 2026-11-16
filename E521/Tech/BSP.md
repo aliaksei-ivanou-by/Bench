@@ -309,9 +309,15 @@ Answer: No. The console may control a bootloader that loads payloads over anothe
 
 Example and checks: The serial console can show a bootloader prompt while the firmware data is transferred through a different interface. Record both the control steps and the actual data path. Do not label the process UART flashing based only on seeing serial output. Use the documented procedure for that board.
 
+QUESTION BSP-27. What is a DTB, and does building one need a separate recipe?
+
+Answer: DTB means Device Tree Blob: the compiled binary representation of a board's hardware description. The source normally consists of a .dts file and included .dtsi files. It describes such things as memory, buses, GPIO controllers, pin configuration and connected devices. On a typical device-tree-based ARM system the bootloader supplies this description to the kernel. The DTB contains data, not driver code, and is not the kernel or root filesystem.
+
+Example and checks: The usual path is .dts plus included descriptions, kernel build preprocessing and dtc, then a .dtb deployed with the boot artifacts. A separate recipe for each DTB is normally unnecessary: the existing kernel/BSP recipe builds selected trees, commonly controlled through KERNEL_DEVICETREE. Board changes usually belong in a product-layer append or patch to that provider. Standalone device-tree recipes are also possible, depending on the BSP. Finally check which tree the bootloader actually loads; a rebuilt DTB left in the build directory cannot change the running phone.
+
 SECTION 9. SOURCES
 
-Research date: 2026-11-14
+Research date: 2026-11-16
 
 - https://docs.nxp.com/bundle/UG10163/page/topics/introduction_001.html
 - https://docs.kernel.org/devicetree/usage-model.html
