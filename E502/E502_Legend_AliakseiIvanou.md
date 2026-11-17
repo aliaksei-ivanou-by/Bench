@@ -194,6 +194,24 @@ PERSONAL OWNERSHIP
 
 Rails catalogue workflows, C++ streaming ingestion and parallel validation, RGW/S3 access, Kubernetes/Rook/Ceph CSI integration and Python/Prometheus/Grafana diagnostics.
 
+TECHNICAL DESIGN AND PROJECT DISCUSSION
+
+The following technical design is an explanatory model of the CV project. It shows how the listed components can work together; implementation choices, individual incidents and results are not independently established by the CV.
+
+1. Application and storage boundaries. Researchers search for a satellite or dataset in a Rails interface. PostgreSQL holds structured catalogue and archive metadata. The C++ ingestion path reads large imagery or telemetry files incrementally, validates input and computes checksums without requiring the entire archive in memory. RGW exposes an S3-compatible object API backed by Ceph; the catalogue stores the object reference rather than treating PostgreSQL as the binary archive. The actual object keys, schema and deployment topology are not specified.
+
+2. File preparation. A bounded input buffer and a bounded work queue are a possible design for keeping memory proportional to the configured working set. Short POSIX reads, end of file and errors must be distinguished; partial writes and interrupted operations require explicit handling. Parallel checks should return a result tied to the correct file and must not report success after a worker fails. A checksum can detect corruption when compared with a trusted value; it does not by itself authenticate a sender.
+
+3. RGW/S3 integration. The application uses an authenticated S3 request to upload or retrieve an archive object through RGW. For large objects, multipart upload is a possible option when supported by the deployed RGW version and client. Failed or incomplete multipart uploads need cleanup. A pre-signed URL delegates a time-limited operation using the signer's permissions; it is a bearer URL and must not be logged or shared unnecessarily. Expiry, authorization failure, missing object and client interruption are distinct outcomes. Endpoint, region and signing behavior should be checked against the actual deployment.
+
+4. Metadata and object consistency. PostgreSQL and object storage do not form one automatic transaction. A design can record an ingest as pending, publish the catalogue reference only after successful verification, and reconcile incomplete records and orphaned objects after interruption. Retries require an explicit idempotency rule and care around an unknown upload outcome. Validation must check both directions: a visible record resolves to the expected object, and a failed operation does not silently appear complete. This is a possible design, not a statement that a particular production workflow was implemented.
+
+5. Kubernetes, Rook and Ceph CSI. Rook reconciles declared Ceph resources with cluster state. A StorageClass identifies a CSI provisioner; a PVC requests a volume and can cause dynamic provisioning when the class and driver are configured. The RBD driver provides block volumes; RGW/S3 object access is a separate path and does not require treating an S3 bucket as a PVC. A pending claim can result from class, credentials, driver, cluster or scheduling issues. Check PVC events, CSI controller/node logs and Ceph health before changing configuration.
+
+6. Performance and monitoring. Latency, throughput, request rate and error rate should be interpreted together, with workload and observation period recorded. A slow request can originate in the client, network, RGW, cluster recovery or storage devices; OSD and BlueStore indicators help narrow the path but are not a diagnosis alone. Prometheus can collect metrics and Grafana can display correlated views. Python/pytest checks can exercise health, transfer and integrity scenarios. No workload, benchmark value, cluster configuration or specific tuning result is asserted.
+
+7. Ownership and interview boundary. The CV describes integration and operational tasks involving RGW, Rook, CSI/RBD and performance investigation. It does not claim development of Ceph core components or upstream contributions. Technical options in this section are preparation material; consult the factual reconciliation before presenting an individual action as verified experience.
+
 DELIVERY STORY: Publish an archive only after validation
 
 SITUATION
