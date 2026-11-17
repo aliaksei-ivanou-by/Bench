@@ -1,8 +1,8 @@
 TECH INDEX
 
-Scope: Remote Sensing Satellites Database technology stack in the E502 CV, including POSIX from its C++ responsibility. This is a project-scoped collection; technologies exclusive to other projects or the request are not covered.
+Scope: Remote Sensing Satellites Database technology stack in the E502 CV, including POSIX from its C++ responsibility, plus request-only CephFS. Technologies exclusive to other projects and other request topics are not covered.
 
-All entries relate to the CV project and its Ceph/storage request context. Theory is not evidence of personal experience; see Responsibilities for reconciliation.
+Project topics relate to the CV project; CephFS comes from the request only. Theory is not evidence of personal experience; see Responsibilities for reconciliation.
 
 LANGUAGES AND INTERFACES
 
@@ -19,6 +19,7 @@ APPLICATION AND DATA
 
 STORAGE AND ORCHESTRATION
 
+- CephFS: CephFS.md — request items 1 and 16; request-only topic
 - Ceph-RADOS: Ceph-RADOS.md — request items 1 and 16
 - Ceph-RGW: Ceph-RGW.md — request items 1 and 16
 - Ceph-RBD: Ceph-RBD.md — request items 5 and 16
