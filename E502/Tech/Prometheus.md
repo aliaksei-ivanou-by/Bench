@@ -26,6 +26,10 @@ Use PromQL and target status to investigate metrics; account for the actual expo
 
 Scenario: a dashboard shows higher latency. Check target scrape status and the query, establish the affected time and workload, then correlate application errors, gateway requests and storage/network observations. A metric can support or reject a hypothesis but correlation alone does not identify causality. Validate a proposed fix under comparable conditions and do not infer a numerical improvement without measurement.
 
+Interview question: global Ceph client write latency spikes. Confirm the alert, time range, unit, query and affected clients; verify scrape health. Compare write latency distributions and errors with write IOPS and throughput, then examine the RGW or RBD path as appropriate. Check cluster health, slow operations, PG state, recovery, OSD CPU and memory, device latency and utilization, capacity, network errors and saturation. Determine whether the signal is cluster-wide or concentrated on particular OSDs, nodes or failure domains.
+
+Treat recovery, an overloaded device, network bottleneck, CPU saturation and client-side issues as competing hypotheses. Compare against a baseline at similar request size, concurrency and workload; validate with logs and controlled tests, measuring tail latency as well as throughput. Names, labels and buckets vary by exporter and version. Prometheus evaluates alert rules; Alertmanager groups, routes and sends notifications. No specific incident or fix is asserted.
+
 5. STRENGTHS AND LIMITATIONS
 
 Prometheus supports labeled time-series queries and alerting workflows. Logs and traces provide complementary evidence, particularly when a metric cannot identify an individual request path.
@@ -66,9 +70,17 @@ No; correlate with logs, traces and workload evidence.
 8. How compare before and after?
 Use comparable workload, time window, metrics and units.
 
+9. How would you investigate a global Ceph write-latency spike?
+Confirm query and scrape health, compare latency, errors, IOPS and throughput, then correlate OSD, recovery, disk and network signals over the same interval.
+
+10. What is Alertmanager’s role?
+It receives alerts and handles grouping, routing and notification; Prometheus evaluates alerting rules.
+
 9. SOURCES
 
 Research date: 2026-11-17
 - https://prometheus.io/docs/concepts/
 - https://prometheus.io/docs/concepts/metric_types/
 - https://prometheus.io/docs/prometheus/latest/querying/basics/
+- https://prometheus.io/docs/alerting/latest/alertmanager/
+- https://docs.ceph.com/en/quincy/rados/operations/monitoring/

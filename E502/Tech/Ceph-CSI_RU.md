@@ -26,6 +26,10 @@ kubectl get pvc,pv; kubectl describe pvc <name>
 
 Сценарий: PVC находится в Pending. Изучите события и storageClassName, provisioner StorageClass, логи controller/provisioner, учётные данные и связь с Ceph. WaitForFirstConsumer может намеренно откладывать provisioning или привязку до планирования потребителя, поэтому Pending не всегда означает ошибку. Если PVC уже Bound, а Pod не работает, переходите к attachment, node plugin и mount, а не повторяйте проверки provisioning.
 
+Вопрос интервью: как вместе работают Rook и Ceph CSI. Rook согласует ресурсы Ceph, объявленные custom resources Kubernetes. StorageClass указывает CSI provisioner и параметры; пользователь создаёт PVC. External-provisioner вызывает CSI controller для создания тома, а Kubernetes при необходимости создаёт и привязывает PV. Запланированный Pod использует node-операции CSI для подготовки и публикации тома. Точные этапы attachment зависят от возможностей драйвера и установленных версий.
+
+Краткий ответ: Rook управляет развёртыванием Ceph и желаемым состоянием; CSI связывает жизненный цикл тома Kubernetes с Ceph. Controller отвечает за provisioning, а node-путь готовит хранение для Pod. При сбое изучают события PVC и provisioner/controller, после привязки PV — attachment, node plugin и mount.
+
 5. ПРЕИМУЩЕСТВА И ОГРАНИЧЕНИЯ
 
 CSI стандартизирует границу интеграции Kubernetes, а драйвер реализует особенности хранения. Может подойти CSI-драйвер облачного провайдера или другое хранилище; точные возможности зависят от установленной реализации.
@@ -66,9 +70,16 @@ RBD предоставляет блочное хранение; CephFS — фа�
 8. Какие логи помогают при ошибке mount?
 События Pod и CSI node plugin на выбранном узле.
 
+9. Как вместе работают Rook и Ceph CSI?
+Rook согласует ресурсы Ceph; компоненты CSI controller/provisioner и node выполняют операции жизненного цикла тома Kubernetes с Ceph.
+
+10. Что происходит после создания PVC?
+Настроенный provisioner может создать хранилище и привязывается PV; запланированный Pod использует node-операции CSI с учётом режима привязки и возможностей драйвера.
+
 9. ИСТОЧНИКИ
 
 Дата проверки: 2026-11-17
 - https://github.com/ceph/ceph-csi
 - https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/
 - https://rook.io/docs/rook/latest/Troubleshooting/ceph-csi-common-issues/
+- https://rook.io/docs/rook/latest/Storage-Configuration/Ceph-CSI/ceph-csi-drivers/

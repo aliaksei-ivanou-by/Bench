@@ -20,6 +20,10 @@ Check return values, partial I/O, end of file and error propagation. Multithread
 
 Use RAII for resource ownership; test interrupted reads and failed workers.
 
+Linux debugging scenario: for a C++ OSD with high CPU and degraded I/O, start with process and per-thread CPU, memory growth, thread states, logs and cluster/device/network observations. A busy thread, lock contention, memory pressure and blocking I/O are distinct hypotheses. Use symbols matching the binary. A debugger can stop threads and affect service behavior; use a controlled environment or the operational procedure.
+
+Sampling tools such as perf may have lower overhead than full instrumentation, but cost depends on sample rate, events, symbols and workload. Valgrind and sanitizers can detect classes of defects in suitable test builds but substantially change timing. More logging can also cause I/O and CPU overhead and expose sensitive data. Select the least intrusive useful method and verify on representative inputs.
+
 5. STRENGTHS AND LIMITATIONS
 
 C++ offers direct resource control and native performance, at the cost of explicit lifetime and concurrency responsibilities. Higher-level languages can simplify orchestration when native processing is unnecessary.
@@ -51,7 +55,15 @@ Avoid data races, overflow, unbounded allocation and dangling references. Measur
 5. What practical workflow is relevant?
 Use RAII for resource ownership; test interrupted reads and failed workers.
 
+6. How would you debug a C++ OSD with high CPU and slow I/O?
+Compare per-thread CPU, memory, thread states, logs, recovery, devices and network, then profile a specific hypothesis under controlled conditions.
+
+7. Is profiling always slower than logging?
+No. Sampling overhead depends on settings and workload; instrumentation and excessive logging can each have substantial impact.
+
 9. SOURCES
 
 Research date: 2026-11-17
 - https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#S-resource
+- https://sourceware.org/gdb/current/onlinedocs/gdb/Threads.html
+- https://docs.kernel.org/admin-guide/sysctl/kernel.html

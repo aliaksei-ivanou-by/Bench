@@ -26,6 +26,10 @@ A practical investigation begins with the client symptom and a time window, then
 
 Scenario: users report slow reads while a cluster reports degraded PGs. Establish when the issue began, collect health detail and PG/OSD state, and correlate recovery, capacity, network and device metrics over the same interval. Check the RGW and client path separately; healthy MON quorum and a reachable gateway do not prove that a particular object read is healthy. Compare before and after only under comparable workload. Avoid changing replication or recovery parameters merely to hide a warning.
 
+Interview question: CRUSH and scalability. A client uses the current cluster map and pool/object information to compute the relevant placement group and CRUSH placement. CRUSH maps PGs to OSDs according to the hierarchy, weights and failure-domain rules; it avoids a central per-object location lookup on the RADOS data path. MONs still provide cluster maps and need quorum. Topology changes can cause remapping and recovery traffic, so CRUSH does not guarantee low latency. An external S3 client talks to RGW, which uses the Ceph storage path.
+
+Interview question: an OSD has high CPU and slow I/O. Define the time window and workload; compare OSDs and check cluster health, recovery, capacity, device and network behavior. Examine per-thread CPU, memory trend and relevant logs; CPU and I/O can have different causes. Sampling profiling can identify hot paths with bounded overhead, whereas instrumentation, verbose logging, Valgrind or a debugger may have substantial impact. Use a controlled environment or an approved operational method and verify hypotheses under comparable load.
+
 5. STRENGTHS AND LIMITATIONS
 
 RADOS offers distributed placement and configurable redundancy; it requires monitoring capacity, network and recovery. A managed object service can reduce operational work, but its deployment model and control differ.
@@ -66,9 +70,16 @@ They control whether redundant copies share a physical failure boundary.
 8. Does HEALTH_OK prove every client request succeeds?
 No; application, authentication and network paths still need checking.
 
+9. Why is CRUSH important for scalability?
+Clients calculate PG placement using cluster maps and CRUSH, avoiding a central per-object lookup on the RADOS path; network, OSD load and recovery still limit performance.
+
+10. How would you investigate high OSD CPU and slow I/O?
+Compare per-thread CPU and memory with cluster recovery, device and network observations; use an appropriately bounded profiling method and verify hypotheses under comparable load.
+
 9. SOURCES
 
 Research date: 2026-11-17
 - https://docs.ceph.com/en/quincy/architecture/
 - https://docs.ceph.com/en/quincy/rados/operations/placement-groups/
 - https://docs.ceph.com/en/quincy/rados/operations/crush-map/
+- https://docs.kernel.org/admin-guide/sysctl/kernel.html

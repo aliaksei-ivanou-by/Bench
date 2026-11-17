@@ -26,6 +26,10 @@ For dynamic provisioning, a StorageClass points to a driver and its required par
 
 Scenario: a PVC is Pending. Inspect its events and storageClassName, the StorageClass provisioner, controller/provisioner logs, credentials and connectivity to Ceph. WaitForFirstConsumer can intentionally defer provisioning or binding until a consumer is scheduled, so Pending is not always a failure. If the PVC is Bound and the Pod still fails, move to attach, node plugin and mount diagnostics instead of repeating provisioning checks.
 
+Interview question: how Rook and Ceph CSI work together. Rook reconciles Ceph resources declared through Kubernetes custom resources. A StorageClass names a CSI provisioner and supplies parameters; a user creates a PVC. The external-provisioner calls the CSI controller to create a volume, and Kubernetes creates and binds a PV as appropriate. A scheduled Pod then uses node-side CSI operations to prepare and publish the volume. Exact attachment steps depend on driver capabilities and installed versions.
+
+Short answer: Rook manages the Ceph deployment and desired state; CSI connects Kubernetes volume lifecycle operations to Ceph. The controller path handles provisioning, and the node path prepares storage for the Pod. For failure, inspect PVC events and provisioner/controller first, then attachment, node-plugin and mount issues once a PV is bound.
+
 5. STRENGTHS AND LIMITATIONS
 
 CSI standardizes the Kubernetes integration boundary while a driver implements storage-specific behavior. A cloud-provider CSI driver or another storage backend may be appropriate; exact capabilities depend on the installed implementation.
@@ -66,9 +70,16 @@ Driver names, secret conventions, defaults and supported features.
 8. What logs help after a mount failure?
 Pod events and the CSI node plugin on the scheduled node.
 
+9. How do Rook and Ceph CSI work together?
+Rook reconciles Ceph resources; CSI controller/provisioner and node components implement Kubernetes volume lifecycle operations against Ceph.
+
+10. What happens after a PVC is created?
+The configured provisioner can create storage and a PV is bound; a scheduled Pod uses node-side CSI operations, subject to binding mode and driver capabilities.
+
 9. SOURCES
 
 Research date: 2026-11-17
 - https://github.com/ceph/ceph-csi
 - https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/
 - https://rook.io/docs/rook/latest/Troubleshooting/ceph-csi-common-issues/
+- https://rook.io/docs/rook/latest/Storage-Configuration/Ceph-CSI/ceph-csi-drivers/
