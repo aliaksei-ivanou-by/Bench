@@ -172,6 +172,35 @@ LIKELY FOLLOW-UP QUESTIONS
 
 Period: 04.2022 – 04.2024; role: Software Engineer
 
+PROJECT IN SIMPLE TERMS
+
+The product described in the CV is a catalogue of satellite data with an archive of large files. A researcher needs to find the right dataset, understand what it contains and retrieve the archive. The system therefore needs both searchable descriptions and a place for large files.
+
+PostgreSQL holds structured catalogue information. Ceph is the distributed storage platform described for the archives. RGW is the gateway that lets an application access Ceph objects through an S3-compatible API. C++ components prepare and check large files; Rails provides the catalogue interface. Kubernetes, Rook and CSI relate to deployment and persistent volumes; they are not replacements for the S3 interface.
+
+This is an illustrative explanation of the CV architecture. The CV does not specify every component connection or confirm individual incidents and results.
+
+![Application and archive data flow](Legend-Assets/ceph-data-flow-en.png)
+
+HOW A RESEARCHER GETS A FILE
+
+1. The researcher searches the Rails catalogue and opens a dataset record.
+2. The application retrieves structured metadata from PostgreSQL.
+3. The archive-access path uses the S3-compatible RGW interface to request the object stored in Ceph.
+4. A pre-signed URL can provide a permitted operation for a limited time. An expired link, missing object or denied access are separate cases.
+
+The exact request path, object key and database schema are not specified. The steps show the roles of the components, not a documented sequence of production calls.
+
+WHY THERE ARE TWO CEPH ACCESS PATHS
+
+An S3 object and a Kubernetes volume solve different problems. RGW exposes archive objects to applications through the S3 API. RBD supplies block storage; CSI connects Kubernetes volume operations to the storage driver, while a PVC requests a volume. Rook manages declared Ceph resources in Kubernetes. A PVC is not an S3 bucket, and Rook is not the S3 client.
+
+![Kubernetes and Ceph storage paths](Legend-Assets/ceph-kubernetes-en.png)
+
+WHAT THE ROLE COVERED
+
+The CV describes work at the application integration and operational level: C++ ingestion and checking, RGW/S3 access, Rook and CSI/RBD work, and investigation of storage latency and throughput. It does not claim development of Ceph core components or upstream contributions. The detailed task explanations below distinguish the CV’s stated scope from examples of how the components can be checked.
+
 PRODUCT CONTEXT
 
 A satellite catalogue and archive platform connecting metadata, file ingestion and distributed object storage.
@@ -250,129 +279,57 @@ EXPANDED ANSWERS TO CV RESPONSIBILITIES
 
 2.1. Developed Ruby on Rails web interfaces and workflows for satellite catalogues, metadata, dataset search, and archive access.
 
-Underlying problem: Search results can diverge from metadata when records change.
+What this work means: Rails provides the pages and application logic used to find satellite datasets and view their descriptions. PostgreSQL stores the structured catalogue data, such as satellite and dataset information. The CV includes work on the catalogue, metadata, search and archive-access workflows.
 
-Design and implementation: My approach was to connect Rails catalogue screens and metadata workflows to PostgreSQL; check search and access paths.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: Search results can diverge from metadata when records change; exercise catalogue updates and retrieval. The lesson is to keep catalogue and search behavior consistent.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to keep catalogue and search behavior consistent.
+How to think about it: A researcher searches the catalogue, opens a record and requests the corresponding archive. The catalogue tells the user what the data is; the storage path supplies the file. Useful checks include whether a record is found, whether its metadata is correct and what the interface shows if the archive cannot be retrieved.
 
 2.2. Developed C++ ingestion components with POSIX streaming I/O and optimized memory buffers for large imagery and telemetry archives.
 
-Underlying problem: A short read or interrupted stream can truncate an archive.
+What this work means: The ingestion component receives large image or telemetry files and reads them through POSIX I/O. Instead of requiring a full file in memory, it can process chunks using a bounded buffer. That makes the memory requirement depend on the buffer and concurrent work, rather than necessarily on the entire archive size.
 
-Design and implementation: My approach was to stream large files through POSIX I/O with bounded buffers; check partial reads, errors and memory use.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: A short read or interrupted stream can truncate an archive; check read results and bounded memory on large files. The lesson is to treat I/O as incremental.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to treat I/O as incremental.
+How to think about it: A file can end in a chunk smaller than the buffer; read and write operations can return fewer bytes than requested or fail. The implementation must use the returned byte count and handle errors. Practical checks include an empty file, a file larger than the buffer, an interrupted read and the memory used under the expected number of concurrent jobs.
 
 2.3. Implemented multithreaded data validation, checksum calculation, and file preparation for bulk ingestion.
 
-Underlying problem: Worker failures or corrupted inputs can produce incomplete preparation.
+What this work means: Validation and checksum calculation check the input before it is used by the archive workflow. Several workers can prepare and check files in parallel. The coordinator needs a result for each file so that a failed worker or damaged input is visible instead of silently becoming a successful batch.
 
-Design and implementation: My approach was to coordinate parallel validation, checksums and file preparation; check corrupted inputs and consistent results.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: Worker failures or corrupted inputs can produce incomplete preparation; compare checksums and completion status. The lesson is to make validation outcomes explicit.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to make validation outcomes explicit.
+How to think about it: A checksum helps detect changed data when it is compared with a trusted expected value. It is not proof that the sender is authentic. Checks should include valid and corrupted inputs, failed workers and repeated processing; a bounded queue is one possible way to avoid excessive memory use.
 
 2.4. Integrated Ceph RGW via S3 API for satellite data storage and retrieval, including pre-signed URLs for secure file access.
 
-Underlying problem: An expired URL or missing object must not be mistaken for successful retrieval.
+What this work means: Ceph stores archive objects, while RGW gives the application an S3-compatible HTTP interface. The CV describes integrating object storage and retrieval through that interface, including pre-signed URLs. A signed URL gives its holder a particular permitted operation for a limited time; it is not the object itself.
 
-Design and implementation: My approach was to use S3 API with Ceph RGW for object upload and retrieval; check permissions, pre-signed URL expiry and access errors.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: An expired URL or missing object must not be mistaken for successful retrieval; test access failures and metadata references. The lesson is to treat authorization and storage failures separately.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to treat authorization and storage failures separately.
+How to think about it: To retrieve a file, the client needs the correct bucket and key, a working endpoint and valid authorization. An expired link, access denied, missing object and network timeout are different problems. A useful test checks successful retrieval, denied or expired access and behavior after an interrupted transfer without exposing the signed URL in logs.
 
 2.5. Deployed and maintained Ceph services in Kubernetes using Rook Operator.
 
-Underlying problem: A resource change may leave storage unavailable.
+What this work means: Kubernetes runs the services and Rook is an operator that helps manage Ceph resources described in Kubernetes. The CV lists deployment and maintenance of Ceph services with Rook. The Legend describes coordination with the infrastructure engineer rather than ownership of every cluster component.
 
-Design and implementation: My approach was to maintain Ceph resources through Rook in Kubernetes; inspect service health and recovery after deployment changes.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: A resource change may leave storage unavailable; inspect Kubernetes and operator status during reconciliation. The lesson is to check both orchestration and storage health.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to check both orchestration and storage health.
+How to think about it: Rook works to bring actual resources toward the declared configuration. A running operator does not prove that every OSD, pool or application request is healthy. After a change, useful checks include the resource status, Kubernetes events, operator logs and Ceph health. Exact manifests, versions and deployment steps depend on the real environment.
 
 2.6. Configured Ceph CSI for RBD, enabling dynamic persistent volume provisioning.
 
-Underlying problem: A pending volume claim can block a workload.
+What this work means: RBD provides a block image backed by Ceph. Ceph CSI connects storage operations to Kubernetes, and a StorageClass and PVC describe the requested storage. The CV lists configuration of CSI for RBD and dynamic volume provisioning. This is a different path from saving an archive object through RGW and S3.
 
-Design and implementation: My approach was to configure a Ceph CSI storage class for RBD; check claim provisioning, attachment and persistent data.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: A pending volume claim can block a workload; inspect CSI and claim status and verify data after reattachment. The lesson is to test the complete provisioning path.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to test the complete provisioning path.
+How to think about it: A PVC can request a volume; the configured provisioner can create the backing storage and Kubernetes can bind a PV. The driver then prepares the volume for a scheduled workload. A Bound PVC does not prove that attachment, mount and application access succeeded. Investigate the events and the controller or node-side logs at the stage that failed.
 
 2.7. Investigated Ceph performance issues, analyzing I/O latency, throughput, OSD behavior, and BlueStore utilization.
 
-Underlying problem: A high latency value alone does not identify the bottleneck.
+What this work means: The CV describes investigating I/O latency, throughput, OSD behavior and BlueStore utilization. Latency is how long an operation takes; throughput is how much data is transferred per unit of time. OSDs participate in storing data, and BlueStore is an OSD storage backend.
 
-Design and implementation: My approach was to compare latency and throughput with OSD and BlueStore indicators; isolate the storage bottleneck before changing settings.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: A high latency value alone does not identify the bottleneck; correlate latency, throughput, OSD and BlueStore indicators. The lesson is to diagnose before tuning.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to diagnose before tuning.
+How to think about it: A slow request can be affected by the client, gateway, network, recovery or a storage device. Compare the same time interval and workload across application, cluster and host indicators; then test a specific hypothesis. A single slow OSD or a busy disk is evidence to investigate, not by itself proof of the root cause or a measured improvement.
 
 2.8. Developed Python scripts for storage health checks, deployment validation, data integrity, and performance testing.
 
-Underlying problem: A health check may miss partial failure or report inconsistent data.
+What this work means: Python scripts can automate checks for storage health, deployment, data integrity and performance. The CV lists work in these areas. A useful script produces a clear pass or failure result and enough context to identify the failed step.
 
-Design and implementation: My approach was to automate health, deployment, integrity and performance checks in Python; report failed checks with actionable context.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: A health check may miss partial failure or report inconsistent data; validate script outputs against the monitored state. The lesson is to make checks repeatable.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to make checks repeatable.
+How to think about it: A health check can fail because a service is unavailable, a response is unexpected or a timeout occurred. Integrity can be checked by comparing values against a known expected result. Tests that create objects or volumes need a designated test environment, limited permissions and cleanup. The exact scripts and their results are not specified here.
 
 2.9. Monitored storage infrastructure with Prometheus and Grafana, identifying bottlenecks and resource issues.
 
-Underlying problem: A single metric can hide resource pressure elsewhere.
+What this work means: Prometheus collects metrics and Grafana displays them in dashboards. The CV lists monitoring storage infrastructure and looking for bottlenecks and resource issues. These tools provide observations; a dashboard does not automatically explain why an operation became slow.
 
-Design and implementation: My approach was to observe Prometheus metrics in Grafana; correlate resource pressure with latency and throughput.
-
-Implementation boundary: Rails exposes catalogue and search workflows backed by PostgreSQL. C++ streams and validates archive files; S3 API connects to Ceph RGW. Kubernetes, Rook and CSI support storage; Python, Prometheus and Grafana support checks and monitoring.
-
-Failure modes: A single metric can hide resource pressure elsewhere; compare related Grafana views with observed latency. The lesson is to correlate signals instead of relying on one chart.
-
-Validation and diagnostics: I reproduced the affected path, checked the inputs and outputs at the owning component, and repeated adjacent scenarios across catalogue update, file integrity, interrupted ingestion, object retrieval, volume binding and storage health. Changes were coordinated with the owners of the interfaces involved rather than validated only by compilation.
-
-Result and lesson: The listed behavior was delivered within the project scope. The lesson is to correlate signals instead of relying on one chart.
+How to think about it: For increased write latency, first check the affected interval, request rate, errors and throughput. Then compare OSD state, recovery, capacity, devices and network with application or RGW observations. Confirm that the metrics are actually available and comparable, and inspect logs before proposing a change. Specific dashboards and numerical results are not established.
 
 TESTING, DELIVERY AND OUTCOME
 
